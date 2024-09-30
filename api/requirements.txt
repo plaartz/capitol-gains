@@ -1,0 +1,5 @@
+mysqlclient
+django
+djangorestframework
+django-filter
+mysql-connector-python

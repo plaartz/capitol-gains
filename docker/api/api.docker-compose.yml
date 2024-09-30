@@ -1,0 +1,19 @@
+services:
+  api:
+    build: 
+      context: ${BASE_DIR}/api
+    restart: always
+    depends_on: 
+      - database
+    environment:
+      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_SECRET: ${DB_SECRET}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_HOST: '%'
+      DB_PORT: ${DB_PORT}
+    ports:
+      - '${API_PORT}:8000'
+    volumes:
+      - ${BASE_DIR}/api:/api
