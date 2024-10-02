@@ -57,8 +57,8 @@ NOTE: these style standards are mostly based on the PEP 8 standards and Airbnb j
     ```
 
 ## Logic
-- ```while(true)``` instead of ```while(1)```.
-- Use ```if(is_my_true_bool)``` instead of ```if(is_my_true_bool == true)```.
+- `while(true)` instead of `while(1)`.
+- Use `if(is_my_true_bool)` instead of `if(is_my_true_bool == true)`.
 
 # Comments 
 - Comments should be used to  provide valuable insights that are not immediately obvious from the code itself.
