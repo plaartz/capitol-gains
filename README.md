@@ -1,36 +1,18 @@
-# Specification Document
+# Capitol Gains - Politician Trade Tracker
 
-Please fill out this document to reflect your team's project. This is a living document and will need to be updated regularly. You may also remove any section to its own document (e.g. a separate standards and conventions document), however you must keep the header and provide a link to that other document under the header.
+## Team Name
+Capitol Gains
 
-Also, be sure to check out the Wiki for information on how to maintain your team's requirements.
+## Project Abstract
+Capitol Gains is developing a platform for tracking American politicians' stock trades, ensuring transparency and enabling the public to make informed decisions. The platform will pull data from the Financial Disclosure website where politicians report their trades. The data will be presented in an easy-to-navigate interface using Python (Django) on the backend with a MySQL database, and React on the frontend. This platform allows users to monitor stock trades, compare trading activity, and model their own investment decisions based on the activity of their favorite politicians, aiming to mirror the functionality of Capitol Trades.
 
-## TeamName
+## Customer
+Capitol Gains is primarily being developed for our professor and TAs to meet the project requirements. In the broader scope, the platform is designed for the public who want to keep up-to-date on politician stock trades. The goal is to provide transparency in political stock transactions and help users model their own trades based on these reports, fostering accountability and fair access to financial information.
 
-<!--The name of your team.-->
+## Specification
 
-### Project Abstract
-
-<!--A one paragraph summary of what the software will do.-->
-
-This is an example paragraph written in markdown. You can use *italics*, **bold**, and other formatting options. You can also <u>use inline html</u> to format your text. The example sections included in this document are not necessarily all the sections you will want, and it is possible that you won't use all the one's provided. It is your responsibility to create a document that adequately conveys all the information about your project specifications and requirements.
-
-Please view this file's source to see `<!--comments-->` with guidance on how you might use the different sections of this document. 
-
-### Customer
-
-<!--A brief description of the customer for this software, both in general (the population who might eventually use such a system) and specifically for this document (the customer(s) who informed this document). Every project will have a customer from the CS506 instructional staff. Requirements should not be derived simply from discussion among team members. Ideally your customer should not only talk to you about requirements but also be excited later in the semester to use the system.-->
-
-### Specification
-
-<!--A detailed specification of the system. UML, or other diagrams, such as finite automata, or other appropriate specification formalisms, are encouraged over natural language.-->
-
-<!--Include sections, for example, illustrating the database architecture (with, for example, an ERD).-->
-
-<!--Included below are some sample diagrams, including some example tech stack diagrams.-->
-
-#### Technology Stack
-
-Here are some sample technology stacks that you can use for inspiration:
+### Technology Stack
+The project uses the following technology stack:
 
 ```mermaid
 flowchart RL
@@ -50,187 +32,74 @@ A <-->|"REST API"| B
 B <-->|Django ORM| C
 ```
 
-```mermaid
-flowchart RL
-subgraph Front End
-	A(Javascript: Vue)
-end
-	
-subgraph Back End
-	B(Python: Flask)
-end
-	
-subgraph Database
-	C[(MySQL)]
-end
-
-A <-->|"REST API"| B
-B <-->|SQLAlchemy| C
-```
+### Database Architecture
+Our database will store information about politicians, the stocks they trade, and the companies associated with those stocks. Below is an initial draft of the ER diagram:
 
 ```mermaid
-flowchart RL
-subgraph Front End
-	A(Javascript: Vue)
-end
-	
-subgraph Back End
-	B(Javascript: Express)
-end
-	
-subgraph Database
-	C[(MySQL)]
-end
-
-A <-->|"REST API"| B
-B <--> C
-```
-
-```mermaid
-flowchart RL
-subgraph Front End
-	A(Static JS, CSS, HTML)
-end
-	
-subgraph Back End
-	B(Java: SpringBoot)
-end
-	
-subgraph Database
-	C[(MySQL)]
-end
-
-A <-->|HTTP| B
-B <--> C
-```
-
-```mermaid
-flowchart RL
-subgraph Front End
-	A(Mobile App)
-end
-	
-subgraph Back End
-	B(Python: Django)
-end
-	
-subgraph Database
-	C[(MySQL)]
-end
-
-A <-->|REST API| B
-B <-->|Django ORM| C
-```
-
-
-
-#### Database
-
-```mermaid
----
-title: Sample Database ERD for an Order System
----
 erDiagram
-    Customer ||--o{ Order : "placed by"
-    Order ||--o{ OrderItem : "contains"
-    Product ||--o{ OrderItem : "included in"
+    Politician ||--o{ Trade : "makes"
+    Trade ||--o{ Stock : "involves"
+    Stock ||--o{ Company : "issued by"
 
-    Customer {
-        int customer_id PK
+    Politician {
+        int politician_id PK
         string name
-        string email
-        string phone
+        string party
+        string state
     }
 
-    Order {
-        int order_id PK
-        int customer_id FK
-        string order_date
-        string status
+    Trade {
+        int trade_id PK
+        int politician_id FK
+        int stock_id FK
+        string trade_date
+        string transaction_type
+        decimal trade_amount
     }
 
-    Product {
-        int product_id PK
-        string name
-        string description
-        decimal price
+    Stock {
+        int stock_id PK
+        int company_id FK
+        string ticker_symbol
+        string stock_name
     }
 
-    OrderItem {
-        int order_item_id PK
-        int order_id FK
-        int product_id FK
-        int quantity
+    Company {
+        int company_id PK
+        string company_name
+        string industry
     }
 ```
 
-#### Class Diagram
+Further details on database relationships and schema will be provided as development progresses.
+
+### Flowchart
+This flowchart describes how the system processes user interactions and data flows from the frontend to the backend and database:
 
 ```mermaid
----
-title: Sample Class Diagram for Animal Program
----
-classDiagram
-    class Animal {
-        - String name
-        + Animal(String name)
-        + void setName(String name)
-        + String getName()
-        + void makeSound()
-    }
-    class Dog {
-        + Dog(String name)
-        + void makeSound()
-    }
-    class Cat {
-        + Cat(String name)
-        + void makeSound()
-    }
-    class Bird {
-        + Bird(String name)
-        + void makeSound()
-    }
-    Animal <|-- Dog
-    Animal <|-- Cat
-    Animal <|-- Bird
-```
-
-#### Flowchart
-
-```mermaid
----
-title: Sample Program Flowchart
----
 graph TD;
-    Start([Start]) --> Input_Data[/Input Data/];
-    Input_Data --> Process_Data[Process Data];
-    Process_Data --> Validate_Data{Validate Data};
-    Validate_Data -->|Valid| Process_Valid_Data[Process Valid Data];
-    Validate_Data -->|Invalid| Error_Message[/Error Message/];
-    Process_Valid_Data --> Analyze_Data[Analyze Data];
-    Analyze_Data --> Generate_Output[Generate Output];
-    Generate_Output --> Display_Output[/Display Output/];
-    Display_Output --> End([End]);
-    Error_Message --> End;
+    Start([User Request]) --> Fetch_Data[/Fetch Politician Trade Data/];
+    Fetch_Data --> Process_Data[Process Trade Data];
+    Process_Data --> Save_Data[Save to MySQL Database];
+    Save_Data --> Generate_Response[Generate JSON Response];
+    Generate_Response --> Display_Response[/Display Trade Data to User/];
+    Display_Response --> End([End]);
 ```
 
-#### Behavior
+## Behavior
+The behavior of the system is modeled using the following state diagram, which will evolve as the project develops:
 
 ```mermaid
----
-title: Sample State Diagram For Coffee Application
----
 stateDiagram
     [*] --> Ready
-    Ready --> Brewing : Start Brewing
-    Brewing --> Ready : Brew Complete
-    Brewing --> WaterLowError : Water Low
-    WaterLowError --> Ready : Refill Water
-    Brewing --> BeansLowError : Beans Low
-    BeansLowError --> Ready : Refill Beans
+    Ready --> FetchingData : Request for Trade Data
+    FetchingData --> Ready : Data Fetched Successfully
+    FetchingData --> Error : Data Fetch Error
+    Error --> Ready : Retry Fetch
 ```
 
-#### Sequence Diagram
+## Sequence Diagram
+The interaction between the frontend, backend, and database is captured in this sequence diagram. This diagram shows how user requests will be processed:
 
 ```mermaid
 sequenceDiagram
@@ -252,7 +121,16 @@ DjangoBackend -->> ReactFrontend: JSON Response
 deactivate DjangoBackend
 ```
 
-### Standards & Conventions
+## Standards & Conventions
+Our coding standards and conventions follow established guidelines to maintain consistency and code quality across the project.
 
-<!--This is a link to a seperate coding conventions document / style guide-->
-[Style Guide & Conventions](STYLE.md)
+You can refer to the [Style Guide & Conventions](STYLE.md) document for detailed information on code formatting, naming conventions, and other best practices.
+
+## Testing Strategy
+We will use **JUnit 5** for our testing framework to ensure the backend's reliability and functionality. Unit tests and integration tests will be written to cover key functions of the system.
+
+## Deployment Strategy
+We will use **Docker** for containerizing the application, ensuring consistent environments across development and production. Additionally, we plan to deploy using cloud services (AWS or Azure, yet to be determined) for hosting our application and managing the MySQL database.
+
+## Known Issues & Future Features
+Currently, there are no major known issues. Future features might include advanced filtering options, user notifications for new trades, and the ability to track specific politicians or stocks.
