@@ -84,14 +84,14 @@ This flowchart outlines the system's data flow, including the daily web scraping
 
 ```mermaid
 graph TD
-    Scraping_Scheduler[/Scheduled Task (Morning)/] --> Fetch_Trade_Data[/Scrape Recent Trades/]
-    Fetch_Trade_Data --> Process_Data[Process Trade Data]
-    Process_Data --> Save_To_Database[Save to MySQL Database]
-    Save_To_Database --> End_Scraping([End])
+    Scraping_Scheduler["Scheduled Task (Morning)"] --> Fetch_Trade_Data["Scrape Recent Trades"]
+    Fetch_Trade_Data --> Process_Data["Process Trade Data"]
+    Process_Data --> Save_To_Database["Save to MySQL Database"]
+    Save_To_Database --> End_Scraping["End"]
 
-    UserRequest([User Request]) --> Fetch_Stored_Data[/Fetch Stored Trade Data/]
-    Fetch_Stored_Data --> Display_To_User[/Display Trade Data to User/]
-    Display_To_User --> End([End])
+    UserRequest["User Request"] --> Fetch_Stored_Data["Fetch Stored Trade Data"]
+    Fetch_Stored_Data --> Display_To_User["Display Trade Data to User"]
+    Display_To_User --> End["End"]
 ```
 
 ### Behavior
