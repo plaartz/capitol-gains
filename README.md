@@ -4,10 +4,10 @@
 Capitol Gains
 
 ## Project Abstract
-Capitol Gains is developing a platform for tracking American politicians' stock trades, ensuring transparency and enabling the public to make informed decisions. The platform will pull data from the Financial Disclosure website where politicians report their trades. The data will be presented in an easy-to-navigate interface using Python (Django) on the backend with a MySQL database, and React on the frontend. This platform allows users to monitor stock trades, compare trading activity, and model their own investment decisions based on the activity of their favorite politicians, aiming to mirror the functionality of Capitol Trades.
+Capitol Gains is developing a platform for tracking American politicians' stock trades, ensuring transparency and enabling the public to make informed decisions. The platform scrapes data from a website that tracks congressional stock trades and parses the information into a structured format. The application updates daily by scraping this data and storing it in a MySQL database. Using Python (Django) for the backend and React for the frontend, users can view, filter, and analyze trading activities of different groups of politicians (e.g., Democratic Senators or Republican Congressmen). The aim is to allow users to track and model their investment strategies based on politician trading activities, adhering to the 2012 STOCK Act.
 
 ## Customer
-Capitol Gains is primarily being developed for our professor and TAs to meet the project requirements. In the broader scope, the platform is designed for the public who want to keep up-to-date on politician stock trades. The goal is to provide transparency in political stock transactions and help users model their own trades based on these reports, fostering accountability and fair access to financial information.
+The application is primarily being developed for our professor and TAs. However, in the broader scope, it is designed for the public who want to keep up-to-date with politician stock trades. The platform's goal is to provide transparency, enabling users to rank politicians by their stock market earnings and gain insights from congressional trading patterns.
 
 ## Specification
 
@@ -33,7 +33,11 @@ B <-->|Django ORM| C
 ```
 
 ### Database Architecture
-Our database will store information about politicians, the stocks they trade, and the companies associated with those stocks. Below is an initial draft of the ER diagram:
+The database will store information about politicians, the stocks they trade, and their trading details. The table structure includes the following:
+
+- **Politicians**: Information about each politician (name, political party, chamber, etc.)
+- **Trades**: Stock trades made by politicians, including stock ticker, trade date, trade type (buy/sell), and value range.
+- **Stocks**: Basic stock information (ticker, company name, industry).
 
 ```mermaid
 erDiagram
@@ -45,6 +49,7 @@ erDiagram
         int politician_id PK
         string name
         string party
+        string chamber
         string state
     }
 
@@ -59,78 +64,84 @@ erDiagram
 
     Stock {
         int stock_id PK
-        int company_id FK
         string ticker_symbol
         string stock_name
+        string industry
     }
 
     Company {
         int company_id PK
         string company_name
-        string industry
     }
 ```
 
-Further details on database relationships and schema will be provided as development progresses.
-
 ### Flowchart
-This flowchart describes how the system processes user interactions and data flows from the frontend to the backend and database:
+This flowchart outlines the system's data flow. It includes the daily web scraping process and how user requests are handled.
 
 ```mermaid
 graph TD;
-    Start([User Request]) --> Fetch_Data[/Fetch Politician Trade Data/];
-    Fetch_Data --> Process_Data[Process Trade Data];
-    Process_Data --> Save_Data[Save to MySQL Database];
-    Save_Data --> Generate_Response[Generate JSON Response];
-    Generate_Response --> Display_Response[/Display Trade Data to User/];
-    Display_Response --> End([End]);
+    Scraping_Scheduler[/Scheduled Task (Morning)/] --> Fetch_Trade_Data[/Scrape Recent Trades/];
+    Fetch_Trade_Data --> Process_Data[Process Trade Data];
+    Process_Data --> Save_To_Database[Save to MySQL Database];
+    Save_To_Database --> End_Scraping([End]);
+
+    UserRequest([User Request]) --> Fetch_Stored_Data[/Fetch Stored Trade Data/];
+    Fetch_Stored_Data --> Display_To_User[/Display Trade Data to User/];
+    Display_To_User --> End([End]);
 ```
 
-## Behavior
-The behavior of the system is modeled using the following state diagram, which will evolve as the project develops:
+### Behavior
+The system processes user requests and daily scraping as outlined below:
+
+1. **Scraping Mechanism**: A scheduled task runs every morning, scraping new trade data from a website. This data is processed and stored in the MySQL database.
+2. **User Interaction**: Users request data through the frontend. The backend queries the database for the requested trade data and sends it back to the frontend for display.
 
 ```mermaid
 stateDiagram
     [*] --> Ready
-    Ready --> FetchingData : Request for Trade Data
-    FetchingData --> Ready : Data Fetched Successfully
-    FetchingData --> Error : Data Fetch Error
-    Error --> Ready : Retry Fetch
+    Ready --> Scraping : Daily Trade Scrape
+    Scraping --> Processing : Process and Store Data
+    Processing --> Ready : Data Stored
+    Ready --> FetchingData : User Request for Trade Data
+    FetchingData --> Ready : Data Fetched and Displayed
 ```
 
-## Sequence Diagram
-The interaction between the frontend, backend, and database is captured in this sequence diagram. This diagram shows how user requests will be processed:
+### Sequence Diagram
+This diagram demonstrates how data flows when scraping trades and when users request specific data:
 
 ```mermaid
 sequenceDiagram
+    participant ScrapingService
+    participant DjangoBackend
+    participant MySQLDatabase
 
-participant ReactFrontend
-participant DjangoBackend
-participant MySQLDatabase
+    ScrapingService ->> DjangoBackend: Start Scraping (Daily Task)
+    DjangoBackend ->> FederalWebsite: HTTP Request (GET new trades)
+    FederalWebsite -->> DjangoBackend: Trade Data
+    DjangoBackend ->> MySQLDatabase: Store New Trade Data
+    ScrapingService ->> DjangoBackend: End Scraping Task
 
-ReactFrontend ->> DjangoBackend: HTTP Request (e.g., GET /api/data)
-activate DjangoBackend
-
-DjangoBackend ->> MySQLDatabase: Query (e.g., SELECT * FROM data_table)
-activate MySQLDatabase
-
-MySQLDatabase -->> DjangoBackend: Result Set
-deactivate MySQLDatabase
-
-DjangoBackend -->> ReactFrontend: JSON Response
-deactivate DjangoBackend
+    User ->> ReactFrontend: Requests Politician Stock Data
+    ReactFrontend ->> DjangoBackend: API Request (GET /api/trades)
+    DjangoBackend ->> MySQLDatabase: Query (SELECT * FROM trades WHERE ...)
+    MySQLDatabase -->> DjangoBackend: Result Set
+    DjangoBackend -->> ReactFrontend: JSON Response
+    ReactFrontend -->> User: Display Data
 ```
 
 ## Standards & Conventions
-Our coding standards and conventions follow established guidelines to maintain consistency and code quality across the project.
+Coding standards for this project will follow Python’s PEP8 guidelines for the backend and Airbnb's style guide for React. 
 
 You can refer to the [Style Guide & Conventions](STYLE.md) document for detailed information on code formatting, naming conventions, and other best practices.
 
 ## Testing Strategy
-We will use **JUnit 5** for our testing framework to ensure the backend's reliability and functionality. Unit tests and integration tests will be written to cover key functions of the system.
+We will use **JUnit 5** for testing the backend services and business logic. Unit tests will cover the scraping functions, database interactions, and REST API endpoints. End-to-end testing will validate user flows from frontend to backend.
 
 ## Deployment Strategy
-We will use **Docker** for containerizing the application, ensuring consistent environments across development and production. Additionally, we plan to deploy using cloud services (AWS or Azure, yet to be determined) for hosting our application and managing the MySQL database.
+The application will be containerized using **Docker** to ensure a consistent environment across development and production stages. Deployment will be done using cloud platforms (AWS or Azure), which will host the Django backend, React frontend, and MySQL database.
 
 ## Known Issues & Future Features
-Currently, there are no major known issues. Future features might include advanced filtering options, user notifications for new trades, and the ability to track specific politicians or stocks.
+Currently, there are no major known issues. Future enhancements may include:
+- Advanced filtering options (e.g., by stock sector, trade value).
+- User notifications for new trades.
+- Ranking politicians by stock market earnings.
