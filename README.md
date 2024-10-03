@@ -139,7 +139,7 @@ Coding standards for this project will follow Python’s PEP8 guidelines for the
 You can refer to the [Style Guide & Conventions](STYLE.md) document for detailed information on code formatting, naming conventions, and other best practices.
 
 ## Testing Strategy
-We will use **JUnit 5** for testing the backend services and business logic. Unit tests will cover the scraping functions, database interactions, and REST API endpoints. End-to-end testing will validate user flows from frontend to backend.
+We will use **pytest** for testing the backend services and business logic. Unit tests will cover the scraping functions, database interactions, and REST API endpoints. End-to-end testing will validate user flows from frontend to backend.
 
 ## Deployment Strategy
 The application will be containerized using **Docker** to ensure a consistent environment across development and production stages. Deployment will be done using cloud platforms (AWS or Azure), which will host the Django backend, React frontend, and MySQL database.
