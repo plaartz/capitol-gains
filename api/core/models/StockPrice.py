@@ -1,5 +1,5 @@
 from django.db import models
-from . import Stock
+from .Stock import Stock
 
 class StockPrice(models.Model):
     stock = models.ForeignKey(

@@ -1,6 +1,6 @@
 from django.db import models
-from . import Profile
-
+from .Profile import Profile
+# comment
 class Politician(models.Model):
     POLITICIAN_TYPES = {
         "R": "Republican",

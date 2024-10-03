@@ -1,5 +1,8 @@
 from django.db import models
-from . import Politician, Stock, StockPrice
+#from core.models import Politician.Politician as Politician, Stock, StockPrice
+from .Politician import Politician
+from .Stock import Stock
+from .StockPrice import StockPrice
 
 class Transaction(models.Model):
     politician = models.ForeignKey(
@@ -13,7 +16,7 @@ class Transaction(models.Model):
     transaction_amount = models.CharField(max_length=50)
     transaction_date = models.DateField()
     disclosure_date = models.DateField()
-    transaction_type = models.CharField(max_length=10,choices=["Purchase","Sale"])
+    transaction_type = models.CharField(max_length=10)
 
     @property
     def percent_gain(self):
