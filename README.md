@@ -1,36 +1,18 @@
-# Specification Document
+# Capitol Gains - Politician Trade Tracker
 
-Please fill out this document to reflect your team's project. This is a living document and will need to be updated regularly. You may also remove any section to its own document (e.g. a separate standards and conventions document), however you must keep the header and provide a link to that other document under the header.
+## Team Name
+Capitol Gains
 
-Also, be sure to check out the Wiki for information on how to maintain your team's requirements.
+## Project Abstract
+Capitol Gains is developing a platform for tracking American politicians' stock trades, ensuring transparency and enabling the public to make informed decisions. The platform scrapes data from a website that tracks congressional stock trades and parses the information into a structured format. The application updates daily by scraping this data and storing it in a MySQL database. Using Python (Django) for the backend and React for the frontend, users can view, filter, and analyze trading activities of different groups of politicians (e.g., Democratic Senators or Republican Congressmen). The goal is to allow users to track and model their investment strategies based on politician trading activities, adhering to the 2012 STOCK Act.
 
-## TeamName
+## Customer
+The application is primarily being developed for our professor and TAs. However, in the broader scope, it is designed for the public who want to keep up-to-date with politician stock trades. The platform's goal is to provide transparency, enabling users to rank politicians by their stock market earnings and gain insights from congressional trading patterns.
 
-<!--The name of your team.-->
+## Specification
 
-### Project Abstract
-
-<!--A one paragraph summary of what the software will do.-->
-
-This is an example paragraph written in markdown. You can use *italics*, **bold**, and other formatting options. You can also <u>use inline html</u> to format your text. The example sections included in this document are not necessarily all the sections you will want, and it is possible that you won't use all the one's provided. It is your responsibility to create a document that adequately conveys all the information about your project specifications and requirements.
-
-Please view this file's source to see `<!--comments-->` with guidance on how you might use the different sections of this document. 
-
-### Customer
-
-<!--A brief description of the customer for this software, both in general (the population who might eventually use such a system) and specifically for this document (the customer(s) who informed this document). Every project will have a customer from the CS506 instructional staff. Requirements should not be derived simply from discussion among team members. Ideally your customer should not only talk to you about requirements but also be excited later in the semester to use the system.-->
-
-### Specification
-
-<!--A detailed specification of the system. UML, or other diagrams, such as finite automata, or other appropriate specification formalisms, are encouraged over natural language.-->
-
-<!--Include sections, for example, illustrating the database architecture (with, for example, an ERD).-->
-
-<!--Included below are some sample diagrams, including some example tech stack diagrams.-->
-
-#### Technology Stack
-
-Here are some sample technology stacks that you can use for inspiration:
+### Technology Stack
+The project uses the following technology stack:
 
 ```mermaid
 flowchart RL
@@ -50,209 +32,120 @@ A <-->|"REST API"| B
 B <-->|Django ORM| C
 ```
 
-```mermaid
-flowchart RL
-subgraph Front End
-	A(Javascript: Vue)
-end
-	
-subgraph Back End
-	B(Python: Flask)
-end
-	
-subgraph Database
-	C[(MySQL)]
-end
+### Database Architecture
+The database will store information about politicians, the stocks they trade, and their trading details. The table structure includes the following:
 
-A <-->|"REST API"| B
-B <-->|SQLAlchemy| C
-```
+- **Politicians**: Information about each politician (name, political party, chamber, etc.)
+- **Trades**: Stock trades made by politicians, including stock ticker, trade date, trade type (buy/sell), and value range.
+- **Stocks**: Basic stock information (ticker, company name, industry).
 
 ```mermaid
-flowchart RL
-subgraph Front End
-	A(Javascript: Vue)
-end
-	
-subgraph Back End
-	B(Javascript: Express)
-end
-	
-subgraph Database
-	C[(MySQL)]
-end
-
-A <-->|"REST API"| B
-B <--> C
-```
-
-```mermaid
-flowchart RL
-subgraph Front End
-	A(Static JS, CSS, HTML)
-end
-	
-subgraph Back End
-	B(Java: SpringBoot)
-end
-	
-subgraph Database
-	C[(MySQL)]
-end
-
-A <-->|HTTP| B
-B <--> C
-```
-
-```mermaid
-flowchart RL
-subgraph Front End
-	A(Mobile App)
-end
-	
-subgraph Back End
-	B(Python: Django)
-end
-	
-subgraph Database
-	C[(MySQL)]
-end
-
-A <-->|REST API| B
-B <-->|Django ORM| C
-```
-
-
-
-#### Database
-
-```mermaid
----
-title: Sample Database ERD for an Order System
----
 erDiagram
-    Customer ||--o{ Order : "placed by"
-    Order ||--o{ OrderItem : "contains"
-    Product ||--o{ OrderItem : "included in"
+    Politician ||--o{ Trade : "makes"
+    Trade ||--o{ Stock : "involves"
+    Stock ||--o{ Company : "issued by"
 
-    Customer {
-        int customer_id PK
+    Politician {
+        int politician_id PK
         string name
-        string email
-        string phone
+        string party
+        string chamber
+        string state
     }
 
-    Order {
-        int order_id PK
-        int customer_id FK
-        string order_date
-        string status
-    }
-
-    Product {
-        int product_id PK
-        string name
+    Trade {
+        int trade_id PK
+        int politician_id FK
+        int stock_id FK
+        string trade_date
+        string filed_date
+        string transaction_type
+        decimal trade_amount_min
+        decimal trade_amount_max
         string description
-        decimal price
+        decimal estimated_return
     }
 
-    OrderItem {
-        int order_item_id PK
-        int order_id FK
-        int product_id FK
-        int quantity
+    Stock {
+        int stock_id PK
+        string ticker_symbol
+        string stock_name
+        string industry
+    }
+
+    Company {
+        int company_id PK
+        string company_name
     }
 ```
 
-#### Class Diagram
+### Flowchart
+This flowchart outlines the system's data flow, including the daily web scraping process and how user requests are handled.
 
 ```mermaid
----
-title: Sample Class Diagram for Animal Program
----
-classDiagram
-    class Animal {
-        - String name
-        + Animal(String name)
-        + void setName(String name)
-        + String getName()
-        + void makeSound()
-    }
-    class Dog {
-        + Dog(String name)
-        + void makeSound()
-    }
-    class Cat {
-        + Cat(String name)
-        + void makeSound()
-    }
-    class Bird {
-        + Bird(String name)
-        + void makeSound()
-    }
-    Animal <|-- Dog
-    Animal <|-- Cat
-    Animal <|-- Bird
+graph TD
+    Scraping_Scheduler["Scheduled Task (Morning)"] --> Fetch_Trade_Data["Scrape Recent Trades"]
+    Fetch_Trade_Data --> Process_Data["Process Trade Data"]
+    Process_Data --> Save_To_Database["Save to MySQL Database"]
+    Save_To_Database --> End_Scraping["End"]
+
+    UserRequest["User Request"] --> Fetch_Stored_Data["Fetch Stored Trade Data"]
+    Fetch_Stored_Data --> Display_To_User["Display Trade Data to User"]
+    Display_To_User --> End["End"]
 ```
 
-#### Flowchart
+### Behavior
+The system processes user requests and daily scraping as outlined below:
+
+1. **Scraping Mechanism**: A scheduled task runs every morning, scraping new trade data from a website. This data is processed and stored in the MySQL database.
+2. **User Interaction**: Users request data through the frontend. The backend queries the database for the requested trade data and sends it back to the frontend for display.
 
 ```mermaid
----
-title: Sample Program Flowchart
----
-graph TD;
-    Start([Start]) --> Input_Data[/Input Data/];
-    Input_Data --> Process_Data[Process Data];
-    Process_Data --> Validate_Data{Validate Data};
-    Validate_Data -->|Valid| Process_Valid_Data[Process Valid Data];
-    Validate_Data -->|Invalid| Error_Message[/Error Message/];
-    Process_Valid_Data --> Analyze_Data[Analyze Data];
-    Analyze_Data --> Generate_Output[Generate Output];
-    Generate_Output --> Display_Output[/Display Output/];
-    Display_Output --> End([End]);
-    Error_Message --> End;
-```
-
-#### Behavior
-
-```mermaid
----
-title: Sample State Diagram For Coffee Application
----
 stateDiagram
     [*] --> Ready
-    Ready --> Brewing : Start Brewing
-    Brewing --> Ready : Brew Complete
-    Brewing --> WaterLowError : Water Low
-    WaterLowError --> Ready : Refill Water
-    Brewing --> BeansLowError : Beans Low
-    BeansLowError --> Ready : Refill Beans
+    Ready --> Scraping : Daily Trade Scrape
+    Scraping --> Processing : Process and Store Data
+    Processing --> Ready : Data Stored
+    Ready --> FetchingData : User Request for Trade Data
+    FetchingData --> Ready : Data Fetched and Displayed
 ```
 
-#### Sequence Diagram
+### Sequence Diagram
+This diagram demonstrates how data flows when scraping trades and when users request specific data:
 
 ```mermaid
 sequenceDiagram
+    participant ScrapingService
+    participant DjangoBackend
+    participant MySQLDatabase
 
-participant ReactFrontend
-participant DjangoBackend
-participant MySQLDatabase
+    ScrapingService ->> DjangoBackend: Start Scraping (Daily Task)
+    DjangoBackend ->> FederalWebsite: HTTP Request (GET new trades)
+    FederalWebsite -->> DjangoBackend: Trade Data
+    DjangoBackend ->> MySQLDatabase: Store New Trade Data
+    ScrapingService ->> DjangoBackend: End Scraping Task
 
-ReactFrontend ->> DjangoBackend: HTTP Request (e.g., GET /api/data)
-activate DjangoBackend
-
-DjangoBackend ->> MySQLDatabase: Query (e.g., SELECT * FROM data_table)
-activate MySQLDatabase
-
-MySQLDatabase -->> DjangoBackend: Result Set
-deactivate MySQLDatabase
-
-DjangoBackend -->> ReactFrontend: JSON Response
-deactivate DjangoBackend
+    User ->> ReactFrontend: Requests Politician Stock Data
+    ReactFrontend ->> DjangoBackend: API Request (GET /api/trades)
+    DjangoBackend ->> MySQLDatabase: Query (SELECT * FROM trades WHERE ...)
+    MySQLDatabase -->> DjangoBackend: Result Set
+    DjangoBackend -->> ReactFrontend: JSON Response
+    ReactFrontend -->> User: Display Data
 ```
 
-### Standards & Conventions
+## Standards & Conventions
+Coding standards for this project will follow Python’s PEP8 guidelines for the backend and Airbnb's style guide for React.
 
-<!--This is a link to a seperate coding conventions document / style guide-->
-[Style Guide & Conventions](STYLE.md)
+You can refer to the [Style Guide & Conventions](STYLE.md) document for detailed information on code formatting, naming conventions, and other best practices.
+
+## Testing Strategy
+We will use **JUnit 5** for testing the backend services and business logic. Unit tests will cover the scraping functions, database interactions, and REST API endpoints. End-to-end testing will validate user flows from frontend to backend.
+
+## Deployment Strategy
+The application will be containerized using **Docker** to ensure a consistent environment across development and production stages. Deployment will be done using cloud platforms (AWS or Azure), which will host the Django backend, React frontend, and MySQL database.
+
+## Known Issues & Future Features
+Currently, there are no major known issues. Future enhancements may include:
+- Advanced filtering options (e.g., by stock sector, trade value).
+- User notifications for new trades.
+- Ranking politicians by stock market earnings.
