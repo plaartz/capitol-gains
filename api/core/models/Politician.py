@@ -2,6 +2,9 @@ from django.db import models
 from .Profile import Profile
 # comment
 class Politician(models.Model):
+    """
+    Django model that represents a politician.
+    """
     POLITICIAN_TYPES = {
         "R": "Republican",
         "D": "Democrat",

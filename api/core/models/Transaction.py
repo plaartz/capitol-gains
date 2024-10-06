@@ -5,6 +5,9 @@ from .Stock import Stock
 from .StockPrice import StockPrice
 
 class Transaction(models.Model):
+    """
+    Django model that represents a politician's transaction.
+    """
     politician = models.ForeignKey(
         Politician,
         on_delete = models.CASCADE
@@ -20,6 +23,12 @@ class Transaction(models.Model):
 
     @property
     def percent_gain(self):
+        """
+        Represents a transaction's percent gain from the most recent purchase date.
+
+        @return a float being 0.0 if the transaction is a purchase or an approximation of 
+            the percent gain if it's a sale.
+        """
         from datetime import datetime
         if self.transaction_type == "Purchase":
             return 0.0

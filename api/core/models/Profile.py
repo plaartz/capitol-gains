@@ -10,5 +10,5 @@ class Profile(models.Model):
 
     @property
     def full_name(self):
-        " Returns the person's full name. "
+        " Returns the profile's full name. "
         return f'{self.first_name} {self.middle_initial + ". " if self.middle_initial else ""}{self.last_name}'
