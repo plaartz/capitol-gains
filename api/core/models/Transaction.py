@@ -1,5 +1,5 @@
 from django.db import models
-#from core.models import Politician.Politician as Politician, Stock, StockPrice
+
 from .Politician import Politician
 from .Stock import Stock
 from .StockPrice import StockPrice
