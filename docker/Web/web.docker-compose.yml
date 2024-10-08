@@ -1,0 +1,23 @@
+services:
+  web:
+    build:  
+      context: ${BASE_DIR}/web
+    restart: always
+    depends_on:
+      - database
+      - api
+    environment:
+      BUILD: ${BUILD}
+      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+      WEB_PORT: ${WEB_PORT}
+      API_PORT: ${API_PORT}
+      API_HOST: ${API_HOST}
+    ports:
+      - '${WEB_PORT}:5173'
+    volumes:
+      - ${BASE_DIR}/web:/web
+      - exclude:/web/node_modules/
+volumes:
+  exclude:    
+      
+    

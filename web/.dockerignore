@@ -1,0 +1,7 @@
+## currently we are going to keep this empty 
+**/node_modules/**
+eslint.config.js
+README.md
+package-lock.json
+build
+Dockerfile
