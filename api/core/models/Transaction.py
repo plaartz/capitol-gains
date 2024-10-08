@@ -38,7 +38,7 @@ class Transaction(models.Model):
             )
             curr_price = stock_prices.filter(
                 date = self.transaction_date
-            )
+            ).first().price
             purchase_date = Transaction.objects.filter(
                 politician = self.politician,
                 stock = self.stock,
@@ -48,5 +48,5 @@ class Transaction(models.Model):
 
             old_price = stock_prices.filter(
                 date = purchase_date
-            )
-            return curr_price / old_price * 100
+            ).first().price
+            return (curr_price / old_price * 100) - 100

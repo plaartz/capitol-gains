@@ -30,7 +30,7 @@
         "model": "core.Profile",
         "pk": 4,
         "fields": {
-            "first_name": "Chirs",
+            "first_name": "Chris",
             "last_name": "Anderson",
             "middle_initial": "L"
         }
