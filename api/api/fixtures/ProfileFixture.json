@@ -1,0 +1,38 @@
+[
+    {
+        "model": "core.Profile",
+        "pk": 1,
+        "fields": {
+            "first_name": "Daven",
+            "last_name": "Thakkar",
+            "middle_initial": "C"
+        }
+    },
+    {
+        "model": "core.Profile",
+        "pk": 2,
+        "fields": {
+            "first_name": "John",
+            "last_name": "Doe",
+            "middle_initial": ""
+        }
+    },
+    {
+        "model": "core.Profile",
+        "pk": 3,
+        "fields": {
+            "first_name": "Ryan",
+            "last_name": "Smith",
+            "middle_initial": "P"
+        }
+    },
+    {
+        "model": "core.Profile",
+        "pk": 4,
+        "fields": {
+            "first_name": "Chris",
+            "last_name": "Anderson",
+            "middle_initial": "L"
+        }
+    }
+]

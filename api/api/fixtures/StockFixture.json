@@ -1,0 +1,65 @@
+[
+    {
+        "model": "core.Stock",
+        "pk": 1,
+        "fields": {
+            "ticker": "NKE",
+            "name": "Nike",
+            "description_short": "Sports company."
+        }
+    },
+    {
+        "model": "core.Stock",
+        "pk": 2,
+        "fields": {
+            "ticker": "AVGO",
+            "name": "Broadcom",
+            "description_short": "Global supplier of semiconductor and infrastructure software products."
+        }
+    },
+    {
+        "model": "core.Stock",
+        "pk": 3,
+        "fields": {
+            "ticker": "NSC",
+            "name": "Norfolk Southern Corp",
+            "description_short": "Rail transportation of raw materials, intermediate products, and finished goods in the US."
+        }
+    },
+    {
+        "model": "core.Stock",
+        "pk": 4,
+        "fields": {
+            "ticker": "AAPL",
+            "name": "Apple",
+            "description_short": "Provides consumer electronics, software, and services."
+        }
+    },
+    {
+        "model": "core.Stock",
+        "pk": 5,
+        "fields": {
+            "ticker": "GOOG",
+            "name": "Google",
+            "description_short": "Technology company focusing on everything."
+        }
+    },
+    {
+        "model": "core.Stock",
+        "pk": 6,
+        "fields": {
+            "ticker": "TSLA",
+            "name": "Tesla",
+            "description_short": "Makes electric vehicles."
+        }
+    },
+    {
+        "model": "core.Stock",
+        "pk": 7,
+        "fields": {
+            "ticker": "META",
+            "name": "Meta Platforms",
+            "description_short": "Company that builds technologies to help people connect."
+        }
+    }
+]

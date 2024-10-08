@@ -1,0 +1,318 @@
+[
+    {
+        "model": "core.StockPrice",
+        "pk": 1,
+        "fields": {
+            "stock": 1,
+            "price": 82.79,
+            "date": "2024-08-28"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 2,
+        "fields": {
+            "stock": 1,
+            "price": 86.20,
+            "date": "2024-09-23"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 3,
+        "fields": {
+            "stock": 2,
+            "price": 161.39,
+            "date": "2024-08-27"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 4,
+        "fields": {
+            "stock": 3,
+            "price": 237.10,
+            "date": "2024-08-22"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 5,
+        "fields": {
+            "stock": 1,
+            "price": 89.13,
+            "date": "2024-10-01"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 6,
+        "fields": {
+            "stock": 1,
+            "price": 83.10,
+            "date": "2024-10-02"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 7,
+        "fields": {
+            "stock": 2,
+            "price": 167.47,
+            "date": "2024-10-01"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 8,
+        "fields": {
+            "stock": 2,
+            "price": 170.66,
+            "date": "2024-10-02"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 9,
+        "fields": {
+            "stock": 2,
+            "price": 171.89,
+            "date": "2024-10-03"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 10,
+        "fields": {
+            "stock": 3,
+            "price": 248.14,
+            "date": "2024-10-01"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 11,
+        "fields": {
+            "stock": 3,
+            "price": 247.03,
+            "date": "2024-10-02"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 12,
+        "fields": {
+            "stock": 3,
+            "price": 244.88,
+            "date": "2024-10-03"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 13,
+        "fields": {
+            "stock": 4,
+            "price": 226.21,
+            "date": "2024-10-01"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 14,
+        "fields": {
+            "stock": 4,
+            "price": 226.78,
+            "date": "2024-10-02"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 15,
+        "fields": {
+            "stock": 4,
+            "price": 225.67,
+            "date": "2024-10-03"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 16,
+        "fields": {
+            "stock": 4,
+            "price": 226.80,
+            "date": "2024-10-04"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 17,
+        "fields": {
+            "stock": 5,
+            "price": 163.07,
+            "date": "2024-09-23"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 18,
+        "fields": {
+            "stock": 5,
+            "price": 163.64,
+            "date": "2024-09-24"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 19,
+        "fields": {
+            "stock": 5,
+            "price": 162.99,
+            "date": "2024-09-25"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 20,
+        "fields": {
+            "stock": 5,
+            "price": 163.83,
+            "date": "2024-09-26"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 21,
+        "fields": {
+            "stock": 5,
+            "price": 165.29	,
+            "date": "2024-09-27"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 22,
+        "fields": {
+            "stock": 5,
+            "price": 167.19,
+            "date": "2024-09-30"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 23,
+        "fields": {
+            "stock": 5,
+            "price": 168.42,
+            "date": "2024-10-01"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 24,
+        "fields": {
+            "stock": 5,
+            "price": 167.31,
+            "date": "2024-10-02"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 25,
+        "fields": {
+            "stock": 5,
+            "price": 167.21,
+            "date": "2024-10-03"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 26,
+        "fields": {
+            "stock": 5,
+            "price": 168.56,
+            "date": "2024-10-04"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 27,
+        "fields": {
+            "stock": 6,
+            "price": 227.87,
+            "date": "2024-09-17"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 28,
+        "fields": {
+            "stock": 6,
+            "price": 258.02,
+            "date": "2024-10-01"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 29,
+        "fields": {
+            "stock": 6,
+            "price": 254.27,
+            "date": "2024-09-24"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 30,
+        "fields": {
+            "stock": 6,
+            "price": 250.08,
+            "date": "2024-10-04"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 31,
+        "fields": {
+            "stock": 7,
+            "price": 512.74,
+            "date": "2024-09-04"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 32,
+        "fields": {
+            "stock": 7,
+            "price": 595.94,
+            "date": "2024-10-04"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 33,
+        "fields": {
+            "stock": 7,
+            "price": 536.32,
+            "date": "2024-09-17"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 34,
+        "fields": {
+            "stock": 7,
+            "price": 576.47,
+            "date": "2024-10-01"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 35,
+        "fields": {
+            "stock": 7,
+            "price": 537.95,
+            "date": "2024-09-18"
+        }
+    }
+    
+]
