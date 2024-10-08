@@ -1,4 +1,4 @@
 include:
   - 'docker/db/db.docker-compose.yml'
   - 'docker/api/api.docker-compose.yml'
-  - 'docker/Web/web.docker-compose.yml'
+  - 'docker/web/web.docker-compose.yml'
