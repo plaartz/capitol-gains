@@ -13,6 +13,7 @@ services:
       DB_USER: ${DB_USER}
       DB_HOST: '%'
       DB_PORT: ${DB_PORT}
+      BUILD: ${BUILD}
     ports:
       - '${API_PORT}:8000'
     volumes:

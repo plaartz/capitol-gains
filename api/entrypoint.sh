@@ -3,7 +3,7 @@ set -e
 echo "Running Migrations..."
 python3 manage.py migrate
 
-if ["$ENVIRONMENT" = "dev"]
+if [ "${BUILD}" = "dev" ]
 then
     echo "Loading initial fixtures..."
     python3 manage.py loaddata ./api/fixtures/*.json
