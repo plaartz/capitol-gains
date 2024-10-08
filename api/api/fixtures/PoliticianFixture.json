@@ -16,5 +16,23 @@
             "politician_type": "House",
             "politician_house": "R"
         }
+    },
+    {
+        "model": "core.Politician",
+        "pk": 3,
+        "fields": {
+            "profile": 3,
+            "politician_type": "Senate",
+            "politician_house": "D"
+        }
+    },
+    {
+        "model": "core.Politician",
+        "pk": 4,
+        "fields": {
+            "profile": 4,
+            "politician_type": "House",
+            "politician_house": "D"
+        }
     }
 ]

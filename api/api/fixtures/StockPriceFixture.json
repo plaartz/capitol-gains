@@ -34,6 +34,114 @@
             "price": 237.10,
             "date": "2024-08-22"
         }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 5,
+        "fields": {
+            "stock": 1,
+            "price": 89.13,
+            "date": "2024-10-01"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 6,
+        "fields": {
+            "stock": 1,
+            "price": 83.10,
+            "date": "2024-10-02"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 7,
+        "fields": {
+            "stock": 2,
+            "price": 167.47,
+            "date": "2024-10-01"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 8,
+        "fields": {
+            "stock": 2,
+            "price": 170.66,
+            "date": "2024-10-02"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 9,
+        "fields": {
+            "stock": 2,
+            "price": 171.89,
+            "date": "2024-10-03"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 10,
+        "fields": {
+            "stock": 3,
+            "price": 248.14,
+            "date": "2024-10-01"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 11,
+        "fields": {
+            "stock": 3,
+            "price": 247.03,
+            "date": "2024-10-02"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 12,
+        "fields": {
+            "stock": 3,
+            "price": 244.88,
+            "date": "2024-10-03"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 13,
+        "fields": {
+            "stock": 4,
+            "price": 226.21,
+            "date": "2024-10-01"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 14,
+        "fields": {
+            "stock": 4,
+            "price": 226.78,
+            "date": "2024-10-02"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 15,
+        "fields": {
+            "stock": 4,
+            "price": 225.67,
+            "date": "2024-10-03"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 16,
+        "fields": {
+            "stock": 4,
+            "price": 226.80,
+            "date": "2024-10-04"
+        }
     }
     
 ]

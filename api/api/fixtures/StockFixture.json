@@ -25,5 +25,14 @@
             "name": "Norfolk Southern Corp",
             "description_short": "Rail transportation of raw materials, intermediate products, and finished goods in the US."
         }
+    },
+    {
+        "model": "core.Stock",
+        "pk": 4,
+        "fields": {
+            "ticker": "AAPL",
+            "name": "Apple",
+            "description_short": "Provides consumer electronics, software, and services."
+        }
     }
 ]

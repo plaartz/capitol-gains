@@ -16,5 +16,23 @@
             "last_name": "Doe",
             "middle_initial": ""
         }
+    },
+    {
+        "model": "core.Profile",
+        "pk": 3,
+        "fields": {
+            "first_name": "Ryan",
+            "last_name": "Smith",
+            "middle_initial": "P"
+        }
+    },
+    {
+        "model": "core.Profile",
+        "pk": 4,
+        "fields": {
+            "first_name": "Chirs",
+            "last_name": "Anderson",
+            "middle_initial": "L"
+        }
     }
 ]
