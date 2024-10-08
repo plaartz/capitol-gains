@@ -1,0 +1,20 @@
+[
+    {
+        "model": "core.Politician",
+        "pk": 1,
+        "fields": {
+            "profile": 1,
+            "politician_type": "Senate",
+            "politician_house": "I"
+        }
+    },
+    {
+        "model": "core.Politician",
+        "pk": 2,
+        "fields": {
+            "profile": 2,
+            "politician_type": "House",
+            "politician_house": "R"
+        }
+    }
+]

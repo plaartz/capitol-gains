@@ -1,0 +1,29 @@
+[
+    {
+        "model": "core.Stock",
+        "pk": 1,
+        "fields": {
+            "ticker": "NKE",
+            "name": "Nike",
+            "description_short": "Sports company."
+        }
+    },
+    {
+        "model": "core.Stock",
+        "pk": 2,
+        "fields": {
+            "ticker": "AVGO",
+            "name": "Broadcom",
+            "description_short": "Global supplier of semiconductor and infrastructure software products."
+        }
+    },
+    {
+        "model": "core.Stock",
+        "pk": 3,
+        "fields": {
+            "ticker": "NSC",
+            "name": "Norfolk Southern Corp",
+            "description_short": "Rail transportation of raw materials, intermediate products, and finished goods in the US."
+        }
+    }
+]

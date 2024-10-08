@@ -1,0 +1,20 @@
+[
+    {
+        "model": "core.Profile",
+        "pk": 1,
+        "fields": {
+            "first_name": "Daven",
+            "last_name": "Thakkar",
+            "middle_initial": "C"
+        }
+    },
+    {
+        "model": "core.Profile",
+        "pk": 2,
+        "fields": {
+            "first_name": "John",
+            "last_name": "Doe",
+            "middle_initial": ""
+        }
+    }
+]

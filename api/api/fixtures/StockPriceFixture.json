@@ -1,0 +1,39 @@
+[
+    {
+        "model": "core.StockPrice",
+        "pk": 1,
+        "fields": {
+            "stock": 1,
+            "price": 82.79,
+            "date": "2024-08-28"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 2,
+        "fields": {
+            "stock": 1,
+            "price": 86.20,
+            "date": "2024-09-23"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 3,
+        "fields": {
+            "stock": 2,
+            "price": 161.39,
+            "date": "2024-08-27"
+        }
+    },
+    {
+        "model": "core.StockPrice",
+        "pk": 4,
+        "fields": {
+            "stock": 3,
+            "price": 237.10,
+            "date": "2024-08-22"
+        }
+    }
+    
+]
