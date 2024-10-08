@@ -17,6 +17,7 @@ services:
     volumes:
       - ${BASE_DIR}/web:/web
       - exclude:/web/node_modules/
-    exclude:    
+volumes:
+  exclude:    
       
     
