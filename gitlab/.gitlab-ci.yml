@@ -1,0 +1,29 @@
+stages:
+  - build
+  - test
+
+
+pylint-test:
+  stage: test
+  tags:
+    - csl
+  image: python
+  before_script:
+    - pip install pylint
+  script:
+    - git ls-files -- "*.py" | xargs pylint
+  artifacts:
+    untracked: true
+    when: on_success
+    expire_in: 30 days
+    paths:
+      - pylint-results.log
+
+eslint-test:
+  stage: test
+  image: node
+
+
+
+
+
