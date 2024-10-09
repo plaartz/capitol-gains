@@ -6,7 +6,7 @@ pylint-test:
   before_script:
     - pip install -r api/requirements.txt
   script:
-    - git ls-files -- "*.py" | xargs pylint
+    - git ls-files -- "*.py" | grep -vf .pylintignore | xargs pylint
   artifacts:
     untracked: true
     when: on_success
