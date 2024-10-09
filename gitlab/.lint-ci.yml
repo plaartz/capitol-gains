@@ -1,10 +1,5 @@
-stages:
-  - build
-  - test
-
-
 pylint-test:
-  stage: test
+  stage: lint
   tags:
     - csl
   image: python
@@ -20,10 +15,5 @@ pylint-test:
       - pylint-results.log
 
 eslint-test:
-  stage: test
+  stage: lint
   image: node
-
-
-
-
-
