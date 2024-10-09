@@ -18,9 +18,10 @@ eslint-test:
   stage: lint
   image: node
   before_script:
-    - echo "install dep"
+    - cd web
+    - npm i
   script:
-    - echo "ESLINT"
+    - npm run lint
   artifacts:
     untracked: true
     when: on_success
