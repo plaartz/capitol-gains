@@ -142,7 +142,7 @@ You can refer to the [Style Guide & Conventions](STYLE.md) document for detailed
 We will use **pytest** for testing the backend services and business logic. Unit tests will cover the scraping functions, database interactions, and REST API endpoints. End-to-end testing will validate user flows from frontend to backend.
 
 ## Deployment Strategy
-The application will be containerized using **Docker** to ensure a consistent environment across development and production stages. Deployment will be done using cloud platforms (AWS or Azure), which will host the Django backend, React frontend, and MySQL database.
+The application will be containerized using **Docker** to ensure a consistent environment across development and production stages. Deployment will be done using university provided virtual machines, which will host the Django backend, React frontend, and MySQL database.
 
 ## Known Issues & Future Features
 Currently, there are no major known issues. Future enhancements may include:
