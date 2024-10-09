@@ -4,16 +4,26 @@ pylint-test:
     - csl
   image: python
   before_script:
-    - pip install pylint
+    - pip install -r api/requirements.txt
   script:
     - git ls-files -- "*.py" | xargs pylint
   artifacts:
     untracked: true
     when: on_success
-    expire_in: 30 days
+    expire_in: 7 days
     paths:
       - pylint-results.log
 
 eslint-test:
   stage: lint
   image: node
+  before_script:
+    - echo "install dep"
+  script:
+    - echo "ESLINT"
+  artifacts:
+    untracked: true
+    when: on_success
+    expire_in: 7 days
+    paths:
+      - eslint-results.log
