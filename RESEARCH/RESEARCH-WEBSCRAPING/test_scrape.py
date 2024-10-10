@@ -176,10 +176,19 @@ def display_trade_info(driver):
             # Click the link
             driver.execute_script("window.location.href = arguments[0];", href)
 
-            # Wait for the page to load
-            WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, '//h1[contains(text(), "Periodic Transaction Report")]'))  # Adjust the header based on your page
-            )
+            time.sleep(1)
+
+            # Skip reports that aren't in the correct format (e.g. are images)
+            try:
+                periodic_transaction_report_image = driver.find_element(By.XPATH, '//img[@alt="filing document"]')
+                driver.back()
+                time.sleep(1)
+                continue
+            except NoSuchElementException as e:
+                # Wait for the page to load if the report isn't an image
+                WebDriverWait(driver, 10).until(
+                    EC.presence_of_element_located((By.XPATH, '//h1[contains(text(), "Periodic Transaction Report")]'))  # Adjust the header based on your page
+                )
 
             extract_table_contents(driver)
 
@@ -217,10 +226,8 @@ def main():
             'from_date': '',
             'to_date': ''
         }
-        filters['first_name'] = 'S'
-        filters['senator'] = True
         filters['from_date'] = '09/01/2024'
-        filters['to_date'] = '09/19/2024'
+        filters['to_date'] = '10/08/2024'
         filter(driver, filters)
         display_trade_info(driver)
 
