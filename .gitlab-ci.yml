@@ -1,5 +1,7 @@
 stages:
   - lint
+  - test
 
 include:
   - 'gitlab/.lint-ci.yml'
+  - 'gitlab/.test-ci.yml'

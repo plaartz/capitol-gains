@@ -1,0 +1,15 @@
+pytest:
+  stage: test
+  tags:
+    - csl
+  image: python:3.9
+  before_script:
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+  script:
+    - pytest --maxfail=1 --disable-warnings
+  artifacts:
+    when: always
+    paths:
+      - pytest_results.log
+  coverage: /TOTAL.+?(\d+%)/
