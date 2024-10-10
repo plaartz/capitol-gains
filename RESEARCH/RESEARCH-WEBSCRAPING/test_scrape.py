@@ -62,7 +62,7 @@ def check_agree_and_redirect(driver):
 #     time.sleep(1)
 
 
-def filter(driver, filters):
+def filter(driver, filters: dict):
     """
     Applies filters to the periodic transaction reports depending on what user wants to input/filter by.
     
