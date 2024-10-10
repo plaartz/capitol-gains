@@ -63,6 +63,13 @@ def check_agree_and_redirect(driver):
 
 
 def filter(driver, filters):
+    """
+    Applies filters to the periodic transaction reports depending on what user wants to input/filter by.
+    
+    Args:
+    driver (webdriver): Selenium WebDriver instance.
+    filters: A dictionary of optional filter inputs from the user.
+    """
     periodic_transactions_checkbox = driver.find_element(By.XPATH, '//input[@type="checkbox" and @id="reportTypes" and @value="11"]')
     if not periodic_transactions_checkbox.is_selected():
         periodic_transactions_checkbox.click()
