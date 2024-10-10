@@ -127,7 +127,7 @@ def filter(driver, filters: dict):
     time.sleep(1)
 
 
-def extract_table_contents(driver):
+def extract_table_contents(driver) -> list:
     """
     Extracts all the contents of a table on the current page.
     
