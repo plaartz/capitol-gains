@@ -3,9 +3,9 @@ services:
     build:
       context: /Users/porterlaartz/Desktop/School/Senior/CS 506/Project_11/scheduler
     restart: always
-    # depends_on:
-    #   - database
-    #   - api
+    depends_on:
+      - database
+      - api
     environment:
       COMPOSE_PROJECT_NAME: 'capitol_gains_prod'
       API_HOST: localhost
@@ -13,4 +13,3 @@ services:
       BUILD: 'production'
     ports:
       - '9000:9000'
-      
