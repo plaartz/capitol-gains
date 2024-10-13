@@ -61,3 +61,20 @@ def get_stocks_to_update() -> tuple[list, int]:
                 stocks[ticker] = 1
 
     return [{"ticker": key, "date_range": val} for (key, val) in stocks.items()], 200
+
+def change_database(data: dict) -> int:
+    items_to_update = []
+    for ticker, item_data in data.items():
+        company = item_data['ticker']
+        price = item_data['prices']['price']
+        date = item_data['prices']['date']
+        item = StockPrice(stock=Stock(ticker=company))
+        item.price = price
+        item.date = date
+        items_to_update.append(item)
+    try:
+        StockPrice.objects.bulk_update(items_to_update, ['price', 'date'])
+        return 200
+    except:
+        return 500
+    
