@@ -1,7 +1,7 @@
 services:
   scheduler:
     build:
-      context: /Users/porterlaartz/Desktop/School/Senior/CS 506/Project_11/scheduler
+      context: ${BASE_DIR}/scheduler
     restart: always
     depends_on:
       - database
@@ -10,6 +10,8 @@ services:
       COMPOSE_PROJECT_NAME: 'capitol_gains_prod'
       API_HOST: localhost
       API_PORT: 8000
-      BUILD: 'production'
+      BUILD: 'dev'
     ports:
       - '9000:9000'
+    volumes:
+      - $BASE_DIR/scheduler/scripts/python:/scheduler/scripts/python
