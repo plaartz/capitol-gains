@@ -1,17 +1,35 @@
+stages:
+  - build
+  - test
+
 build-docker:
   stage: build
   tags:
     - csl
     - docker
-  
+  image:
+    - docker:latest
+  services:
+    - docker:dind
+  before-script:
+    - docker info
+  script:
+    - docker build -t app-image -f api/Dockerfile api/
+  artifacts:
+    paths:
+      - docker_image.tar
+  after_script:
+    - docker save app-image > docker_image.tar
 
 pytest:
   stage: test
   tags:
     - csl
-  image: python:3.9
+  image: docker:latest
+  services:
+    - docker:dind
   before_script:
-    - docker compose up --build -d
+    - docker-compose up --build -d
   script:
     - pytest --maxfail=1 --disable-warnings
   artifacts:
