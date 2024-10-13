@@ -30,7 +30,7 @@ pytest:
   before_script:
     - docker-compose up --build -d
   script:
-    - pytest --maxfail=1 --disable-warnings
+    - pytest --maxfail=1 --disable-warnings > ${BASE_DIR}/gitlab/pytest_results.log
   artifacts:
     when: always
     paths:
