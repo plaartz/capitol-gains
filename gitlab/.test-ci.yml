@@ -1,3 +1,7 @@
+stages:
+  - build
+  - test
+
 build-docker:
   stage: build
   tags:

@@ -1,5 +1,6 @@
 stages:
   - lint
+  - build
   - test
 
 include:
