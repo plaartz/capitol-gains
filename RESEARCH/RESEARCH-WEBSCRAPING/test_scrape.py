@@ -10,7 +10,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import Select
 
-def setup_driver():
+def setup_driver() -> webdriver.Chrome:
     """
     Set up the Selenium WebDriver with Chrome in headless mode.
     
@@ -24,7 +24,7 @@ def setup_driver():
     return driver
 
 
-def check_agree_and_redirect(driver):
+def check_agree_and_redirect(driver: webdriver.Chrome) -> None:
     """
     Check the 'agree_statement' checkbox and wait for the page to redirect.
 
@@ -36,33 +36,7 @@ def check_agree_and_redirect(driver):
     time.sleep(1)
 
 
-# def get_periodic_transactions_for_date_range(driver, start_date, end_date):
-#     """
-#     Navigates to the periodic transactions reports for a range of dates to populate database.
-
-#     :param driver: Selenium WebDriver instance
-#     :param start_date: the earliest date we want to get the transactions from
-#     :Param from_date: the latest date we want to get the transactions from
-#     """
-#     from_date = driver.find_element(By.ID, 'fromDate')
-#     to_date = driver.find_element(By.ID, 'toDate')
-#     from_date.clear()
-#     to_date.clear()
-
-#     periodic_transactions_checkbox = driver.find_element(By.XPATH, '//input[@type="checkbox" and @id="reportTypes" and @value="11"]')
-#     if not periodic_transactions_checkbox.is_selected():
-#         periodic_transactions_checkbox.click()
-
-#     from_date.send_keys(start_date)
-#     to_date.send_keys(end_date)
-
-#     search_report_button = driver.find_element(By.XPATH, '//button[@type="submit" and contains(@class, "btn-primary") and contains(text(), "Search Reports")]')
-#     search_report_button.click()
-
-#     time.sleep(1)
-
-
-def filter(driver, filters: dict):
+def filter(driver: webdriver.Chrome, filters: dict) -> None:
     """
     Applies filters to the periodic transaction reports depending on what user wants to input/filter by.
     
@@ -127,7 +101,7 @@ def filter(driver, filters: dict):
     time.sleep(1)
 
 
-def extract_table_contents(driver) -> list:
+def extract_table_contents(driver: webdriver.Chrome) -> list:
     """
     Extracts all the contents of a table on the current page.
     
@@ -156,7 +130,7 @@ def extract_table_contents(driver) -> list:
     return table_contents
 
 
-def display_trade_info(driver):
+def display_trade_info(driver: webdriver.Chrome) -> None:
     """
     Iterates through all rows in the table, clicks on the periodic transaction link, and extracts information for today's stock transactions.
 
