@@ -13,7 +13,7 @@ build-docker:
   before_script:
     - docker info
   script:
-    - docker build -t app-image -f api/Dockerfile api/
+    - docker-compose build -t app-image
   artifacts:
     paths:
       - docker_image.tar
@@ -28,7 +28,7 @@ pytest:
   services:
     - name: docker:dind
   before_script:
-    - docker-compose up --build -d
+    - docker-compose up -d
   script:
     - docker-compose exec api pytest --maxfail=1 --disable-warnings test/conftest.py
   artifacts:
@@ -36,5 +36,5 @@ pytest:
     untracked: true
     expire_in: 7 days
     paths:
-      - pytest-results.log
+      - api/pytest-results.log
   coverage: /TOTAL.+?(\d+%)/
