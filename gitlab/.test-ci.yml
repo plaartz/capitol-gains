@@ -41,7 +41,7 @@ pytest:
   before_script:
     - docker compose up -d
   script:
-    - docker compose exec api pytest --maxfail=1 --disable-warnings test/conftest.py
+    - docker compose exec /api pytest --maxfail=1 --disable-warnings test/conftest.py
   artifacts:
     when: always
     untracked: true
