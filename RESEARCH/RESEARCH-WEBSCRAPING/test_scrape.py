@@ -91,6 +91,8 @@ def filter(driver: webdriver.Chrome, filters: dict) -> None:
         from_date.send_keys(filters['from_date'])
 
     if filters['to_date'] != '':
+        if filters['from_date'] == '': 
+            raise Exception('Must also enter in a start date')
         to_date = driver.find_element(By.ID, 'toDate')
         to_date.clear()
         to_date.send_keys(filters['to_date'])
