@@ -3,29 +3,25 @@ from django.core.management import call_command
 from ..api.core.models import StockPrice, Stock, Politician, Profile, Transaction
 
 @pytest.fixture
-@pytest.mark.django_db
-def stock_price_test(django_db_setup, django_db_blocker):
+def stock_price_test():
     stock_prices = StockPrice.objects
     assert stock_prices.count() == 35
 
 
 @pytest.fixture
-@pytest.mark.django_db
-def stock_test(django_db_setup, django_db_blocker):
+def stock_test():
     stocks = Stock.objects
     assert stocks.count() == 7
 
 
 @pytest.fixture
-@pytest.mark.django_db
-def politician_test(django_db_setup, django_db_blocker):
+def politician_test():
     politicians = Politician.objects
     assert politicians.count() == 4
 
 
 @pytest.fixture
-@pytest.mark.django_db
-def profile_test(django_db_setup, django_db_blocker):
+def profile_test():
     profiles = Profile.objects
     assert profiles.count() == 4
     assert profiles[0]['pk'] == 1
@@ -35,7 +31,6 @@ def profile_test(django_db_setup, django_db_blocker):
 
 
 @pytest.fixture
-@pytest.mark.django_db
-def transaction_test(django_db_setup, django_db_blocker):
+def transaction_test():
     transactions = Transaction.objects
     assert transactions.count() == 22
