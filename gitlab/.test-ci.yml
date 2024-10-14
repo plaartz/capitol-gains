@@ -47,5 +47,5 @@ pytest:
     untracked: true
     expire_in: 7 days
     paths:
-      - ${BASE_DIR}/api/pytest-results.log
+      - ${BASE_DIR}api/pytest-results.log
   coverage: /TOTAL.+?(\d+%)/
