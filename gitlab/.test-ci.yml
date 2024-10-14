@@ -13,7 +13,7 @@ build-docker:
   before_script:
     - docker info
   script:
-    - docker-compose build -t app-image
+    - docker compose build
   artifacts:
     paths:
       - docker_image.tar
