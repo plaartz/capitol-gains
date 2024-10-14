@@ -14,11 +14,22 @@ build-docker:
     - docker info
   script:
     - docker compose build
+    - |
+      OUTPUT_FILE="docker_image.tar"
+      
+      TEMP_DIR=$(mktemp -d)
+
+      for image in $(docker images --format "{{.Repository}}:{{.Tag}}"); do
+          docker save -o "${TEMP_DIR}/${image//\//_}.tar" "$image"
+      done
+
+      tar -cf "$OUTPUT_FILE" -C "$TEMP_DIR" .
+      
+      rm -r "$TEMP_DIR"
+    - mv docker_image.tar $CI_PROJECT_DIR/docker_image.tar
   artifacts:
     paths:
       - docker_image.tar
-  after_script:
-    - docker save app-image > docker_image.tar
 
 pytest:
   stage: test
@@ -28,13 +39,13 @@ pytest:
   services:
     - name: docker:dind
   before_script:
-    - docker-compose up -d
+    - docker compose up -d
   script:
-    - docker-compose exec api pytest --maxfail=1 --disable-warnings test/conftest.py
+    - docker compose exec api pytest --maxfail=1 --disable-warnings test/conftest.py
   artifacts:
     when: always
     untracked: true
     expire_in: 7 days
     paths:
-      - api/pytest-results.log
+      - ${BASE_DIR}/api/pytest-results.log
   coverage: /TOTAL.+?(\d+%)/
