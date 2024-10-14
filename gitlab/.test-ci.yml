@@ -13,7 +13,7 @@ build-docker:
   before_script:
     - docker info
   script:
-    - docker build -t app-image -f ${BASE_DIR}/api/Dockerfile ${BASE_DIR}/api/
+    - docker build -t app-image -f api/Dockerfile api/
   artifacts:
     paths:
       - docker_image.tar
@@ -30,7 +30,7 @@ pytest:
   before_script:
     - docker-compose up --build -d
   script:
-    - pytest --maxfail=1 --disable-warnings
+    - pytest --maxfail=1 --disable-warnings test/conftest.py
   artifacts:
     when: always
     untracked: true
