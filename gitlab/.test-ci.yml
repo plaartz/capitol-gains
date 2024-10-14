@@ -41,11 +41,11 @@ pytest:
   before_script:
     - docker compose up -d
   script:
-    - docker compose exec /api:/api pytest test/conftest.py
+    - docker compose exec api pytest test/conftest.py
   artifacts:
     when: always
     untracked: true
     expire_in: 7 days
     paths:
-      - ${BASE_DIR}api/pytest-results.log
+      - ${BASE_DIR}pytest-results.log
   coverage: /TOTAL.+?(\d+%)/
