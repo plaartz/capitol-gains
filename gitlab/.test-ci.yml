@@ -13,7 +13,7 @@ build-docker:
   before_script:
     - docker info
   script:
-    - docker build -t app-image -f api/Dockerfile api/
+    - docker build -t app-image -f ${BASE_DIR}/api/Dockerfile ${BASE_DIR}/api/
   artifacts:
     paths:
       - docker_image.tar
@@ -26,13 +26,15 @@ pytest:
     - csl
   image: docker:latest
   services:
-    - docker:dind
+    - name: docker:dind
   before_script:
     - docker-compose up --build -d
   script:
     - pytest --maxfail=1 --disable-warnings
   artifacts:
     when: always
+    untracked: true
+    expire_in: 7 days
     paths:
       - pytest-results.log
   coverage: /TOTAL.+?(\d+%)/
