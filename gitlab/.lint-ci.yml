@@ -1,0 +1,30 @@
+pylint-test:
+  stage: lint
+  tags:
+    - csl
+  image: python
+  before_script:
+    - pip install -r api/requirements.txt
+  script:
+    - git ls-files -- "*.py" | grep -vf .pylintignore | xargs pylint
+  artifacts:
+    untracked: true
+    when: on_success
+    expire_in: 7 days
+    paths:
+      - pylint-results.log
+
+eslint-test:
+  stage: lint
+  image: node
+  before_script:
+    - cd web
+    - npm i
+  script:
+    - npm run lint
+  artifacts:
+    untracked: true
+    when: on_success
+    expire_in: 7 days
+    paths:
+      - eslint-results.log
