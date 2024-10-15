@@ -1,6 +1,6 @@
 import pytest
 from django.core.management import call_command
-from ..api.core.models import StockPrice, Stock, Politician, Profile, Transaction
+from .core.models import StockPrice, Stock, Politician, Profile, Transaction
 
 @pytest.fixture
 def stock_price_test():

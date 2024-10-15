@@ -41,7 +41,7 @@ pytest:
   before_script:
     - docker compose up -d
   script:
-    - docker compose exec api pytest test/conftest.py
+    - docker compose exec api python test/conftest.py test
   artifacts:
     when: always
     untracked: true
