@@ -1,4 +1,5 @@
 import time
+import datetime
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -47,48 +48,58 @@ def filter(driver: webdriver.Chrome, filters: dict) -> None:
     periodic_transactions_checkbox = driver.find_element(By.XPATH, '//input[@type="checkbox" and @id="reportTypes" and @value="11"]')
     if not periodic_transactions_checkbox.is_selected():
         periodic_transactions_checkbox.click()
+        time.sleep(1)
 
     if filters['first_name'] != '':
         first_name = driver.find_element(By.ID, 'firstName')
         first_name.clear()
         first_name.send_keys(filters['first_name'])
+        time.sleep(1)
 
     if filters['last_name'] != '':
         last_name = driver.find_element(By.ID, 'lastName')
         last_name.clear()
         last_name.send_keys(filters['last_name'])
+        time.sleep(1)
 
     if filters['senator']:
         senator_checkbox = driver.find_element(By.XPATH, '//input[@type="checkbox" and @value="1"]')
         if not senator_checkbox.is_selected():
             senator_checkbox.click()
+            time.sleep(1)
         if filters['senator_state'] != 'All States':
             senator_select_element = WebDriverWait(driver, 10).until(
                 EC.presence_of_element_located((By.ID, "senatorFilerState"))
             )
             senator_state = Select(senator_select_element)
             senator_state.select_by_visible_text(filters['senator_state'])
+            time.sleep(1)
+
 
     if filters['candidate']:
         candidate_checkbox = driver.find_element(By.XPATH, '//input[@type="checkbox" and @value="4"]')
         if not candidate_checkbox.is_selected():
             candidate_checkbox.click()
+            time.sleep(1)
         if filters['candidate_state'] != 'All States':
             candidate_select_element = WebDriverWait(driver, 10).until(
                 EC.presence_of_element_located((By.ID, "candidateFilerState"))
             )
             candidate_state = Select(candidate_select_element)
             candidate_state.select_by_visible_text(filters['candidate_state'])
+            time.sleep(1)
 
     if filters['former_senator']:
         former_senator_checkbox = driver.find_element(By.XPATH, '//input[@type="checkbox" and @value="5"]')
         if not former_senator_checkbox.is_selected():
             former_senator_checkbox.click()
+            time.sleep(1)
     
     if filters['from_date'] != '':
         from_date = driver.find_element(By.ID, 'fromDate')
         from_date.clear()
         from_date.send_keys(filters['from_date'])
+        time.sleep(1)
 
     if filters['to_date'] != '':
         if filters['from_date'] == '': 
@@ -96,6 +107,7 @@ def filter(driver: webdriver.Chrome, filters: dict) -> None:
         to_date = driver.find_element(By.ID, 'toDate')
         to_date.clear()
         to_date.send_keys(filters['to_date'])
+        time.sleep(1)
     
     search_report_button = driver.find_element(By.XPATH, '//button[@type="submit" and contains(@class, "btn-primary") and contains(text(), "Search Reports")]')
     search_report_button.click()
@@ -132,52 +144,100 @@ def extract_table_contents(driver: webdriver.Chrome) -> list:
     return table_contents
 
 
-def display_trade_info(driver: webdriver.Chrome) -> None:
+def display_trade_info(driver: webdriver.Chrome) -> list:
     """
-    Iterates through all rows in the table, clicks on the periodic transaction link, and extracts information for today's stock transactions.
+    Iterates through all rows in the table for each page, clicks on the periodic transaction link, and extracts information for today's stock transactions.
 
     :param driver: Selenium WebDriver instance
     """
-    rows = driver.find_elements(By.XPATH, '//table/tbody/tr')
-
-    for index in range(len(rows)):
+    wait = WebDriverWait(driver, 10)
+    all_trade_information = []
+    # Iterate while there are still pages to get reports from
+    while True:
         try:
-            # Re-locate rows for each iteration to avoid stale references
             rows = driver.find_elements(By.XPATH, '//table/tbody/tr')
-            row = rows[index]
+            time.sleep(1)
+            for index in range(len(rows)):
+                try:
+                    # Re-locate rows for each iteration to avoid stale references
+                    rows = driver.find_elements(By.XPATH, '//table/tbody/tr')
+                    row = rows[index]
 
-            link = row.find_element(By.XPATH, './/a[@href]')
-            href = link.get_attribute('href')
+                    cols = row.find_elements(By.TAG_NAME, 'td')
+                    first_name = cols[0].text.strip()
+                    last_name = cols[1].text.strip()
+                    office = cols[2].text.strip()
+                    report_type = cols[3]
+                    date_filed = cols[4].text.strip()
+                    format_str = '%m/%d/%Y'
+                    datetime_object = datetime.datetime.strptime(date_filed, format_str)
+                    # If the first and last names are capitalized, skip because that mean's the periodic report will be an image, not a table of transactions
+                    if first_name.isupper() and last_name.isupper(): 
+                        continue
 
-            # Click the link
-            driver.execute_script("window.location.href = arguments[0];", href)
+                    link = row.find_element(By.XPATH, './/a[@href]')
+                    href = link.get_attribute('href')
 
+                    transaction_information = (first_name, last_name, office, href, datetime_object)
+
+                    # Click the link
+                    driver.execute_script("window.open(arguments[0], '_blank');", href)
+
+                    # Switch to the new tab
+                    driver.switch_to.window(driver.window_handles[1])
+
+                    time.sleep(1)
+
+                    # Skip reports that aren't in the correct format (e.g. are images)
+                    try:
+                        periodic_transaction_report_image = driver.find_element(By.XPATH, '//img[@alt="filing document"]')
+                        driver.close()
+                        driver.switch_to.window(driver.window_handles[0])
+                        time.sleep(1)
+                        continue
+                    except NoSuchElementException as e:
+                        # Wait for the page to load if the report isn't an image
+                        wait.until(
+                            EC.presence_of_element_located((By.XPATH, '//h1[contains(text(), "Periodic Transaction Report")]'))  # Adjust the header based on your page
+                        )
+                    all_trade_information.append(transaction_information)
+                    extract_table_contents(driver)
+
+                    driver.close()
+                    driver.switch_to.window(driver.window_handles[0])
+
+                    # Wait for the original table to reload
+                    time.sleep(1)
+
+                except NoSuchElementException as e:
+                    print('No entries')
+                    break
+                except Exception as e:
+                    print(f"Error processing row {index + 1}: {e}")
+
+            # Click the next button to get the next page of reports if the button isn't disabled
+            next_button = driver.find_element(By.ID, 'filedReports_next')
             time.sleep(1)
 
-            # Skip reports that aren't in the correct format (e.g. are images)
-            try:
-                periodic_transaction_report_image = driver.find_element(By.XPATH, '//img[@alt="filing document"]')
-                driver.back()
-                time.sleep(1)
-                continue
-            except NoSuchElementException as e:
-                # Wait for the page to load if the report isn't an image
-                WebDriverWait(driver, 10).until(
-                    EC.presence_of_element_located((By.XPATH, '//h1[contains(text(), "Periodic Transaction Report")]'))  # Adjust the header based on your page
-                )
+            if 'disabled' in next_button.get_attribute('class'):
+                print("Next button is disabled. No more pages to process.")
+                break
+                
+            next_button.click()
+            print('moving to next page')
 
-            extract_table_contents(driver)
-
-            driver.back()
-
-            # Wait for the original table to reload
+            # Wait for the new page to load
+            wait.until(EC.staleness_of(next_button))
             time.sleep(1)
 
-        except NoSuchElementException as e:
-            print('No entries')
+        except NoSuchElementException:
+            print('Next button not found or no more pages to process.')
             break
+
         except Exception as e:
-            print(f"Error processing row {index + 1}: {e}")
+            print(f"Error while processing pages: {e}")
+            break
+    return all_trade_information
 
 
 def main():
@@ -202,10 +262,10 @@ def main():
             'from_date': '',
             'to_date': ''
         }
-        filters['from_date'] = '09/01/2024'
+        filters['from_date'] = '09/01/2013'
         filters['to_date'] = '10/08/2024'
         filter(driver, filters)
-        display_trade_info(driver)
+        trades = display_trade_info(driver)
 
     finally:
         driver.quit()
