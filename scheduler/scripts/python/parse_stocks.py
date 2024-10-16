@@ -1,0 +1,206 @@
+from requests import post, get
+from sys import stderr
+from datetime import date, datetime, timedelta
+import json
+from collections import deque
+from time import sleep
+from threading import Timer
+from os import environ
+
+STRUCT = {
+    "ticker":"ticker",
+    "price":"close",
+    "date":'datetime'
+}
+API_URL_TIME ="https://api.twelvedata.com/time_series"
+API_URL_EOD = "https://api.twelvedata.com/eod"
+PER_MINUTE = 8
+
+API_KEY = environ.get("STOCK_API_KEY")
+
+
+STOCKS = [
+    {"ticker":"AAPL","date_range":1},
+    {"ticker":"MSFT","date_range":2},
+    {"ticker":"AVGO","date_range":10},
+    {"ticker":"NSC","date_range":5},
+    {"ticker":"GOOG","date_range":6},
+    {"ticker":"TSLA","date_range":3},
+    {"ticker":"META","date_range":9},
+    {"ticker":"NSC","date_range":2},
+    {"ticker":"META","date_range":2},
+    {"ticker":"NSC","date_range":2},
+    ]
+
+
+def transform(data: list|dict, many=False) -> list:
+    def transform_dict(item: dict) -> dict:
+        return {[key]:item[val] for key,val in STRUCT}
+    
+    if many:
+        return [transform_dict(item) for item in data]
+    else:
+        return [transform_dict(data)]
+
+def fetch_data() -> list:
+    def parse_date(date_range: int) -> tuple[date, date]:
+        now = datetime.now()
+        days_ago = now - timedelta(days=(date_range - 1))
+        return days_ago.strftime("%Y-%m-%d"), now.strftime("%Y-%m-%d")
+    
+    # Fetch needed tickers from our backend
+    response = get('http://api:8000/api/core/fetch-stock-ids').json()
+    print(response)
+    data = {}
+    stocks = response["stocks"]
+    print(stocks)
+    eod_queue = deque()
+    time_series_queue = deque()
+    """
+    [
+        {
+            "ticker": "AAPL",
+            "date_range": 1-365
+
+        }
+    ]
+    """
+    # Parse whether we can use a simple eod api call or a time_series api call
+    for stock in sorted(
+        stocks,
+        key=lambda x: x["date_range"] if "date_range" in x else -1,
+        reverse=True):
+        if stock["ticker"] in eod_queue or stock in time_series_queue: # stock in time_series doesnt work curr
+            continue
+        if "date_range" not in stock:
+            # Add struct for bad date_range calls
+            # Potentially just fetch eod
+            continue
+        if stock["date_range"] == 1:
+            eod_queue.append(stock["ticker"])
+        elif stock["date_range"] > 1:
+            start_date, end_date = parse_date(stock["date_range"])
+            time_series_queue.append({
+                "ticker":stock["ticker"],
+                "start_date":start_date,
+                "end_date":end_date,
+                "date_range":stock["date_range"]
+            })
+
+    print(eod_queue,time_series_queue)
+    # every minute we can fetch 8 stocks starting with time series
+
+    is_ready = True
+    while len(time_series_queue):
+        iteration = [time_series_queue.popleft() for _ in range(PER_MINUTE) if time_series_queue]
+        symbol_str = ",".join([symbol["ticker"] for symbol in iteration])
+        earliest_date = sorted(iteration, key=lambda x: x["start_date"])[0]["start_date"]
+
+        #pylint disable=line-too-long
+        iteration_response = get(f'{API_URL_TIME}?apikey={API_KEY}&symbol={symbol_str}&interval=1day&start_date={earliest_date}&country=United States')
+        if iteration_response.status_code in [429,500]:
+            [time_series_queue.append(item) for item in iteration]
+            continue
+        res = iteration_response.json()
+
+        if len(iteration) > 1:
+            for ticker in res.keys():
+                if res[ticker]["status"] != "ok":
+                    continue # Potentially do more here
+                data[ticker] = {
+                    "ticker": ticker,
+                    "prices": [
+                        {
+                            "price":price["close"], 
+                            "date":price["datetime"]
+                        } for price in res[ticker]["values"]]
+                }
+        else:
+            if res["status"] == "ok": 
+                print(res)
+                ticker = res["meta"]["symbol"]
+                data[ticker] = {
+                    "ticker": ticker,
+                    "prices": [
+                        {
+                            "price": price["close"],
+                            "date": price["datetime"]
+                        } for price in res["values"]
+                    ]
+                }
+
+        # Potentially do some more preprocessing to only have actual needed dates from `iteration` 
+        # tickers since they could be different we are just batch requesting
+
+        if len(eod_queue) or len(time_series_queue):
+            sleep(60)
+
+        # Find a better implementation that allows to continue parsing until the api call
+        # is ready
+
+    while len(eod_queue):
+        iteration = [eod_queue.popleft() for _ in range(PER_MINUTE) if eod_queue]
+        symbol_str = ",".join(iteration)
+
+        iteration_response = get(f'{API_URL_EOD}?apikey={API_KEY}&symbol={symbol_str}&country=United States')
+        if iteration_response.status_code in [429,500]:
+            [time_series_queue.append(item) for item in iteration]
+            continue
+        res = iteration_response.json()
+
+        if len(iteration) > 1:
+            for ticker in res.keys():
+                data[ticker] = {
+                    "ticker": ticker,
+                    "prices": [
+                        {
+                            "price":res[ticker]["close"],
+                            "date": res[ticker]["datetime"]
+                        }
+                    ]
+                }
+        else:
+            ticker = res["symbol"]
+            data[ticker] = {
+                "ticker": res["symbol"],
+                "prices": [
+                    {
+                            "price":res["close"],
+                            "date": res["datetime"]
+                        }
+                ]
+            }
+        if len(eod_queue):
+            sleep(60)
+
+    return data
+
+
+def main() -> None:
+    # Get the data from 3rd party api
+    data = fetch_data()
+    print("Data: ", data)
+
+    # Transform the data
+    data = {
+        "data": data,
+        "size": -1
+    }
+
+    print("data 2: ", data)
+
+    # POST data to our backend
+    response = post('http://api:8000/api/core/upload-stock-prices',json=data)
+
+    if response.status_code != 200:
+        print(f'Error uploading stocks on date {date.today().strftime("%Y-%m-%d")}, \
+              writing to backup json file for manual upload',file=stderr)
+        with open(f'/scheduler/backup/{date.today().strftime("%Y-%m-%d")}.json','w+') as f:
+            json.dump(data, f)
+  
+        exit(1)
+    else:
+        print(response.content)
+
+if __name__ == "__main__":
+    main()
