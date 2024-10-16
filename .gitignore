@@ -2,8 +2,10 @@
 
 # Frontend
 web/build
-**/node_modules/**
+node_modules
+.vite
 package-lock.json
+.vite
 
 
 # Backend

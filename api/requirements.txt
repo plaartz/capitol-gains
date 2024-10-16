@@ -1,6 +1,9 @@
 mysqlclient
 django
 djangorestframework
+django-stubs
 django-filter
 mysql-connector-python
 pytest-django
+pylint
+pylint-django
