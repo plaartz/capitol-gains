@@ -62,13 +62,12 @@ def get_stocks_to_update() -> tuple[list, int]:
 
     return [{"ticker": key, "date_range": val} for (key, val) in stocks.items()], 200
 
-def change_database(data: dict) -> int:
+def upload_stock_prices(data: dict) -> int:
     items_to_update = []
     for ticker, item_data in data.items():
-        company = item_data['ticker']
         price = item_data['prices']['price']
         date = item_data['prices']['date']
-        item = StockPrice(stock=Stock(ticker=company))
+        item = StockPrice(stock=Stock(ticker=ticker))
         item.price = price
         item.date = date
         items_to_update.append(item)
