@@ -1,0 +1,49 @@
+[{
+  "model": "core.Politician",
+  "pk": 1,
+  "fields": {
+    "profile": 1,
+    "politician_type": "Senate",
+    "politician_house": "I"
+  }
+},{
+  "model": "core.Profile",
+  "pk": 1,
+  "fields": {
+    "first_name": "Daven",
+    "last_name": "Thakkar",
+    "middle_initial": "C"
+  }
+},
+{
+  "model": "core.Stock",
+  "pk": 1,
+  "fields": {
+    "ticker": "AAPL",
+    "name": "Apple",
+    "description_short": "Tech Co"
+  }
+},
+{
+  "model": "core.StockPrice",
+  "pk": 1,
+  "fields": {
+    "stock": 1,
+    "price": 222.18,
+    "date": "2024-01-01"
+  }
+},
+
+{
+  "model": "core.Transaction",
+  "pk": 1,
+  "fields": {
+    "politician": 1,
+    "stock": 1,
+    "transaction_amount": "1000",
+    "transaction_date": "2024-01-01",
+    "disclosure_date": "2024-06-01",
+    "transaction_type": "Purchase"
+  }
+}
+]

@@ -17,6 +17,7 @@ RUN touch /var/log/cron.log
 
 WORKDIR /scheduler
 RUN touch logfile.log
+RUN mkdir backup
 
 COPY ./requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
