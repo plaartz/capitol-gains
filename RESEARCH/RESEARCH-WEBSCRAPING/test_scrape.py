@@ -144,6 +144,10 @@ def extract_table_contents(driver: webdriver.Chrome) -> list:
     return table_contents
 
 
+def save_table_contents(data: list) -> None:
+    pass
+
+
 def display_trade_info(driver: webdriver.Chrome) -> list:
     """
     Iterates through all rows in the table for each page, clicks on the periodic transaction link, and extracts information for today's stock transactions.
