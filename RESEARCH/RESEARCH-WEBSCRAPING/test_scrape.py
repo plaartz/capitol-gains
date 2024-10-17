@@ -114,6 +114,30 @@ def filter(driver: webdriver.Chrome, filters: dict) -> None:
 
     time.sleep(1)
 
+def save_table_contents(data: list) -> None:
+    """
+    Format data and send data to be updated in the database
+
+    :param data: a comma separated list of transactions where each list contains the transaction details
+    """
+    all_transactions = []
+    for row in data:
+        transaction_number = int(row[0])
+        transaction_date_string = row[1]
+        format_str = '%m/%d/%Y'
+        transaction_date = datetime.datetime.strptime(transaction_date_string, format_str)
+        owner = row[2]
+        ticker = row[3]
+        asset_name = row[4]
+        asset_type = row[5]
+        type = row[6]
+        amount_range = row[7]
+        comment = row[8]
+        if ticker == '--':
+            continue
+        all_transactions.append((transaction_number, transaction_date, owner, type, amount_range, comment))
+    print(all_transactions)
+
 
 def extract_table_contents(driver: webdriver.Chrome) -> list:
     """
@@ -141,11 +165,8 @@ def extract_table_contents(driver: webdriver.Chrome) -> list:
         table_contents.append(column_texts)
         print(column_texts)
     print()
+    save_table_contents(table_contents)
     return table_contents
-
-
-def save_table_contents(data: list) -> None:
-    pass
 
 
 def display_trade_info(driver: webdriver.Chrome) -> list:
