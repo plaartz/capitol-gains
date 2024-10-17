@@ -63,6 +63,11 @@ def get_stocks_to_update() -> tuple[list, int]:
     return [{"ticker": key, "date_range": val} for (key, val) in stocks.items()], 200
 
 def upload_stock_prices(data: dict) -> int:
+    """
+    Update stock price information in the database or add new entries to the database.
+    
+    :param data: dictionary of the stock prices we will use to update the database
+    """
     items_to_update = []
     for ticker, item_data in data.items():
         price = item_data['prices']['price']
