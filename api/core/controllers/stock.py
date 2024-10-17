@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from django.db.models import Exists, OuterRef
+from django.db.utils import IntegrityError, DatabaseError
 
 from core.models import Transaction, Stock, StockPrice
 
@@ -79,6 +80,11 @@ def upload_stock_prices(data: dict) -> int:
     try:
         StockPrice.objects.bulk_update(items_to_update, ['price', 'date'])
         return 200
-    except Exception as e:
+    except (KeyError, TypeError):
+        return 400
+    except IntegrityError:
+        return 409
+    except DatabaseError:
         return 500
-    
+    except Exception:
+        return 500
