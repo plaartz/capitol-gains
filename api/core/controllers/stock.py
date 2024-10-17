@@ -79,6 +79,6 @@ def upload_stock_prices(data: dict) -> int:
     try:
         StockPrice.objects.bulk_update(items_to_update, ['price', 'date'])
         return 200
-    except:
+    except Exception as e:
         return 500
     
