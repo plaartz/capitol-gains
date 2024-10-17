@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from django.db.models import Exists, OuterRef
 from django.db.utils import IntegrityError, DatabaseError
+from django.db.utils import IntegrityError, DatabaseError
 
 from core.models import Transaction, Stock, StockPrice
 
@@ -86,4 +87,6 @@ def upload_stock_prices(data: dict) -> int:
     except IntegrityError:
         return 409
     except DatabaseError:
+        return 500
+    except Exception:
         return 500
