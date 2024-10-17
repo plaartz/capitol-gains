@@ -1,5 +1,7 @@
+import re
 import time
 import datetime
+import defaultdict
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -114,13 +116,13 @@ def filter(driver: webdriver.Chrome, filters: dict) -> None:
 
     time.sleep(1)
 
-def save_table_contents(data: list) -> None:
+def format_table_contents(data: list) -> None:
     """
     Format data and send data to be updated in the database
 
     :param data: a comma separated list of transactions where each list contains the transaction details
     """
-    all_transactions = []
+    all_transactions = defaultdict(list)
     for row in data:
         transaction_number = int(row[0])
         transaction_date_string = row[1]
@@ -131,12 +133,19 @@ def save_table_contents(data: list) -> None:
         asset_name = row[4]
         asset_type = row[5]
         type = row[6]
+        if type != 'Purchase': type = 'Sale'
         amount_range = row[7]
         comment = row[8]
-        if ticker == '--':
+        if ticker == '--' or asset_type != 'Stock':
             continue
-        all_transactions.append((transaction_number, transaction_date, owner, type, amount_range, comment))
-    print(all_transactions)
+        all_transactions[ticker].append({
+            'owner': owner,
+            'transaction_date': transaction_date,
+            'transaction_type': type,
+            'transaction_amount': amount_range,
+            'comment': comment
+        })
+    return all_transactions
 
 
 def extract_table_contents(driver: webdriver.Chrome) -> list:
@@ -165,7 +174,7 @@ def extract_table_contents(driver: webdriver.Chrome) -> list:
         table_contents.append(column_texts)
         print(column_texts)
     print()
-    save_table_contents(table_contents)
+    table_contents = format_table_contents(table_contents)
     return table_contents
 
 
@@ -189,18 +198,18 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
                     row = rows[index]
 
                     cols = row.find_elements(By.TAG_NAME, 'td')
-                    first_name = cols[0].text.strip()
+                    first_and_middle_name = cols[0].text.strip().split()
+                    middle_initial = first_and_middle_name[1] if len(first_and_middle_name) > 1 else ''
+                    first_name = first_and_middle_name[0]
                     last_name = cols[1].text.strip()
                     office = cols[2].text.strip()
                     report_type = cols[3]
                     date_filed = cols[4].text.strip()
                     format_str = '%m/%d/%Y'
-                    datetime_object = datetime.datetime.strptime(date_filed, format_str)
+                    date_received = datetime.datetime.strptime(date_filed, format_str)
 
                     link = row.find_element(By.XPATH, './/a[@href]')
                     href = link.get_attribute('href')
-
-                    transaction_information = (first_name, last_name, office, href, datetime_object)
 
                     # Click the link
                     driver.execute_script("window.open(arguments[0], '_blank');", href)
@@ -223,7 +232,12 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
                             EC.presence_of_element_located((By.XPATH, '//h1[contains(text(), "Periodic Transaction Report")]'))  # Adjust the header based on your page
                         )
                     all_trade_information.append(transaction_information)
-                    extract_table_contents(driver)
+                    match = re.search(r"\((.*?)\)", office)
+                    filer_type = match.group(1)
+
+                    table_info = extract_table_contents(driver)
+
+                    transaction_information = (first_name, middle_initial, last_name, filer_type, href, date_received)
 
                     driver.close()
                     driver.switch_to.window(driver.window_handles[0])
