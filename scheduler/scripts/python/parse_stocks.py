@@ -87,7 +87,6 @@ def fetch_data() -> list:
                 "date_range":stock["date_range"]
             })
 
-    print(eod_queue,time_series_queue)
     # every minute we can fetch 8 stocks starting with time series
 
     while len(time_series_queue):
@@ -117,7 +116,6 @@ def fetch_data() -> list:
                 }
         else:
             if res["status"] == "ok":
-                print(res)
                 ticker = res["meta"]["symbol"]
                 data[ticker] = {
                     "ticker": ticker,
@@ -184,15 +182,12 @@ def main() -> None:
     """
     # Get the data from 3rd party api
     data = fetch_data()
-    print("Data: ", data)
 
     # Transform the data
     data = {
         "data": data,
         "size": -1
     }
-
-    print("data 2: ", data)
 
     # POST data to our backend
     response = post('http://api:8000/api/core/upload-stock-prices',json=data)
@@ -205,8 +200,6 @@ def main() -> None:
             json.dump(data, f)
 
         exit(1)
-    else:
-        print(response.content)
 
 if __name__ == "__main__":
     main()
