@@ -171,9 +171,6 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
                     date_filed = cols[4].text.strip()
                     format_str = '%m/%d/%Y'
                     datetime_object = datetime.datetime.strptime(date_filed, format_str)
-                    # If the first and last names are capitalized, skip because that mean's the periodic report will be an image, not a table of transactions
-                    if first_name.isupper() and last_name.isupper(): 
-                        continue
 
                     link = row.find_element(By.XPATH, './/a[@href]')
                     href = link.get_attribute('href')
