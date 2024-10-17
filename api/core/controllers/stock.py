@@ -86,5 +86,4 @@ def upload_stock_prices(data: dict) -> int:
         return 409
     except DatabaseError:
         return 500
-    except Exception:
-        return 500
+
