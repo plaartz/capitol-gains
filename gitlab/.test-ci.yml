@@ -38,8 +38,6 @@ unittest:
   image: docker:latest
   services:
     - name: docker:dind
-  resources:
-    memory: 1G
   before_script:
     - docker compose up -d
     - until docker compose exec api echo "API container is up"; do sleep 5; done
