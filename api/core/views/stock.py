@@ -41,7 +41,7 @@ def upload_stock_prices(request) -> JsonResponse:
         return JsonResponse({"error": "Conflict, integrity error with the database"}, status=409)
     if status == 500:
         return JsonResponse(
-            {"error": "Internal server error while updating stock prices"}, 
+            {"error": "Internal server error while updating stock prices"},
             status=500
         )
     return JsonResponse({"error": "Unexpected error occurred"}, status=500)
