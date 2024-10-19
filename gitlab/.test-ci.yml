@@ -41,13 +41,11 @@ unittest:
   before_script:
     - docker compose up -d
   script:
-    - docker compose exec api python -m unittest discover -s api/conftest.py > ${BASE_DIR}api/unittest-results.log
-    - docker compose exec api coverage report
+    - docker compose exec api python -m unittest ${BASE_DIR}api/conftest.py
   artifacts:
     when: always
     untracked: true
     expire_in: 7 days
     paths:
       - ${BASE_DIR}api/unittest-results.log
-      - ${BASE_DIR}api/coverage-report.txt
   coverage: /(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/
