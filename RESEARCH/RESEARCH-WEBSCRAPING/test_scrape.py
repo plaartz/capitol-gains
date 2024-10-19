@@ -1,7 +1,7 @@
 import re
 import time
+import json
 import datetime
-import defaultdict
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -122,7 +122,7 @@ def format_table_contents(data: list) -> None:
 
     :param data: a comma separated list of transactions where each list contains the transaction details
     """
-    all_transactions = defaultdict(list)
+    all_transactions = []
     for row in data:
         transaction_number = int(row[0])
         transaction_date_string = row[1]
@@ -138,13 +138,16 @@ def format_table_contents(data: list) -> None:
         comment = row[8]
         if ticker == '--' or asset_type != 'Stock':
             continue
-        all_transactions[ticker].append({
+        all_transactions.append({
+            'ticker': ticker,
             'owner': owner,
             'transaction_date': transaction_date,
             'transaction_type': type,
             'transaction_amount': amount_range,
             'comment': comment
         })
+    with open('transaction.json', 'w') as file:
+        json.dump(all_transactions, file)
     return all_transactions
 
 
@@ -231,13 +234,20 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
                         wait.until(
                             EC.presence_of_element_located((By.XPATH, '//h1[contains(text(), "Periodic Transaction Report")]'))  # Adjust the header based on your page
                         )
-                    all_trade_information.append(transaction_information)
                     match = re.search(r"\((.*?)\)", office)
                     filer_type = match.group(1)
 
                     table_info = extract_table_contents(driver)
 
-                    transaction_information = (first_name, middle_initial, last_name, filer_type, href, date_received)
+                    transaction_information = {
+                        first_name, 
+                        middle_initial, 
+                        last_name, 
+                        filer_type, 
+                        href, 
+                        date_received
+                    }
+                    all_trade_information.append(transaction_information)
 
                     driver.close()
                     driver.switch_to.window(driver.window_handles[0])
@@ -273,6 +283,8 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
         except Exception as e:
             print(f"Error while processing pages: {e}")
             break
+    with open('trade_report.json', 'w') as file:
+        json.dump(all_trade_information, file)
     return all_trade_information
 
 
