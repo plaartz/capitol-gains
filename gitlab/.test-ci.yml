@@ -31,7 +31,7 @@ build-docker:
     paths:
       - docker_image.tar
 
-pytest:
+  unittest:
   stage: test
   tags:
     - csl
@@ -41,11 +41,13 @@ pytest:
   before_script:
     - docker compose up -d
   script:
-    - docker compose exec api python api/conftest.py test
+    - docker compose exec api python -m unittest discover -s api/conftest.py > ${BASE_DIR}api/unittest-results.log
+    - docker compose exec api coverage report
   artifacts:
     when: always
     untracked: true
     expire_in: 7 days
     paths:
-      - ${BASE_DIR}api/pytest-results.log
-  coverage: /TOTAL.+?(\d+%)/
+      - ${BASE_DIR}api/unittest-results.log
+      - ${BASE_DIR}api/coverage-report.txt
+  coverage: /(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/
