@@ -68,6 +68,7 @@ def upload_stock_prices(data: dict) -> int:
     Update stock price information in the database or add new entries to the database.
     
     :param data: dictionary of the stock prices we will use to update the database
+    @return     Returns a status code depending on if uploading the stock prices was successful
     """
     items_to_update = []
     for ticker, item_data in data.items():
