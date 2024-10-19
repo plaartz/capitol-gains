@@ -1,5 +1,5 @@
 import unittest
-from .core.models import StockPrice, Stock, Politician, Profile, Transaction
+from core.models import StockPrice, Stock, Politician, Profile, Transaction
 
 class StockPriceTestCase(unittest.TestCase):
 
