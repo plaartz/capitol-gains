@@ -35,6 +35,7 @@ class ProfileTestCase(TestCase):
         self.assertEqual(profile.first_name, 'Daven')
         self.assertEqual(profile.last_name, 'Thakkar')
         self.assertEqual(profile.middle_initial, 'C')
+        self.assertTrue(isinstance(profile, Profile))
 
 
 class TransactionTestCase(TestCase):
