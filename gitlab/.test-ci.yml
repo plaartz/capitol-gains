@@ -42,11 +42,11 @@ unittest:
     - docker compose up -d
     - until docker compose exec api echo "API container is up"; do sleep 5; done
   script:
-    - docker compose exec api python3 -m unittest ${BASE_DIR}api/conftest.py
+    - docker compose exec api python3 -m unittest api/conftest.py
   artifacts:
     when: always
     untracked: true
     expire_in: 7 days
     paths:
-      - ${BASE_DIR}api/unittest-results.log
+      - api/unittest-results.log
   coverage: /(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/
