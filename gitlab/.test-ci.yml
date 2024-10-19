@@ -42,7 +42,7 @@ unittest:
     - docker compose up -d
     - until docker compose exec api echo "API container is up"; do sleep 5; done
   script:
-    - docker compose exec api python -m unittest api/test_fixtures.py -v
+    - docker compose exec api python -m unittest api/api/test_fixtures.py -v
   artifacts:
     when: always
     untracked: true
