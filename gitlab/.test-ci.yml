@@ -40,8 +40,9 @@ unittest:
     - name: docker:dind
   before_script:
     - docker compose up -d
+    - until docker compose exec api echo "API container is up"; do sleep 5; done
   script:
-    - docker compose exec api python -m unittest ${BASE_DIR}api/conftest.py
+    - docker compose exec api python3 -m unittest ${BASE_DIR}api/conftest.py
   artifacts:
     when: always
     untracked: true
