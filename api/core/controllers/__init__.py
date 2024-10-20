@@ -1,2 +1,2 @@
 from .stock import *
-from .SearchController import SearchController
+from .SearchController import get_transactions

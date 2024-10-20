@@ -3,7 +3,9 @@ from core.models import StockPrice
 from .StockSerializer import StockSerializer
 
 class StockPriceSerializer(serializers.ModelSerializer):
+    stock = StockSerializer()
+    
     class Meta:
         model = StockPrice
-        fields = ('price', 'date')
+        fields = ('stock', 'price', 'date')
 

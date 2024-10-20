@@ -48,4 +48,5 @@ class Transaction(models.Model):
         old_price = stock_prices.filter(
             date = purchase_date
         ).first().price
-        return (curr_price / old_price * 100) - 100
+        return round((curr_price / old_price * 100) - 100, 2)
+
