@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 from core.controllers.SearchController import get_transactions
 from django.test import TestCase
 
@@ -8,10 +9,10 @@ class TestSearchController(TestCase):
     """
 
     fixtures = [
-        "api/fixtures/StockFixture.json", 
-        "api/fixtures/StockPriceFixture.json", 
-        "api/fixtures/ProfileFixture.json", 
-        "api/fixtures/PoliticianFixture.json", 
+        "api/fixtures/StockFixture.json",
+        "api/fixtures/StockPriceFixture.json",
+        "api/fixtures/ProfileFixture.json",
+        "api/fixtures/PoliticianFixture.json",
         "api/fixtures/TransactionFixture.json"
     ]
 
@@ -25,7 +26,7 @@ class TestSearchController(TestCase):
         assert len(transaction_data) == 4
         for transaction in transaction_data:
             assert transaction["full_name"] == "Chris L. Anderson"
-            
+
 
     def test_get_transactions_with_first_name(self):
         """
@@ -37,7 +38,7 @@ class TestSearchController(TestCase):
         assert len(transaction_data) == 4
         for transaction in transaction_data:
             assert transaction["full_name"] == "Chris L. Anderson"
-            
+
 
     def test_get_transactions_with_first_and_last_name_filtered(self):
         """
@@ -112,11 +113,4 @@ class TestSearchController(TestCase):
 
         transaction_data = get_transactions("", "", "", "", "", "", 1, 101)
 
-        assert len(transaction_data) == 0
-
-
-    
-
-
-
-
+        assert len(transaction_data) == 22

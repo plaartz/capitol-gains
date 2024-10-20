@@ -1,5 +1,5 @@
+# pylint: disable=too-few-public-methods
 from django.db import models
-
 from .Politician import Politician
 from .Stock import Stock
 from .StockPrice import StockPrice
@@ -49,4 +49,3 @@ class Transaction(models.Model):
             date = purchase_date
         ).first().price
         return round((curr_price / old_price * 100) - 100, 2)
-

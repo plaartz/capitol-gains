@@ -1,7 +1,8 @@
-from django.test import TestCase
-from django.urls import reverse
+# pylint: disable=duplicate-code
 import json
 from datetime import datetime
+from django.test import TestCase
+from django.urls import reverse
 
 class TestSearchView(TestCase):
     """
@@ -50,9 +51,9 @@ class TestSearchView(TestCase):
         response_data = json.loads(response.content)
         assert response_data["size"] == 8
         for transaction in response_data["data"]:
-            assert transaction["full_name"] == "Daven C. Thakkar" 
+            assert transaction["full_name"] == "Daven C. Thakkar"
 
-    
+
     def test_search_view_with_last_name(self):
         """
         Tests if we get correct response when user provides last name
@@ -79,7 +80,7 @@ class TestSearchView(TestCase):
         for transaction in response_data["data"]:
             assert transaction["full_name"] == "Daven C. Thakkar"
 
-    
+
     def test_search_view_with_first_and_last_name(self):
         """
         Tests if we get correct response when user provides first and last name
@@ -160,7 +161,7 @@ class TestSearchView(TestCase):
         for transaction in response_data["data"]:
             assert transaction["politician_house"] == "R"
 
-    
+
     def test_search_view_with_end_date(self):
         """
         Tests if we get correct response when user provides only the end date
@@ -186,10 +187,11 @@ class TestSearchView(TestCase):
         assert response_data["size"] == 10
         for transaction in response_data["data"]:
             end_date = datetime.strptime(query["end_date"], "%Y/%m/%d")
-            transaction_date = datetime.strptime(transaction["transaction_date"].replace("-", "/"), "%Y/%m/%d")
-            assert transaction_date <= end_date 
+            transaction_date_correct_str = transaction["transaction_date"].replace("-", "/")
+            transaction_date = datetime.strptime(transaction_date_correct_str, "%Y/%m/%d")
+            assert transaction_date <= end_date
 
-    
+
     def test_search_view_with_start_and_end_date(self):
         """
         Tests if we get correct response when user provides the start and end dates
@@ -212,12 +214,14 @@ class TestSearchView(TestCase):
         assert response['Content-Type'] == 'application/json'
 
         response_data = json.loads(response.content)
-        assert response_data["size"] == 8 
+        assert response_data["size"] == 8
         for transaction in response_data["data"]:
             start_date = datetime.strptime(query["start_date"], "%Y/%m/%d")
             end_date = datetime.strptime(query["end_date"], "%Y/%m/%d")
-            transaction_date = datetime.strptime(transaction["transaction_date"].replace("-", "/"), "%Y/%m/%d")
-            assert transaction_date >= start_date and transaction_date <= end_date
+            transaction_date_correct_str = transaction["transaction_date"].replace("-", "/")
+            transaction_date = datetime.strptime(transaction_date_correct_str, "%Y/%m/%d")
+            assert transaction_date >= start_date
+            assert transaction_date <= end_date
 
 
     def test_search_view_with_invalid_page_number(self):
@@ -244,7 +248,7 @@ class TestSearchView(TestCase):
         response_data = json.loads(response.content)
         assert response_data["Error"] == "Page number must be greater than zero!"
 
-    
+
     def test_search_view_with_invalid_page_size(self):
         """
         Tests if we get correct response when user provides invalid page size
@@ -263,14 +267,8 @@ class TestSearchView(TestCase):
 
         response = self.make_post_request(query)
 
-        assert response.status_code == 400
+        assert response.status_code == 200
         assert response['Content-Type'] == 'application/json'
 
         response_data = json.loads(response.content)
-        assert response_data["Error"] == "Maximum page size is 100!"
-        
-
-        
-        
-
-
+        assert response_data["size"] == 8

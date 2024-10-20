@@ -1,8 +1,7 @@
+import json
 from django.views.decorators.http import require_http_methods
-from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-import json
 from core.controllers import get_transactions
 
 @require_http_methods(['POST'])
@@ -20,18 +19,28 @@ def search_view(request):
     politician_house = data.get("politician_house")
     start_date = data.get("start_date")
     end_date = data.get("end_date")
-    pageNo = data.get("pageNo")
-    pageSize = data.get("pageSize")
+    page_no = data.get("pageNo")
+    page_size = data.get("pageSize")
 
     # Handle invalid page number
-    if pageNo == 0:
+    if page_no <= 0:
         return JsonResponse({'Error': "Page number must be greater than zero!"}, status = 400)
 
     # Handle invalid page size
-    if pageSize > 100:
-        return JsonResponse({'Error': "Maximum page size is 100!"}, status = 400)
-    
-    transaction_data = get_transactions(first_name, last_name, politician_type, politician_house, start_date, end_date, pageNo, pageSize)
+    if page_size <= 0:
+        page_size = 100
+    else:
+        page_size = min(page_size, 100)
+
+    transaction_data = get_transactions(
+        first_name, last_name,
+        politician_type,
+        politician_house,
+        start_date,
+        end_date,
+        page_no,
+        page_size
+    )
     size = len(transaction_data)
 
     response_data = {
@@ -40,4 +49,3 @@ def search_view(request):
     }
 
     return JsonResponse(response_data, safe = False)
-    
