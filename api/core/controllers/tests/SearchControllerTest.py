@@ -15,7 +15,7 @@ class TestSearchController(TestCase):
         "api/fixtures/TransactionFixture.json"
     ]
 
-    def test_get_transactions_with_first_name(self):
+    def test_get_transactions_with_last_name(self):
         """
         Tests if we get correct results when user provides only the last name
         """
