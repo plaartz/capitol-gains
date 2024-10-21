@@ -1,3 +1,4 @@
+# pylint: disable=too-few-public-methods
 from django.db import models
 
 class Profile(models.Model):
@@ -11,6 +12,5 @@ class Profile(models.Model):
     @property
     def full_name(self):
         " Returns the profile's full name. "
-        return f'{self.first_name} \
-            {self.middle_initial + ". " if self.middle_initial else ""}\
-                {self.last_name}'
+        #pylint: disable=line-too-long
+        return f'{self.first_name}{ " " + self.middle_initial + ". " if self.middle_initial else " "}{self.last_name}'

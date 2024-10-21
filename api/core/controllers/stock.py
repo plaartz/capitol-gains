@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.db.models import Exists, OuterRef
 
 from core.models import Transaction, Stock, StockPrice
@@ -17,7 +17,7 @@ def get_stocks_to_update() -> tuple[list, int]:
         if today.weekday() >= 5:  # Saturday (5) or Sunday (6)
             # Move back to Friday
             days_to_subtract = today.weekday() - 4
-            return today - datetime.timedelta(days=days_to_subtract)
+            return today - timedelta(days=days_to_subtract)
         return today
 
     # Query StockPrice based on stock and date
@@ -52,8 +52,12 @@ def get_stocks_to_update() -> tuple[list, int]:
         .exclude(ticker__in=unmatched.values_list("stock__ticker",flat=True))
         .values_list('ticker',flat=True))
 
+    today = datetime.now().date()
     for ticker in all_stocks_today:
         if ticker not in stocks:
-            stocks[ticker] = 1
+            if today.weekday() >= 5:
+                stocks[ticker] = datetime.now().date().weekday() - 3
+            else:
+                stocks[ticker] = 1
 
     return [{"ticker": key, "date_range": val} for (key, val) in stocks.items()], 200
