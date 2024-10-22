@@ -77,7 +77,6 @@ def filter(driver: webdriver.Chrome, filters: dict) -> None:
             senator_state.select_by_visible_text(filters['senator_state'])
             time.sleep(1)
 
-
     if filters['candidate']:
         candidate_checkbox = driver.find_element(By.XPATH, '//input[@type="checkbox" and @value="4"]')
         if not candidate_checkbox.is_selected():
@@ -146,8 +145,6 @@ def format_table_contents(data: list) -> None:
             'transaction_amount': amount_range,
             'comment': comment
         })
-    with open('transaction.json', 'w') as file:
-        json.dump(all_transactions, file)
     return all_transactions
 
 
@@ -175,8 +172,6 @@ def extract_table_contents(driver: webdriver.Chrome) -> list:
         column_texts = [col.text.strip() for col in columns]
         
         table_contents.append(column_texts)
-        print(column_texts)
-    print()
     table_contents = format_table_contents(table_contents)
     return table_contents
 
@@ -240,13 +235,16 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
                     table_info = extract_table_contents(driver)
 
                     transaction_information = {
-                        first_name, 
-                        middle_initial, 
-                        last_name, 
-                        filer_type, 
-                        href, 
-                        date_received
+                        'first_name': first_name, 
+                        'middle_initial': middle_initial, 
+                        'last_name': last_name,
+                        'filer_type': filer_type, 
+                        'href': href, 
+                        'date_received': date_received
                     }
+                    for i in range(len(table_info)):
+                        for key, item in table_info[i].items():
+                            transaction_information[f"{key}_{i + 1}"] = item
                     all_trade_information.append(transaction_information)
 
                     driver.close()
@@ -283,8 +281,7 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
         except Exception as e:
             print(f"Error while processing pages: {e}")
             break
-    with open('trade_report.json', 'w') as file:
-        json.dump(all_trade_information, file)
+    print(all_trade_information)
     return all_trade_information
 
 
@@ -310,7 +307,7 @@ def main():
             'from_date': '',
             'to_date': ''
         }
-        filters['from_date'] = '09/01/2019'
+        filters['from_date'] = '08/01/2024'
         filters['to_date'] = time.strftime("%m/%d/%Y", time.localtime())
         filter(driver, filters)
         trades = display_trade_info(driver)
