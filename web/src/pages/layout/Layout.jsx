@@ -1,17 +1,11 @@
-import { Outlet, Link } from "react-router-dom";
-import { Navbar, Nav } from 'react-bootstrap';
+import { Outlet} from "react-router-dom";
+import Navbar from "../../components/Navbar";
+
 
 function Layout() {
   return (
     <>
-      <Navbar bg="dark" variant="dark" sticky="top" expand="sm" collapseOnSelect>
-        <Navbar.Collapse id="responsive-navbar-nav" className="me-auto">
-          <Nav className = "me-auto">
-            <Nav.Link as={Link} to="/">About Us</Nav.Link>
-            <Nav.Link as={Link} to="/politician-stock">Politician Stock</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+      <Navbar />
       <br/>
         <Outlet />
     </>
