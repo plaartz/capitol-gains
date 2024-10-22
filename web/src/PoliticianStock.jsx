@@ -1,58 +1,11 @@
-import React, { useEffect, useState } from "react";
-
-// JSON data provided
-const jsonData = {
-  data: [
-    {
-      transaction_amount: "2000",
-      transaction_date: "2024-10-01",
-      disclosure_date: "2024-10-02",
-      transaction_type: "Purchase",
-      full_name: "Chris L. Anderson",
-      politician_type: "House",
-      politician_house: "D",
-      stock_ticker: "AAPL",
-      stock_price: 226.21,
-      percent_gain: 0.0,
-      stock_description:
-        "Provides consumer electronics, software, and services.",
-    },
-    {
-      transaction_amount: "5000",
-      transaction_date: "2024-09-15",
-      disclosure_date: "2024-09-16",
-      transaction_type: "Sale",
-      full_name: "Susan M. Walker",
-      politician_type: "Senate",
-      politician_house: "R",
-      stock_ticker: "TSLA",
-      stock_price: 759.12,
-      percent_gain: 15.3,
-      stock_description: "Electric vehicle and clean energy company.",
-    },
-    {
-      transaction_amount: "1500",
-      transaction_date: "2024-08-22",
-      disclosure_date: "2024-08-23",
-      transaction_type: "Purchase",
-      full_name: "John B. Doe",
-      politician_type: "House",
-      politician_house: "I",
-      stock_ticker: "AMZN",
-      stock_price: 3345.55,
-      percent_gain: 0.0,
-      stock_description: "Online retail and cloud computing company.",
-    },
-  ],
-  size: 3,
-};
+import { useEffect, useState } from "react";
 
 function PoliticianStock() {
   const [data, setData] = useState([]);
   useEffect(() => {
     fetch("/api/core/search", {
       method: "POST",
-      body: JSON.stringify({ "pageNo": 1 }),
+      body: JSON.stringify({ "pageNo": 100 }),
     })
       .then((res) => res.json())
       .then((res) => {
