@@ -5,7 +5,10 @@ function PoliticianStock() {
   useEffect(() => {
     fetch("/api/core/search", {
       method: "POST",
-      body: JSON.stringify({ "pageNo": 100 }),
+      body: JSON.stringify({ 
+        "pageNo": 1,
+        "pageSize": 100 
+      }),
     })
       .then((res) => res.json())
       .then((res) => {
