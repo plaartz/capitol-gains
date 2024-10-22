@@ -310,8 +310,8 @@ def main():
             'from_date': '',
             'to_date': ''
         }
-        filters['from_date'] = '09/01/2013'
-        filters['to_date'] = '10/08/2024'
+        filters['from_date'] = '09/01/2019'
+        filters['to_date'] = time.strftime("%m/%d/%Y", time.localtime())
         filter(driver, filters)
         trades = display_trade_info(driver)
 
