@@ -1,10 +1,10 @@
 //import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css'
+import './styles/App.css'
 
 import AboutUs from './AboutUs'
 import Layout from './Layout'
-import PoliticianStock from './PoliticianStock'
+import PoliticianStock from '../PoliticianStock'
 
 function App() {
   return (
