@@ -20,7 +20,7 @@ function PoliticianStock() {
     <div style={{ padding: "20px" }}>
       <h2>Politician Stock Transactions</h2>
       <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-        {data.data.map((transaction, index) => {
+        {data.map((transaction, index) => {
           const {
             transaction_amount,
             transaction_date,
