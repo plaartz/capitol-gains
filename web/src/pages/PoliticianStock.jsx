@@ -15,7 +15,7 @@ function PoliticianStock() {
         console.log(res);
         setData(res.data);
       });
-  });
+  },[]);
   return (
     <div style={{ padding: "20px" }}>
       <h2>Politician Stock Transactions</h2>
