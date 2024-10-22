@@ -15,9 +15,7 @@ services:
     ports:
       - '${WEB_PORT}:5173'
     volumes:
-      - ${BASE_DIR}/web:/web
-      - exclude:/web/node_modules/
-volumes:
-  exclude:    
-      
-    
+      - ${BASE_DIR}/web/src:/web/src 
+      - ${BASE_DIR}/web/public:/web/public
+      - ${BASE_DIR}/web/index.html:/web/index.html
+        
