@@ -1,0 +1,52 @@
+.table {
+    width: 80%;
+    margin: 0 auto;
+    text-align: left;
+}
+.tableRow {
+    text-align: left;
+    padding: 5%;
+    border-bottom: 0.5px lightgrey solid;
+    height: 2.5rem;
+}
+
+.tableHead {
+    background-color: rgb(239, 238, 238);
+}
+
+thead th {
+    padding-left: 15px;
+}
+th:nth-child(1) {
+    padding-left: 30px;
+}
+.tableRow td:nth-child(1) {
+    padding-left: 15px
+}
+
+thead th:nth-child(1) {
+    width: 20%;
+}
+
+#stock_ticker, #full_name {
+    font-weight: bold;
+}
+
+.table .paginationFooter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+/* 
+thead th:nth-child(2) {
+}
+
+thead th:nth-child(3) {
+    width: 7.5%;
+}
+
+.tableRow td:nth-child(2) {
+    width: 15%;
+} */
