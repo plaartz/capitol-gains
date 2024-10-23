@@ -43,14 +43,14 @@ export default function Table() {
                 {data ? (
                   Object.entries(colOrder)
                     .sort((a, b) => a.col - b.col)
-                    .map(([key, val]) => <th>{val.display}</th>)
+                    .map(([key, val]) => <th key={key}>{val.display}</th>)
                 ) : (
                   <></>
                 )}
               </tr>
             </thead>
             {data.map((row, idx) => (
-              <TableRow rowData={row} colOrder={colOrder} idx={idx} />
+              <TableRow rowData={row} colOrder={colOrder} idx={idx} key={idx}/>
             ))}
           </table>
           <section className={styles.paginationFooter}>

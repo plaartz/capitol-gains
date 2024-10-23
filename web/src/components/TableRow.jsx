@@ -3,14 +3,14 @@ import styles from "./styles/Table.module.css";
 
 export default function TableRow({ rowData, colOrder = {}, idx = 0 }) {
   useEffect(() => {
-    console.log(rowData);
-  }, []);
+    console.log(rowData, idx);
+  }, [rowData, idx]);
 
   return (
     <tr className={styles.tableRow} style={{}}>
       {Object.entries(rowData)
-        .filter(([key, col]) => key in colOrder)
-        .sort(([key_a, val_a], [key_b, val_b]) => {
+        .filter(([key, _]) => key in colOrder)
+        .sort(([key_a, _a], [key_b, _b]) => {
           // console.log(colOrder[key_a],colOrder[key_b])
           return colOrder[key_a].col - colOrder[key_b].col;
         })
@@ -19,7 +19,7 @@ export default function TableRow({ rowData, colOrder = {}, idx = 0 }) {
             if (key == 'percent_gain') {
                 style['color'] = col >= 0 ? 'green' : 'red'
             }
-          return <td id={styles[key] ?? ""} style={style}>{col ?? "--"}</td>;
+          return <td id={styles[key] ?? ""} style={style} key={key}>{col ?? "--"}</td>;
         })}
     </tr>
   );
