@@ -73,14 +73,15 @@ def upload_stock_prices(data: dict) -> int:
     """
     items_to_update = []
     for ticker, item_data in data.items():
+        # Skip stock prices that aren't valid
+        if type(item_data['prices']['price']) != float or item_data['prices']['price'] <= 0:
+            continue
         price = item_data['prices']['price']
         date = item_data['prices']['date']
-        item = StockPrice(stock=Stock(ticker=ticker))
-        item.price = price
-        item.date = date
+        item = StockPrice(stock=Stock(ticker=ticker, price=price, date=date))
         items_to_update.append(item)
     try:
-        StockPrice.objects.bulk_update(items_to_update, ['price', 'date'])
+        StockPrice.objects.bulk_create(items_to_update, update_conflicts=True, update_fields=['price', 'date'])
         return 200
     except (KeyError, TypeError):
         return 400
