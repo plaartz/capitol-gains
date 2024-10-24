@@ -93,9 +93,9 @@ def upload_stock_prices(data: dict) -> int:
             item = StockPrice(stock=Stock(ticker=ticker, price=price, date=date))
             items_to_update.append(item)
         StockPrice.objects.bulk_create(
-            items_to_update, 
-            update_conflicts=True, 
-            unique_fields=['stock', 'date'], 
+            items_to_update,
+            update_conflicts=True,
+            unique_fields=['stock', 'date'],
             update_fields=['price']
         )
         return 200
