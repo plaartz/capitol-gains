@@ -103,7 +103,7 @@ class TestSearchController(TestCase):
 
         transaction_data = get_transactions("", "", "", "", "", "", 0, 100)
 
-        assert len(transaction_data) == 0
+        assert len(transaction_data) == 22
 
 
     def test_get_transactions_with_invalid_page_size_filtered(self):
