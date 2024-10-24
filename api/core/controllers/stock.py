@@ -75,12 +75,15 @@ def upload_stock_prices(data: dict) -> int:
         items_to_update = []
         for ticker, item_data in data.items():
             if 'price' not in item_data['prices'] or 'date' not in item_data['prices']:
-                raise IntegrityError("Stock price must have a price and date")
+                continue
             # Give an error if the stock price isn't a valid number
             if not isinstance(item_data['prices']['price'], float):
-                item_data['prices']['price'] = float(item_data['prices']['price'])
+                try:
+                    item_data['prices']['price'] = float(item_data['prices']['price'])
+                except:
+                    continue
             if item_data['prices']['price'] < 0:
-                raise ValueError('Price cannot be negative')
+                continue
 
             price = item_data['prices']['price']
             date = item_data['prices']['date']
@@ -88,7 +91,7 @@ def upload_stock_prices(data: dict) -> int:
             # Don't create/update stock price if the stock doesn't exist
             stock_object = Stock.objects.filter(ticker=ticker).exists()
             if not stock_object:
-                raise ObjectDoesNotExist("Stock doesn't exist in database")
+                continue
 
             item = StockPrice(stock=Stock(ticker=ticker, price=price, date=date))
             items_to_update.append(item)
