@@ -12,13 +12,13 @@ class TestStockPriceController(TestCase):
         Initializes 2 Stocks in the database
         """
         self.stock1 = Stock.objects.create(
-            ticker='AAPL', 
-            name='Apple Inc.', 
+            ticker='AAPL',
+            name='Apple Inc.',
             description_short='Some Tech company'
         )
         self.stock2 = Stock.objects.create(
-            ticker='TSLA', 
-            name='Tesla Inc.', 
+            ticker='TSLA',
+            name='Tesla Inc.',
             description_short='Electric cars'
         )
 
@@ -42,7 +42,7 @@ class TestStockPriceController(TestCase):
         }
         status_code = stock.upload_stock_prices(valid_data)
         self.assertEqual(status_code, 200)
-        
+
         apple_price = StockPrice.objects.get(stock=self.stock1)
         tesla_price = StockPrice.objects.get(stock=self.stock2)
         self.assertEqual(apple_price.price, 150.0)

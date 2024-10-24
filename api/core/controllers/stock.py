@@ -77,14 +77,11 @@ def upload_stock_prices(data: dict) -> int:
             if 'price' not in item_data['prices'] or 'date' not in item_data['prices']:
                 raise IntegrityError("Stock price must have a price and date")
             # Give an error if the stock price isn't a valid number
-            if (type(item_data['prices']['price']) != float):
-                try: 
-                    item_data['prices']['price'] = float(item_data['prices']['price'])
-                except:
-                    raise TypeError('Price has to be a valid number')
+            if not isinstance(item_data['prices']['price'], float):
+                item_data['prices']['price'] = float(item_data['prices']['price'])
             if item_data['prices']['price'] < 0:
                 raise ValueError('Price cannot be negative')
-            
+
             price = item_data['prices']['price']
             date = item_data['prices']['date']
 
@@ -92,10 +89,15 @@ def upload_stock_prices(data: dict) -> int:
             stock_object = Stock.objects.filter(ticker=ticker).exists()
             if not stock_object:
                 raise ObjectDoesNotExist("Stock doesn't exist in database")
-            
+
             item = StockPrice(stock=Stock(ticker=ticker, price=price, date=date))
             items_to_update.append(item)
-        StockPrice.objects.bulk_create(items_to_update, update_conflicts=True, unique_fields=['stock', 'date'], update_fields=['price'])
+        StockPrice.objects.bulk_create(
+            items_to_update, 
+            update_conflicts=True, 
+            unique_fields=['stock', 'date'], 
+            update_fields=['price']
+        )
         return 200
     except (KeyError, TypeError, ValueError):
         return 400
@@ -103,5 +105,5 @@ def upload_stock_prices(data: dict) -> int:
         return 409
     except DatabaseError:
         return 500
-    except Exception:
+    except ObjectDoesNotExist:
         return 500
