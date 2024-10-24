@@ -138,8 +138,10 @@ def format_table_contents(data: list) -> None:
         if ticker == '--' or asset_type != 'Stock':
             continue
         all_transactions.append({
-            'ticker': ticker,
+            'transaction_number': transaction_number,
+            'ticker': ticker.split('\n'),
             'owner': owner,
+            'stock_name': asset_name.split('\n'),
             'transaction_date': transaction_date,
             'transaction_type': type,
             'transaction_amount': amount_range,
@@ -178,7 +180,9 @@ def extract_table_contents(driver: webdriver.Chrome) -> list:
 
 def display_trade_info(driver: webdriver.Chrome) -> list:
     """
-    Iterates through all rows in the table for each page, clicks on the periodic transaction link, and extracts information for today's stock transactions.
+    Iterates through all rows in the table for each page, 
+    clicks on the periodic transaction link, 
+    and extracts information for all stock transactions.
 
     :param driver: Selenium WebDriver instance
     """
@@ -197,7 +201,10 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
 
                     cols = row.find_elements(By.TAG_NAME, 'td')
                     first_and_middle_name = cols[0].text.strip().split()
-                    middle_initial = first_and_middle_name[1] if len(first_and_middle_name) > 1 else ''
+                    if len(first_and_middle_name) > 1:
+                        middle_initial = first_and_middle_name[1]
+                    else:
+                        middle_initial = ''
                     first_name = first_and_middle_name[0]
                     last_name = cols[1].text.strip()
                     office = cols[2].text.strip()
@@ -219,7 +226,10 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
 
                     # Skip reports that aren't in the correct format (e.g. are images)
                     try:
-                        periodic_transaction_report_image = driver.find_element(By.XPATH, '//img[@alt="filing document"]')
+                        periodic_transaction_report_image = driver.find_element(
+                            By.XPATH, 
+                            '//img[@alt="filing document"]'
+                        )
                         driver.close()
                         driver.switch_to.window(driver.window_handles[0])
                         time.sleep(1)
@@ -227,7 +237,12 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
                     except NoSuchElementException as e:
                         # Wait for the page to load if the report isn't an image
                         wait.until(
-                            EC.presence_of_element_located((By.XPATH, '//h1[contains(text(), "Periodic Transaction Report")]'))  # Adjust the header based on your page
+                            EC.presence_of_element_located(
+                                (
+                                    By.XPATH, 
+                                    '//h1[contains(text(), "Periodic Transaction Report")]'
+                                )
+                            )
                         )
                     match = re.search(r"\((.*?)\)", office)
                     filer_type = match.group(1)
@@ -236,16 +251,15 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
 
                     transaction_information = {
                         'first_name': first_name, 
-                        'middle_initial': middle_initial, 
+                        'middle_initial': middle_initial,
                         'last_name': last_name,
-                        'filer_type': filer_type, 
-                        'href': href, 
+                        'filer_type': filer_type,
                         'date_received': date_received
                     }
-                    for i in range(len(table_info)):
-                        for key, item in table_info[i].items():
-                            transaction_information[f"{key}_{i + 1}"] = item
-                    all_trade_information.append(transaction_information)
+                    transaction_information['transactions'] = table_info
+
+                    if 'transaction_number' in transaction_information['transactions']:
+                        all_trade_information.append(transaction_information)
 
                     driver.close()
                     driver.switch_to.window(driver.window_handles[0])
@@ -307,8 +321,10 @@ def main():
             'from_date': '',
             'to_date': ''
         }
-        filters['from_date'] = '08/01/2024'
-        filters['to_date'] = time.strftime("%m/%d/%Y", time.localtime())
+        filters['first_name'] = 'Michael'
+        filters['last_name'] = 'Bennet'
+        #filters['from_date'] = '08/01/2024'
+        #filters['to_date'] = time.strftime("%m/%d/%Y", time.localtime())
         filter(driver, filters)
         trades = display_trade_info(driver)
 
