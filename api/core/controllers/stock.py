@@ -103,7 +103,5 @@ def upload_stock_prices(data: dict) -> int:
         return 400
     except IntegrityError:
         return 409
-    except DatabaseError:
-        return 500
-    except ObjectDoesNotExist:
+    except (DatabaseError, ObjectDoesNotExist):
         return 500
