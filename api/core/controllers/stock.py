@@ -77,24 +77,24 @@ def upload_stock_prices(data: dict) -> int:
             if 'price' not in item_data['prices'] or 'date' not in item_data['prices']:
                 continue
             # Give an error if the stock price isn't a valid number
-            if not isinstance(item_data['prices']['price'], float):
-                try:
-                    item_data['prices']['price'] = float(item_data['prices']['price'])
-                except ValueError:
+            for stock_price in item_data['prices']:
+                if not isinstance(stock_price['price'], float):
+                    try:
+                        item_data['prices']['price'] = float(item_data['prices']['price'])
+                    except ValueError:
+                        continue
+                if stock_price['price'] < 0:
                     continue
-            if item_data['prices']['price'] < 0:
-                continue
+                price = stock_price['price']
+                date = stock_price['date']
 
-            price = item_data['prices']['price']
-            date = item_data['prices']['date']
+                # Don't create/update stock price if the stock doesn't exist
+                stock_object = Stock.objects.filter(ticker=ticker)
+                if not stock_object.exists():
+                    continue
 
-            # Don't create/update stock price if the stock doesn't exist
-            stock_object = Stock.objects.filter(ticker=ticker).exists()
-            if not stock_object:
-                continue
-
-            item = StockPrice(stock=Stock(ticker=ticker, price=price, date=date))
-            items_to_update.append(item)
+                item = StockPrice(stock=stock_object, price=price, date=date)
+                items_to_update.append(item)
         StockPrice.objects.bulk_create(
             items_to_update,
             update_conflicts=True,
