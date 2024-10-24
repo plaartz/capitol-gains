@@ -37,7 +37,7 @@ def process_stock(trade: dict) -> Stock:
     """
     ticker = trade['ticker']
     stock_name = trade['stock_name']
-    stock_description = trade['comment']
+    stock_description = "--"
 
     stock, _ = Stock.objects.get_or_create(
         ticker=ticker,
