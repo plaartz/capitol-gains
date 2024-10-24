@@ -17,7 +17,7 @@ build-docker:
     - |
       OUTPUT_FILE="docker_images.tar"
       docker save -o "$OUTPUT_FILE" \
-        $(docker images --format "{{.Repository}}:{{.Tag}}" | grep -E 'my-project')
+        $(docker images --format "{{.Repository}}:{{.Tag}}" | grep -E 'docker')
     - mv "$OUTPUT_FILE" "$CI_PROJECT_DIR/$OUTPUT_FILE"
   artifacts:
     paths:
