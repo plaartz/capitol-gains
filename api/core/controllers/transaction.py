@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
-from django.db.models import Exists, OuterRef
+from django.db.models import Exists
 
-from core.models import Transaction, Stock, StockPrice, Profile
+from core.models import Transaction, Stock, Profile, Politician
 
 def upload_transactions(transactions: list) -> int:
     """
