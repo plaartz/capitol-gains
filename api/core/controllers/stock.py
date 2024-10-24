@@ -80,7 +80,7 @@ def upload_stock_prices(data: dict) -> int:
             if not isinstance(item_data['prices']['price'], float):
                 try:
                     item_data['prices']['price'] = float(item_data['prices']['price'])
-                except:
+                except ValueError:
                     continue
             if item_data['prices']['price'] < 0:
                 continue
