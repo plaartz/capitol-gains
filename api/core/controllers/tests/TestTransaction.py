@@ -1,4 +1,3 @@
-from datetime import datetime
 from core.models import Profile, Politician, Stock, Transaction
 from core.controllers import transaction
 from django.test import TestCase
