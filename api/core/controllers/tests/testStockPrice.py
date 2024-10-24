@@ -1,19 +1,31 @@
-from datetime import datetime
 from django.test import TestCase
 from core.controllers import stock
-from core.models import Transaction, StockPrice, Stock
+from core.models import StockPrice, Stock
 
 class TestStockPriceController(TestCase):
     """
     Tests the functionality of our stock price controller
     """
-    fixtures = ['core/controllers/tests/fixtures/stock.json']
 
     def setUp(self):
-        self.stock1 = Stock.objects.create(ticker='AAPL', name='Apple Inc.', description_short='Some Tech company')
-        self.stock2 = Stock.objects.create(ticker='TSLA', name='Tesla Inc.', description_short='Electric cars')
+        """
+        Initializes 2 Stocks in the database
+        """
+        self.stock1 = Stock.objects.create(
+            ticker='AAPL', 
+            name='Apple Inc.', 
+            description_short='Some Tech company'
+        )
+        self.stock2 = Stock.objects.create(
+            ticker='TSLA', 
+            name='Tesla Inc.', 
+            description_short='Electric cars'
+        )
 
     def test_upload_valid_data(self):
+        """
+        Tests that two valid stock price objects are able to be uploaded successfully
+        """
         valid_data = {
             'AAPL': {
                 'prices': {
@@ -39,6 +51,9 @@ class TestStockPriceController(TestCase):
         self.assertEqual(tesla_price.date, '2024-10-21')
 
     def test_upload_invalid_price(self):
+        """
+        Tests that invalid price formats don't get added
+        """
         invalid_data = {
             'AAPL': {
                 'prices': {
@@ -47,10 +62,23 @@ class TestStockPriceController(TestCase):
                 }
             }
         }
+        invalid_data_2 = {
+            'TSLA': {
+                'prices': {
+                    'price': 'not a number',
+                    'date': '2024-10-22'
+                }
+            }
+        }
         status_code = stock.upload_stock_prices(invalid_data)
+        status_code_2 = stock.upload_stock_prices(invalid_data_2)
         self.assertEqual(status_code, 400)
+        self.assertEqual(status_code_2, 400)
 
     def test_upload_missing_price_key(self):
+        """
+        Tests that missing columns don't get added
+        """
         missing_price_data = {
             'AAPL': {
                 'prices': {
@@ -58,10 +86,20 @@ class TestStockPriceController(TestCase):
                 }
             }
         }
-        status_code = stock.upload_stock_prices(missing_price_data)
-        self.assertEqual(status_code, 400)
+        missing_price_status_code = stock.upload_stock_prices(missing_price_data)
+        self.assertEqual(missing_price_status_code, 409)
 
-    def test_upload_new_stock_price_for_new_stock(self):
+        missing_date_data = {
+            'TSLA': {
+                'prices': {
+                    'price': 200.0,
+                }
+            }
+        }
+        missing_date_status_code = stock.upload_stock_prices(missing_date_data)
+        self.assertEqual(missing_date_status_code, 409)
+
+    def test_upload_new_stock_price_for_nonexistant_stock_fail(self):
         new_price_data = {
             'META': {
                 'prices': {
@@ -71,11 +109,10 @@ class TestStockPriceController(TestCase):
             }
         }
         status_code = stock.upload_stock_prices(new_price_data)
-        self.assertEqual(status_code, 200)
-        stock = StockPrice.objects.get()
+        self.assertEqual(status_code, 500)
 
     def test_upload_data_to_update_existing_entry(self):
-        conflicting_data = {
+        original_data = {
             'AAPL': {
                 'prices': {
                     'price': 170.0,
@@ -83,10 +120,33 @@ class TestStockPriceController(TestCase):
                 }
             }
         }
-        status_code = stock.upload_stock_prices(conflicting_data)
+        status_code = stock.upload_stock_prices(original_data)
         self.assertEqual(status_code, 200)
+        original_apple_price = StockPrice.objects.get(stock=self.stock1)
+        self.assertEqual(original_apple_price, 170.0)
 
-        status_code = stock.upload_stock_prices(conflicting_data)
-        self.assertEqual(status_code, 200)
+        new_data = {
+            'AAPL': {
+                'prices': {
+                    'price': 180.0,
+                    'date': '2024-10-22'
+                }
+            }
+        }
+        new_status_code = stock.upload_stock_prices(new_data)
+        self.assertEqual(new_status_code, 200)
+        different_apple_price = StockPrice.objects.get(stock=self.stock1)
+        self.assertEqual(different_apple_price, 180.0)
 
-
+        different_date_data = {
+            'AAPL': {
+                'prices': {
+                    'price': 170.0,
+                    'date': '2024-10-21'
+                }
+            }
+        }
+        other_status_code = stock.upload_stock_prices(different_date_data)
+        self.assertEqual(other_status_code, 200)
+        number_of_stock_prices = StockPrice.objects.filter(stock=self.stock1).count()
+        self.assertEqual(number_of_stock_prices, 2)

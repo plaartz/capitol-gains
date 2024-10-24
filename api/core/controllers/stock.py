@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from django.db.models import Exists, OuterRef
 from django.db.utils import IntegrityError, DatabaseError
+from django.core.exceptions import ObjectDoesNotExist
 
 from core.models import Transaction, Stock, StockPrice
 
@@ -73,11 +74,25 @@ def upload_stock_prices(data: dict) -> int:
     try:
         items_to_update = []
         for ticker, item_data in data.items():
-            # Skip stock prices that aren't valid
-            if type(item_data['prices']['price']) != float or item_data['prices']['price'] <= 0:
-                raise ValueError('Incorrect price value')
+            if 'price' not in item_data['prices'] or 'date' not in item_data['prices']:
+                raise IntegrityError("Stock price must have a price and date")
+            # Give an error if the stock price isn't a valid number
+            if (type(item_data['prices']['price']) != float):
+                try: 
+                    item_data['prices']['price'] = float(item_data['prices']['price'])
+                except:
+                    raise TypeError('Price has to be a valid number')
+            if item_data['prices']['price'] < 0:
+                raise ValueError('Price cannot be negative')
+            
             price = item_data['prices']['price']
             date = item_data['prices']['date']
+
+            # Don't create/update stock price if the stock doesn't exist
+            stock_object = Stock.objects.filter(ticker=ticker).exists()
+            if not stock_object:
+                raise ObjectDoesNotExist("Stock doesn't exist in database")
+            
             item = StockPrice(stock=Stock(ticker=ticker, price=price, date=date))
             items_to_update.append(item)
         StockPrice.objects.bulk_create(items_to_update, update_conflicts=True, unique_fields=['stock', 'date'], update_fields=['price'])
