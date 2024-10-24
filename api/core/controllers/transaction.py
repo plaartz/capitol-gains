@@ -28,7 +28,7 @@ def upload_transactions(transactions: list) -> int:
             except Profile.DoesNotExist:
                 profile.save()
 
-            # TODO: Politician Information, ask about politician_house
+            # Politician Information, ask about politician_house
             politician_type = transaction['filer_type']
             politician = Politician(profile=profile, politician_type=politician_type)
             try:
@@ -41,7 +41,7 @@ def upload_transactions(transactions: list) -> int:
 
             disclosure_date = transaction['date_received']
             for trade in transaction['transactions']:
-                # TODO: Stock Information
+                # Stock Information
                 ticker = trade['ticker']
                 stock_name = trade['stock_name']
                 stock_description = trade['comment']
@@ -55,7 +55,7 @@ def upload_transactions(transactions: list) -> int:
                 except Stock.DoesNotExist:
                     stock.save()
 
-                # TODO: Transaction Information
+                # Transaction Information
                 transaction_amount = trade['transaction_amount']
                 transaction_date = trade['transaction_date']
                 transaction_type = trade['transaction_type']
