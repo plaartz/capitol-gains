@@ -125,7 +125,7 @@ def format_table_contents(data: list) -> None:
     for row in data:
         transaction_number = int(row[0])
         transaction_date_string = row[1]
-        format_str = '%m/%d/%Y'
+        format_str = '%Y-%m-%d'
         transaction_date = datetime.datetime.strptime(transaction_date_string, format_str)
         owner = row[2]
         ticker = row[3]
@@ -210,7 +210,7 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
                     office = cols[2].text.strip()
                     report_type = cols[3]
                     date_filed = cols[4].text.strip()
-                    format_str = '%m/%d/%Y'
+                    format_str = '%Y-%m-%d'
                     date_received = datetime.datetime.strptime(date_filed, format_str)
 
                     link = row.find_element(By.XPATH, './/a[@href]')
@@ -321,10 +321,8 @@ def main():
             'from_date': '',
             'to_date': ''
         }
-        filters['first_name'] = 'Michael'
-        filters['last_name'] = 'Bennet'
-        #filters['from_date'] = '08/01/2024'
-        #filters['to_date'] = time.strftime("%m/%d/%Y", time.localtime())
+        filters['from_date'] = '01/01/2019'
+        filters['to_date'] = time.strftime("%m/%d/%Y", time.localtime())
         filter(driver, filters)
         trades = display_trade_info(driver)
 

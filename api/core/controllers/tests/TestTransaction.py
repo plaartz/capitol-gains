@@ -1,3 +1,4 @@
+from datetime import datetime
 from core.models import Profile, Politician, Stock, Transaction
 from core.controllers import transaction
 from django.test import TestCase
@@ -31,14 +32,14 @@ class TransactionUploadControllerTest(TestCase):
                 'middle_initial': 'A',
                 'last_name': 'Doe',
                 'filer_type': 'Senator',
-                'date_received': '2024-10-24',
+                'date_received': datetime.strptime('2024-10-24', '%Y-%m-%d'),
                 'transactions': [
                     {
                         'ticker': 'AAPL',
                         'stock_name': 'Apple',
                         'comment': 'Tech company',
                         'transaction_amount': '$1000-$5000',
-                        'transaction_date': '2024-10-01',
+                        'transaction_date': datetime.strptime('2024-10-01', '%Y-%m-%d'),
                         'transaction_type': 'Sale'
                     }
                 ]
@@ -61,14 +62,14 @@ class TransactionUploadControllerTest(TestCase):
                 'middle_initial': 'A',
                 'last_name': 'Doe',
                 'filer_type': 'Senator',
-                'date_received': '2024-10-24',
+                'date_received': datetime.strptime('2024-10-24', '%Y-%m-%d'),
                 'transactions': [
                     {
                         'ticker': 'AAPL',
                         'stock_name': 'Apple',
                         'comment': 'Tech company',
                         'transaction_amount': '$1000-$5000',
-                        'transaction_date': '2024-10-01',
+                        'transaction_date': datetime.strptime('2024-10-01', '%Y-%m-%d'),
                         'transaction_type': 'Sale'
                     }
                 ]
@@ -108,14 +109,14 @@ class TransactionUploadControllerTest(TestCase):
                 'middle_initial': 'A',
                 'last_name': 'Doe',
                 'filer_type': 'Senator',
-                'date_received': '2024-10-24',
+                'date_received': datetime.strptime('2024-10-24', '%Y-%m-%d'),
                 'transactions': [
                     {
                         'ticker': 'AAPL',
                         'stock_name': 'Apple',
                         'comment': 'Tech company',
                         'transaction_amount': '$1000-$5000',
-                        'transaction_date': '2024-10-01',
+                        'transaction_date': datetime.strptime('2024-10-01', '%Y-%m-%d'),
                         'transaction_type': 'Sale'
                     }
                 ]
@@ -126,8 +127,8 @@ class TransactionUploadControllerTest(TestCase):
             politician=self.existing_politician,
             stock=self.existing_stock,
             transaction_amount='$1000-$5000',
-            transaction_date='2024-10-01',
-            disclosure_date='2024-10-24',
+            transaction_date=datetime.strptime('2024-10-01', '%Y-%m-%d'),
+            disclosure_date=datetime.strptime('2024-10-24', '%Y-%m-%d'),
             transaction_type='Sale'
         )
 
