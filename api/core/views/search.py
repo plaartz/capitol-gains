@@ -12,7 +12,7 @@ def search_view(request):
 
     @return    retursn JsonResponse with requested data or an error message 
     """
-    
+
     data = json.loads(request.body)
     first_name = data.get("first_name")
     last_name = data.get("last_name")
@@ -24,13 +24,13 @@ def search_view(request):
     page_size = request.GET.get("pageSize")
 
     # Handle page number
-    if page_no == None:
+    if page_no is None:
         page_no = 1    # We are defaulting to the first page
     else:
         page_no = max(1, int(page_no))
 
     # Handle invalid page size
-    if page_size == None:
+    if page_size is None:
         page_size = 100    # We are defaulting to page size 100
     else:
         page_size = min(max(int(page_size), 1), 100)    # Ensures 1 <= page size <= 100

@@ -10,13 +10,13 @@ def get_transactions(first_name, last_name, politician_type, politician_house, s
     """
 
     # Handle page number
-    if page_no == None:
+    if page_no is None:
         page_no = 1    # We are defaulting to the first page
     else:
         page_no = max(1, page_no)
 
     # Handle invalid page size
-    if page_size == None:
+    if page_size is None:
         page_size = 100    # We are defaulting to page size 100
     else:
         page_size = min(max(page_size, 1), 100)    # Ensures 1 <= page size <= 100

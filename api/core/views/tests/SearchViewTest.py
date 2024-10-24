@@ -314,7 +314,7 @@ class TestSearchView(TestCase):
         response_data = json.loads(response.content)
         assert response_data["size"] == 8
 
-    
+
     def test_search_view_with_no_page_number_and_no_page_size(self):
         """
         Tests if we get correct response when user provides no page number
