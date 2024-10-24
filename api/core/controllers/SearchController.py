@@ -44,4 +44,4 @@ def get_transactions(first_name, last_name, politician_type, politician_house, s
     # Return the correct number of transactions
     start_index = page_size*page_no - page_size
     end_index = page_size*page_no
-    return transaction_data[start_index:end_index]
+    return transaction_data[start_index:end_index], len(transaction_data)

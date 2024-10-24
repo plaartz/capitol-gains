@@ -13,6 +13,9 @@ def search_view(request):
     @return    retursn JsonResponse with requested data or an error message 
     """
 
+    if not request.body or request.body is None or request.body == b'' :
+        return JsonResponse({"error": "No body provided!"}, status = 400)
+
     data = json.loads(request.body)
     first_name = data.get("first_name")
     last_name = data.get("last_name")
@@ -35,7 +38,7 @@ def search_view(request):
     else:
         page_size = min(max(int(page_size), 1), 100)    # Ensures 1 <= page size <= 100
 
-    transaction_data = get_transactions(
+    transaction_data, size = get_transactions(
         first_name, last_name,
         politician_type,
         politician_house,
@@ -44,7 +47,6 @@ def search_view(request):
         page_no,
         page_size
     )
-    size = len(transaction_data)
 
     response_data = {
         'data': transaction_data,

@@ -22,6 +22,10 @@ class TestSearchView(TestCase):
         Helper method to make a POST request to the search endpoint.
         """
         url = f"{reverse('search')}?{query_string}"
+
+        if body_query is None:
+            return self.client.post(url, data=b'', content_type="application/json")
+
         return self.client.post(
             url,
             data=json.dumps(body_query),
@@ -337,3 +341,19 @@ class TestSearchView(TestCase):
 
         response_data = json.loads(response.content)
         assert response_data["size"] == 8
+
+
+    def test_search_view_with_no_body(self):
+        """
+        Tests if we get correct response when user provides no body
+        """
+
+        body_query = None
+        query_string = ""
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 400
+        assert response['Content-Type'] == 'application/json'
+        response_data = json.loads(response.content)
+        assert response_data["error"] == "No body provided!"
