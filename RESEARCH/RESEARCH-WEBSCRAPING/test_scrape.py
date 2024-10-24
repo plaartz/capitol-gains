@@ -226,7 +226,7 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
 
                     # Skip reports that aren't in the correct format (e.g. are images)
                     try:
-                        periodic_transaction_report_image = driver.find_element(
+                        _ = driver.find_element(
                             By.XPATH, 
                             '//img[@alt="filing document"]'
                         )

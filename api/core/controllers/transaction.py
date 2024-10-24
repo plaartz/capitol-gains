@@ -1,83 +1,88 @@
+import datetime
 from django.db.utils import IntegrityError, DatabaseError
 from core.models import Transaction, Stock, Profile, Politician
 
+def process_profile(transaction: dict) -> Profile:
+    """
+    Process and get or create Profile from transaction data.
+    """
+    first_name = transaction['first_name']
+    last_name = transaction['last_name']
+    middle_initial = transaction['middle_initial']
+
+    profile, _ = Profile.objects.get_or_create(
+        first_name=first_name,
+        middle_initial=middle_initial,
+        last_name=last_name
+    )
+    return profile
+
+
+def process_politician(profile: Profile, transaction: dict) -> Politician:
+    """
+    Process and get or create Politician from transaction data.
+    """
+    politician_type = transaction['filer_type']
+
+    politician, _ = Politician.objects.get_or_create(
+        profile=profile,
+        politician_type=politician_type
+    )
+    return politician
+
+
+def process_stock(trade: dict) -> Stock:
+    """
+    Process and get or create Stock from trade data.
+    """
+    ticker = trade['ticker']
+    stock_name = trade['stock_name']
+    stock_description = trade['comment']
+
+    stock, _ = Stock.objects.get_or_create(
+        ticker=ticker,
+        name=stock_name,
+        description_short=stock_description
+    )
+    return stock
+
+
+def process_transaction(politician: Politician, stock: Stock,
+                        trade: dict, disclosure_date: datetime) -> Transaction:
+    """
+    Process and create Transaction from trade data.
+    """
+    transaction_amount = trade['transaction_amount']
+    transaction_date = trade['transaction_date']
+    transaction_type = trade['transaction_type']
+
+    transaction, _ = Transaction.objects.get_or_create(
+        politician=politician,
+        stock=stock,
+        transaction_amount=transaction_amount,
+        transaction_date=transaction_date,
+        disclosure_date=disclosure_date,
+        transaction_type=transaction_type
+    )
+    return transaction
+
+
 def upload_transactions(transactions: list) -> int:
     """
-    Controller to upload transactions scraped from government website to database
+    Controller to upload transactions scraped from government website to database.
 
-    @param transactions     a list of transactions reports
-    @return                 status code representing if the upload was successful or not
+    @param transactions:    a list of transactions reports.
+    @return:                status code representing if the upload was successful or not.
     """
     try:
         for transaction in transactions:
-            # Profile Information
-            first_name = transaction['first_name']
-            last_name = transaction['last_name']
-            middle_initial = transaction['middle_initial']
-            profile = Profile(
-                first_name=first_name,
-                middle_initial=middle_initial,
-                last_name=last_name
-            )
-            try:
-                profile = Profile.objects.get(
-                    first_name=first_name,
-                    middle_initial=middle_initial,
-                    last_name=last_name
-                )
-            except Profile.DoesNotExist:
-                profile.save()
-
-            # Politician Information, ask about politician_house
-            politician_type = transaction['filer_type']
-            politician = Politician(profile=profile, politician_type=politician_type)
-            try:
-                politician = Politician.objects.get(
-                    profile=profile,
-                    politician_type=politician_type
-                )
-            except Politician.DoesNotExist:
-                politician.save()
-
+            profile = process_profile(transaction)
+            politician = process_politician(profile, transaction)
             disclosure_date = transaction['date_received']
-            for trade in transaction['transactions']:
-                # Stock Information
-                ticker = trade['ticker']
-                stock_name = trade['stock_name']
-                stock_description = trade['comment']
-                stock = Stock(ticker=ticker, name=stock_name, description_short=stock_description)
-                try:
-                    stock = Stock.objects.get(
-                        ticker=ticker,
-                        name=stock_name,
-                        description_short=stock_description
-                    )
-                except Stock.DoesNotExist:
-                    stock.save()
 
-                # Transaction Information
-                transaction_amount = trade['transaction_amount']
-                transaction_date = trade['transaction_date']
-                transaction_type = trade['transaction_type']
-                transaction_object = Transaction(
-                    politician=politician,
-                    stock=stock,
-                    transaction_amount=transaction_amount,
-                    transaction_date=transaction_date,
-                    disclosure_date=disclosure_date,
-                    transaction_type=transaction_type
-                )
-                try:
-                    transaction_object = Transaction.objects.get(
-                        politician=politician,
-                        stock=stock,
-                        transaction_amount=transaction_amount,
-                        transaction_date=transaction_date,
-                        discolsure_date=disclosure_date,
-                        transaction_type=transaction_type
-                    )
-                except Transaction.DoesNotExist:
-                    transaction_object.save()
+            for trade in transaction['transactions']:
+                stock = process_stock(trade)
+                _ = process_transaction(politician, stock, trade, disclosure_date)
         return 200
     except (KeyError, TypeError, ValueError):
         return 400
