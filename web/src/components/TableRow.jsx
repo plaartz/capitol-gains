@@ -19,6 +19,11 @@ export default function TableRow({ rowData, colOrder = {}, idx = 0 }) {
             if (key == 'percent_gain') {
                 style['color'] = col >= 0 ? 'green' : 'red'
             }
+            if (key == 'transaction_amount') {
+                return <td id={styles[key] ?? ""} style={style} key={key}>
+                    ${col.replace("-","-$")}
+                </td>;
+            }
           return <td id={styles[key] ?? ""} style={style} key={key}>{col ?? "--"}</td>;
         })}
     </tr>
