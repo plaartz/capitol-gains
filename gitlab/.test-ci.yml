@@ -15,10 +15,18 @@ build-docker:
   script:
     - docker compose build
     - |
-      OUTPUT_FILE="docker_images.tar"
-      docker save -o "$OUTPUT_FILE" \
-        $(docker images --format "{{.Repository}}:{{.Tag}}" | grep -E 'docker')
-    - mv "$OUTPUT_FILE" "$CI_PROJECT_DIR/$OUTPUT_FILE"
+      OUTPUT_FILE="docker_image.tar"
+      
+      TEMP_DIR=$(mktemp -d)
+
+      for image in $(docker images --format "{{.Repository}}:{{.Tag}}"); do
+          docker save -o "${TEMP_DIR}/${image//\//_}.tar" "$image"
+      done
+
+      tar -cf "$OUTPUT_FILE" -C "$TEMP_DIR" .
+      
+      rm -r "$TEMP_DIR"
+    - mv docker_image.tar $CI_PROJECT_DIR/docker_image.tar
   artifacts:
     paths:
       - docker_image.tar
