@@ -20,7 +20,7 @@ def upload_transactions(transactions: list) -> int:
                 last_name=last_name
             )
             try:
-                profile_copy = Profile.objects.get(
+                profile = Profile.objects.get(
                     first_name=first_name,
                     middle_initial=middle_initial,
                     last_name=last_name
@@ -32,7 +32,7 @@ def upload_transactions(transactions: list) -> int:
             politician_type = transaction['filer_type']
             politician = Politician(profile=profile, politician_type=politician_type)
             try:
-                politician_copy = Politician.objects.get(
+                politician = Politician.objects.get(
                     profile=profile,
                     politician_type=politician_type
                 )
@@ -47,7 +47,7 @@ def upload_transactions(transactions: list) -> int:
                 stock_description = trade['comment']
                 stock = Stock(ticker=ticker, name=stock_name, description_short=stock_description)
                 try:
-                    stock_copy = Stock.objects.get(
+                    stock = Stock.objects.get(
                         ticker=ticker,
                         name=stock_name,
                         description_short=stock_description
@@ -68,7 +68,7 @@ def upload_transactions(transactions: list) -> int:
                     transaction_type=transaction_type
                 )
                 try:
-                    transaction_copy = Transaction.objects.get(
+                    transaction_object = Transaction.objects.get(
                         politician=politician,
                         stock=stock,
                         transaction_amount=transaction_amount,

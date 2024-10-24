@@ -4,6 +4,9 @@ from django.test import TestCase
 from django.db.utils import IntegrityError
 
 class TransactionUploadControllerTest(TestCase):
+    """
+    Tests functionality of the transaction report controller
+    """
     def setUp(self):
         """
         Set up test data
