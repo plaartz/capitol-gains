@@ -1,13 +1,20 @@
 .table {
-    width: 80%;
     margin: 0 auto;
     text-align: left;
+    border: 0.25px solid lightgrey;
+    box-shadow: lightgrey 0px 1.25px 5px;
+    border-radius: 10px;
+    overflow: hidden;
 }
+
 .tableRow {
     text-align: left;
     padding: 5%;
-    border-bottom: 0.5px lightgrey solid;
     height: 2.5rem;
+}
+
+tbody .tableRow:not(:last-child) {
+    border-bottom: 0.5px lightgrey solid;
 }
 
 .tableHead {
@@ -32,12 +39,16 @@ thead th:nth-child(1) {
     font-weight: bold;
 }
 
-.table .paginationFooter {
+.paginationFooter {
+    margin: 0 auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
+tbody tr.tableRow:hover {
+    background-color: rgb(245, 245, 245)
+}
 
 /* 
 thead th:nth-child(2) {

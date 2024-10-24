@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import TableRow from "./TableRow";
 import styles from "./styles/Table.module.css";
+import { search } from "src/utils/api.ts";
 
 export default function Table() {
   const [data, setData] = useState([]);
   const [colOrder, setOrder] = useState([]);
 
   useEffect(() => {
-    fetch("/api/core/search", {
+    fetch(search(1,100), {
       method: "POST",
       body: JSON.stringify({
         pageNo: 1,
@@ -34,25 +35,34 @@ export default function Table() {
   }, []);
 
   return (
-    <div className={styles.table}>
+    <div style={{width:'80%', margin: '0 auto'}}>
       {data ? (
         <>
-          <table style={{ width: "100%", tableLayout: "fixed" }}>
-            <thead className={styles.tableHead}>
-              <tr className={styles.tableRow}>
-                {data ? (
-                  Object.entries(colOrder)
-                    .sort((a, b) => a.col - b.col)
-                    .map(([key, val]) => <th key={key}>{val.display}</th>)
-                ) : (
-                  <></>
-                )}
-              </tr>
-            </thead>
-            {data.map((row, idx) => (
-              <TableRow rowData={row} colOrder={colOrder} idx={idx} key={idx}/>
-            ))}
-          </table>
+          <section className={styles.table}>
+            <table style={{ width: "100%", tableLayout: "fixed" }}>
+              <thead className={styles.tableHead}>
+                <tr className={styles.tableRow}>
+                  {data ? (
+                    Object.entries(colOrder)
+                      .sort((a, b) => a.col - b.col)
+                      .map(([key, val]) => <th key={key}>{val.display}</th>)
+                  ) : (
+                    <></>
+                  )}
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((row, idx) => (
+                  <TableRow
+                    rowData={row}
+                    colOrder={colOrder}
+                    idx={idx}
+                    key={idx}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </section>
           <section className={styles.paginationFooter}>
             <div>Pagination</div>
             <div>Page size</div>
