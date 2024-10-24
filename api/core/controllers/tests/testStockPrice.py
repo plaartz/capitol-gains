@@ -100,6 +100,9 @@ class TestStockPriceController(TestCase):
         self.assertEqual(missing_date_status_code, 409)
 
     def test_upload_new_stock_price_for_nonexistant_stock_fail(self):
+        """
+        Tests that a stock price object without an existing stock doesn't get added
+        """
         new_price_data = {
             'META': {
                 'prices': {
@@ -112,6 +115,9 @@ class TestStockPriceController(TestCase):
         self.assertEqual(status_code, 500)
 
     def test_upload_data_to_update_existing_entry(self):
+        """
+        Tests that prices get udated instead of creating new objects if the price
+        """
         original_data = {
             'AAPL': {
                 'prices': {
