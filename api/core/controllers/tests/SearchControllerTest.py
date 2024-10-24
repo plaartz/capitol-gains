@@ -57,9 +57,16 @@ class TestSearchController(TestCase):
         Tests if we get correct results when user provides the start and end dates
         """
 
-        transaction_data, size = get_transactions("", "", "", "", "2024/10/01", "2024/10/30", 1, 100)
+        transaction_data, size = get_transactions(
+            "", "", "", "",
+            "2024/10/01",
+            "2024/10/30",
+            1,
+            100
+        )
 
         assert size == 12
+        assert transaction_data is not None
 
 
     def test_get_transactions_with_end_date_filtered(self):
@@ -70,6 +77,7 @@ class TestSearchController(TestCase):
         transaction_data, size = get_transactions("", "", "", "", "", "2024/10/30", 1, 100)
 
         assert size == 22
+        assert transaction_data is not None
 
 
     def test_get_transactions_with_politician_type_filtered(self):
@@ -104,6 +112,7 @@ class TestSearchController(TestCase):
         transaction_data, size = get_transactions("", "", "", "", "", "", 0, 100)
 
         assert size == 22
+        assert transaction_data is not None
 
 
     def test_get_transactions_with_invalid_page_size_filtered(self):
@@ -114,3 +123,4 @@ class TestSearchController(TestCase):
         transaction_data, size = get_transactions("", "", "", "", "", "", 1, 101)
 
         assert size == 22
+        assert transaction_data is not None
