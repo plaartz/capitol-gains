@@ -8,10 +8,9 @@ unittest:
     - csl
   image: python:3.9
   before_script:
-    - export PYTHONPATH=$PYTHONPATH:$(pwd)/api
     - pip install -r api/requirements.txt
   script:
-    - python api/manage.py test --settings=settings.settings.test
+    - python api/manage.py test --settings=api.settings.settings_test
   artifacts:
     when: always
     untracked: true
