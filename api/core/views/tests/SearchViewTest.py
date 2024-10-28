@@ -357,3 +357,50 @@ class TestSearchView(TestCase):
         assert response['Content-Type'] == 'application/json'
         response_data = json.loads(response.content)
         assert response_data["error"] == "No body provided!"
+
+
+    def test_search_view_with_bad_page_number(self):
+        """
+        Tests if we get correct response when user provides no page number
+        """
+
+        body_query = {
+            "first_name": "",
+            "last_name": "",
+            "politician_type": "",
+            "politician_house": "",
+            "start_date": "2024/09/01",
+            "end_date": "2024/09/30"
+        }
+        query_string = "pageNo=test"
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 400
+        assert response['Content-Type'] == 'application/json'
+
+        response_data = json.loads(response.content)
+        assert response_data["error"] == "pageNo must be an integer!"
+
+    def test_search_view_with_bad_page_size(self):
+        """
+        Tests if we get correct response when user provides no page number
+        """
+
+        body_query = {
+            "first_name": "",
+            "last_name": "",
+            "politician_type": "",
+            "politician_house": "",
+            "start_date": "2024/09/01",
+            "end_date": "2024/09/30"
+        }
+        query_string = "pageSize=test"
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 400
+        assert response['Content-Type'] == 'application/json'
+
+        response_data = json.loads(response.content)
+        assert response_data["error"] == "pageSize must be an integer!"
