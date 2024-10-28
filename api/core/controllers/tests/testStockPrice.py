@@ -32,7 +32,7 @@ class TestStockPriceController(TestCase):
                     {
                         'price': 150.0,
                         'date': '2024-10-22'
-                    }, 
+                    },
                     {
                         'price': 175.0,
                         'date': '2024-10-23'
