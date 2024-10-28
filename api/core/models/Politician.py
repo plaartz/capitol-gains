@@ -14,9 +14,9 @@ class Politician(models.Model):
     politician_type = models.CharField(max_length=20)
     politician_house = models.CharField(
         max_length = 1,
-        choices = {
-            "R": "Republican",
-            "D": "Democrat",
-            "I": "Independent"
-        }
+        choices = [
+            ("R", "Republican"),
+            ("D", "Democrat"),
+            ("I", "Independent")
+        ]
     )
