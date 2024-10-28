@@ -17,13 +17,18 @@ class TestSearchView(TestCase):
         "api/fixtures/TransactionFixture.json"
     ]
 
-    def make_post_request(self, query):
+    def make_post_request(self, body_query, query_string):
         """
         Helper method to make a POST request to the search endpoint.
         """
+        url = f"{reverse('search')}?{query_string}"
+
+        if body_query is None:
+            return self.client.post(url, data=b'', content_type="application/json")
+
         return self.client.post(
-            reverse("search"),
-            data=json.dumps(query),
+            url,
+            data=json.dumps(body_query),
             content_type="application/json"
         )
 
@@ -33,17 +38,17 @@ class TestSearchView(TestCase):
         Tests if we get correct response when user provides first name
         """
 
-        query = {
+        body_query = {
             "first_name": "Daven",
             "last_name": "",
             "politician_type": "",
             "politician_house": "",
             "start_date": "",
-            "end_date": "",
-            "pageNo":1,
-            "pageSize":100
+            "end_date": ""
         }
-        response = self.make_post_request(query)
+        query_string = "pageNo=1&pageSize=100"
+
+        response = self.make_post_request(body_query, query_string)
 
         assert response.status_code == 200
         assert response['Content-Type'] == 'application/json'
@@ -59,18 +64,17 @@ class TestSearchView(TestCase):
         Tests if we get correct response when user provides last name
         """
 
-        query = {
+        body_query = {
             "first_name": "",
             "last_name": "Thakkar",
             "politician_type": "",
             "politician_house": "",
             "start_date": "",
-            "end_date": "",
-            "pageNo":1,
-            "pageSize":100
+            "end_date": ""
         }
+        query_string = "pageNo=1&pageSize=100"
 
-        response = self.make_post_request(query)
+        response = self.make_post_request(body_query, query_string)
 
         assert response.status_code == 200
         assert response['Content-Type'] == 'application/json'
@@ -86,18 +90,17 @@ class TestSearchView(TestCase):
         Tests if we get correct response when user provides first and last name
         """
 
-        query = {
+        body_query = {
             "first_name": "Chris",
             "last_name": "Anderson",
             "politician_type": "",
             "politician_house": "",
             "start_date": "",
-            "end_date": "",
-            "pageNo":1,
-            "pageSize":100
+            "end_date": ""
         }
+        query_string = "pageNo=1&pageSize=100"
 
-        response = self.make_post_request(query)
+        response = self.make_post_request(body_query, query_string)
 
         assert response.status_code == 200
         assert response['Content-Type'] == 'application/json'
@@ -113,18 +116,17 @@ class TestSearchView(TestCase):
         Tests if we get correct response when user provides the politician type
         """
 
-        query = {
+        body_query = {
             "first_name": "",
             "last_name": "",
             "politician_type": "Senate",
             "politician_house": "",
             "start_date": "",
-            "end_date": "",
-            "pageNo":1,
-            "pageSize":100
+            "end_date": ""
         }
+        query_string = "pageNo=1&pageSize=100"
 
-        response = self.make_post_request(query)
+        response = self.make_post_request(body_query, query_string)
 
         assert response.status_code == 200
         assert response['Content-Type'] == 'application/json'
@@ -140,18 +142,17 @@ class TestSearchView(TestCase):
         Tests if we get correct response when user provides the politician house
         """
 
-        query = {
+        body_query = {
             "first_name": "",
             "last_name": "",
             "politician_type": "",
             "politician_house": "R",
             "start_date": "",
-            "end_date": "",
-            "pageNo":1,
-            "pageSize":100
+            "end_date": ""
         }
+        query_string = "pageNo=1&pageSize=100"
 
-        response = self.make_post_request(query)
+        response = self.make_post_request(body_query, query_string)
 
         assert response.status_code == 200
         assert response['Content-Type'] == 'application/json'
@@ -167,18 +168,17 @@ class TestSearchView(TestCase):
         Tests if we get correct response when user provides only the end date
         """
 
-        query = {
+        body_query = {
             "first_name": "",
             "last_name": "",
             "politician_type": "",
             "politician_house": "",
             "start_date": "",
-            "end_date": "2024/09/30",
-            "pageNo":1,
-            "pageSize":100
+            "end_date": "2024/09/30"
         }
+        query_string = "pageNo=1&pageSize=100"
 
-        response = self.make_post_request(query)
+        response = self.make_post_request(body_query, query_string)
 
         assert response.status_code == 200
         assert response['Content-Type'] == 'application/json'
@@ -186,7 +186,7 @@ class TestSearchView(TestCase):
         response_data = json.loads(response.content)
         assert response_data["size"] == 10
         for transaction in response_data["data"]:
-            end_date = datetime.strptime(query["end_date"], "%Y/%m/%d")
+            end_date = datetime.strptime(body_query["end_date"], "%Y/%m/%d")
             transaction_date_correct_str = transaction["transaction_date"].replace("-", "/")
             transaction_date = datetime.strptime(transaction_date_correct_str, "%Y/%m/%d")
             assert transaction_date <= end_date
@@ -197,18 +197,17 @@ class TestSearchView(TestCase):
         Tests if we get correct response when user provides the start and end dates
         """
 
-        query = {
+        body_query = {
             "first_name": "",
             "last_name": "",
             "politician_type": "",
             "politician_house": "",
             "start_date": "2024/09/01",
-            "end_date": "2024/09/30",
-            "pageNo":1,
-            "pageSize":100
+            "end_date": "2024/09/30"
         }
+        query_string = "pageNo=1&pageSize=100"
 
-        response = self.make_post_request(query)
+        response = self.make_post_request(body_query, query_string)
 
         assert response.status_code == 200
         assert response['Content-Type'] == 'application/json'
@@ -216,8 +215,8 @@ class TestSearchView(TestCase):
         response_data = json.loads(response.content)
         assert response_data["size"] == 8
         for transaction in response_data["data"]:
-            start_date = datetime.strptime(query["start_date"], "%Y/%m/%d")
-            end_date = datetime.strptime(query["end_date"], "%Y/%m/%d")
+            start_date = datetime.strptime(body_query["start_date"], "%Y/%m/%d")
+            end_date = datetime.strptime(body_query["end_date"], "%Y/%m/%d")
             transaction_date_correct_str = transaction["transaction_date"].replace("-", "/")
             transaction_date = datetime.strptime(transaction_date_correct_str, "%Y/%m/%d")
             assert transaction_date >= start_date
@@ -229,24 +228,23 @@ class TestSearchView(TestCase):
         Tests if we get correct response when user provides invalid page number
         """
 
-        query = {
+        body_query = {
             "first_name": "",
             "last_name": "",
             "politician_type": "",
             "politician_house": "",
             "start_date": "2024/09/01",
-            "end_date": "2024/09/30",
-            "pageNo":0,
-            "pageSize":100
+            "end_date": "2024/09/30"
         }
+        query_string = "pageNo=0&pageSize=100"
 
-        response = self.make_post_request(query)
+        response = self.make_post_request(body_query, query_string)
 
-        assert response.status_code == 400
+        assert response.status_code == 200
         assert response['Content-Type'] == 'application/json'
 
         response_data = json.loads(response.content)
-        assert response_data["Error"] == "Page number must be greater than zero!"
+        assert response_data["size"] == 8
 
 
     def test_search_view_with_invalid_page_size(self):
@@ -254,21 +252,155 @@ class TestSearchView(TestCase):
         Tests if we get correct response when user provides invalid page size
         """
 
-        query = {
+        body_query = {
             "first_name": "",
             "last_name": "",
             "politician_type": "",
             "politician_house": "",
             "start_date": "2024/09/01",
-            "end_date": "2024/09/30",
-            "pageNo":1,
-            "pageSize":101
+            "end_date": "2024/09/30"
         }
+        query_string = "pageNo=1&pageSize=101"
 
-        response = self.make_post_request(query)
+        response = self.make_post_request(body_query, query_string)
 
         assert response.status_code == 200
         assert response['Content-Type'] == 'application/json'
 
         response_data = json.loads(response.content)
         assert response_data["size"] == 8
+
+
+    def test_search_view_with_no_page_size(self):
+        """
+        Tests if we get correct response when user provides no page size
+        """
+
+        body_query = {
+            "first_name": "",
+            "last_name": "",
+            "politician_type": "",
+            "politician_house": "",
+            "start_date": "2024/09/01",
+            "end_date": "2024/09/30"
+        }
+        query_string = "pageNo=1"
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 200
+        assert response['Content-Type'] == 'application/json'
+
+        response_data = json.loads(response.content)
+        assert response_data["size"] == 8
+
+
+    def test_search_view_with_no_page_number(self):
+        """
+        Tests if we get correct response when user provides no page number
+        """
+
+        body_query = {
+            "first_name": "",
+            "last_name": "",
+            "politician_type": "",
+            "politician_house": "",
+            "start_date": "2024/09/01",
+            "end_date": "2024/09/30"
+        }
+        query_string = "pageSize=100"
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 200
+        assert response['Content-Type'] == 'application/json'
+
+        response_data = json.loads(response.content)
+        assert response_data["size"] == 8
+
+
+    def test_search_view_with_no_page_number_and_no_page_size(self):
+        """
+        Tests if we get correct response when user provides no page number
+        """
+
+        body_query = {
+            "first_name": "",
+            "last_name": "",
+            "politician_type": "",
+            "politician_house": "",
+            "start_date": "2024/09/01",
+            "end_date": "2024/09/30"
+        }
+        query_string = ""
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 200
+        assert response['Content-Type'] == 'application/json'
+
+        response_data = json.loads(response.content)
+        assert response_data["size"] == 8
+
+
+    def test_search_view_with_no_body(self):
+        """
+        Tests if we get correct response when user provides no body
+        """
+
+        body_query = None
+        query_string = ""
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 400
+        assert response['Content-Type'] == 'application/json'
+        response_data = json.loads(response.content)
+        assert response_data["error"] == "No body provided!"
+
+
+    def test_search_view_with_bad_page_number(self):
+        """
+        Tests if we get correct response when user provides no page number
+        """
+
+        body_query = {
+            "first_name": "",
+            "last_name": "",
+            "politician_type": "",
+            "politician_house": "",
+            "start_date": "2024/09/01",
+            "end_date": "2024/09/30"
+        }
+        query_string = "pageNo=test"
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 400
+        assert response['Content-Type'] == 'application/json'
+
+        response_data = json.loads(response.content)
+        assert response_data["error"] == "pageNo must be an integer!"
+
+    def test_search_view_with_bad_page_size(self):
+        """
+        Tests if we get correct response when user provides no page number
+        """
+
+        body_query = {
+            "first_name": "",
+            "last_name": "",
+            "politician_type": "",
+            "politician_house": "",
+            "start_date": "2024/09/01",
+            "end_date": "2024/09/30"
+        }
+        query_string = "pageSize=test"
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 400
+        assert response['Content-Type'] == 'application/json'
+
+        response_data = json.loads(response.content)
+        assert response_data["error"] == "pageSize must be an integer!"

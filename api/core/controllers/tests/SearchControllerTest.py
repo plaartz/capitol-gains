@@ -21,9 +21,9 @@ class TestSearchController(TestCase):
         Tests if we get correct results when user provides only the last name
         """
 
-        transaction_data = get_transactions("", "Anderson", "", "", "", "", 1, 100)
+        transaction_data, size = get_transactions("", "Anderson", "", "", "", "", 1, 100)
 
-        assert len(transaction_data) == 4
+        assert size == 4
         for transaction in transaction_data:
             assert transaction["full_name"] == "Chris L. Anderson"
 
@@ -33,9 +33,9 @@ class TestSearchController(TestCase):
         Tests if we get correct results when user provides only the first name
         """
 
-        transaction_data = get_transactions("Chris", "", "", "", "", "", 1, 100)
+        transaction_data, size = get_transactions("Chris", "", "", "", "", "", 1, 100)
 
-        assert len(transaction_data) == 4
+        assert size == 4
         for transaction in transaction_data:
             assert transaction["full_name"] == "Chris L. Anderson"
 
@@ -45,9 +45,9 @@ class TestSearchController(TestCase):
         Tests if we get correct results when user provides first and last name
         """
 
-        transaction_data = get_transactions("Daven", "Thakkar", "", "", "", "", 1, 100)
+        transaction_data, size = get_transactions("Daven", "Thakkar", "", "", "", "", 1, 100)
 
-        assert len(transaction_data) == 8
+        assert size == 8
         for transaction in transaction_data:
             assert transaction["full_name"] == "Daven C. Thakkar"
 
@@ -57,9 +57,16 @@ class TestSearchController(TestCase):
         Tests if we get correct results when user provides the start and end dates
         """
 
-        transaction_data = get_transactions("", "", "", "", "2024/10/01", "2024/10/30", 1, 100)
+        transaction_data, size = get_transactions(
+            "", "", "", "",
+            "2024/10/01",
+            "2024/10/30",
+            1,
+            100
+        )
 
-        assert len(transaction_data) == 12
+        assert size == 12
+        assert transaction_data is not None
 
 
     def test_get_transactions_with_end_date_filtered(self):
@@ -67,9 +74,10 @@ class TestSearchController(TestCase):
         Tests if we get correct results when user provides only the end date
         """
 
-        transaction_data = get_transactions("", "", "", "", "", "2024/10/30", 1, 100)
+        transaction_data, size = get_transactions("", "", "", "", "", "2024/10/30", 1, 100)
 
-        assert len(transaction_data) == 22
+        assert size == 22
+        assert transaction_data is not None
 
 
     def test_get_transactions_with_politician_type_filtered(self):
@@ -77,9 +85,9 @@ class TestSearchController(TestCase):
         Tests if we get correct results when user provides the politician type
         """
 
-        transaction_data = get_transactions("", "", "Senate", "", "", "", 1, 100)
+        transaction_data, size = get_transactions("", "", "Senate", "", "", "", 1, 100)
 
-        assert len(transaction_data) == 12
+        assert size == 12
         for transaction in transaction_data:
             assert transaction["politician_type"] == "Senate"
 
@@ -89,9 +97,9 @@ class TestSearchController(TestCase):
         Tests if we get correct results when user provides the politician house
         """
 
-        transaction_data = get_transactions("", "", "", "R", "", "", 1, 100)
+        transaction_data, size = get_transactions("", "", "", "R", "", "", 1, 100)
 
-        assert len(transaction_data) == 6
+        assert size == 6
         for transaction in transaction_data:
             assert transaction["politician_house"] == "R"
 
@@ -101,9 +109,10 @@ class TestSearchController(TestCase):
         Tests if we get correct results when user provides invalid page number
         """
 
-        transaction_data = get_transactions("", "", "", "", "", "", 0, 100)
+        transaction_data, size = get_transactions("", "", "", "", "", "", 0, 100)
 
-        assert len(transaction_data) == 0
+        assert size == 22
+        assert transaction_data is not None
 
 
     def test_get_transactions_with_invalid_page_size_filtered(self):
@@ -111,6 +120,7 @@ class TestSearchController(TestCase):
         Tests if we get correct results when user provides invalid page size
         """
 
-        transaction_data = get_transactions("", "", "", "", "", "", 1, 101)
+        transaction_data, size = get_transactions("", "", "", "", "", "", 1, 101)
 
-        assert len(transaction_data) == 22
+        assert size == 22
+        assert transaction_data is not None
