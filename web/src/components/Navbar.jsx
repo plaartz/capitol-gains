@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import "../styles/Navbar.module.css"
+import barStyle from "./Navbar.module.css"
 import logo from '../../../LOGO.png'
 
 const Navbar = () => {
@@ -9,13 +9,13 @@ const Navbar = () => {
 
   return (
     <nav>
-      <div className="logo-container">
-        <Link to="/" className="logo">
-          <img src={logo} alt="Logo" className="aboutImg" />
+      <div className={barStyle.logoContainer}>
+        <Link to="/" className={barStyle.logo}>
+          <img src={logo} alt="Logo" className={barStyle.aboutImg} />
         </Link>
-        <Link to="/" className="title">CAPITOL GAINS</Link>
+        <span to="/" className={barStyle.title}>CAPITOL GAINS</span>
       </div>
-      <div className='menu' onClick={() => {
+      <div className={barStyle.menu} onClick={() => {
         setMenuOpen(!menuOpen);
       }}>
         <span></span>
@@ -23,12 +23,12 @@ const Navbar = () => {
         <span></span>
       </div>
 
-        <ul className={menuOpen ? "open" : ""}> 
+        <ul className={menuOpen ? barStyle.open : ""}> 
           <li>
             <NavLink to='/AboutUs'>About us</NavLink>
           </li>
           <li>
-            <NavLink to='/PoliticianStock'>Politician Track</NavLink>
+            <NavLink to='/PoliticianStock'>Transactions</NavLink>
           </li>
         </ul>
     </nav>

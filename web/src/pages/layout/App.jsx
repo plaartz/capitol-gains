@@ -1,8 +1,8 @@
-import '../../styles/App.css'
-import Navbar from '../../components/Navbar'
+import 'src/styles/App.css'
+import Navbar from 'src/components/Navbar'
 import { Routes, Route } from 'react-router-dom'
-import AboutUs from '../AboutUs'
-import PoliticianStock from '../PoliticianStock'
+import AboutUs from 'src/pages/AboutUs'
+import PoliticianStock from 'src/pages/PoliticianStock'
 
 
 function App() {
