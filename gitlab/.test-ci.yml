@@ -10,7 +10,7 @@ unittest:
   before_script:
     - pip install -r api/requirements.txt
   script:
-    - python manage.py test --settings=settings.test
+    - python api/manage.py test --settings=settings.test
   artifacts:
     when: always
     untracked: true
