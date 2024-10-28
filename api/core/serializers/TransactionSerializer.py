@@ -30,7 +30,7 @@ class TransactionSerializer(serializers.ModelSerializer):
 
     def get_stock_price(self, obj):
         """
-        Test gets the correct stock price
+        Gets the correct stock price
 
         @ return    returns the stock price
         """
@@ -45,7 +45,7 @@ class TransactionSerializer(serializers.ModelSerializer):
 
     def get_full_name(self, obj):
         """
-        Test gets the correct name
+        Gets the correct name
 
         @ return    returns the full name of the politician 
         """
@@ -55,7 +55,7 @@ class TransactionSerializer(serializers.ModelSerializer):
 
     def get_politician_type(self, obj):
         """
-        Test gets the correct politician type
+        Gets the correct politician type
 
         @ return    returns the politician type
         """
@@ -65,7 +65,7 @@ class TransactionSerializer(serializers.ModelSerializer):
 
     def get_politician_house(self, obj):
         """
-        Test gets the correct politician house
+        Gets the correct politician house
 
         @ return    returns the politician house
         """
@@ -75,7 +75,7 @@ class TransactionSerializer(serializers.ModelSerializer):
 
     def get_stock_ticker(self, obj):
         """
-        Test gets the correct stock ticker
+        Gets the correct stock ticker
 
         @ return    returns the stock ticker
         """
@@ -85,7 +85,7 @@ class TransactionSerializer(serializers.ModelSerializer):
 
     def get_stock_description(self, obj):
         """
-        Test gets the correct stock description
+        Gets the correct stock description
 
         @ return    returns the stock description
         """
@@ -95,7 +95,7 @@ class TransactionSerializer(serializers.ModelSerializer):
 
     def get_percent_gain(self, obj):
         """
-        Test gets the correct stock percent gain
+        Gets the correct stock percent gain
 
         @ return    returns the stock percent gain
         """
