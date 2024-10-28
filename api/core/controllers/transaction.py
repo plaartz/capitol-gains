@@ -56,7 +56,7 @@ def process_transaction(politician: Politician, stock: Stock,
     transaction_date = trade['transaction_date']
     transaction_type = trade['transaction_type']
 
-    transaction, _ = Transaction.objects.get_or_create(
+    transaction = Transaction.objects.create(
         politician=politician,
         stock=stock,
         transaction_amount=transaction_amount,
@@ -82,7 +82,7 @@ def upload_transactions(transactions: list) -> int:
 
             for trade in transaction['transactions']:
                 stock = process_stock(trade)
-                _ = process_transaction(politician, stock, trade, disclosure_date)
+                process_transaction(politician, stock, trade, disclosure_date)
         return 200
     except (KeyError, TypeError, ValueError):
         return 400
