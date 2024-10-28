@@ -11,7 +11,7 @@ unittest:
     - export PYTHONPATH=$PYTHONPATH:$(pwd)/api
     - pip install -r api/requirements.txt
   script:
-    - python api/manage.py test --settings=settings.test
+    - python api/manage.py test --settings=settings.settings.test
   artifacts:
     when: always
     untracked: true
