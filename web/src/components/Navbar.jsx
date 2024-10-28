@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import barStyle from "src/styles/Navbar.module.css"
+import barStyle from "./styles/Navbar.module.css"
 import logo from '../../public/LOGO.png'
 
 const Navbar = () => {
@@ -25,10 +25,10 @@ const Navbar = () => {
 
         <ul className={menuOpen ? barStyle.open : ""}> 
           <li>
-            <NavLink to='/AboutUs'>About us</NavLink>
+            <NavLink to='/about' className={({ isActive }) => (isActive ? barStyle.active : '')}>About us</NavLink>
           </li>
           <li>
-            <NavLink to='/PoliticianStock'>Transactions</NavLink>
+            <NavLink to='/transactions' className={({ isActive }) => (isActive ? barStyle.active : '')}>Transactions</NavLink>
           </li>
         </ul>
     </nav>
