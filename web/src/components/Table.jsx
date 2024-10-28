@@ -10,16 +10,11 @@ export default function Table() {
   useEffect(() => {
     fetch(search(1,100), {
       method: "POST",
-      body: JSON.stringify({
-        pageNo: 1,
-        pageSize: 100,
-      }),
+      body: JSON.stringify({}),
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         setData(res.data);
-        setOrder();
         const keys = {
           full_name: { col: 0, display: "Politician" },
           transaction_date: { col: 1, display: "Date" },
@@ -29,8 +24,6 @@ export default function Table() {
           percent_gain: { col: 5, display: "Gain" },
         };
         setOrder(keys);
-
-        console.log(res.data[0]);
       });
   }, []);
 
@@ -44,7 +37,7 @@ export default function Table() {
                 <tr className={styles.tableRow}>
                   {data ? (
                     Object.entries(colOrder)
-                      .sort((a, b) => a.col - b.col)
+                      .sort((a, b) => a[1].col - b[1].col)
                       .map(([key, val]) => <th key={key}>{val.display}</th>)
                   ) : (
                     <></>
