@@ -767,3 +767,370 @@ class TestSearchView(TestCase):
             current_first_name = transaction_data[i]["full_name"].split(" ")[0]
             next_first_name = transaction_data[i+1]["full_name"].split(" ")[0]
             assert current_first_name >= next_first_name
+
+
+    def test_search_view_with_order_by_transaction_date(self):
+        """
+        Tests if we get correct response when user provides transaction date for ordering
+        """
+        body_query = {
+            "first_name": "",
+            "last_name": "",
+            "politician_type": "",
+            "politician_house": "",
+            "start_date": "2024/09/01",
+            "end_date": "2024/09/30"
+        }
+        query_string = "pageNo=1&pageSize=100&orderBy=transaction_date"
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 200
+        assert response['Content-Type'] == 'application/json'
+
+        response_data = json.loads(response.content)
+        assert response_data["size"] == 8
+
+        transaction_data = response_data["data"]
+        # Make sure all transactions are ascending order by transaction date
+        for i in range(0, len(transaction_data) - 1):
+            current_date = transaction_data[i]["transaction_date"]
+            next_date = transaction_data[i+1]["transaction_date"]
+            current_date_obj = datetime.strptime(current_date, "%Y-%m-%d")
+            next_date_obj = datetime.strptime(next_date, "%Y-%m-%d")
+            assert current_date_obj >= next_date_obj
+
+
+
+    def test_search_view_with_order_by_disclosure_date(self):
+        """
+        Tests if we get correct response when user provides disclosure date for ordering
+        """
+        body_query = {
+            "first_name": "",
+            "last_name": "",
+            "politician_type": "",
+            "politician_house": "",
+            "start_date": "2024/09/01",
+            "end_date": "2024/09/30"
+        }
+        query_string = "pageNo=1&pageSize=100&orderBy=disclosure_date"
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 200
+        assert response['Content-Type'] == 'application/json'
+
+        response_data = json.loads(response.content)
+        assert response_data["size"] == 8
+
+        transaction_data = response_data["data"]
+        # Make sure all transactions are ascending order by disclosure date
+        for i in range(0, len(transaction_data) - 1):
+            current_date = transaction_data[i]["disclosure_date"]
+            next_date = transaction_data[i+1]["disclosure_date"]
+            current_date_obj = datetime.strptime(current_date, "%Y-%m-%d")
+            next_date_obj = datetime.strptime(next_date, "%Y-%m-%d")
+            assert current_date_obj >= next_date_obj
+
+
+    def test_search_view_with_order_by_transaction_type(self):
+        """
+        Tests if we get correct response when user provides transaction type for ordering
+        """
+        body_query = {
+            "first_name": "",
+            "last_name": "",
+            "politician_type": "",
+            "politician_house": "",
+            "start_date": "2024/09/01",
+            "end_date": "2024/09/30"
+        }
+        query_string = "pageNo=1&pageSize=100&orderBy=transaction_type"
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 200
+        assert response['Content-Type'] == 'application/json'
+
+        response_data = json.loads(response.content)
+        assert response_data["size"] == 8
+
+        transaction_data = response_data["data"]
+        # Make sure all transactions are ascending order by transaction type
+        for i in range(0, len(transaction_data) - 1):
+            current_type = transaction_data[i]["transaction_type"]
+            next_type = transaction_data[i+1]["transaction_type"]
+            assert current_type >= next_type
+
+
+    def test_search_view_with_order_by_politician_type(self):
+        """
+        Tests if we get correct response when user provides politician type for ordering
+        """
+        body_query = {
+            "first_name": "",
+            "last_name": "",
+            "politician_type": "",
+            "politician_house": "",
+            "start_date": "2024/09/01",
+            "end_date": "2024/09/30"
+        }
+        query_string = "pageNo=1&pageSize=100&orderBy=politician_type"
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 200
+        assert response['Content-Type'] == 'application/json'
+
+        response_data = json.loads(response.content)
+        assert response_data["size"] == 8
+
+        transaction_data = response_data["data"]
+        # Make sure all transactions are ascending order by politician type
+        for i in range(0, len(transaction_data) - 1):
+            current_type = transaction_data[i]["politician_type"]
+            next_type = transaction_data[i+1]["politician_type"]
+            assert current_type >= next_type
+
+
+    def test_search_view_with_order_by_politician_house(self):
+        """
+        Tests if we get correct response when user provides politician house for ordering
+        """
+        body_query = {
+            "first_name": "",
+            "last_name": "",
+            "politician_type": "",
+            "politician_house": "",
+            "start_date": "2024/09/01",
+            "end_date": "2024/09/30"
+        }
+        query_string = "pageNo=1&pageSize=100&orderBy=politician_house"
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 200
+        assert response['Content-Type'] == 'application/json'
+
+        response_data = json.loads(response.content)
+        assert response_data["size"] == 8
+
+        transaction_data = response_data["data"]
+        # Make sure all transactions are ascending order by politician house
+        for i in range(0, len(transaction_data) - 1):
+            current_house = transaction_data[i]["politician_house"]
+            next_house = transaction_data[i+1]["politician_house"]
+            assert current_house >= next_house
+
+
+    def test_search_view_with_order_by_first_name(self):
+        """
+        Tests if we get correct response when user provides first name for ordering
+        """
+        body_query = {
+            "first_name": "",
+            "last_name": "",
+            "politician_type": "",
+            "politician_house": "",
+            "start_date": "2024/09/01",
+            "end_date": "2024/09/30"
+        }
+        query_string = "pageNo=1&pageSize=100&orderBy=first_name"
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 200
+        assert response['Content-Type'] == 'application/json'
+
+        response_data = json.loads(response.content)
+        assert response_data["size"] == 8
+
+        transaction_data = response_data["data"]
+        # Make sure all transactions are ascending order by first name
+        for i in range(0, len(transaction_data) - 1):
+            current_first_name = transaction_data[i]["full_name"].split(" ")[0]
+            next_first_name = transaction_data[i+1]["full_name"].split(" ")[0]
+            assert current_first_name >= next_first_name
+
+
+    def test_search_view_with_order_by_last_name(self):
+        """
+        Tests if we get correct response when user provides last name for ordering
+        """
+        body_query = {
+            "first_name": "",
+            "last_name": "",
+            "politician_type": "",
+            "politician_house": "",
+            "start_date": "2024/09/01",
+            "end_date": "2024/09/30"
+        }
+        query_string = "pageNo=1&pageSize=100&orderBy=last_name"
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 200
+        assert response['Content-Type'] == 'application/json'
+
+        response_data = json.loads(response.content)
+        assert response_data["size"] == 8
+
+        transaction_data = response_data["data"]
+        # Make sure all transactions are ascending order by last name
+        for i in range(0, len(transaction_data) - 1):
+            current_last_name = transaction_data[i]["full_name"].split(" ")[-1]
+            next_last_name = transaction_data[i+1]["full_name"].split(" ")[-1]
+            assert current_last_name >= next_last_name
+
+
+    def test_search_view_with_order_by_stock_ticker(self):
+        """
+        Tests if we get correct response when user provides stock ticker for ordering
+        """
+        body_query = {
+            "first_name": "",
+            "last_name": "",
+            "politician_type": "",
+            "politician_house": "",
+            "start_date": "2024/09/01",
+            "end_date": "2024/09/30"
+        }
+        query_string = "pageNo=1&pageSize=100&orderBy=stock_ticker"
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 200
+        assert response['Content-Type'] == 'application/json'
+
+        response_data = json.loads(response.content)
+        assert response_data["size"] == 8
+
+        transaction_data = response_data["data"]
+        # Make sure all transactions are ascending order by stock ticker
+        for i in range(0, len(transaction_data) - 1):
+            current_ticker = transaction_data[i]["stock_ticker"]
+            next_ticker = transaction_data[i+1]["stock_ticker"]
+            assert current_ticker >= next_ticker
+
+
+    def test_search_view_with_order_by_stock_price(self):
+        """
+        Tests if we get correct response when user provides stock price for ordering
+        """
+        body_query = {
+            "first_name": "",
+            "last_name": "",
+            "politician_type": "",
+            "politician_house": "",
+            "start_date": "2024/09/01",
+            "end_date": "2024/09/30"
+        }
+        query_string = "pageNo=1&pageSize=100&orderBy=stock_price"
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 200
+        assert response['Content-Type'] == 'application/json'
+
+        response_data = json.loads(response.content)
+        assert response_data["size"] == 8
+
+        transaction_data = response_data["data"]
+        # Make sure all transactions are ascending order by stock price
+        for i in range(0, len(transaction_data) - 1):
+            current_price = float(transaction_data[i]["stock_price"])
+            next_price = float(transaction_data[i+1]["stock_price"])
+            assert current_price >= next_price
+
+
+    def test_search_view_with_order_by_transaction_amount(self):
+        """
+        Tests if we get correct response when user provides transaction amount for ordering
+        """
+        body_query = {
+            "first_name": "",
+            "last_name": "",
+            "politician_type": "",
+            "politician_house": "",
+            "start_date": "2024/09/01",
+            "end_date": "2024/09/30"
+        }
+        query_string = "pageNo=1&pageSize=100&orderBy=transaction_amount"
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 200
+        assert response['Content-Type'] == 'application/json'
+
+        response_data = json.loads(response.content)
+        assert response_data["size"] == 8
+
+        transaction_data = response_data["data"]
+        # Make sure all transactions are ascending order by transaction amount
+        for i in range(0, len(transaction_data) - 1):
+            current_amount = int(transaction_data[i]["transaction_amount"])
+            next_amount = int(transaction_data[i+1]["transaction_amount"])
+            assert current_amount >= next_amount
+
+
+    def test_search_view_with_order_ascending(self):
+        """
+        Tests if we get correct response when user provides first name
+        for ordering and order ascending
+        """
+        body_query = {
+            "first_name": "",
+            "last_name": "",
+            "politician_type": "",
+            "politician_house": "",
+            "start_date": "2024/09/01",
+            "end_date": "2024/09/30"
+        }
+        query_string = "pageNo=1&pageSize=100&orderBy=first_name&order=ASC"
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 200
+        assert response['Content-Type'] == 'application/json'
+
+        response_data = json.loads(response.content)
+        assert response_data["size"] == 8
+
+        transaction_data = response_data["data"]
+        # Make sure all transactions are ascending order by first name
+        for i in range(0, len(transaction_data) - 1):
+            current_first_name = transaction_data[i]["full_name"].split(" ")[0]
+            next_first_name = transaction_data[i+1]["full_name"].split(" ")[0]
+            assert current_first_name <= next_first_name
+
+
+    def test_search_view_with_order_descending(self):
+        """
+        Tests if we get correct response when user provides first name
+        for ordering and order descending
+        """
+        body_query = {
+            "first_name": "",
+            "last_name": "",
+            "politician_type": "",
+            "politician_house": "",
+            "start_date": "2024/09/01",
+            "end_date": "2024/09/30"
+        }
+        query_string = "pageNo=1&pageSize=100&orderBy=first_name&order=DESC"
+
+        response = self.make_post_request(body_query, query_string)
+
+        assert response.status_code == 200
+        assert response['Content-Type'] == 'application/json'
+
+        response_data = json.loads(response.content)
+        assert response_data["size"] == 8
+
+        transaction_data = response_data["data"]
+        # Make sure all transactions are ascending order by first name
+        for i in range(0, len(transaction_data) - 1):
+            current_first_name = transaction_data[i]["full_name"].split(" ")[0]
+            next_first_name = transaction_data[i+1]["full_name"].split(" ")[0]
+            assert current_first_name >= next_first_name

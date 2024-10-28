@@ -3,7 +3,7 @@ import json
 from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from core.controllers import get_transactions
+from core.controllers import get_transactions, get_transaction
 
 @require_http_methods(['POST'])
 @csrf_exempt # idk if the react post request sends a csrf token
@@ -92,3 +92,23 @@ def search_view(request):
     }
 
     return JsonResponse(response_data, safe = False)
+
+@require_http_methods(['GET'])
+def fetch_transaction(request):
+
+    transaction_id = request.GET.get("id")
+    if transaction_id is None:
+        return JsonResponse({"error": "No transaction id provided"},status=400)
+    try:
+        transaction_id = int(transaction_id)
+    except (TypeError, ValueError):
+        return JsonResponse({"error": "Bad transaction id provided"},status=400)
+
+    transaction, status = get_transaction(transaction_id)
+
+    if status == 400:
+        return JsonResponse({"error":"Error fetching transaction"},status=400)
+    
+    return JsonResponse({"transaction":transaction}) 
+
+
