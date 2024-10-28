@@ -1,6 +1,4 @@
 import Table from "src/components/Table";
-import { useContext, useEffect, useState } from "react";
-import { FilterContext } from "src/contexts/Filters";
 
 function PoliticianStock() {
   return (
