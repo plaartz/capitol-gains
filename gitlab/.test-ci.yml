@@ -1,6 +1,23 @@
 stages:
-  - build
   - test
+  - build
+
+unittest:
+  stage: test
+  tags:
+    - csl
+  image: python:3.9
+  before_script:
+    - pip install -r api/requirements.txt
+  script:
+    - python manage.py test --settings=settings.test
+  artifacts:
+    when: always
+    untracked: true
+    expire_in: 7 days
+    paths:
+      - api/unittest-results.log
+  coverage: /(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/
 
 build-docker:
   stage: build
@@ -30,23 +47,3 @@ build-docker:
   artifacts:
     paths:
       - docker_image.tar
-
-unittest:
-  stage: test
-  tags:
-    - csl
-  image: docker:latest
-  services:
-    - name: docker:dind
-  before_script:
-    - docker compose up -d
-    - until docker compose exec api echo "API container is up"; do sleep 5; done
-  script:
-    - docker compose exec api python manage.py test --settings=settings.test
-  artifacts:
-    when: always
-    untracked: true
-    expire_in: 7 days
-    paths:
-      - api/unittest-results.log
-  coverage: /(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/
