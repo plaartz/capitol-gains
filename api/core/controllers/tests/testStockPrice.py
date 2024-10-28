@@ -28,25 +28,36 @@ class TestStockPriceController(TestCase):
         """
         valid_data = {
             'AAPL': {
-                'prices': {
-                    'price': 150.0,
-                    'date': '2024-10-22'
-                }
+                'prices': [
+                    {
+                        'price': 150.0,
+                        'date': '2024-10-22'
+                    }, 
+                    {
+                        'price': 175.0,
+                        'date': '2024-10-23'
+                    }
+                ]
             },
             'TSLA': {
-                'prices': {
-                    'price': 700.5,
-                    'date': '2024-10-21'
-                }
+                'prices': [
+                    {
+                        'price': 700.5,
+                        'date': '2024-10-21'
+                    }
+                ]
             }
         }
         status_code = stock.upload_stock_prices(valid_data)
         self.assertEqual(status_code, 200)
 
-        apple_price = StockPrice.objects.get(stock=self.stock1)
+        apple_prices = StockPrice.objects.filter(stock=self.stock1)
         tesla_price = StockPrice.objects.get(stock=self.stock2)
-        self.assertEqual(apple_price.price, 150.0)
-        self.assertEqual(apple_price.date, '2024-10-22')
+        self.assertEqual(len(apple_prices), 2)
+        self.assertEqual(apple_prices[0].price, 150.0)
+        self.assertEqual(apple_prices[0].date, '2024-10-22')
+        self.assertEqual(apple_prices[1].price, 175.0)
+        self.assertEqual(apple_prices[1].date, '2024-10-23')
         self.assertEqual(tesla_price.price, 700.5)
         self.assertEqual(tesla_price.date, '2024-10-21')
 
@@ -56,18 +67,22 @@ class TestStockPriceController(TestCase):
         """
         invalid_data = {
             'AAPL': {
-                'prices': {
-                    'price': -50.00,
-                    'date': '2024-10-22'
-                }
+                'prices': [
+                    {
+                        'price': -50.00,
+                        'date': '2024-10-22'
+                    }
+                ]
             }
         }
         invalid_data_2 = {
             'TSLA': {
-                'prices': {
-                    'price': 'not a number',
-                    'date': '2024-10-22'
-                }
+                'prices': [
+                    {
+                        'price': 'not a number',
+                        'date': '2024-10-22'
+                    }
+                ]
             }
         }
         status_code = stock.upload_stock_prices(invalid_data)
@@ -81,9 +96,11 @@ class TestStockPriceController(TestCase):
         """
         missing_price_data = {
             'AAPL': {
-                'prices': {
-                    'date': '2024-10-22'
-                }
+                'prices': [
+                    {
+                        'date': '2024-10-22'
+                    }
+                ]
             }
         }
         missing_price_status_code = stock.upload_stock_prices(missing_price_data)
@@ -91,9 +108,11 @@ class TestStockPriceController(TestCase):
 
         missing_date_data = {
             'TSLA': {
-                'prices': {
-                    'price': 200.0,
-                }
+                'prices': [
+                    {
+                        'price': 200.0,
+                    }
+                ]
             }
         }
         missing_date_status_code = stock.upload_stock_prices(missing_date_data)
@@ -105,10 +124,12 @@ class TestStockPriceController(TestCase):
         """
         new_price_data = {
             'META': {
-                'prices': {
-                    'price': 160.50,
-                    'date': '2024-10-22',
-                }
+                'prices': [
+                    {
+                        'price': 160.50,
+                        'date': '2024-10-22',
+                    }
+                ]
             }
         }
         status_code = stock.upload_stock_prices(new_price_data)
@@ -120,10 +141,12 @@ class TestStockPriceController(TestCase):
         """
         original_data = {
             'AAPL': {
-                'prices': {
-                    'price': 170.0,
-                    'date': '2024-10-22'
-                }
+                'prices': [
+                    {
+                        'price': 170.0,
+                        'date': '2024-10-22'
+                    }
+                ]
             }
         }
         status_code = stock.upload_stock_prices(original_data)
@@ -133,10 +156,12 @@ class TestStockPriceController(TestCase):
 
         new_data = {
             'AAPL': {
-                'prices': {
-                    'price': 180.0,
-                    'date': '2024-10-22'
-                }
+                'prices': [
+                    {
+                        'price': 180.0,
+                        'date': '2024-10-22'
+                    }
+                ]
             }
         }
         new_status_code = stock.upload_stock_prices(new_data)
@@ -146,10 +171,12 @@ class TestStockPriceController(TestCase):
 
         different_date_data = {
             'AAPL': {
-                'prices': {
-                    'price': 170.0,
-                    'date': '2024-10-21'
-                }
+                'prices': [
+                    {
+                        'price': 170.0,
+                        'date': '2024-10-21'
+                    }
+                ]
             }
         }
         other_status_code = stock.upload_stock_prices(different_date_data)
