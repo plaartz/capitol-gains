@@ -17,6 +17,9 @@ class UploadTransactionInformationViewTest(TestCase):
         )
 
     def test_successful_upload(self):
+        """
+        Tests if a valid JSON object gets uploaded to the database successfully
+        """
         data = [
             {
                 'first_name': 'John',
@@ -48,12 +51,18 @@ class UploadTransactionInformationViewTest(TestCase):
         )
 
     def test_invalid_json(self):
+        """
+        Tests that an invalid JSON format gets caught
+        """
         response = self.make_post_request("invalid json")
 
         self.assertEqual(response.status_code, 400)
         self.assertJSONEqual(response.content, {"error": "Invalid JSON"})
 
     def test_bad_request(self):
+        """
+        Tests that missing information from the JSON object gets caught
+        """
         data = [
             {
                 'transactions': [
