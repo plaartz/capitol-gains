@@ -74,13 +74,13 @@ def upload_stock_prices(data: dict) -> int:
     try:
         items_to_update = []
         for ticker, item_data in data.items():
-            if 'price' not in item_data['prices'] or 'date' not in item_data['prices']:
-                continue
             # Give an error if the stock price isn't a valid number
             for stock_price in item_data['prices']:
+                if 'price' not in stock_price or 'date' not in stock_price:
+                    continue
                 if not isinstance(stock_price['price'], float):
                     try:
-                        item_data['prices']['price'] = float(item_data['prices']['price'])
+                        stock_price['price'] = float(stock_price['price'])
                     except ValueError:
                         continue
                 if stock_price['price'] < 0:
