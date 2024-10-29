@@ -77,7 +77,6 @@ def filter(driver: webdriver.Chrome, filters: dict) -> None:
             senator_state.select_by_visible_text(filters['senator_state'])
             time.sleep(1)
 
-
     if filters['candidate']:
         candidate_checkbox = driver.find_element(By.XPATH, '//input[@type="checkbox" and @value="4"]')
         if not candidate_checkbox.is_selected():
@@ -126,7 +125,7 @@ def format_table_contents(data: list) -> None:
     for row in data:
         transaction_number = int(row[0])
         transaction_date_string = row[1]
-        format_str = '%m/%d/%Y'
+        format_str = '%Y-%m-%d'
         transaction_date = datetime.datetime.strptime(transaction_date_string, format_str)
         owner = row[2]
         ticker = row[3]
@@ -139,15 +138,15 @@ def format_table_contents(data: list) -> None:
         if ticker == '--' or asset_type != 'Stock':
             continue
         all_transactions.append({
-            'ticker': ticker,
+            'transaction_number': transaction_number,
+            'ticker': ticker.split('\n'),
             'owner': owner,
+            'stock_name': asset_name.split('\n'),
             'transaction_date': transaction_date,
             'transaction_type': type,
             'transaction_amount': amount_range,
             'comment': comment
         })
-    with open('transaction.json', 'w') as file:
-        json.dump(all_transactions, file)
     return all_transactions
 
 
@@ -175,15 +174,15 @@ def extract_table_contents(driver: webdriver.Chrome) -> list:
         column_texts = [col.text.strip() for col in columns]
         
         table_contents.append(column_texts)
-        print(column_texts)
-    print()
     table_contents = format_table_contents(table_contents)
     return table_contents
 
 
 def display_trade_info(driver: webdriver.Chrome) -> list:
     """
-    Iterates through all rows in the table for each page, clicks on the periodic transaction link, and extracts information for today's stock transactions.
+    Iterates through all rows in the table for each page, 
+    clicks on the periodic transaction link, 
+    and extracts information for all stock transactions.
 
     :param driver: Selenium WebDriver instance
     """
@@ -202,13 +201,16 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
 
                     cols = row.find_elements(By.TAG_NAME, 'td')
                     first_and_middle_name = cols[0].text.strip().split()
-                    middle_initial = first_and_middle_name[1] if len(first_and_middle_name) > 1 else ''
+                    if len(first_and_middle_name) > 1:
+                        middle_initial = first_and_middle_name[1]
+                    else:
+                        middle_initial = ''
                     first_name = first_and_middle_name[0]
                     last_name = cols[1].text.strip()
                     office = cols[2].text.strip()
                     report_type = cols[3]
                     date_filed = cols[4].text.strip()
-                    format_str = '%m/%d/%Y'
+                    format_str = '%Y-%m-%d'
                     date_received = datetime.datetime.strptime(date_filed, format_str)
 
                     link = row.find_element(By.XPATH, './/a[@href]')
@@ -224,7 +226,10 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
 
                     # Skip reports that aren't in the correct format (e.g. are images)
                     try:
-                        periodic_transaction_report_image = driver.find_element(By.XPATH, '//img[@alt="filing document"]')
+                        _ = driver.find_element(
+                            By.XPATH, 
+                            '//img[@alt="filing document"]'
+                        )
                         driver.close()
                         driver.switch_to.window(driver.window_handles[0])
                         time.sleep(1)
@@ -232,7 +237,12 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
                     except NoSuchElementException as e:
                         # Wait for the page to load if the report isn't an image
                         wait.until(
-                            EC.presence_of_element_located((By.XPATH, '//h1[contains(text(), "Periodic Transaction Report")]'))  # Adjust the header based on your page
+                            EC.presence_of_element_located(
+                                (
+                                    By.XPATH, 
+                                    '//h1[contains(text(), "Periodic Transaction Report")]'
+                                )
+                            )
                         )
                     match = re.search(r"\((.*?)\)", office)
                     filer_type = match.group(1)
@@ -240,14 +250,16 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
                     table_info = extract_table_contents(driver)
 
                     transaction_information = {
-                        first_name, 
-                        middle_initial, 
-                        last_name, 
-                        filer_type, 
-                        href, 
-                        date_received
+                        'first_name': first_name, 
+                        'middle_initial': middle_initial,
+                        'last_name': last_name,
+                        'filer_type': filer_type,
+                        'date_received': date_received
                     }
-                    all_trade_information.append(transaction_information)
+                    transaction_information['transactions'] = table_info
+
+                    if 'transaction_number' in transaction_information['transactions']:
+                        all_trade_information.append(transaction_information)
 
                     driver.close()
                     driver.switch_to.window(driver.window_handles[0])
@@ -283,8 +295,7 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
         except Exception as e:
             print(f"Error while processing pages: {e}")
             break
-    with open('trade_report.json', 'w') as file:
-        json.dump(all_trade_information, file)
+    print(all_trade_information)
     return all_trade_information
 
 
@@ -310,8 +321,8 @@ def main():
             'from_date': '',
             'to_date': ''
         }
-        filters['from_date'] = '09/01/2013'
-        filters['to_date'] = '10/08/2024'
+        filters['from_date'] = '01/01/2019'
+        filters['to_date'] = time.strftime("%m/%d/%Y", time.localtime())
         filter(driver, filters)
         trades = display_trade_info(driver)
 
