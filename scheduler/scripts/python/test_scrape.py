@@ -35,7 +35,8 @@ def check_agree_and_redirect(driver: webdriver.Chrome) -> None:
         agree_checkbox.click()
     time.sleep(1)
 
-
+# pylint: disable=too-many-branches
+# pylint: disable=too-many-statements
 def apply_filter(driver: webdriver.Chrome, filters: dict) -> None:
     """
     Applies filters to the periodic transaction reports 
@@ -114,7 +115,7 @@ def apply_filter(driver: webdriver.Chrome, filters: dict) -> None:
 
     if filters['to_date'] != '':
         if filters['from_date'] == '':
-            # pylint: disable=broad-except
+            # pylint: disable=broad-exception-raised
             raise Exception('Must also enter in a start date')
         to_date = driver.find_element(By.ID, 'toDate')
         to_date.clear()
@@ -195,7 +196,7 @@ def extract_table_contents(driver: webdriver.Chrome) -> list:
     table_contents = format_table_contents(table_contents)
     return table_contents
 
-
+# pylint: disable=too-many-locals
 def display_trade_info(driver: webdriver.Chrome) -> list:
     """
     Iterates through all rows in the table for each page, 
@@ -211,7 +212,7 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
         try:
             rows = driver.find_elements(By.XPATH, '//table/tbody/tr')
             time.sleep(1)
-            for index in range(len(rows)):
+            for index, row in enumerate(rows):
                 try:
                     # Re-locate rows for each iteration to avoid stale references
                     rows = driver.find_elements(By.XPATH, '//table/tbody/tr')
@@ -244,7 +245,7 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
                     # Skip reports that aren't in the correct format (e.g. are images)
                     try:
                         _ = driver.find_element(
-                            By.XPATH, 
+                            By.XPATH,
                             '//img[@alt="filing document"]'
                         )
                         driver.close()
@@ -256,7 +257,7 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
                         wait.until(
                             EC.presence_of_element_located(
                                 (
-                                    By.XPATH, 
+                                    By.XPATH,
                                     '//h1[contains(text(), "Periodic Transaction Report")]'
                                 )
                             )
