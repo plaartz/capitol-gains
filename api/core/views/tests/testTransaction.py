@@ -54,7 +54,7 @@ class UploadTransactionInformationViewTest(TestCase):
         """
         Tests that an invalid JSON format gets caught
         """
-        response = self.make_post_request("invalid json")
+        response = self.make_post_request(0)
 
         self.assertEqual(response.status_code, 400)
         self.assertJSONEqual(response.content, {"error": "Invalid JSON"})
