@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import {FilterContext} from 'src/contexts/Filter.js'
 import TableRow from "./TableRow";
 import styles from "./styles/Table.module.css";
 import { search } from "src/utils/api.ts";
@@ -6,6 +7,7 @@ import { search } from "src/utils/api.ts";
 export default function Table() {
   const [data, setData] = useState([]);
   const [colOrder, setOrder] = useState([]);
+  const [filters, _] = useContext(FilterContext);
 
   useEffect(() => {
     fetch(search(1,100), {
@@ -25,7 +27,7 @@ export default function Table() {
         };
         setOrder(keys);
       });
-  }, []);
+  }, [filters]);
 
   return (
     <div style={{width:'80%', margin: '0 auto'}}>
