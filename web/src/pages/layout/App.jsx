@@ -3,7 +3,8 @@ import Navbar from 'src/components/Navbar'
 import { Routes, Route } from 'react-router-dom'
 import AboutUs from 'src/pages/AboutUs'
 import PoliticianStock from 'src/pages/PoliticianStock'
-import { useFilter, FilterContext} from 'src/contexts/Filters.js'
+import Transaction from 'src/pages/Transaction'
+import { useFilter, FilterContext } from 'src/contexts/Filters.js'
 
 
 function App() {
@@ -15,9 +16,10 @@ function App() {
         <FilterContext.Provider value={[filters, setFilters]}>
           <Navbar />
           <Routes>
-            <Route path="/" element={<AboutUs />} />
-            <Route path="/about" element={<AboutUs />}></Route>
-            <Route path="/transactions" element={<PoliticianStock />}></Route>
+            <Route path="/" element={<AboutUs />}  />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/transactions" element={<PoliticianStock />} />
+            <Route path='/transaction/:id' element={<Transaction />} />
           </Routes>
         </FilterContext.Provider>
       </div>
