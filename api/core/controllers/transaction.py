@@ -28,7 +28,7 @@ def process_politician(profile: Profile, transaction: dict) -> Politician:
     politician, _ = Politician.objects.get_or_create(
         profile=profile,
         politician_type=politician_type,
-        politican_house=politician_house
+        politician_house=politician_house
     )
     return politician
 
