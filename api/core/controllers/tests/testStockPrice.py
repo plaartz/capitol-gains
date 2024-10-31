@@ -137,7 +137,8 @@ class TestStockPriceController(TestCase):
 
     def test_upload_data_to_update_existing_entry(self):
         """
-        Tests that prices get udated instead of creating new objects if the price
+        Tests that prices get updated instead of creating new objects
+        if the price changes on the same date
         """
         original_data = {
             'AAPL': {
@@ -152,7 +153,7 @@ class TestStockPriceController(TestCase):
         status_code = stock.upload_stock_prices(original_data)
         self.assertEqual(status_code, 200)
         original_apple_price = StockPrice.objects.get(stock=self.stock1)
-        self.assertEqual(original_apple_price, 170.0)
+        self.assertEqual(original_apple_price.price, 170.0)
 
         new_data = {
             'AAPL': {
