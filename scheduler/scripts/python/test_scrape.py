@@ -1,17 +1,15 @@
 import re
 import time
-import json
 import datetime
-from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.ui import Select
+from selenium.common.exceptions import NoSuchElementException
+from webdriver_manager.chrome import ChromeDriverManager
 
 def setup_driver() -> webdriver.Chrome:
     """
@@ -22,7 +20,6 @@ def setup_driver() -> webdriver.Chrome:
     options = Options()
     options.headless = True # Run Chrome in headless mode for faster performance
     service = Service(ChromeDriverManager().install())
-    # Errors out on driver line since chromium isn't installed on cs lab machines
     driver = webdriver.Chrome(service=service, options=options)
     return driver
 
@@ -38,16 +35,21 @@ def check_agree_and_redirect(driver: webdriver.Chrome) -> None:
         agree_checkbox.click()
     time.sleep(1)
 
-
-def filter(driver: webdriver.Chrome, filters: dict) -> None:
+# pylint: disable=too-many-branches
+# pylint: disable=too-many-statements
+def apply_filter(driver: webdriver.Chrome, filters: dict) -> None:
     """
-    Applies filters to the periodic transaction reports depending on what user wants to input/filter by.
+    Applies filters to the periodic transaction reports 
+    depending on what user wants to input/filter by.
     
     Args:
     driver (webdriver): Selenium WebDriver instance.
     filters: A dictionary of optional filter inputs from the user.
     """
-    periodic_transactions_checkbox = driver.find_element(By.XPATH, '//input[@type="checkbox" and @id="reportTypes" and @value="11"]')
+    periodic_transactions_checkbox = driver.find_element(
+        By.XPATH,
+        '//input[@type="checkbox" and @id="reportTypes" and @value="11"]'
+    )
     if not periodic_transactions_checkbox.is_selected():
         periodic_transactions_checkbox.click()
         time.sleep(1)
@@ -65,7 +67,10 @@ def filter(driver: webdriver.Chrome, filters: dict) -> None:
         time.sleep(1)
 
     if filters['senator']:
-        senator_checkbox = driver.find_element(By.XPATH, '//input[@type="checkbox" and @value="1"]')
+        senator_checkbox = driver.find_element(
+            By.XPATH,
+            '//input[@type="checkbox" and @value="1"]'
+        )
         if not senator_checkbox.is_selected():
             senator_checkbox.click()
             time.sleep(1)
@@ -78,7 +83,10 @@ def filter(driver: webdriver.Chrome, filters: dict) -> None:
             time.sleep(1)
 
     if filters['candidate']:
-        candidate_checkbox = driver.find_element(By.XPATH, '//input[@type="checkbox" and @value="4"]')
+        candidate_checkbox = driver.find_element(
+            By.XPATH,
+            '//input[@type="checkbox" and @value="4"]'
+        )
         if not candidate_checkbox.is_selected():
             candidate_checkbox.click()
             time.sleep(1)
@@ -91,11 +99,14 @@ def filter(driver: webdriver.Chrome, filters: dict) -> None:
             time.sleep(1)
 
     if filters['former_senator']:
-        former_senator_checkbox = driver.find_element(By.XPATH, '//input[@type="checkbox" and @value="5"]')
+        former_senator_checkbox = driver.find_element(
+            By.XPATH,
+            '//input[@type="checkbox" and @value="5"]'
+        )
         if not former_senator_checkbox.is_selected():
             former_senator_checkbox.click()
             time.sleep(1)
-    
+
     if filters['from_date'] != '':
         from_date = driver.find_element(By.ID, 'fromDate')
         from_date.clear()
@@ -103,14 +114,20 @@ def filter(driver: webdriver.Chrome, filters: dict) -> None:
         time.sleep(1)
 
     if filters['to_date'] != '':
-        if filters['from_date'] == '': 
+        if filters['from_date'] == '':
+            # pylint: disable=broad-exception-raised
             raise Exception('Must also enter in a start date')
         to_date = driver.find_element(By.ID, 'toDate')
         to_date.clear()
         to_date.send_keys(filters['to_date'])
         time.sleep(1)
-    
-    search_report_button = driver.find_element(By.XPATH, '//button[@type="submit" and contains(@class, "btn-primary") and contains(text(), "Search Reports")]')
+
+    search_report_button = driver.find_element(
+        By.XPATH,
+        """//button[@type="submit" 
+            and contains(@class, "btn-primary") 
+            and contains(text(), "Search Reports")]"""
+        )
     search_report_button.click()
 
     time.sleep(1)
@@ -119,20 +136,22 @@ def format_table_contents(data: list) -> None:
     """
     Format data and send data to be updated in the database
 
-    :param data: a comma separated list of transactions where each list contains the transaction details
+    :param data: a comma separated list of transactions where each 
+                 list contains the transaction details
     """
     all_transactions = []
     for row in data:
         transaction_number = int(row[0])
         transaction_date_string = row[1]
-        format_str = '%Y-%m-%d'
+        format_str = '%m/%d/%Y'
         transaction_date = datetime.datetime.strptime(transaction_date_string, format_str)
         owner = row[2]
         ticker = row[3]
         asset_name = row[4]
         asset_type = row[5]
-        type = row[6]
-        if type != 'Purchase': type = 'Sale'
+        transaction_type = row[6]
+        if transaction_type != 'Purchase':
+            transaction_type = 'Sale'
         amount_range = row[7]
         comment = row[8]
         if ticker == '--' or asset_type != 'Stock':
@@ -143,7 +162,7 @@ def format_table_contents(data: list) -> None:
             'owner': owner,
             'stock_name': asset_name.split('\n'),
             'transaction_date': transaction_date,
-            'transaction_type': type,
+            'transaction_type': transaction_type,
             'transaction_amount': amount_range,
             'comment': comment
         })
@@ -164,20 +183,20 @@ def extract_table_contents(driver: webdriver.Chrome) -> list:
     table = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.XPATH, '//table'))
     )
-    
+
     rows = table.find_elements(By.XPATH, './/tbody/tr')
-    
+
     table_contents = []
-    
+
     for row in rows:
         columns = row.find_elements(By.TAG_NAME, 'td')
         column_texts = [col.text.strip() for col in columns]
-        
+
         table_contents.append(column_texts)
     table_contents = format_table_contents(table_contents)
     return table_contents
 
-
+# pylint: disable=too-many-locals
 def display_trade_info(driver: webdriver.Chrome) -> list:
     """
     Iterates through all rows in the table for each page, 
@@ -193,7 +212,7 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
         try:
             rows = driver.find_elements(By.XPATH, '//table/tbody/tr')
             time.sleep(1)
-            for index in range(len(rows)):
+            for index, row in enumerate(rows):
                 try:
                     # Re-locate rows for each iteration to avoid stale references
                     rows = driver.find_elements(By.XPATH, '//table/tbody/tr')
@@ -208,9 +227,8 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
                     first_name = first_and_middle_name[0]
                     last_name = cols[1].text.strip()
                     office = cols[2].text.strip()
-                    report_type = cols[3]
                     date_filed = cols[4].text.strip()
-                    format_str = '%Y-%m-%d'
+                    format_str = '%m/%d/%Y'
                     date_received = datetime.datetime.strptime(date_filed, format_str)
 
                     link = row.find_element(By.XPATH, './/a[@href]')
@@ -227,19 +245,19 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
                     # Skip reports that aren't in the correct format (e.g. are images)
                     try:
                         _ = driver.find_element(
-                            By.XPATH, 
+                            By.XPATH,
                             '//img[@alt="filing document"]'
                         )
                         driver.close()
                         driver.switch_to.window(driver.window_handles[0])
                         time.sleep(1)
                         continue
-                    except NoSuchElementException as e:
+                    except NoSuchElementException:
                         # Wait for the page to load if the report isn't an image
                         wait.until(
                             EC.presence_of_element_located(
                                 (
-                                    By.XPATH, 
+                                    By.XPATH,
                                     '//h1[contains(text(), "Periodic Transaction Report")]'
                                 )
                             )
@@ -267,9 +285,10 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
                     # Wait for the original table to reload
                     time.sleep(1)
 
-                except NoSuchElementException as e:
+                except NoSuchElementException:
                     print('No entries')
                     break
+                # pylint: disable=broad-except
                 except Exception as e:
                     print(f"Error processing row {index + 1}: {e}")
 
@@ -280,7 +299,7 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
             if 'disabled' in next_button.get_attribute('class'):
                 print("Next button is disabled. No more pages to process.")
                 break
-                
+
             next_button.click()
             print('moving to next page')
 
@@ -291,7 +310,7 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
         except NoSuchElementException:
             print('Next button not found or no more pages to process.')
             break
-
+        # pylint: disable=broad-except
         except Exception as e:
             print(f"Error while processing pages: {e}")
             break
@@ -323,8 +342,8 @@ def main():
         }
         filters['from_date'] = '01/01/2019'
         filters['to_date'] = time.strftime("%m/%d/%Y", time.localtime())
-        filter(driver, filters)
-        trades = display_trade_info(driver)
+        apply_filter(driver, filters)
+        display_trade_info(driver)
 
     finally:
         driver.quit()
@@ -332,4 +351,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

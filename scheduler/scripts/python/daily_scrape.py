@@ -1,5 +1,5 @@
-from test_scrape import setup_driver, check_agree_and_redirect, filter, display_trade_info
 import time
+from test_scrape import setup_driver, check_agree_and_redirect, apply_filter, display_trade_info
 
 def main():
     """
@@ -7,6 +7,7 @@ def main():
     """
     driver = setup_driver()
 
+    # pylint: disable=duplicate-code
     try:
         # Navigate past agree statement page
         url = 'https://efdsearch.senate.gov/search/home/'
@@ -26,7 +27,7 @@ def main():
         }
         filters['from_date'] = today_date
         filters['to_date'] = today_date
-        filter(driver, filters)
+        apply_filter(driver, filters)
         display_trade_info(driver)
 
     finally:
@@ -35,4 +36,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
