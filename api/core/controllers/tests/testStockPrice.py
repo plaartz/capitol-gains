@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date
 from django.test import TestCase
 from core.controllers import stock
 from core.models import StockPrice, Stock
@@ -56,11 +56,11 @@ class TestStockPriceController(TestCase):
         tesla_price = StockPrice.objects.get(stock=self.stock2)
         self.assertEqual(len(apple_prices), 2)
         self.assertEqual(apple_prices[0].price, 150.0)
-        self.assertEqual(apple_prices[0].date, datetime.strptime('2024-10-22', '%Y-%m-%d').date)
+        self.assertEqual(apple_prices[0].date, date(2024, 10, 22))
         self.assertEqual(apple_prices[1].price, 175.0)
-        self.assertEqual(apple_prices[1].date, datetime.strptime('2024-10-23', '%Y-%m-%d').date)
+        self.assertEqual(apple_prices[1].date, date(2024, 10, 23))
         self.assertEqual(tesla_price.price, 700.5)
-        self.assertEqual(tesla_price.date, datetime.strptime('2024-10-21', '%Y-%m-%d').date)
+        self.assertEqual(tesla_price.date, date(2024, 10, 21))
 
     def test_upload_invalid_price(self):
         """
