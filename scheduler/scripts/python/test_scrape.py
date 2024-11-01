@@ -1,6 +1,6 @@
 import re
 import time
-import datetime
+from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
@@ -145,8 +145,8 @@ def format_table_contents(data: list) -> None:
         transaction_number = int(row[0])
         transaction_date_string = row[1]
         format_str = '%m/%d/%Y'
-        transaction_date = datetime.datetime.strptime(transaction_date_string, format_str)
-        transaction_date = transaction_date.strftime('%Y-%m-%d')
+        transaction_date = datetime.strptime(transaction_date_string, format_str)
+        transaction_date = datetime.strptime(transaction_date.strftime('%Y-%m-%d'), '%Y-%m-%d')
         owner = row[2]
         ticker = row[3]
         asset_name = row[4]
@@ -231,8 +231,8 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
                     office = cols[2].text.strip()
                     date_filed = cols[4].text.strip()
                     format_str = '%m/%d/%Y'
-                    date_received = datetime.datetime.strptime(date_filed, format_str)
-                    date_received = date_received.strftime('%Y-%m-%d')
+                    date_received = datetime.strptime(date_filed, format_str)
+                    date_received = datetime.strptime(date_received.strftime('%Y-%m-%d'), '%Y-%m-%d')
 
                     link = row.find_element(By.XPATH, './/a[@href]')
                     href = link.get_attribute('href')
