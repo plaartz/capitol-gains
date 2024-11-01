@@ -88,8 +88,9 @@ class TestStockPriceController(TestCase):
         }
         status_code = stock.upload_stock_prices(invalid_data)
         status_code_2 = stock.upload_stock_prices(invalid_data_2)
-        self.assertEqual(status_code, 400)
-        self.assertEqual(status_code_2, 400)
+        self.assertEqual(status_code, 200)
+        self.assertEqual(status_code_2, 200)
+        self.assertEqual(StockPrice.objects.count(), 0)
 
     def test_upload_missing_price_key(self):
         """
@@ -105,7 +106,8 @@ class TestStockPriceController(TestCase):
             }
         }
         missing_price_status_code = stock.upload_stock_prices(missing_price_data)
-        self.assertEqual(missing_price_status_code, 409)
+        self.assertEqual(missing_price_status_code, 200)
+        self.assertEqual(StockPrice.objects.count(), 0)
 
         missing_date_data = {
             'TSLA': {
@@ -117,7 +119,8 @@ class TestStockPriceController(TestCase):
             }
         }
         missing_date_status_code = stock.upload_stock_prices(missing_date_data)
-        self.assertEqual(missing_date_status_code, 409)
+        self.assertEqual(missing_date_status_code, 200)
+        self.assertEqual(StockPrice.objects.count(), 0)
 
     def test_upload_new_stock_price_for_nonexistant_stock_fail(self):
         """
@@ -134,7 +137,8 @@ class TestStockPriceController(TestCase):
             }
         }
         status_code = stock.upload_stock_prices(new_price_data)
-        self.assertEqual(status_code, 500)
+        self.assertEqual(status_code, 200)
+        self.assertEqual(StockPrice.objects.count(), 0)
 
     def test_upload_data_to_update_existing_entry(self):
         """

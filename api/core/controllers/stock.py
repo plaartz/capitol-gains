@@ -90,7 +90,7 @@ def upload_stock_prices(data: dict) -> int:
                 if stock_price['price'] < 0:
                     continue
                 price = stock_price['price']
-                date = stock_price['date']
+                date = datetime.strptime(stock_price['date'], '%Y-%m-%d')
 
                 # Don't create/update stock price if the stock doesn't exist
                 stock_object = Stock.objects.filter(ticker=ticker).first()
