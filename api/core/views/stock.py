@@ -32,7 +32,7 @@ def upload_stock_prices(request) -> JsonResponse:
         data = loads(request.body)
     except JSONDecodeError:
         return JsonResponse({"error":"Invalid JSON"},status=400)
-    status = stock.upload_stock_prices(data)
+    status = stock.upload_stock_prices(data['data'])
     if status == 200:
         return JsonResponse({"status":"ok","message": "Prices uploaded"}, status=200)
     if status == 400:

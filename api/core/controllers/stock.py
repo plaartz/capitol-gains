@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from django.db.models import Exists, OuterRef
+from django.db.models import Exists, OuterRef, Q
 from django.db.utils import IntegrityError, DatabaseError
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -41,11 +41,12 @@ def get_stocks_to_update() -> tuple[list, int]:
     stocks = {}
 
     for ticker, date in unmatched:
-        delta = datetime.now().date() - date
+        delta = (datetime.now().date() - date).days + 1
         if ticker not in stocks:
-            stocks[ticker] = delta.days
-        elif stocks[ticker] < delta.days:
-            stocks[ticker] = delta.days
+            stocks[ticker] = delta
+        elif stocks[ticker] < delta:
+            stocks[ticker] = delta
+
 
     # Add in the ones we don't have a price for the most recent weekday
     all_stocks_today = (Stock.objects
@@ -73,6 +74,8 @@ def upload_stock_prices(data: dict) -> int:
     """
     try:
         items_to_update = []
+        new_items = []
+        existing_items = []
         for ticker, item_data in data.items():
             # Give an error if the stock price isn't a valid number
             for stock_price in item_data['prices']:
@@ -89,22 +92,40 @@ def upload_stock_prices(data: dict) -> int:
                 date = stock_price['date']
 
                 # Don't create/update stock price if the stock doesn't exist
-                stock_object = Stock.objects.filter(ticker=ticker)
-                if not stock_object.exists():
+                stock_object = Stock.objects.filter(ticker=ticker).first()
+                if not stock_object:
                     continue
 
                 item = StockPrice(stock=stock_object, price=price, date=date)
                 items_to_update.append(item)
-        StockPrice.objects.bulk_create(
-            items_to_update,
-            update_conflicts=True,
-            unique_fields=['stock', 'date'],
-            update_fields=['price']
+        existing_stock_prices = StockPrice.objects.filter(
+            Q(stock__in=[item.stock for item in items_to_update]) &
+            Q(date__in=[item.date for item in items_to_update])
         )
+        # Map existing entries by (stock, date) for easier access
+        existing_map = {
+            (stock_price.stock, stock_price.date): stock_price
+            for stock_price in existing_stock_prices
+        }
+
+        # Separate items to update (existing) from items to create (new)
+        for item in items_to_update:
+            if (item.stock, item.date) in existing_map:
+                existing_map[(item.stock, item.date)].price = item.price
+                existing_items.append(existing_map[(item.stock, item.date)])
+            else:
+                new_items.append(item)
+
+        # Perform bulk_update on existing items and bulk_create on new items
+        StockPrice.objects.bulk_update(existing_items, ['price'])
+        StockPrice.objects.bulk_create(new_items)
         return 200
     except (KeyError, TypeError, ValueError):
         return 400
     except IntegrityError:
         return 409
     except (DatabaseError, ObjectDoesNotExist):
+        return 500
+    # pylint: disable=broad-except
+    except Exception:
         return 500
