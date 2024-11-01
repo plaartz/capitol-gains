@@ -20,30 +20,27 @@ class UploadTransactionInformationViewTest(TestCase):
         """
         Tests if a valid JSON object gets uploaded to the database successfully
         """
-        data = {
-            'data': [
-                {
-                    'first_name': 'John',
-                    'middle_initial': 'A',
-                    'last_name': 'Doe',
-                    'filer_type': 'Senator',
-                    'date_received': '2024-01-10',
-                    'transactions': [
-                        {
-                            'transaction_number': 1,
-                            'ticker': ['AAPL'],
-                            'owner': 'John Doe',
-                            'stock_name': ['Apple Inc.'],
-                            'transaction_date': '2024-01-01',
-                            'transaction_type': 'Purchase',
-                            'transaction_amount': '$100 - $200',
-                            'comment': 'Bought for portfolio',
-                        }
-                    ]
-                }
-            ],
-            'size': -1
-        }
+        data = [
+            {
+                'first_name': 'John',
+                'middle_initial': 'A',
+                'last_name': 'Doe',
+                'filer_type': 'Senator',
+                'date_received': '2024-01-10',
+                'transactions': [
+                    {
+                        'transaction_number': 1,
+                        'ticker': ['AAPL'],
+                        'owner': 'John Doe',
+                        'stock_name': ['Apple Inc.'],
+                        'transaction_date': '2024-01-01',
+                        'transaction_type': 'Purchase',
+                        'transaction_amount': '$100 - $200',
+                        'comment': 'Bought for portfolio',
+                    }
+                ]
+            }
+        ]
 
         response = self.make_post_request(data)
 
@@ -57,25 +54,22 @@ class UploadTransactionInformationViewTest(TestCase):
         """
         Tests that missing information from the JSON object gets caught
         """
-        data = {
-            'data': [
-                {
-                    'transactions': [
-                        {
-                            'transaction_number': 1,
-                            'ticker': ['AAPL'],
-                            'owner': 'John Doe',
-                            'stock_name': ['Apple Inc.'],
-                            'transaction_date': '2024-01-01',
-                            'transaction_type': 'Purchase',
-                            'transaction_amount': '$100 - $200',
-                            'comment': 'Bought for portfolio',
-                        }
-                    ]
-                }
-            ],
-            'size': -1
-        }
+        data = [
+            {
+                'transactions': [
+                    {
+                        'transaction_number': 1,
+                        'ticker': ['AAPL'],
+                        'owner': 'John Doe',
+                        'stock_name': ['Apple Inc.'],
+                        'transaction_date': '2024-01-01',
+                        'transaction_type': 'Purchase',
+                        'transaction_amount': '$100 - $200',
+                        'comment': 'Bought for portfolio',
+                    }
+                ]
+            }
+        ]
 
         response = self.make_post_request(data)
 
