@@ -11,7 +11,7 @@ def search_view(request):
     """
     POST method which provides transactions that are searched by the user
 
-    @return    retursn JsonResponse with requested data or an error message 
+    :return JsonResponse: JsonResponse with requested data or an error message 
     """
 
     if not request.body or request.body is None or request.body == b'' :
@@ -95,7 +95,9 @@ def search_view(request):
 
 @require_http_methods(['GET'])
 def fetch_transaction(request):
-
+    """
+    GET method to fetch a transaction based on the id provided as a query parameter.
+    """
     transaction_id = request.GET.get("id")
     if transaction_id is None:
         return JsonResponse({"error": "No transaction id provided"},status=400)
@@ -108,7 +110,5 @@ def fetch_transaction(request):
 
     if status == 400:
         return JsonResponse({"error":"Error fetching transaction"},status=400)
-    
-    return JsonResponse({"transaction":transaction}) 
 
-
+    return JsonResponse({"transaction":transaction})

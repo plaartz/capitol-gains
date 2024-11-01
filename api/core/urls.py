@@ -12,5 +12,10 @@ urlpatterns = [
         "upload-transactions",
         views.transaction.upload_transaction_information,
         name="transaction"
+    ),
+    path(
+        "get-transaction-price-details",
+        views.transaction.fetch_transaction_price_info,
+        name="Stock Prices"
     )
 ]

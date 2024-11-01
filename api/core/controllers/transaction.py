@@ -1,6 +1,6 @@
-from datetime import datetime
+from datetime import datetime, date, timedelta
 from django.db.utils import IntegrityError, DatabaseError
-from core.models import Transaction, Stock, Profile, Politician
+from core.models import Transaction, Stock, Profile, Politician, StockPrice
 
 def process_profile(transaction: dict) -> Profile:
     """
@@ -97,3 +97,53 @@ def upload_transactions(transactions: list) -> int:
     # pylint: disable=broad-except
     except Exception:
         return 500
+
+def get_price_information(transaction_id) -> tuple[list, int]:
+    """
+    Returns a list of prices for the 10 days before to 10 days after.
+
+    :param transaction_id: The id of the transaction we want price data for.
+    :return tuple[list, int]: returns a tuple of a list of prices and the status
+    """
+    try:
+        transaction = Transaction.objects.get(id=transaction_id)
+
+        start_date = date.min
+        end_date = date.max
+
+        if transaction.transaction_type == "Sale":
+            start_date = Transaction.objects.filter(
+                politician = transaction.politician,
+                stock = transaction.stock,
+                transaction_type = "Purchase",
+                transaction_date__lt = transaction.transaction_date
+            ).order_by(
+                '-transaction_date'
+            ).values_list('transaction_date', flat=True).first() - timedelta(days=10)
+
+            end_date = transaction.transaction_date + timedelta(days=10)
+
+        else: #Is a Purchase
+            start_date = transaction.transaction_date - timedelta(days=10)
+
+            end_date = Transaction.objects.filter(
+                politician = transaction.politician,
+                stock = transaction.stock,
+                transaction_type = "Sale",
+                transaction_date__gt = transaction.transaction_date
+            ).order_by(
+                'transaction_date'
+            ).values_list('transaction_date', flat=True).first() + timedelta(days=10)
+
+
+        prices = StockPrice.objects.filter(
+            stock = transaction.stock,
+            date__gt = start_date,
+            date__lt = end_date
+        ).all().values('date','price').order_by('date')
+
+        return list(prices), 200
+
+
+    except Transaction.DoesNotExist:
+        return [], 400

@@ -1,3 +1,3 @@
 from .stock import *
 from .SearchController import get_transactions, get_transaction
-from .transaction import upload_transactions
+from .transaction import upload_transactions, get_price_information
