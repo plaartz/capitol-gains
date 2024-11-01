@@ -65,6 +65,7 @@ def get_stocks_to_update() -> tuple[list, int]:
 
     return [{"ticker": key, "date_range": val} for (key, val) in stocks.items()], 200
 
+# pylint: disable=too-many-branches
 def upload_stock_prices(data: dict) -> int:
     """
     Update stock price information in the database or add new entries to the database.
