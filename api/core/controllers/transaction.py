@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from django.db.utils import IntegrityError, DatabaseError
 from core.models import Transaction, Stock, Profile, Politician
 
@@ -55,7 +55,7 @@ def process_transaction(politician: Politician, stock: Stock,
     Process and create Transaction from trade data.
     """
     transaction_amount = trade['transaction_amount']
-    transaction_date = trade['transaction_date']
+    transaction_date = datetime.strptime(trade['transaction_date'], '%Y-%m-%d')
     transaction_type = trade['transaction_type']
 
     transaction = Transaction.objects.create(
@@ -80,7 +80,7 @@ def upload_transactions(transactions: list) -> int:
         for transaction in transactions:
             profile = process_profile(transaction)
             politician = process_politician(profile, transaction)
-            disclosure_date = transaction['date_received']
+            disclosure_date = datetime.strptime(transaction['date_received'], '%Y-%m-%d')
 
             for trade in transaction['transactions']:
                 for index in range(len(trade['ticker'])):
