@@ -173,7 +173,7 @@ class TestStockPriceController(TestCase):
         new_status_code = stock.upload_stock_prices(new_data)
         self.assertEqual(new_status_code, 200)
         different_apple_price = StockPrice.objects.get(stock=self.stock1)
-        self.assertEqual(different_apple_price, 180.0)
+        self.assertEqual(different_apple_price.price, 180.0)
 
         different_date_data = {
             'AAPL': {
