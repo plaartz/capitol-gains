@@ -1,4 +1,5 @@
 import time
+from requests import post
 from test_scrape import setup_driver, check_agree_and_redirect, apply_filter, display_trade_info
 
 def main():
@@ -28,7 +29,20 @@ def main():
         filters['from_date'] = today_date
         filters['to_date'] = today_date
         apply_filter(driver, filters)
-        display_trade_info(driver)
+        trades = display_trade_info(driver)
+
+        data = {
+            'data': trades,
+            'size': -1
+        }
+
+        # POST data to our backend
+        response = post('http://api:8000/api/core/upload-transactions',json=data)
+
+        if response.status_code != 200:
+            print(response.status_code)
+            print(response.content)
+            exit(1)
 
     finally:
         driver.quit()

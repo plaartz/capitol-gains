@@ -13,7 +13,7 @@ def upload_transaction_information(request) -> JsonResponse:
         data = loads(request.body)
     except JSONDecodeError:
         return JsonResponse({"error":"Invalid JSON"},status=400)
-    status = transaction.upload_transactions(data)
+    status = transaction.upload_transactions(data['data'])
     if status == 200:
         return JsonResponse({"status":"ok","message": "Transactions uploaded"}, status=200)
     if status == 400:

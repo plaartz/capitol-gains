@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from django.db.utils import IntegrityError, DatabaseError
 from core.models import Transaction, Stock, Profile, Politician
 
@@ -33,12 +33,12 @@ def process_politician(profile: Profile, transaction: dict) -> Politician:
     return politician
 
 
-def process_stock(trade: dict) -> Stock:
+def process_stock(trade: dict, index: int) -> Stock:
     """
     Process and get or create Stock from trade data.
     """
-    ticker = trade['ticker']
-    stock_name = trade['stock_name']
+    ticker = trade['ticker'][index]
+    stock_name = trade['stock_name'][index]
     stock_description = "--"
 
     stock, _ = Stock.objects.get_or_create(
@@ -55,7 +55,7 @@ def process_transaction(politician: Politician, stock: Stock,
     Process and create Transaction from trade data.
     """
     transaction_amount = trade['transaction_amount']
-    transaction_date = trade['transaction_date']
+    transaction_date = datetime.strptime(trade['transaction_date'], '%Y-%m-%d')
     transaction_type = trade['transaction_type']
 
     transaction = Transaction.objects.create(
@@ -80,15 +80,19 @@ def upload_transactions(transactions: list) -> int:
         for transaction in transactions:
             profile = process_profile(transaction)
             politician = process_politician(profile, transaction)
-            disclosure_date = transaction['date_received']
+            disclosure_date = datetime.strptime(transaction['date_received'], '%Y-%m-%d')
 
             for trade in transaction['transactions']:
-                stock = process_stock(trade)
-                process_transaction(politician, stock, trade, disclosure_date)
+                for index in range(len(trade['ticker'])):
+                    stock = process_stock(trade, index)
+                    process_transaction(politician, stock, trade, disclosure_date)
         return 200
     except (KeyError, TypeError, ValueError):
         return 400
     except IntegrityError:
         return 409
     except DatabaseError:
+        return 500
+    # pylint: disable=broad-except
+    except Exception:
         return 500

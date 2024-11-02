@@ -1,6 +1,6 @@
 import re
 import time
-import datetime
+from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
@@ -10,6 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from webdriver_manager.chrome import ChromeDriverManager
+from requests import post
 
 def setup_driver() -> webdriver.Chrome:
     """
@@ -144,7 +145,8 @@ def format_table_contents(data: list) -> None:
         transaction_number = int(row[0])
         transaction_date_string = row[1]
         format_str = '%m/%d/%Y'
-        transaction_date = datetime.datetime.strptime(transaction_date_string, format_str)
+        transaction_date = datetime.strptime(transaction_date_string, format_str)
+        transaction_date = transaction_date.strftime('%Y-%m-%d')
         owner = row[2]
         ticker = row[3]
         asset_name = row[4]
@@ -154,7 +156,7 @@ def format_table_contents(data: list) -> None:
             transaction_type = 'Sale'
         amount_range = row[7]
         comment = row[8]
-        if ticker == '--' or asset_type != 'Stock':
+        if ticker == '--' or asset_type != 'Stock' or asset_type != 'Stock Option':
             continue
         all_transactions.append({
             'transaction_number': transaction_number,
@@ -229,7 +231,8 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
                     office = cols[2].text.strip()
                     date_filed = cols[4].text.strip()
                     format_str = '%m/%d/%Y'
-                    date_received = datetime.datetime.strptime(date_filed, format_str)
+                    date_received = datetime.strptime(date_filed, format_str)
+                    date_received = date_received.strftime('%Y-%m-%d')
 
                     link = row.find_element(By.XPATH, './/a[@href]')
                     href = link.get_attribute('href')
@@ -276,8 +279,7 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
                     }
                     transaction_information['transactions'] = table_info
 
-                    if 'transaction_number' in transaction_information['transactions']:
-                        all_trade_information.append(transaction_information)
+                    all_trade_information.append(transaction_information)
 
                     driver.close()
                     driver.switch_to.window(driver.window_handles[0])
@@ -340,10 +342,23 @@ def main():
             'from_date': '',
             'to_date': ''
         }
-        filters['from_date'] = '01/01/2019'
+        filters['from_date'] = '01/09/2024'
         filters['to_date'] = time.strftime("%m/%d/%Y", time.localtime())
         apply_filter(driver, filters)
-        display_trade_info(driver)
+        trades = display_trade_info(driver)
+
+        data = {
+            'data': trades,
+            'size': -1
+        }
+
+        # POST data to our backend
+        response = post('http://api:8000/api/core/upload-transactions',json=data)
+
+        if response.status_code != 200:
+            print(response.status_code)
+            print(response.content)
+            exit(1)
 
     finally:
         driver.quit()
