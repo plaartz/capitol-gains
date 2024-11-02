@@ -3,7 +3,7 @@ import Navbar from 'src/components/Navbar'
 import { Routes, Route } from 'react-router-dom'
 import AboutUs from 'src/pages/AboutUs'
 import PoliticianStock from 'src/pages/PoliticianStock'
-import { useFilter, FilterContext} from 'src/contexts/Filter.js'
+import { useFilter, FilterContext} from 'src/contexts/Filters.js'
 
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
   return (
     <>
       <div className="App">
-        <FilterContext.Provider values={[filters, setFilters]}>
+        <FilterContext.Provider value={[filters, setFilters]}>
           <Navbar />
           <Routes>
             <Route path="/" element={<AboutUs />} />
