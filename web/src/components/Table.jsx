@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import {FilterContext} from 'src/contexts/Filter.js'
+import {FilterContext} from 'src/contexts/Filters.js'
 import TableRow from "./TableRow";
 import styles from "./styles/Table.module.css";
 import { search } from "src/utils/api.ts";
