@@ -1,0 +1,18 @@
+.searchBar {
+  display: flex;
+  align-items: center;
+}
+  
+.searchInput {
+  padding: 0.5em;
+  font-size: 1em;
+  width: 200px;
+}
+
+.searchButton {
+  margin-left: 0.5em;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  cursor: pointer;
+}
+  
