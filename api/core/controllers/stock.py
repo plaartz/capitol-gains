@@ -94,7 +94,7 @@ def upload_stock_prices(data: dict) -> int:
 
                 # Don't create/update stock price if the stock doesn't exist
                 stock_object = Stock.objects.filter(ticker=ticker).first()
-                if not stock_object:
+                if stock_object is None:
                     continue
 
                 item = StockPrice(stock=stock_object, price=price, date=date)
