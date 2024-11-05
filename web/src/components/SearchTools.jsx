@@ -1,8 +1,13 @@
-import { useState } from "react";
-import styles from "./styles/SearchBar.css";
+import { useState, useEffect, useContext } from "react";
+import {FilterContext} from "src/contexts/Filters";
+import "src/styles/SearchBar.css";
 
-export default function SearchBar() {
-  const [query, setQuery] = useState("");
+export default function SearchTools() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [middleInitial, setMiddleInitial] = useState("");
+  const [stock, setStock ] = useState("");
+  const [filters, _] = useContext(FilterContext)
 
   const handleSearch = () => {
     if (!query) return;
@@ -12,7 +17,7 @@ export default function SearchBar() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ query }),
+      body: JSON.stringify({ firstName }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -24,15 +29,15 @@ export default function SearchBar() {
   };
 
   return (
-    <div className={styles.searchBar}>
+    <div className="searchBar">
       <input
         type="text"
         placeholder="Enter search term..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className={styles.searchInput}
+        value={firstName}
+        onChange={(e) => setFirstName(e.target.value)}
+        className="searchInput"
       />
-      <button onClick={handleSearch} className={styles.searchButton}>
+      <button onClick={handleSearch} className="searchButton">
         Search
       </button>
     </div>
