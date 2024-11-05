@@ -119,12 +119,12 @@ def get_price_information(transaction_id) -> tuple[list, int]:
                 transaction_date__lt = transaction.transaction_date
             ).order_by(
                 '-transaction_date'
-            ).values_list('transaction_date', flat=True).first() - timedelta(days=10)
+            ).values_list('transaction_date', flat=True).first() - timedelta(days=15)
 
-            end_date = transaction.transaction_date + timedelta(days=10)
+            end_date = transaction.transaction_date + timedelta(days=15)
 
         else: #Is a Purchase
-            start_date = transaction.transaction_date - timedelta(days=10)
+            start_date = transaction.transaction_date - timedelta(days=15)
 
             end_date = Transaction.objects.filter(
                 politician = transaction.politician,
@@ -133,7 +133,7 @@ def get_price_information(transaction_id) -> tuple[list, int]:
                 transaction_date__gt = transaction.transaction_date
             ).order_by(
                 'transaction_date'
-            ).values_list('transaction_date', flat=True).first() + timedelta(days=10)
+            ).values_list('transaction_date', flat=True).first() + timedelta(days=15)
 
 
         prices = StockPrice.objects.filter(

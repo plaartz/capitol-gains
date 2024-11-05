@@ -33,7 +33,7 @@ def fetch_transaction_price_info(request) -> JsonResponse:
     if transaction_id is None:
         return JsonResponse({"error": "No transaction id provided"},status=400)
     try:
-        transaction_id = int(id)
+        transaction_id = int(transaction_id)
     except (TypeError, ValueError):
         return JsonResponse({"error": "Bad transaction id provided"},status=400)
 

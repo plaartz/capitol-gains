@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import styles from "./styles/Transaction.module.css";
+import StockGraph from "../components/StockGraph";
 
 export default function Transaction() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [tradeData, setData] = useState({});
+  const [priceData, setPriceData] = useState([]);
 
   useEffect(() => {
     fetch(`/api/core/get-transaction?id=${id}`)
@@ -21,6 +23,17 @@ export default function Transaction() {
       .catch((_) => {
         //console.log(err);
         navigate("/404");
+      });
+    fetch(`/api/core/get-transaction-price-details?id=${id}`)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else throw new Error("bad request");
+      })
+      .then((res) => {console.log(res.prices);
+        setPriceData(res.prices)})
+      .catch((_) => {
+        console.log("error fetching prices");
       });
   }, [id]);
 
@@ -106,7 +119,9 @@ export default function Transaction() {
               </h2>
             </div>
             <section className={styles.cardContent}>
-              <section className={styles.chartPlaceHolder}></section>
+              <section className={styles.chartPlaceHolder}>
+                <StockGraph data={priceData} ticker={tradeData.stock_ticker} />
+              </section>
 
               <section className={styles.metricsGrid}>
                 <div className={styles.metricCard}>
