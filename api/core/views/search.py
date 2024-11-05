@@ -1,3 +1,4 @@
+#pylint: disable=too-many-locals
 import json
 from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
@@ -25,6 +26,29 @@ def search_view(request):
     end_date = data.get("end_date")
     page_no = request.GET.get("pageNo")
     page_size = request.GET.get("pageSize")
+    order_by = request.GET.get("orderBy")
+    order = request.GET.get("order")
+
+    # Make sure the order by is a vaild selection
+    valid_options = [
+        "transaction_date",
+        'disclosure_date',
+        "transaction_type",
+        "transaction_amount",
+        "politician_type",
+        "politician_house",
+        "first_name",
+        "last_name",
+        "stock_ticker",
+        "stock_price"
+    ]
+
+    if order_by is None or order_by == "" or order_by not in valid_options:
+        order_by = "transaction_date"
+
+    # Handle order
+    if order is None or order == "" or (order not in ["ASC", "DESC"]):
+        order = "ASC"
 
     # Handle page number
     if page_no is None:
@@ -55,7 +79,9 @@ def search_view(request):
         start_date,
         end_date,
         page_no,
-        page_size
+        page_size,
+        order_by,
+        order
     )
 
     response_data = {
