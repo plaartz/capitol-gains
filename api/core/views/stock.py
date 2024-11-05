@@ -29,7 +29,19 @@ def upload_stock_prices(request) -> JsonResponse:
     @return     JsonResponse with a success message or a detailed error message
     """
     try:
-        _ = loads(request.body)
+        data = loads(request.body)
     except JSONDecodeError:
         return JsonResponse({"error":"Invalid JSON"},status=400)
-    return JsonResponse({"status":"ok","message": "Prices uploaded"}, status=200)
+    status = stock.upload_stock_prices(data['data'])
+    if status == 200:
+        return JsonResponse({"status":"ok","message": "Prices uploaded"}, status=200)
+    if status == 400:
+        return JsonResponse({"error": "Bad request, missing or invalid data"}, status=400)
+    if status == 409:
+        return JsonResponse({"error": "Conflict, integrity error with the database"}, status=409)
+    if status == 500:
+        return JsonResponse(
+            {"error": "Internal server error while updating stock prices"},
+            status=500
+        )
+    return JsonResponse({"error": "Unexpected error occurred"}, status=500)

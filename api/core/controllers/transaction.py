@@ -76,6 +76,7 @@ def upload_transactions(transactions: list) -> int:
     @param transactions:    a list of transactions reports.
     @return:                status code representing if the upload was successful or not.
     """
+    # pylint: disable=duplicate-code
     try:
         for transaction in transactions:
             profile = process_profile(transaction)

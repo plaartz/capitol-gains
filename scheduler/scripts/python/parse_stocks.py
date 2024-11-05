@@ -165,9 +165,9 @@ def fetch_data() -> list:
                 "ticker": res["symbol"],
                 "prices": [
                     {
-                            "price":res["close"],
-                            "date": res["datetime"]
-                        }
+                        "price":res["close"],
+                        "date": res["datetime"]
+                    }
                 ]
             }
         if len(eod_queue):

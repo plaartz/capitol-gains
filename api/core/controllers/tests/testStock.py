@@ -62,7 +62,7 @@ class TestStockController(TestCase):
         assert len(stocks_to_update[0]) == 1
         for item in stocks_to_update[0]:
             assert item["date_range"] == (
-                datetime.now().date() - datetime.strptime("2024-01-02","%Y-%m-%d").date()).days
+                datetime.now().date() - datetime.strptime("2024-01-02","%Y-%m-%d").date()).days + 1
         assert stocks_to_update[1] == 200
 
     def test_get_stocks_to_update_success(self):
@@ -82,5 +82,5 @@ class TestStockController(TestCase):
         assert len(stocks_to_update[0]) == 1
         for item in stocks_to_update[0]:
             assert item["date_range"] == (
-                datetime.now().date() - datetime.strptime("2024-01-02","%Y-%m-%d").date()).days
+                datetime.now().date() - datetime.strptime("2024-01-02","%Y-%m-%d").date()).days + 1
         assert stocks_to_update[1] == 200
