@@ -47,7 +47,7 @@ def search_view(request):
         order_by = "transaction_date"
 
     # Handle order
-    if order is None or order == "" or (order not in ["ASC", "DESC"]):
+    if order is None or order == "" or (order not in ["ASC", "DESC", "asc", "desc"]):
         order = "ASC"
 
     # Handle page number
