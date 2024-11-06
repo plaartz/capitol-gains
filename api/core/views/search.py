@@ -43,11 +43,15 @@ def search_view(request):
         "stock_price"
     ]
 
-    if order_by is None or order_by == "" or order_by not in valid_options:
+    if order_by is None:
+        order_by = "transaction_date"
+    elif order_by == "" or order_by.lower() not in valid_options:
         order_by = "transaction_date"
 
     # Handle order
-    if order is None or order == "" or (order not in ["ASC", "DESC", "asc", "desc"]):
+    if order is None:
+        order = "ASC"
+    elif order == "" or (order.upper() not in ["ASC", "DESC"]):
         order = "ASC"
 
     # Handle page number

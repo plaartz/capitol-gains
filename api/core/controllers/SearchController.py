@@ -1,4 +1,4 @@
-# pylint: disable=too-many-positional-arguments, too-many-arguments, line-too-long, too-many-locals, too-many-branches, consider-iterating-dictionary
+# pylint: disable=too-many-positional-arguments, too-many-arguments, line-too-long, too-many-locals, too-many-branches, consider-iterating-dictionary, too-many-statements
 from core.serializers import TransactionSerializer
 from core.models import Transaction
 from django.db.models.functions import Cast
@@ -24,12 +24,18 @@ def get_transactions(first_name, last_name, politician_type, politician_house, s
         "stock_ticker": "stock__ticker",
         "stock_price": ""
     }
-    if order_by is None or order_by == "" or order_by not in list(valid_options.keys()):
+    if order_by is None:
         order_by = "transaction_date"
+    elif order_by == "" or order_by.lower() not in list(valid_options.keys()):
+        order_by = "transaction_date"
+    order_by = order_by.lower()
 
     # Handle order
-    if order is None or order == "" or (order not in ["ASC", "DESC"]):
+    if order is None:
         order = "ASC"
+    elif order == "" or (order.upper() not in ["ASC", "DESC"]):
+        order = "ASC"
+    order = order.upper()
 
     # Handle page number
     if page_no is None:
