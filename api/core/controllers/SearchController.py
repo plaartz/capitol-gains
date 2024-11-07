@@ -16,7 +16,7 @@ def get_transactions(first_name, last_name, politician_type, politician_house, s
         "transaction_date": "transaction_date",
         "disclosure_date": "disclosure_date",
         "transaction_type": "transaction_type",
-        "transaction_amount": "extracted_transaction_amount", # This is the holder used for ordering and casting (line 66 and 85)
+        "transaction_amount": "extracted_transaction_amount", # This is the holder used for ordering and casting
         "politician_type": "politician__politician_type",
         "politician_house": "politician__politician_house",
         "first_name": "politician__profile__first_name",
