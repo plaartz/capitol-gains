@@ -2,6 +2,8 @@ from datetime import datetime, date, timedelta
 from django.db.utils import IntegrityError, DatabaseError
 from core.models import Transaction, Stock, Profile, Politician, StockPrice
 
+GRAPH_SIZE = 30
+
 def process_profile(transaction: dict) -> Profile:
     """
     Process and get or create Profile from transaction data.
@@ -119,12 +121,13 @@ def get_price_information(transaction_id) -> tuple[list, int]:
                 transaction_date__lt = transaction.transaction_date
             ).order_by(
                 '-transaction_date'
-            ).values_list('transaction_date', flat=True).first() - timedelta(days=15)
+            ).values_list('transaction_date', flat=True).first()
 
-            end_date = transaction.transaction_date + timedelta(days=15)
+            end_date = transaction.transaction_date
+            
 
         else: #Is a Purchase
-            start_date = transaction.transaction_date - timedelta(days=15)
+            start_date = transaction.transaction_date
 
             end_date = Transaction.objects.filter(
                 politician = transaction.politician,
@@ -133,13 +136,17 @@ def get_price_information(transaction_id) -> tuple[list, int]:
                 transaction_date__gt = transaction.transaction_date
             ).order_by(
                 'transaction_date'
-            ).values_list('transaction_date', flat=True).first() + timedelta(days=15)
-
+            ).values_list('transaction_date', flat=True).first()
+        time_span = (end_date - start_date).days
+        if (time_span <= GRAPH_SIZE):  
+            delta = timedelta(days=(GRAPH_SIZE - time_span) / 2) # What if end_date - start_date > GRAPH_SIZE
+            start_date -= delta
+            end_date += delta
 
         prices = StockPrice.objects.filter(
             stock = transaction.stock,
-            date__gt = start_date,
-            date__lt = end_date
+            date__gte = start_date,
+            date__lte = end_date
         ).all().values('date','price').order_by('date')
 
         return list(prices), 200
