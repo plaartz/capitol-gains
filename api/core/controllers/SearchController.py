@@ -2,7 +2,7 @@
 from core.serializers import TransactionSerializer
 from core.models import Transaction
 from django.db.models.functions import Cast
-from django.db.models import IntegerField, CharField, Func, F, Value
+from django.db.models import IntegerField, CharField, Func, F, Value, Case, When
 
 def get_transactions(first_name, last_name, politician_type, politician_house, start_date, end_date, page_no, page_size, order_by, order):
     """
@@ -72,6 +72,49 @@ def get_transactions(first_name, last_name, politician_type, politician_house, s
         # Order by "transaction amount" needs to be first casted to an integer
         if order_by == "transaction_amount":
             # Get transactions with casting
+            # This works for MySQL db, now seeing if it works for sqlite via pipeline
+            transactions = Transaction.objects.filter(**filter_criteria).annotate(
+                # Find the position of the first " - " to split the string
+                first_amount_pos=Func(
+                    F('transaction_amount'),
+                    Value(' - '),
+                    function='INSTR',
+                    output_field=IntegerField()
+                ),
+                # Extract the substring before the first " - ", handling case where there's no dash
+                extracted_amount=Case(
+                    When(first_amount_pos=0, then=F('transaction_amount')),  # If no dash, use the whole string
+                    default=Func(
+                        F('transaction_amount'),
+                        F('first_amount_pos'),
+                        function='SUBSTR',
+                        output_field=CharField()
+                    )
+                ),
+                # Clean up the amount by removing "$" and "," in one step and cast to integer
+                clean_amount=Func(
+                    Func(
+                        F('extracted_amount'),
+                        Value('$'),
+                        Value(''),
+                        function='REPLACE',
+                        output_field=CharField()
+                    ),
+                    Value(','),
+                    Value(''),
+                    function='REPLACE',
+                    output_field=CharField()  # Result after second REPLACE
+                ),
+                extracted_transaction_amount=Cast(
+                    F('clean_amount'),
+                    output_field=IntegerField()  # Convert cleaned string to integer
+                )
+            ).order_by(ordering)
+
+
+
+
+            ''' The below uses SUBSTRING_INDEX which is only for MySQL db's
             # Extract and clean the first number before the dash
             transactions = Transaction.objects.filter(**filter_criteria).annotate(
                 # Extract substring up to the first " - " (splits the string at the dash)
@@ -93,7 +136,7 @@ def get_transactions(first_name, last_name, politician_type, politician_house, s
                     ),
                     output_field=IntegerField()   # Explicityly declare final output as integer
                 )
-            ).order_by(ordering)
+            ).order_by(ordering)'''
         else:
             # Get transactions normally
             transactions = Transaction.objects.filter(**filter_criteria).order_by(ordering)
