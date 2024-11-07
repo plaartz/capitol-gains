@@ -64,15 +64,14 @@ def get_transactions(first_name, last_name, politician_type, politician_house, s
     if order_by != "stock_price":
         # We order within transaction objects via ORM which is before the serializing
         ordering = valid_options[order_by]
-        # Determines whether we need a negative
+        # Determines whether we need a negative for decending
         if order == "DESC":
             ordering = "-" + ordering
 
         transactions = None    # Holds initial transaction query set
-        # Order by "transaction amount" needs to be first casted to an integer
+        # Order by "transaction amount" needs to be first parsed and casted to an integer
         if order_by == "transaction_amount":
-            # Get transactions with casting
-            # This works for MySQL db, now seeing if it works for sqlite via pipeline
+            # Get transactions alongside parsing and casting via ORM
             transactions = Transaction.objects.filter(**filter_criteria).annotate(
                 # Find the position of the first " - " to split the string
                 first_amount_pos=Func(
@@ -110,33 +109,6 @@ def get_transactions(first_name, last_name, politician_type, politician_house, s
                     output_field=IntegerField()  # Convert cleaned string to integer
                 )
             ).order_by(ordering)
-
-
-
-
-            ''' The below uses SUBSTRING_INDEX which is only for MySQL db's
-            # Extract and clean the first number before the dash
-            transactions = Transaction.objects.filter(**filter_criteria).annotate(
-                # Extract substring up to the first " - " (splits the string at the dash)
-                first_amount=Func(
-                    F('transaction_amount'),
-                    Value(' - '),
-                    Value(1),
-                    function='SUBSTRING_INDEX',
-                    output_field=CharField()  # Explicitly declare the output as CharField
-                ),
-                # Remove any "$" or "," from the extracted amount and convert to integer
-                extracted_transaction_amount=Cast(
-                    Func(
-                        Func(F('first_amount'), Value('$'), Value(''), function='REPLACE'),
-                        Value(','),
-                        Value(''),
-                        function='REPLACE',
-                        output_field=CharField()  # Explicitly declare the output as CharField
-                    ),
-                    output_field=IntegerField()   # Explicityly declare final output as integer
-                )
-            ).order_by(ordering)'''
         else:
             # Get transactions normally
             transactions = Transaction.objects.filter(**filter_criteria).order_by(ordering)
