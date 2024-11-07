@@ -435,7 +435,7 @@ class TestSearchView(TestCase):
             next_date = transaction_data[i+1]["transaction_date"]
             current_date_obj = datetime.strptime(current_date, "%Y-%m-%d")
             next_date_obj = datetime.strptime(next_date, "%Y-%m-%d")
-            assert current_date_obj <= next_date_obj
+            assert current_date_obj >= next_date_obj
 
 
 
@@ -468,7 +468,7 @@ class TestSearchView(TestCase):
             next_date = transaction_data[i+1]["disclosure_date"]
             current_date_obj = datetime.strptime(current_date, "%Y-%m-%d")
             next_date_obj = datetime.strptime(next_date, "%Y-%m-%d")
-            assert current_date_obj <= next_date_obj
+            assert current_date_obj >= next_date_obj
 
 
     def test_search_view_with_order_by_transaction_type(self):
@@ -498,7 +498,7 @@ class TestSearchView(TestCase):
         for i in range(0, len(transaction_data) - 1):
             current_type = transaction_data[i]["transaction_type"]
             next_type = transaction_data[i+1]["transaction_type"]
-            assert current_type <= next_type
+            assert current_type >= next_type
 
 
     def test_search_view_with_order_by_politician_type(self):
@@ -528,7 +528,7 @@ class TestSearchView(TestCase):
         for i in range(0, len(transaction_data) - 1):
             current_type = transaction_data[i]["politician_type"]
             next_type = transaction_data[i+1]["politician_type"]
-            assert current_type <= next_type
+            assert current_type >= next_type
 
 
     def test_search_view_with_order_by_politician_house(self):
@@ -558,7 +558,7 @@ class TestSearchView(TestCase):
         for i in range(0, len(transaction_data) - 1):
             current_house = transaction_data[i]["politician_house"]
             next_house = transaction_data[i+1]["politician_house"]
-            assert current_house <= next_house
+            assert current_house >= next_house
 
 
     def test_search_view_with_order_by_first_name(self):
@@ -588,7 +588,7 @@ class TestSearchView(TestCase):
         for i in range(0, len(transaction_data) - 1):
             current_first_name = transaction_data[i]["full_name"].split(" ")[0]
             next_first_name = transaction_data[i+1]["full_name"].split(" ")[0]
-            assert current_first_name <= next_first_name
+            assert current_first_name >= next_first_name
 
 
     def test_search_view_with_order_by_last_name(self):
@@ -618,7 +618,7 @@ class TestSearchView(TestCase):
         for i in range(0, len(transaction_data) - 1):
             current_last_name = transaction_data[i]["full_name"].split(" ")[-1]
             next_last_name = transaction_data[i+1]["full_name"].split(" ")[-1]
-            assert current_last_name <= next_last_name
+            assert current_last_name >= next_last_name
 
 
     def test_search_view_with_order_by_stock_ticker(self):
@@ -648,7 +648,7 @@ class TestSearchView(TestCase):
         for i in range(0, len(transaction_data) - 1):
             current_ticker = transaction_data[i]["stock_ticker"]
             next_ticker = transaction_data[i+1]["stock_ticker"]
-            assert current_ticker <= next_ticker
+            assert current_ticker >= next_ticker
 
 
     def test_search_view_with_order_by_stock_price(self):
@@ -678,7 +678,7 @@ class TestSearchView(TestCase):
         for i in range(0, len(transaction_data) - 1):
             current_price = float(transaction_data[i]["stock_price"])
             next_price = float(transaction_data[i+1]["stock_price"])
-            assert current_price <= next_price
+            assert current_price >= next_price
 
 
     def test_search_view_with_order_by_transaction_amount(self):
@@ -708,7 +708,7 @@ class TestSearchView(TestCase):
         for i in range(0, len(transaction_data) - 1):
             current_amount = int(transaction_data[i]["transaction_amount"])
             next_amount = int(transaction_data[i+1]["transaction_amount"])
-            assert current_amount <= next_amount
+            assert current_amount >= next_amount
 
 
     def test_search_view_with_order_ascending(self):

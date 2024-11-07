@@ -29,10 +29,10 @@ def search_view(request):
     order_by = request.GET.get("orderBy")
     order = request.GET.get("order")
 
-    # Make sure the order by is a vaild selection
+    # Make sure the order by is a valid selection
     valid_options = [
         "transaction_date",
-        'disclosure_date',
+        "disclosure_date",
         "transaction_type",
         "transaction_amount",
         "politician_type",
@@ -43,16 +43,14 @@ def search_view(request):
         "stock_price"
     ]
 
-    if order_by is None:
+    if order_by is None or order_by == "" or order_by.lower() not in valid_options:
         order_by = "transaction_date"
-    elif order_by == "" or order_by.lower() not in valid_options:
-        order_by = "transaction_date"
+    order_by = order_by.lower()
 
     # Handle order
-    if order is None:
-        order = "ASC"
-    elif order == "" or (order.upper() not in ["ASC", "DESC"]):
-        order = "ASC"
+    if order is None or order == "" or (order.upper() not in ["ASC", "DESC"]):
+        order = "DESC"
+    order = order.upper()
 
     # Handle page number
     if page_no is None:

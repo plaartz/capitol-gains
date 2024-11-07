@@ -2,7 +2,7 @@
 from core.serializers import TransactionSerializer
 from core.models import Transaction
 from django.db.models.functions import Cast
-from django.db.models import IntegerField
+from django.db.models import IntegerField, CharField, Func, F, Value
 
 def get_transactions(first_name, last_name, politician_type, politician_house, start_date, end_date, page_no, page_size, order_by, order):
     """
@@ -11,12 +11,12 @@ def get_transactions(first_name, last_name, politician_type, politician_house, s
     @return    returns a list of the transactions 
     """
 
-    # Make sure the order by is a vaild selection
+    # Make sure the order by is a valid selection
     valid_options = {
         "transaction_date": "transaction_date",
-        'disclosure_date': "disclosure_date",
+        "disclosure_date": "disclosure_date",
         "transaction_type": "transaction_type",
-        "transaction_amount": "transaction_amount_int",
+        "transaction_amount": "extracted_transaction_amount", # This is the holder used for ordering and casting (line 66 and 85)
         "politician_type": "politician__politician_type",
         "politician_house": "politician__politician_house",
         "first_name": "politician__profile__first_name",
@@ -24,17 +24,13 @@ def get_transactions(first_name, last_name, politician_type, politician_house, s
         "stock_ticker": "stock__ticker",
         "stock_price": ""
     }
-    if order_by is None:
-        order_by = "transaction_date"
-    elif order_by == "" or order_by.lower() not in list(valid_options.keys()):
+    if order_by is None or order_by == "" or order_by.lower() not in valid_options:
         order_by = "transaction_date"
     order_by = order_by.lower()
 
     # Handle order
-    if order is None:
-        order = "ASC"
-    elif order == "" or (order.upper() not in ["ASC", "DESC"]):
-        order = "ASC"
+    if order is None or order == "" or (order.upper() not in ["ASC", "DESC"]):
+        order = "DESC"
     order = order.upper()
 
     # Handle page number
@@ -68,6 +64,7 @@ def get_transactions(first_name, last_name, politician_type, politician_house, s
     if order_by != "stock_price":
         # We order within transaction objects via ORM which is before the serializing
         ordering = valid_options[order_by]
+        # Determines whether we need a negative
         if order == "DESC":
             ordering = "-" + ordering
 
@@ -75,9 +72,28 @@ def get_transactions(first_name, last_name, politician_type, politician_house, s
         # Order by "transaction amount" needs to be first casted to an integer
         if order_by == "transaction_amount":
             # Get transactions with casting
+            # Extract and clean the first number before the dash
             transactions = Transaction.objects.filter(**filter_criteria).annotate(
-                transaction_amount_int=Cast('transaction_amount', IntegerField())
-                ).order_by(ordering)
+                # Extract substring up to the first " - " (splits the string at the dash)
+                first_amount=Func(
+                    F('transaction_amount'),
+                    Value(' - '),
+                    Value(1),
+                    function='SUBSTRING_INDEX',
+                    output_field=CharField()  # Explicitly declare the output as CharField
+                ),
+                # Remove any "$" or "," from the extracted amount and convert to integer
+                extracted_transaction_amount=Cast(
+                    Func(
+                        Func(F('first_amount'), Value('$'), Value(''), function='REPLACE'),
+                        Value(','),
+                        Value(''),
+                        function='REPLACE',
+                        output_field=CharField()  # Explicitly declare the output as CharField
+                    ),
+                    output_field=IntegerField()   # Explicityly declare final output as integer
+                )
+            ).order_by(ordering)
         else:
             # Get transactions normally
             transactions = Transaction.objects.filter(**filter_criteria).order_by(ordering)
