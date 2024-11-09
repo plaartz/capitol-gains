@@ -1,23 +1,48 @@
 import { useState, useEffect, useContext } from "react";
 import {FilterContext} from "src/contexts/Filters";
-import "src/styles/SearchBar.css";
+import TextBox from "./TextBox";
+import DatePickerInput from "./DatePickerInput";
+import RangeSlider from "./RangeSlider";
+import "./styles/SearchBar.css";
 
 export default function SearchTools() {
+  const [fullName, setFullName] = useState("");
   const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [middleInitial, setMiddleInitial] = useState("");
+  const [lastName, setLastName] = useState("");
   const [stock, setStock ] = useState("");
+  const [advancedFiltersSelected, setAdvancedFiltersSelected] = useState(false);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(10000);
   const [filters, _] = useContext(FilterContext)
 
-  const handleSearch = () => {
-    if (!query) return;
+  useEffect(() => {
+    const nameComponents = fullName.split(" ");
+    if (nameComponents.length == 1) {
+      setFirstName(nameComponents[0]);
+    } else if (nameComponents.length == 2) {
+      setFirstName(nameComponents[0]);
+      setLastName(nameComponents[1])
+    } else {
+      setFirstName(nameComponents[0]);
+      setMiddleInitial(nameComponents[1]);
+      setLastName(nameComponents[2]);
+    }
+  }, [fullName])
 
-    fetch("/api/stocks/search", {
+  const handleSearch = () => {
+    fetch("http://api:8000/api/core/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ firstName }),
+      body: JSON.stringify({
+        'first_name': firstName,
+        'middle_inital': middleInitial,
+        'last_name': lastName,
+      }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -29,17 +54,55 @@ export default function SearchTools() {
   };
 
   return (
-    <div className="searchBar">
-      <input
-        type="text"
-        placeholder="Enter search term..."
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-        className="searchInput"
-      />
-      <button onClick={handleSearch} className="searchButton">
-        Search
-      </button>
+    <div>
+      <div className="searchBar">
+        <div className="basicSearch">
+          <TextBox
+            label="Full Name"
+            placeholder="Enter Full Name..."
+            value={fullName}
+            onChange={setFullName}
+            className="searchInput"
+          />
+          <TextBox
+            label="Company Ticker"
+            placeholder="Enter Company Ticker..."
+            value={stock}
+            onChange={setStock}
+            className="searchInput"
+          />
+          <button onClick={handleSearch} className="searchButton">
+            Search
+          </button>
+        </div>
+      </div>
+      <div className="advancedOptionsToggle">
+        <span
+          onClick={() => setAdvancedFiltersSelected(!advancedFiltersSelected)}
+          style={{ color: "red", cursor: "pointer" }}
+        >
+          {advancedFiltersSelected ? "Hide Advanced Options" : "Show Advanced Options"}
+        </span>
+      </div>
+      {advancedFiltersSelected && (
+        <div>
+          <div className="advancedOptions">
+            <DatePickerInput
+              label="Start Date"
+              selectedDate={startDate}
+              onDateChange={setStartDate}
+            />
+            <DatePickerInput
+              label="End Date"
+              selectedDate={endDate}
+              onDateChange={setEndDate}
+            />
+          </div>
+          <div className="advancedOptions">
+            <RangeSlider minValue={minPrice} maxValue={maxPrice} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

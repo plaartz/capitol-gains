@@ -1,0 +1,14 @@
+.datePickerContainer {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.datePickerInput {
+  padding: 0.5em;
+  font-size: 1em;
+  width: 200px;
+}
+  
