@@ -4,6 +4,7 @@ import TableRow from "./TableRow";
 import styles from "./styles/Table.module.css";
 import { search } from "src/utils/api.ts";
 import Pagination from "./Pagination";
+import PageSize from "./PageSize";
 
 export default function Table() {
   const [data, setData] = useState([]);
@@ -44,6 +45,11 @@ export default function Table() {
     }
   };
 
+  const pgSize = (pgS) => {
+    setPgSize(pgS)
+    setPageNo(1)
+  }
+
   return (
     <div style={{ width: "80%", margin: "0 auto" }}>
       {data ? (
@@ -74,7 +80,7 @@ export default function Table() {
             </table>
           </section>
           <section className={styles.paginationFooter}>
-            <div>
+            <div className={styles.pag}>
               <Pagination
                 totalPosts={totalPosts}
                 pageSize={pageSize}
@@ -82,7 +88,9 @@ export default function Table() {
                 paginate={paginate}
               />
             </div>
-            <div>Page size</div>
+            <div className={styles.pagS}>
+              <PageSize pgSiz = {pgSize}/>
+            </div>
           </section>
         </>
       ) : (
