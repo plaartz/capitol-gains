@@ -59,6 +59,7 @@ export default function Table() {
             </table>
           </section>
           <section className={styles.paginationFooter}>
+            <div></div>
             <div>Pagination</div>
             <div>Page size</div>
           </section>
