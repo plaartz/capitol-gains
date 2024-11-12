@@ -1,0 +1,19 @@
+services:
+  api:
+    build: 
+      context: ${BASE_DIR}/api
+    restart: always
+    depends_on: 
+      - database
+    environment:
+      COMPOSE_PROJECT_NAME: "Capitol_Gains_11"
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_SECRET: ${DB_SECRET}
+      DB_NAME: "production_db"
+      DB_USER: "root"
+      DB_HOST: '%'
+      DB_PORT: ${DB_PORT}
+      BUILD: "production"
+    ports:
+      - '${API_PORT}:8000'
+    

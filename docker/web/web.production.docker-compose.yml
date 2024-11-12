@@ -1,0 +1,17 @@
+services:
+  web:
+    build:  
+      context: ${BASE_DIR}/web
+    restart: always
+    depends_on:
+      - database
+      - api
+    environment:
+      BUILD: "production"
+      COMPOSE_PROJECT_NAME: "Capitol_Gains_11"
+      WEB_PORT: ${WEB_PORT}
+      API_PORT: ${API_PORT}
+      API_HOST: ${API_HOST}
+    ports:
+      - '${WEB_PORT}:5173'
+        
