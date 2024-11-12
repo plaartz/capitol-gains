@@ -5,11 +5,10 @@ import {
   YAxis,
   Line,
   ReferenceLine,
-  Label,
+  Label
 } from "recharts";
 
 export default function StockGraph({
-  ticker,
   data,
   transaction = false,
   transaction_details = {},

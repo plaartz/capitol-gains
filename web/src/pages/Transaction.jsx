@@ -120,7 +120,7 @@ export default function Transaction() {
             </div>
             <section className={styles.cardContent}>
               <section className={styles.chartPlaceHolder}>
-                <StockGraph data={priceData} ticker={tradeData.stock_ticker} transaction={true} transaction_details={tradeData}/>
+                <StockGraph data={priceData} transaction={true} transaction_details={tradeData}/>
               </section>
 
               <section className={styles.metricsGrid}>
