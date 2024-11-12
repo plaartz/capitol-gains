@@ -197,7 +197,7 @@ def main() -> None:
               writing to backup json file for manual upload',file=stderr)
         #pylint: disable=line-too-long
         with open(f'/scheduler/backup/{date.today().strftime("%Y-%m-%d")}.json','w+',encoding='utf-8') as f:
-            json.dump(data, f)
+            json.dump(data, f,indent=2)
 
         exit(1)
 
