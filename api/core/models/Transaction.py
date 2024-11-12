@@ -39,7 +39,11 @@ class Transaction(models.Model):
         )
         curr_price = stock_prices.filter(
             date = self.transaction_date
-        ).first().price
+        ).first()
+
+        if not curr_price:
+            return 0
+        curr_price = curr_price.price
 
         purchase_date = Transaction.objects.filter(
             politician = self.politician,

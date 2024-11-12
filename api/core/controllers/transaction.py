@@ -124,11 +124,11 @@ def get_price_information(transaction_id) -> tuple[list, int]:
             ).values_list('transaction_date', flat=True).first()
 
             end_date = transaction.transaction_date
-
+            if not start_date:
+                start_date =  end_date
 
         else: #Is a Purchase
             start_date = transaction.transaction_date
-
             end_date = Transaction.objects.filter(
                 politician = transaction.politician,
                 stock = transaction.stock,
@@ -137,18 +137,25 @@ def get_price_information(transaction_id) -> tuple[list, int]:
             ).order_by(
                 'transaction_date'
             ).values_list('transaction_date', flat=True).first()
+            if not end_date:
+                end_date = start_date
+
         time_span = (end_date - start_date).days
+
         if time_span <= GRAPH_SIZE:
-            delta = timedelta(days=(GRAPH_SIZE - time_span) / 2)
-            start_date -= delta
-            end_date += delta
+            try:
+                delta = timedelta(days=(GRAPH_SIZE - time_span) / 2)
+                start_date -= delta
+                end_date += delta
+            except Exception:
+                print("Err, ", transaction.stock, transaction.transaction_date, transaction.transaction_type)
 
         prices = StockPrice.objects.filter(
             stock = transaction.stock,
             date__gte = start_date,
             date__lte = end_date
         ).all().values('date','price').order_by('date')
-
+        
         return list(prices), 200
 
 

@@ -29,10 +29,9 @@ export default function Transaction() {
         if (res.ok) {
           return res.json();
         } else throw new Error("bad request");
-      })
-      .then((res) => {console.log(res.prices);
-        setPriceData(res.prices)})
-      .catch((_) => {
+      }).then((res) => {
+        setPriceData(res.prices);
+      }).catch((_) => {
         console.log("error fetching prices");
       });
   }, [id]);
