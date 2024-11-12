@@ -1,0 +1,717 @@
+[
+  {
+    "model": "core.Politician",
+    "pk": 1,
+    "fields": {
+      "profile": 1,
+      "politician_type": "Senate",
+      "politician_house": "I"
+    }
+  },
+  {
+    "model": "core.Politician",
+    "pk": 2,
+    "fields": {
+      "profile": 2,
+      "politician_type": "House",
+      "politician_house": "R"
+    }
+  },
+  {
+    "model": "core.Politician",
+    "pk": 3,
+    "fields": {
+      "profile": 3,
+      "politician_type": "Senate",
+      "politician_house": "D"
+    }
+  },
+  {
+    "model": "core.Politician",
+    "pk": 4,
+    "fields": {
+      "profile": 4,
+      "politician_type": "House",
+      "politician_house": "D"
+    }
+  },
+
+  {
+    "model": "core.Profile",
+    "pk": 1,
+    "fields": {
+      "first_name": "Daven",
+      "last_name": "Thakkar",
+      "middle_initial": "C"
+    }
+  },
+  {
+    "model": "core.Profile",
+    "pk": 2,
+    "fields": {
+      "first_name": "John",
+      "last_name": "Doe",
+      "middle_initial": ""
+    }
+  },
+  {
+    "model": "core.Profile",
+    "pk": 3,
+    "fields": {
+      "first_name": "Ryan",
+      "last_name": "Smith",
+      "middle_initial": "P"
+    }
+  },
+  {
+    "model": "core.Profile",
+    "pk": 4,
+    "fields": {
+      "first_name": "Chris",
+      "last_name": "Anderson",
+      "middle_initial": "L"
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 1,
+    "fields": {
+      "ticker": "NKE",
+      "name": "Nike",
+      "description_short": "Sports company."
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 2,
+    "fields": {
+      "ticker": "AVGO",
+      "name": "Broadcom",
+      "description_short": "Global supplier of semiconductor and infrastructure software products."
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 3,
+    "fields": {
+      "ticker": "NSC",
+      "name": "Norfolk Southern Corp",
+      "description_short": "Rail transportation of raw materials, intermediate products, and finished goods in the US."
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 4,
+    "fields": {
+      "ticker": "AAPL",
+      "name": "Apple",
+      "description_short": "Provides consumer electronics, software, and services."
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 5,
+    "fields": {
+      "ticker": "GOOG",
+      "name": "Google",
+      "description_short": "Technology company focusing on everything."
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 6,
+    "fields": {
+      "ticker": "TSLA",
+      "name": "Tesla",
+      "description_short": "Makes electric vehicles."
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 7,
+    "fields": {
+      "ticker": "META",
+      "name": "Meta Platforms",
+      "description_short": "Company that builds technologies to help people connect."
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 1,
+    "fields": {
+      "stock": 1,
+      "price": 82.79,
+      "date": "2024-08-28"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 2,
+    "fields": {
+      "stock": 1,
+      "price": 86.2,
+      "date": "2024-09-23"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 3,
+    "fields": {
+      "stock": 2,
+      "price": 161.39,
+      "date": "2024-08-27"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 4,
+    "fields": {
+      "stock": 3,
+      "price": 237.1,
+      "date": "2024-08-22"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 5,
+    "fields": {
+      "stock": 1,
+      "price": 89.13,
+      "date": "2024-10-01"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 6,
+    "fields": {
+      "stock": 1,
+      "price": 83.1,
+      "date": "2024-10-02"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 7,
+    "fields": {
+      "stock": 2,
+      "price": 167.47,
+      "date": "2024-10-01"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 8,
+    "fields": {
+      "stock": 2,
+      "price": 170.66,
+      "date": "2024-10-02"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 9,
+    "fields": {
+      "stock": 2,
+      "price": 171.89,
+      "date": "2024-10-03"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 10,
+    "fields": {
+      "stock": 3,
+      "price": 248.14,
+      "date": "2024-10-01"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 11,
+    "fields": {
+      "stock": 3,
+      "price": 247.03,
+      "date": "2024-10-02"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 12,
+    "fields": {
+      "stock": 3,
+      "price": 244.88,
+      "date": "2024-10-03"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 13,
+    "fields": {
+      "stock": 4,
+      "price": 226.21,
+      "date": "2024-10-01"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 14,
+    "fields": {
+      "stock": 4,
+      "price": 226.78,
+      "date": "2024-10-02"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 15,
+    "fields": {
+      "stock": 4,
+      "price": 225.67,
+      "date": "2024-10-03"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 16,
+    "fields": {
+      "stock": 4,
+      "price": 226.8,
+      "date": "2024-10-04"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 17,
+    "fields": {
+      "stock": 5,
+      "price": 163.07,
+      "date": "2024-09-23"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 18,
+    "fields": {
+      "stock": 5,
+      "price": 163.64,
+      "date": "2024-09-24"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 19,
+    "fields": {
+      "stock": 5,
+      "price": 162.99,
+      "date": "2024-09-25"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 20,
+    "fields": {
+      "stock": 5,
+      "price": 163.83,
+      "date": "2024-09-26"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 21,
+    "fields": {
+      "stock": 5,
+      "price": 165.29,
+      "date": "2024-09-27"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 22,
+    "fields": {
+      "stock": 5,
+      "price": 167.19,
+      "date": "2024-09-30"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 23,
+    "fields": {
+      "stock": 5,
+      "price": 168.42,
+      "date": "2024-10-01"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 24,
+    "fields": {
+      "stock": 5,
+      "price": 167.31,
+      "date": "2024-10-02"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 25,
+    "fields": {
+      "stock": 5,
+      "price": 167.21,
+      "date": "2024-10-03"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 26,
+    "fields": {
+      "stock": 5,
+      "price": 168.56,
+      "date": "2024-10-04"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 27,
+    "fields": {
+      "stock": 6,
+      "price": 227.87,
+      "date": "2024-09-17"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 28,
+    "fields": {
+      "stock": 6,
+      "price": 258.02,
+      "date": "2024-10-01"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 29,
+    "fields": {
+      "stock": 6,
+      "price": 254.27,
+      "date": "2024-09-24"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 30,
+    "fields": {
+      "stock": 6,
+      "price": 250.08,
+      "date": "2024-10-04"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 31,
+    "fields": {
+      "stock": 7,
+      "price": 512.74,
+      "date": "2024-09-04"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 32,
+    "fields": {
+      "stock": 7,
+      "price": 595.94,
+      "date": "2024-10-04"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 33,
+    "fields": {
+      "stock": 7,
+      "price": 536.32,
+      "date": "2024-09-17"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 34,
+    "fields": {
+      "stock": 7,
+      "price": 576.47,
+      "date": "2024-10-01"
+    }
+  },
+  {
+    "model": "core.StockPrice",
+    "pk": 35,
+    "fields": {
+      "stock": 7,
+      "price": 537.95,
+      "date": "2024-09-18"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 1,
+    "fields": {
+      "politician": 1,
+      "stock": 1,
+      "transaction_amount": "1000",
+      "transaction_date": "2024-08-28",
+      "disclosure_date": "2024-09-05",
+      "transaction_type": "Purchase"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 2,
+    "fields": {
+      "politician": 1,
+      "stock": 2,
+      "transaction_amount": "1000",
+      "transaction_date": "2024-08-27",
+      "disclosure_date": "2024-09-05",
+      "transaction_type": "Purchase"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 3,
+    "fields": {
+      "politician": 1,
+      "stock": 1,
+      "transaction_amount": "1000",
+      "transaction_date": "2024-09-23",
+      "disclosure_date": "2024-09-26",
+      "transaction_type": "Sale"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 4,
+    "fields": {
+      "politician": 2,
+      "stock": 1,
+      "transaction_amount": "5000",
+      "transaction_date": "2024-09-23",
+      "disclosure_date": "2024-09-25",
+      "transaction_type": "Purchase"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 5,
+    "fields": {
+      "politician": 3,
+      "stock": 4,
+      "transaction_amount": "10000",
+      "transaction_date": "2024-10-01",
+      "disclosure_date": "2024-10-02",
+      "transaction_type": "Purchase"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 6,
+    "fields": {
+      "politician": 3,
+      "stock": 4,
+      "transaction_amount": "10000",
+      "transaction_date": "2024-10-04",
+      "disclosure_date": "2024-10-05",
+      "transaction_type": "Sale"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 7,
+    "fields": {
+      "politician": 4,
+      "stock": 4,
+      "transaction_amount": "2000",
+      "transaction_date": "2024-10-01",
+      "disclosure_date": "2024-10-02",
+      "transaction_type": "Purchase"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 8,
+    "fields": {
+      "politician": 1,
+      "stock": 5,
+      "transaction_amount": "6000",
+      "transaction_date": "2024-09-23",
+      "disclosure_date": "2024-10-02",
+      "transaction_type": "Purchase"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 9,
+    "fields": {
+      "politician": 1,
+      "stock": 5,
+      "transaction_amount": "6000",
+      "transaction_date": "2024-10-02",
+      "disclosure_date": "2024-10-05",
+      "transaction_type": "Sale"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 10,
+    "fields": {
+      "politician": 1,
+      "stock": 2,
+      "transaction_amount": "1000",
+      "transaction_date": "2024-10-01",
+      "disclosure_date": "2024-10-03",
+      "transaction_type": "Sale"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 11,
+    "fields": {
+      "politician": 2,
+      "stock": 1,
+      "transaction_amount": "5000",
+      "transaction_date": "2024-10-02",
+      "disclosure_date": "2024-10-05",
+      "transaction_type": "Sale"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 12,
+    "fields": {
+      "politician": 4,
+      "stock": 4,
+      "transaction_amount": "2000",
+      "transaction_date": "2024-10-04",
+      "disclosure_date": "2024-10-05",
+      "transaction_type": "Sale"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 13,
+    "fields": {
+      "politician": 2,
+      "stock": 6,
+      "transaction_amount": "6000",
+      "transaction_date": "2024-09-17",
+      "disclosure_date": "2024-09-20",
+      "transaction_type": "Purchase"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 14,
+    "fields": {
+      "politician": 2,
+      "stock": 6,
+      "transaction_amount": "6000",
+      "transaction_date": "2024-10-01",
+      "disclosure_date": "2024-09-20",
+      "transaction_type": "Sale"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 15,
+    "fields": {
+      "politician": 3,
+      "stock": 6,
+      "transaction_amount": "8000",
+      "transaction_date": "2024-09-24",
+      "disclosure_date": "2024-09-25",
+      "transaction_type": "Purchase"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 16,
+    "fields": {
+      "politician": 3,
+      "stock": 6,
+      "transaction_amount": "8000",
+      "transaction_date": "2024-10-04",
+      "disclosure_date": "2024-10-05",
+      "transaction_type": "Sale"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 17,
+    "fields": {
+      "politician": 1,
+      "stock": 7,
+      "transaction_amount": "9000",
+      "transaction_date": "2024-09-04",
+      "disclosure_date": "2024-09-05",
+      "transaction_type": "Purchase"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 18,
+    "fields": {
+      "politician": 1,
+      "stock": 7,
+      "transaction_amount": "9000",
+      "transaction_date": "2024-10-04",
+      "disclosure_date": "2024-10-05",
+      "transaction_type": "Sale"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 19,
+    "fields": {
+      "politician": 2,
+      "stock": 7,
+      "transaction_amount": "9000",
+      "transaction_date": "2024-09-17",
+      "disclosure_date": "2024-09-18",
+      "transaction_type": "Purchase"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 20,
+    "fields": {
+      "politician": 2,
+      "stock": 7,
+      "transaction_amount": "9000",
+      "transaction_date": "2024-10-01",
+      "disclosure_date": "2024-10-02",
+      "transaction_type": "Sale"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 21,
+    "fields": {
+      "politician": 4,
+      "stock": 7,
+      "transaction_amount": "11000",
+      "transaction_date": "2024-09-18",
+      "disclosure_date": "2024-09-19",
+      "transaction_type": "Purchase"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 22,
+    "fields": {
+      "politician": 4,
+      "stock": 7,
+      "transaction_amount": "11000",
+      "transaction_date": "2024-10-01",
+      "disclosure_date": "2024-10-02",
+      "transaction_type": "Sale"
+    }
+  }
+]
