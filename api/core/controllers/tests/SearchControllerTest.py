@@ -1,4 +1,4 @@
-# pylint: disable=duplicate-code
+# pylint: disable=duplicate-code, too-many-function-args
 from core.controllers.SearchController import get_transactions
 from django.test import TestCase
 
@@ -14,11 +14,11 @@ class TestSearchController(TestCase):
 
     def test_get_transactions_with_last_name(self):
         """
-        Tests if we get correct results when user provides only the last name
+        Tests if we get correct results when user provides
+        only the last name part
         """
 
         transaction_data, size = get_transactions(
-            "",
             "Anderson",
             "",
             False, False,
@@ -31,19 +31,20 @@ class TestSearchController(TestCase):
             None
         )
 
+        # might need to change below
         assert size == 4
         for transaction in transaction_data:
-            assert transaction["full_name"] == "Chris L. Anderson"
+            assert "Anderson" in transaction["full_name"]
 
 
     def test_get_transactions_with_first_name(self):
         """
-        Tests if we get correct results when user provides only the first name
+        Tests if we get correct results when user provides
+        only the first name part
         """
 
         transaction_data, size = get_transactions(
-            "Chris", 
-            "",
+            "Chris",
             "",
             False, False,
             0, 1000000000,
@@ -52,19 +53,19 @@ class TestSearchController(TestCase):
             1, 100
         )
 
+        # might need to change below
         assert size == 4
         for transaction in transaction_data:
-            assert transaction["full_name"] == "Chris L. Anderson"
+            assert "Chris" in transaction["full_name"]
 
 
-    def test_get_transactions_with_first_and_last_name_filtered(self):
+    def test_get_transactions_with_full_name(self):
         """
         Tests if we get correct results when user provides first and last name
         """
 
         transaction_data, size = get_transactions(
-            "Daven",
-            "Thakkar",
+            "Daven C. Thakkar",
             "",
             False, False,
             0, 1000000000,
@@ -76,7 +77,7 @@ class TestSearchController(TestCase):
 
         assert size == 8
         for transaction in transaction_data:
-            assert transaction["full_name"] == "Daven C. Thakkar"
+            assert "Daven C. Thakkar" in transaction["full_name"]
 
 
     def test_get_transactions_with_dates_filtered(self):
@@ -85,7 +86,7 @@ class TestSearchController(TestCase):
         """
 
         transaction_data, size = get_transactions(
-            "", "", "",
+            "", "",
             False, False,
             0, 1000000000,
             False, False, False,
@@ -107,7 +108,7 @@ class TestSearchController(TestCase):
         """
 
         transaction_data, size = get_transactions(
-            "", "", "",
+            "", "",
             False, False,
             0, 1000000000,
             False, False, False,
@@ -129,7 +130,7 @@ class TestSearchController(TestCase):
         """
 
         transaction_data, size = get_transactions(
-            "", "", "",
+            "", "",
             False, False,
             0, 1000000000,
             False, False, False,
@@ -145,7 +146,7 @@ class TestSearchController(TestCase):
         """
 
         transaction_data, size = get_transactions(
-            "", "", "",
+            "", "",
             False, False,
             0, 1000000000,
             False, False, False,

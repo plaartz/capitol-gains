@@ -31,12 +31,12 @@ class TestSearchView(TestCase):
 
     def test_search_view_with_first_name(self):
         """
-        Tests if we get correct response when user provides first name
+        Tests if we get correct response when user provides
+        only the first name part
         """
 
         body_query = {
-            "first_name": "Daven",
-            "last_name": "",
+            "full_name": "Daven",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -58,17 +58,17 @@ class TestSearchView(TestCase):
         response_data = json.loads(response.content)
         assert response_data["size"] == 8
         for transaction in response_data["data"]:
-            assert transaction["full_name"] == "Daven C. Thakkar"
+            assert "Daven" in transaction["full_name"]
 
 
     def test_search_view_with_last_name(self):
         """
-        Tests if we get correct response when user provides last name
+        Tests if we get correct response when user provides
+        only the last name part
         """
 
         body_query = {
-            "first_name": "",
-            "last_name": "Thakkar",
+            "full_name": "Thakkar",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -99,8 +99,7 @@ class TestSearchView(TestCase):
         """
 
         body_query = {
-            "first_name": "Chris",
-            "last_name": "Anderson",
+            "full_name": "Daven C. Thakkar"
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -120,10 +119,9 @@ class TestSearchView(TestCase):
         assert response['Content-Type'] == 'application/json'
 
         response_data = json.loads(response.content)
-        assert response_data["size"] == 4
+        assert response_data["size"] == 8
         for transaction in response_data["data"]:
-            assert transaction["full_name"] == "Chris L. Anderson"
-
+            assert transaction["full_name"] == "Daven C. Thakkar"
 
 
     def test_search_view_with_end_date(self):

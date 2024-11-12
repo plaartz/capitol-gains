@@ -4,6 +4,7 @@ from core.models import Transaction
 from django.db.models.functions import Cast
 from django.db.models import IntegerField, CharField, Func, F, Value, Case, When
 from django.db.models.query import QuerySet
+from django.db.models import Q # we will use this for full name stuff
 
 def filter_by_price(transactions: QuerySet[Transaction], min_price: int, max_price: int) -> QuerySet[Transaction]:
     """
@@ -58,8 +59,16 @@ def filter_by_price(transactions: QuerySet[Transaction], min_price: int, max_pri
     return filtered_transactions
 
 def get_transactions(
-        first_name = None,
-        last_name = None,
+        # switching to full name
+        # first_name = None,
+        # last_name = None,
+        
+        full_name = None,
+
+        # we are not using these anymore
+        #politician_type = None
+        #politicina_house = None
+
         stock_ticker = None,
         is_purchase = None,
         is_sale = None,
@@ -120,7 +129,7 @@ def get_transactions(
             return [], 0
         return TransactionSerializer([transaction],many=True).data, 1
 
-
+    '''
     filter_criteria = {}
     if first_name:
         filter_criteria['politician__profile__first_name'] = first_name
@@ -132,11 +141,47 @@ def get_transactions(
         filter_criteria['transaction_type'] = 'Purchase'
     elif is_sale and not is_purchase:
         filter_criteria['transaction_type'] = 'Sale'
+    '''
 
+    
+    # start filtering 
+    filter_criteria = Q()
+    # full_name filtering
+    if full_name is not None and " " in full_name:    # If there is a space then we extract first and last name
+        split_name = full_name.split(" ")
+        first_name = split_name[0]
+        last_name = split_name[-1]
+        filter_criteria &= (Q(politician__profile__first_name__icontains=first_name) |
+                            Q(politician__profile__last_name__icontains=last_name))
+    else:    # If full_name is None or there is just one word provided in the full_name
+        if full_name: # if full_name is not None and there is only one word provided in full_name
+            filter_criteria &= (Q(politician__profile__first_name__icontains=full_name) |
+                                Q(politician__profile__last_name__icontains=full_name))
+    
+    # stock_ticker filtering
+    if stock_ticker:
+        filter_criteria &= Q(stock__ticker=stock_ticker)
+    
+    # transaction_type filtering
+    if is_purchase and not is_sale:
+        filter_criteria &= Q(transaction_type='Purchase')
+    elif is_sale and not is_purchase:
+        filter_criteria &= Q(transaction_type='Sale')
+
+    # politician type/house filtering
+    ''' Not doing anymore
+    if politician_type:
+        filter_criteria &= Q(politician__politician_type=politician_type)
+    if politician_house:
+        filter_criteria &= Q(politician__politician_house=politician_house)
+    '''
+    
+    # start_date and end_date filtering
     if start_date:
-        filter_criteria['transaction_date__gte'] = start_date.replace("/", "-")
+        filter_criteria &= Q(transaction_date__gte=start_date.replace("/", "-"))
     if end_date:
-        filter_criteria['transaction_date__lte'] = end_date.replace("/", "-")
+        filter_criteria &= Q(transaction_date__lte=end_date.replace("/", "-"))
+
     # Adjust needed ordering
     ordered_transactions = None    # Will hold the correctly ordered data
 
