@@ -1,65 +1,3557 @@
 [
-    {
-        "model": "core.Stock",
-        "pk": 1,
-        "fields": {
-            "ticker": "NKE",
-            "name": "Nike",
-            "description_short": "Sports company."
-        }
-    },
-    {
-        "model": "core.Stock",
-        "pk": 2,
-        "fields": {
-            "ticker": "AVGO",
-            "name": "Broadcom",
-            "description_short": "Global supplier of semiconductor and infrastructure software products."
-        }
-    },
-    {
-        "model": "core.Stock",
-        "pk": 3,
-        "fields": {
-            "ticker": "NSC",
-            "name": "Norfolk Southern Corp",
-            "description_short": "Rail transportation of raw materials, intermediate products, and finished goods in the US."
-        }
-    },
-    {
-        "model": "core.Stock",
-        "pk": 4,
-        "fields": {
-            "ticker": "AAPL",
-            "name": "Apple",
-            "description_short": "Provides consumer electronics, software, and services."
-        }
-    },
-    {
-        "model": "core.Stock",
-        "pk": 5,
-        "fields": {
-            "ticker": "GOOG",
-            "name": "Google",
-            "description_short": "Technology company focusing on everything."
-        }
-    },
-    {
-        "model": "core.Stock",
-        "pk": 6,
-        "fields": {
-            "ticker": "TSLA",
-            "name": "Tesla",
-            "description_short": "Makes electric vehicles."
-        }
-    },
-    {
-        "model": "core.Stock",
-        "pk": 7,
-        "fields": {
-            "ticker": "META",
-            "name": "Meta Platforms",
-            "description_short": "Company that builds technologies to help people connect."
-        }
+  {
+    "model": "core.Stock",
+    "pk": 1,
+    "fields": {
+      "ticker": "SCHP",
+      "name": "Schwab U.S. TIPS ETF",
+      "description_short": ""
     }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 2,
+    "fields": {
+      "ticker": "IEF",
+      "name": "iShares 7-10 Year Treasury Bond ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 3,
+    "fields": {
+      "ticker": "TLH",
+      "name": "iShares 10-20 Year Treasury Bond ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 4,
+    "fields": {
+      "ticker": "TLT",
+      "name": "iShares 20+ Year Treasury Bond ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 5,
+    "fields": {
+      "ticker": "AES",
+      "name": "The AES Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 6,
+    "fields": {
+      "ticker": "LRCX",
+      "name": "Lam Research Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 7,
+    "fields": {
+      "ticker": "GBIL",
+      "name": "Goldman Sachs Access Treasury 0-1 Year ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 8,
+    "fields": {
+      "ticker": "PFE",
+      "name": "Pfizer Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 9,
+    "fields": {
+      "ticker": "PALL",
+      "name": "abrdn Physical Palladium Shares ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 10,
+    "fields": {
+      "ticker": "PPLT",
+      "name": "abrdn Physical Platinum Shares ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 11,
+    "fields": {
+      "ticker": "VEA",
+      "name": "Vanguard FTSE Developed Markets ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 12,
+    "fields": {
+      "ticker": "MSI",
+      "name": "Motorola Solutions, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 13,
+    "fields": {
+      "ticker": "GOOGL",
+      "name": "Alphabet Inc. - Class A Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 14,
+    "fields": {
+      "ticker": "MDY",
+      "name": "SPDR MidCap Trust Series I",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 15,
+    "fields": {
+      "ticker": "EFA",
+      "name": "iShares MSCI EAFE ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 16,
+    "fields": {
+      "ticker": "CMBS",
+      "name": "iShares CMBS Bond ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 17,
+    "fields": {
+      "ticker": "JMBS",
+      "name": "Janus Henderson Mortgage-Backed Securities ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 18,
+    "fields": {
+      "ticker": "SCZ",
+      "name": "iShares MSCI EAFE Small-Cap ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 19,
+    "fields": {
+      "ticker": "HES",
+      "name": "Hess Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 20,
+    "fields": {
+      "ticker": "AMAT",
+      "name": "Applied Materials",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 21,
+    "fields": {
+      "ticker": "FEP",
+      "name": "First Trust Europe AlphaDEX Fund",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 22,
+    "fields": {
+      "ticker": "BBEU",
+      "name": "JPM Betabuilders Europe ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 23,
+    "fields": {
+      "ticker": "GIGB",
+      "name": "Goldman Sachs Access Investment Grade Corporate Bo",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 24,
+    "fields": {
+      "ticker": "IVW",
+      "name": "iShares S&P 500 Growth ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 25,
+    "fields": {
+      "ticker": "SHY",
+      "name": "iShares 1-3 Year Treasury Bond ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 26,
+    "fields": {
+      "ticker": "AGZ",
+      "name": "iShares Agency Bond ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 27,
+    "fields": {
+      "ticker": "MBB",
+      "name": "iShares MBS ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 28,
+    "fields": {
+      "ticker": "DALCX",
+      "name": "Dean Mid Cap Value Fund No-Load",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 29,
+    "fields": {
+      "ticker": "SPY",
+      "name": "S&P 500 SPDR",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 30,
+    "fields": {
+      "ticker": "MSFT",
+      "name": "Microsoft Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 31,
+    "fields": {
+      "ticker": "NMVZX",
+      "name": "Nuance Mid Cap Value Fund Z Class",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 32,
+    "fields": {
+      "ticker": "GEM",
+      "name": "Goldman Sachs ActiveBeta Emerging Markets Equity E",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 33,
+    "fields": {
+      "ticker": "IVV",
+      "name": "iShares Core S&P 500 ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 34,
+    "fields": {
+      "ticker": "CMCSA",
+      "name": "Comcast Corporation - Class A Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 35,
+    "fields": {
+      "ticker": "ONEW",
+      "name": "OneWater Marine Inc. - Class A Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 36,
+    "fields": {
+      "ticker": "CB",
+      "name": "Chubb Limited Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 37,
+    "fields": {
+      "ticker": "AMGN",
+      "name": "Amgen Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 38,
+    "fields": {
+      "ticker": "NKE",
+      "name": "Nike, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 39,
+    "fields": {
+      "ticker": "AAPL",
+      "name": "Apple Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 40,
+    "fields": {
+      "ticker": "CLX",
+      "name": "Clorox Company (The) Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 41,
+    "fields": {
+      "ticker": "WMT",
+      "name": "Walmart Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 42,
+    "fields": {
+      "ticker": "WFC",
+      "name": "Wells Fargo & Company",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 43,
+    "fields": {
+      "ticker": "SHEL",
+      "name": "Royal Dutch Shell Plc ADR",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 44,
+    "fields": {
+      "ticker": "JPM",
+      "name": "JP Morgan Chase & Company",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 45,
+    "fields": {
+      "ticker": "GWW",
+      "name": "W.W. Grainger",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 46,
+    "fields": {
+      "ticker": "SPGI",
+      "name": "S&P Global Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 47,
+    "fields": {
+      "ticker": "LOW",
+      "name": "Lowe's Companies",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 48,
+    "fields": {
+      "ticker": "FDS",
+      "name": "Factset Research Systems Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 49,
+    "fields": {
+      "ticker": "AFL",
+      "name": "Aflac Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 50,
+    "fields": {
+      "ticker": "APD",
+      "name": "Air Products and Chemicals",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 51,
+    "fields": {
+      "ticker": "AVGO",
+      "name": "Broadcom Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 52,
+    "fields": {
+      "ticker": "NSC",
+      "name": "Norfolk Southern Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 53,
+    "fields": {
+      "ticker": "ES",
+      "name": "Eversource Energy",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 54,
+    "fields": {
+      "ticker": "ENB",
+      "name": "Enbridge Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 55,
+    "fields": {
+      "ticker": "UNH",
+      "name": "Unitedhealth Group Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 56,
+    "fields": {
+      "ticker": "ACN",
+      "name": "Accenture Plc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 57,
+    "fields": {
+      "ticker": "RTX",
+      "name": "Rtx Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 58,
+    "fields": {
+      "ticker": "USB",
+      "name": "U.S. Bancorp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 59,
+    "fields": {
+      "ticker": "ZTS",
+      "name": "Zoetis Inc Cl A",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 60,
+    "fields": {
+      "ticker": "SBUX",
+      "name": "Starbucks Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 61,
+    "fields": {
+      "ticker": "BDX",
+      "name": "Becton Dickinson and Company",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 62,
+    "fields": {
+      "ticker": "MDT",
+      "name": "Medtronic Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 63,
+    "fields": {
+      "ticker": "XOM",
+      "name": "Exxon Mobil Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 64,
+    "fields": {
+      "ticker": "C",
+      "name": "Citigroup, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 65,
+    "fields": {
+      "ticker": "BMY",
+      "name": "Bristol-Myers Squibb Company Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 66,
+    "fields": {
+      "ticker": "RIO",
+      "name": "Rio Tinto Plc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 67,
+    "fields": {
+      "ticker": "FPI",
+      "name": "Farmland Partners Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 68,
+    "fields": {
+      "ticker": "AQN",
+      "name": "Algonquin Power and Utilities Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 69,
+    "fields": {
+      "ticker": "MAXR",
+      "name": "Maxar Technologies Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 70,
+    "fields": {
+      "ticker": "MGM",
+      "name": "MGM Resorts International Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 71,
+    "fields": {
+      "ticker": "AMT",
+      "name": "American Tower Corporation (REIT) Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 72,
+    "fields": {
+      "ticker": "SRVR",
+      "name": "Pacer Benchmark Data & Infrastructure Real Estate",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 73,
+    "fields": {
+      "ticker": "MOO",
+      "name": "VanEck Agribusiness ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 74,
+    "fields": {
+      "ticker": "ATKR",
+      "name": "Atkore Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 75,
+    "fields": {
+      "ticker": "HOLX",
+      "name": "Hologic, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 76,
+    "fields": {
+      "ticker": "BHP",
+      "name": "BHP Group Limited American Depositary Shares (Each",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 77,
+    "fields": {
+      "ticker": "RMD",
+      "name": "ResMed Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 78,
+    "fields": {
+      "ticker": "CVS",
+      "name": "CVS Health Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 79,
+    "fields": {
+      "ticker": "TU",
+      "name": "Telus Corporation Ordinary Shares",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 80,
+    "fields": {
+      "ticker": "DLR",
+      "name": "Digital Realty Trust, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 81,
+    "fields": {
+      "ticker": "AXS",
+      "name": "Axis Capital Holdings Limited Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 82,
+    "fields": {
+      "ticker": "CME",
+      "name": "CME Group Inc. - Class A Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 83,
+    "fields": {
+      "ticker": "SAND",
+      "name": "Sandstorm Gold Ltd. Ordinary Shares (Canada)",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 84,
+    "fields": {
+      "ticker": "BSM",
+      "name": "Black Stone Minerals, L.P. Common units representi",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 85,
+    "fields": {
+      "ticker": "URA",
+      "name": "Global X Uranium ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 86,
+    "fields": {
+      "ticker": "FLNG",
+      "name": "FLEX LNG Ltd. Ordinary Shares",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 87,
+    "fields": {
+      "ticker": "EQNR",
+      "name": "Equinor ASA",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 88,
+    "fields": {
+      "ticker": "MCD",
+      "name": "McDonald's Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 89,
+    "fields": {
+      "ticker": "PSQ",
+      "name": "ProShares Short QQQ",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 90,
+    "fields": {
+      "ticker": "HDGE",
+      "name": "Ranger Equity Bear Bear ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 91,
+    "fields": {
+      "ticker": "VZ",
+      "name": "Verizon Communications Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 92,
+    "fields": {
+      "ticker": "FNF",
+      "name": "Fidelity National Financial",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 93,
+    "fields": {
+      "ticker": "XCEM",
+      "name": "Columbia EM Core Ex-China ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 94,
+    "fields": {
+      "ticker": "SMDV",
+      "name": "ProShares Russell 2000 Dividend Growers ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 95,
+    "fields": {
+      "ticker": "FDRR",
+      "name": "Fidelity Dividend ETF For Rising Rates",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 96,
+    "fields": {
+      "ticker": "SBPYX",
+      "name": "Clearbridge Small Cap Growth Fd Cl I",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 97,
+    "fields": {
+      "ticker": "VLO",
+      "name": "Valero Energy Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 98,
+    "fields": {
+      "ticker": "DGX",
+      "name": "Quest Diagnostics Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 99,
+    "fields": {
+      "ticker": "TSM",
+      "name": "Taiwan Semiconductor Manufacturing Company Ltd.",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 100,
+    "fields": {
+      "ticker": "AGX",
+      "name": "Argan Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 101,
+    "fields": {
+      "ticker": "MOS",
+      "name": "Mosaic Company",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 102,
+    "fields": {
+      "ticker": "GLPI",
+      "name": "Gaming and Leisure Properties, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 103,
+    "fields": {
+      "ticker": "IRM",
+      "name": "Iron Mountain Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 104,
+    "fields": {
+      "ticker": "FMC",
+      "name": "FMC Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 105,
+    "fields": {
+      "ticker": "KMB",
+      "name": "Kimberly-Clark Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 106,
+    "fields": {
+      "ticker": "TGT",
+      "name": "Target Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 107,
+    "fields": {
+      "ticker": "RVNC",
+      "name": "Revance Therapeutics, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 108,
+    "fields": {
+      "ticker": "GPCR",
+      "name": "Structure Therapeutics Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 109,
+    "fields": {
+      "ticker": "NVDA",
+      "name": "NVIDIA Corporation - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 110,
+    "fields": {
+      "ticker": "BAH",
+      "name": "Booz Allen Hamilton Holding Corporation Common Sto",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 111,
+    "fields": {
+      "ticker": "NTLA",
+      "name": "Intellia Therapeutics, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 112,
+    "fields": {
+      "ticker": "KEYS",
+      "name": "Keysight Technologies Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 113,
+    "fields": {
+      "ticker": "DIS",
+      "name": "Walt Disney Company (The) Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 114,
+    "fields": {
+      "ticker": "PYPL",
+      "name": "PayPal Holdings, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 115,
+    "fields": {
+      "ticker": "QCOM",
+      "name": "QUALCOMM Incorporated - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 116,
+    "fields": {
+      "ticker": "VFH",
+      "name": "Vanguard Financials ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 117,
+    "fields": {
+      "ticker": "SQM",
+      "name": "Sociedad Quimica y Minera S.A. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 118,
+    "fields": {
+      "ticker": "WM",
+      "name": "Waste Management, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 119,
+    "fields": {
+      "ticker": "KBE",
+      "name": "SPDR S&P Bank ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 120,
+    "fields": {
+      "ticker": "HASI",
+      "name": "Hannon Armstrong Sustainable Infrastructure Capita",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 121,
+    "fields": {
+      "ticker": "RTH",
+      "name": "VanEck Retail ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 122,
+    "fields": {
+      "ticker": "APO",
+      "name": "Apollo Global Management, Inc. Class A Common Stoc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 123,
+    "fields": {
+      "ticker": "ABYIX",
+      "name": "Abbey Capital Futures Strategy Fund- Class I Sha",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 124,
+    "fields": {
+      "ticker": "MBXIX",
+      "name": "Catalyst/Millburn Hedge Strategy Fund Class I",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 125,
+    "fields": {
+      "ticker": "LUBYX",
+      "name": "Lord Abbett Ultra Short Bond Fund - Class I",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 126,
+    "fields": {
+      "ticker": "JHMM",
+      "name": "John Hancock Multifactor Mid Cap ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 127,
+    "fields": {
+      "ticker": "VHT",
+      "name": "Vanguard Health Care ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 128,
+    "fields": {
+      "ticker": "SBIO",
+      "name": "ALPS Medical Breakthroughs ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 129,
+    "fields": {
+      "ticker": "IJR",
+      "name": "iShares Core S&P Small-Cap ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 130,
+    "fields": {
+      "ticker": "IWD",
+      "name": "iShares Russell 1000 Value ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 131,
+    "fields": {
+      "ticker": "CDL",
+      "name": "VictoryShares US Large Cap High Div Volatility Wtd",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 132,
+    "fields": {
+      "ticker": "SPGP",
+      "name": "Invesco S&P 500 GARP ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 133,
+    "fields": {
+      "ticker": "GNR",
+      "name": "SPDR S&P Global Natural Resources ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 134,
+    "fields": {
+      "ticker": "LDP",
+      "name": "Cohen & Steers Limited Duration Preferred and Inco",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 135,
+    "fields": {
+      "ticker": "QTEC",
+      "name": "First Trust NASDAQ-100-Technology Sector Index Fun",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 136,
+    "fields": {
+      "ticker": "FDN",
+      "name": "First Trust DJ Internet Index Fund",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 137,
+    "fields": {
+      "ticker": "IGHG",
+      "name": "ProShares Investment Grade-Interest Rate Hedged",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 138,
+    "fields": {
+      "ticker": "FQAL",
+      "name": "Fidelity Quality Factor ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 139,
+    "fields": {
+      "ticker": "NXTG",
+      "name": "First Trust Indxx NextG ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 140,
+    "fields": {
+      "ticker": "TTE",
+      "name": "TotalEnergies SE",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 141,
+    "fields": {
+      "ticker": "MET",
+      "name": "Metlife Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 142,
+    "fields": {
+      "ticker": "ETRN",
+      "name": "Equitrans Midstream Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 143,
+    "fields": {
+      "ticker": "ABT",
+      "name": "Abbott Laboratories",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 144,
+    "fields": {
+      "ticker": "S",
+      "name": "Sentinelone Inc Cl A",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 145,
+    "fields": {
+      "ticker": "DELL",
+      "name": "Dell Technologies Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 146,
+    "fields": {
+      "ticker": "GL",
+      "name": "Globe Life Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 147,
+    "fields": {
+      "ticker": "GS",
+      "name": "Goldman Sachs Group",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 148,
+    "fields": {
+      "ticker": "ITW",
+      "name": "Illinois Tool Works Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 149,
+    "fields": {
+      "ticker": "MRO",
+      "name": "Marathon Oil Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 150,
+    "fields": {
+      "ticker": "VIG",
+      "name": "Vanguard Div Appreciation ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 151,
+    "fields": {
+      "ticker": "USFR",
+      "name": "Wisdomtree Floating Rate Treasury Fund",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 152,
+    "fields": {
+      "ticker": "DDOG",
+      "name": "Datadog, Inc. - Class A Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 153,
+    "fields": {
+      "ticker": "LINE",
+      "name": "Lineage, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 154,
+    "fields": {
+      "ticker": "SIRI",
+      "name": "Sirius XM Holdings Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 155,
+    "fields": {
+      "ticker": "CMG",
+      "name": "Chipotle Mexican Grill, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 156,
+    "fields": {
+      "ticker": "INTC",
+      "name": "Intel Corporation - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 157,
+    "fields": {
+      "ticker": "TTD",
+      "name": "The Trade Desk, Inc. - Class A Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 158,
+    "fields": {
+      "ticker": "PTON",
+      "name": "Peloton Interactive, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 159,
+    "fields": {
+      "ticker": "CCCS",
+      "name": "CCC Intelligent Solutions Holdings Inc. Common Sto",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 160,
+    "fields": {
+      "ticker": "AMZN",
+      "name": "Amazon.com, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 161,
+    "fields": {
+      "ticker": "BABA",
+      "name": "Alibaba Group Holding Limited American Depositary",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 162,
+    "fields": {
+      "ticker": "SNAP",
+      "name": "Snap Inc. Class A Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 163,
+    "fields": {
+      "ticker": "PINS",
+      "name": "Pinterest, Inc. Class A Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 164,
+    "fields": {
+      "ticker": "CARG",
+      "name": "CarGurus, Inc. - Class A Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 165,
+    "fields": {
+      "ticker": "BBY",
+      "name": "Best Buy Co., Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 166,
+    "fields": {
+      "ticker": "BATRK",
+      "name": "Liberty Media Corporation - Series C Liberty Brave",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 167,
+    "fields": {
+      "ticker": "FWONK",
+      "name": "Liberty Media Corporation - Series C Liberty Formu",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 168,
+    "fields": {
+      "ticker": "LBRDK",
+      "name": "Liberty Broadband Corporation - Class C Common Sto",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 169,
+    "fields": {
+      "ticker": "LSXMK",
+      "name": "Liberty Media Corporation - Series C Liberty Siriu",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 170,
+    "fields": {
+      "ticker": "LTRPA",
+      "name": "Liberty TripAdvisor Holdings, Inc. - Series A Comm",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 171,
+    "fields": {
+      "ticker": "NOK",
+      "name": "Nokia Corporation Sponsored American Depositary Sh",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 172,
+    "fields": {
+      "ticker": "EA",
+      "name": "Electronic Arts Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 173,
+    "fields": {
+      "ticker": "MMM",
+      "name": "3M Company Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 174,
+    "fields": {
+      "ticker": "CI",
+      "name": "The Cigna Group Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 175,
+    "fields": {
+      "ticker": "PII",
+      "name": "Polaris Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 176,
+    "fields": {
+      "ticker": "META",
+      "name": "Meta Platforms, Inc. - Class A Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 177,
+    "fields": {
+      "ticker": "KR",
+      "name": "Kroger Company",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 178,
+    "fields": {
+      "ticker": "JNJ",
+      "name": "Johnson & Johnson Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 179,
+    "fields": {
+      "ticker": "DVA",
+      "name": "DaVita Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 180,
+    "fields": {
+      "ticker": "CSCO",
+      "name": "Cisco Systems, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 181,
+    "fields": {
+      "ticker": "CVX",
+      "name": "Chevron Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 182,
+    "fields": {
+      "ticker": "BRK.B",
+      "name": "Berkshire Hathaway Cl B",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 183,
+    "fields": {
+      "ticker": "BK",
+      "name": "Bank of New York Mellon Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 184,
+    "fields": {
+      "ticker": "BAC",
+      "name": "Bank of America Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 185,
+    "fields": {
+      "ticker": "GOOG",
+      "name": "Alphabet Cl C",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 186,
+    "fields": {
+      "ticker": "HAL",
+      "name": "Halliburton Company",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 187,
+    "fields": {
+      "ticker": "EW",
+      "name": "Edwards Lifesciences Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 188,
+    "fields": {
+      "ticker": "IQV",
+      "name": "Iqvia Holdings Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 189,
+    "fields": {
+      "ticker": "TJX",
+      "name": "TJX Companies, Inc. (The) Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 190,
+    "fields": {
+      "ticker": "ADBE",
+      "name": "Adobe Systems Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 191,
+    "fields": {
+      "ticker": "AMD",
+      "name": "Advanced Micro Devices, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 192,
+    "fields": {
+      "ticker": "AXP",
+      "name": "American Express Company Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 193,
+    "fields": {
+      "ticker": "ELV",
+      "name": "Elevance Health, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 194,
+    "fields": {
+      "ticker": "AZO",
+      "name": "AutoZone, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 195,
+    "fields": {
+      "ticker": "BLK",
+      "name": "BlackRock, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 196,
+    "fields": {
+      "ticker": "BSX",
+      "name": "Boston Scientific Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 197,
+    "fields": {
+      "ticker": "CSX",
+      "name": "CSX Corporation - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 198,
+    "fields": {
+      "ticker": "CAT",
+      "name": "Caterpillar, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 199,
+    "fields": {
+      "ticker": "KO",
+      "name": "Coca-Cola Company (The) Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 200,
+    "fields": {
+      "ticker": "COP",
+      "name": "ConocoPhillips Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 201,
+    "fields": {
+      "ticker": "STZ",
+      "name": "Constellation Brands Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 202,
+    "fields": {
+      "ticker": "COST",
+      "name": "Costco Wholesale Corporation - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 203,
+    "fields": {
+      "ticker": "DE",
+      "name": "Deere & Company Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 204,
+    "fields": {
+      "ticker": "EMR",
+      "name": "Emerson Electric Company",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 205,
+    "fields": {
+      "ticker": "FI",
+      "name": "Fiserv, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 206,
+    "fields": {
+      "ticker": "HLT",
+      "name": "Hilton Worldwide Holdings Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 207,
+    "fields": {
+      "ticker": "HD",
+      "name": "Home Depot, Inc. (The) Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 208,
+    "fields": {
+      "ticker": "HON",
+      "name": "Honeywell International Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 209,
+    "fields": {
+      "ticker": "ICE",
+      "name": "Intercontinental Exchange Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 210,
+    "fields": {
+      "ticker": "LLY",
+      "name": "Eli Lilly and Company Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 211,
+    "fields": {
+      "ticker": "MA",
+      "name": "Mastercard Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 212,
+    "fields": {
+      "ticker": "PANW",
+      "name": "Palo Alto Networks, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 213,
+    "fields": {
+      "ticker": "PEP",
+      "name": "PepsiCo, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 214,
+    "fields": {
+      "ticker": "PG",
+      "name": "Procter & Gamble Company",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 215,
+    "fields": {
+      "ticker": "CRM",
+      "name": "Salesforce, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 216,
+    "fields": {
+      "ticker": "SHW",
+      "name": "Sherwin-Williams Company (The) Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 217,
+    "fields": {
+      "ticker": "TXN",
+      "name": "Texas Instruments Incorporated - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 218,
+    "fields": {
+      "ticker": "TMO",
+      "name": "Thermo Fisher Scientific Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 219,
+    "fields": {
+      "ticker": "UNP",
+      "name": "Union Pacific Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 220,
+    "fields": {
+      "ticker": "V",
+      "name": "Visa Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 221,
+    "fields": {
+      "ticker": "IWB",
+      "name": "Russell 1000 Ishares ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 222,
+    "fields": {
+      "ticker": "PH",
+      "name": "Parker-Hannifin Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 223,
+    "fields": {
+      "ticker": "DHR",
+      "name": "Danaher Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 224,
+    "fields": {
+      "ticker": "KLAC",
+      "name": "KLA Corporation - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 225,
+    "fields": {
+      "ticker": "TMUS",
+      "name": "T-Mobile US",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 226,
+    "fields": {
+      "ticker": "SFM",
+      "name": "Sprouts Farmers Market, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 227,
+    "fields": {
+      "ticker": "OLLI",
+      "name": "Ollie's Bargain Outlet Holdings, Inc. - Common Sto",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 228,
+    "fields": {
+      "ticker": "FRPT",
+      "name": "Freshpet, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 229,
+    "fields": {
+      "ticker": "ETN",
+      "name": "Eaton Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 230,
+    "fields": {
+      "ticker": "ELF",
+      "name": "E.L.F. Beauty Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 231,
+    "fields": {
+      "ticker": "CYBR",
+      "name": "CyberArk Software Ltd. - Ordinary Shares",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 232,
+    "fields": {
+      "ticker": "BMI",
+      "name": "Badger Meter, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 233,
+    "fields": {
+      "ticker": "AXON",
+      "name": "Axon Enterprise Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 234,
+    "fields": {
+      "ticker": "SHOP",
+      "name": "Shopify Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 235,
+    "fields": {
+      "ticker": "PODD",
+      "name": "Insulet Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 236,
+    "fields": {
+      "ticker": "INST",
+      "name": "Instructure Holdings Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 237,
+    "fields": {
+      "ticker": "HUBB",
+      "name": "Hubbell Inc Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 238,
+    "fields": {
+      "ticker": "FN",
+      "name": "Fabrinet",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 239,
+    "fields": {
+      "ticker": "FCFS",
+      "name": "FirstCash Holdings, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 240,
+    "fields": {
+      "ticker": "EXLS",
+      "name": "ExlService Holdings, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 241,
+    "fields": {
+      "ticker": "CTVA",
+      "name": "Corteva Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 242,
+    "fields": {
+      "ticker": "CELH",
+      "name": "Celsius Holdings Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 243,
+    "fields": {
+      "ticker": "VLTO",
+      "name": "Veralto Corp Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 244,
+    "fields": {
+      "ticker": "OTIS",
+      "name": "Otis Worldwide Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 245,
+    "fields": {
+      "ticker": "TFC",
+      "name": "Truist Financial Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 246,
+    "fields": {
+      "ticker": "O",
+      "name": "Realty Income Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 247,
+    "fields": {
+      "ticker": "NUE",
+      "name": "Nucor Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 248,
+    "fields": {
+      "ticker": "IFF",
+      "name": "Internationa Flavors & Fragrances, Inc. Common Sto",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 249,
+    "fields": {
+      "ticker": "D",
+      "name": "Dominion Energy Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 250,
+    "fields": {
+      "ticker": "YUM",
+      "name": "Yum! Brands, Inc.",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 251,
+    "fields": {
+      "ticker": "WAL",
+      "name": "Western Alliance Bancorp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 252,
+    "fields": {
+      "ticker": "PNC",
+      "name": "PNC Financial Services Group, Inc. (The) Common St",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 253,
+    "fields": {
+      "ticker": "PM",
+      "name": "Philip Morris International Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 254,
+    "fields": {
+      "ticker": "PLD",
+      "name": "Prologis, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 255,
+    "fields": {
+      "ticker": "NTR",
+      "name": "Nutrien Ltd",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 256,
+    "fields": {
+      "ticker": "MRK",
+      "name": "Merck & Company",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 257,
+    "fields": {
+      "ticker": "GD",
+      "name": "General Dynamics Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 258,
+    "fields": {
+      "ticker": "CUBE",
+      "name": "Cubesmart",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 259,
+    "fields": {
+      "ticker": "CF",
+      "name": "CF Industries Holdings, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 260,
+    "fields": {
+      "ticker": "APA",
+      "name": "APA Corporation - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 261,
+    "fields": {
+      "ticker": "ADP",
+      "name": "Automatic Data Procs",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 262,
+    "fields": {
+      "ticker": "WTT",
+      "name": "Wireless Telecom Group Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 263,
+    "fields": {
+      "ticker": "VAXX",
+      "name": "Vaxxinity, Inc. - Class A Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 264,
+    "fields": {
+      "ticker": "AORT",
+      "name": "Artivion, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 265,
+    "fields": {
+      "ticker": "TCMD",
+      "name": "Tactile Systems Technology, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 266,
+    "fields": {
+      "ticker": "NEE",
+      "name": "Nextera Energy",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 267,
+    "fields": {
+      "ticker": "CSII",
+      "name": "Cardiovascular Systems, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 268,
+    "fields": {
+      "ticker": "RPM",
+      "name": "RPM International Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 269,
+    "fields": {
+      "ticker": "ULTA",
+      "name": "Ulta Beauty Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 270,
+    "fields": {
+      "ticker": "TSCO",
+      "name": "Tractor Supply Company",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 271,
+    "fields": {
+      "ticker": "LUV",
+      "name": "Southwest Airlines Company",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 272,
+    "fields": {
+      "ticker": "PPG",
+      "name": "PPG Industries",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 273,
+    "fields": {
+      "ticker": "PXD",
+      "name": "Pioneer Natural Resources Company",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 274,
+    "fields": {
+      "ticker": "NTRS",
+      "name": "Northern Trust Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 275,
+    "fields": {
+      "ticker": "LH",
+      "name": "Laboratory Corp of America Holdings",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 276,
+    "fields": {
+      "ticker": "CHD",
+      "name": "Church & Dwight Company, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 277,
+    "fields": {
+      "ticker": "SCHW",
+      "name": "The Charles Schwab Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 278,
+    "fields": {
+      "ticker": "BKNG",
+      "name": "Booking Holdings Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 279,
+    "fields": {
+      "ticker": "APH",
+      "name": "Amphenol Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 280,
+    "fields": {
+      "ticker": "AME",
+      "name": "AMETEK, Inc.",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 281,
+    "fields": {
+      "ticker": "ALGN",
+      "name": "Align Technology, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 282,
+    "fields": {
+      "ticker": "MDLZ",
+      "name": "Mondelez International, Inc. - Class A Common Stoc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 283,
+    "fields": {
+      "ticker": "CLF",
+      "name": "Cleveland-Cliffs Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 284,
+    "fields": {
+      "ticker": "KEY",
+      "name": "KeyCorp Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 285,
+    "fields": {
+      "ticker": "FGBI",
+      "name": "First Gurty Banc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 286,
+    "fields": {
+      "ticker": "ABBV",
+      "name": "Abbvie Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 287,
+    "fields": {
+      "ticker": "MCHP",
+      "name": "Microchip Technology",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 288,
+    "fields": {
+      "ticker": "OXY",
+      "name": "Occidental Petroleum Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 289,
+    "fields": {
+      "ticker": "X",
+      "name": "United States Steel Corp",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 290,
+    "fields": {
+      "ticker": "GOLD",
+      "name": "Barrick Gold Corporation Common Stock (BC)",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 291,
+    "fields": {
+      "ticker": "UAA",
+      "name": "Under Armour, Inc. Class A Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 292,
+    "fields": {
+      "ticker": "F",
+      "name": "Ford Motor Company",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 293,
+    "fields": {
+      "ticker": "CCL",
+      "name": "Carnival Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 294,
+    "fields": {
+      "ticker": "WBA",
+      "name": "Walgreens Boots Alliance, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 295,
+    "fields": {
+      "ticker": "HUMA",
+      "name": "Humacyte, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 296,
+    "fields": {
+      "ticker": "LPX",
+      "name": "Louisiana-Pacific Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 297,
+    "fields": {
+      "ticker": "UPS",
+      "name": "United Parcel Service, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 298,
+    "fields": {
+      "ticker": "EIBLX",
+      "name": "Eaton Vance Floating Rate Fund Insti Share",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 299,
+    "fields": {
+      "ticker": "ABNFX",
+      "name": "The Bond Fd of America Class F-2 Shares",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 300,
+    "fields": {
+      "ticker": "SBLK",
+      "name": "Star Bulk Carriers Corp. - Common Shares",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 301,
+    "fields": {
+      "ticker": "SSBK",
+      "name": "Southern States Bancshares, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 302,
+    "fields": {
+      "ticker": "GOGL",
+      "name": "Golden Ocean Group Limited - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 303,
+    "fields": {
+      "ticker": "PARA",
+      "name": "Paramount Global - Class B Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 304,
+    "fields": {
+      "ticker": "ATVI",
+      "name": "Activision Blizzard, Inc - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 305,
+    "fields": {
+      "ticker": "HPQ",
+      "name": "HP Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 306,
+    "fields": {
+      "ticker": "TSLA",
+      "name": "Tesla, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 307,
+    "fields": {
+      "ticker": "XP",
+      "name": "XP Inc. - Class A Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 308,
+    "fields": {
+      "ticker": "VCTR",
+      "name": "Victory Capital Holdings, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 309,
+    "fields": {
+      "ticker": "TREX",
+      "name": "Trex Company, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 310,
+    "fields": {
+      "ticker": "SKY",
+      "name": "Skyline Champion Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 311,
+    "fields": {
+      "ticker": "SSD",
+      "name": "Simpson Manufacturing Company, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 312,
+    "fields": {
+      "ticker": "SCI",
+      "name": "Service Corporation International Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 313,
+    "fields": {
+      "ticker": "QSR",
+      "name": "Restaurant Brands International Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 314,
+    "fields": {
+      "ticker": "REGN",
+      "name": "Regeneron Pharmaceuticals, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 315,
+    "fields": {
+      "ticker": "RRC",
+      "name": "Range Resources Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 316,
+    "fields": {
+      "ticker": "RH",
+      "name": "RH Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 317,
+    "fields": {
+      "ticker": "PHM",
+      "name": "PulteGroup, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 318,
+    "fields": {
+      "ticker": "PAM",
+      "name": "Pampa Energia S.A. Pampa Energia S.A.",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 319,
+    "fields": {
+      "ticker": "NDSN",
+      "name": "Nordson Corporation - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 320,
+    "fields": {
+      "ticker": "MCO",
+      "name": "Moody's Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 321,
+    "fields": {
+      "ticker": "MPWR",
+      "name": "Monolithic Power Systems, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 322,
+    "fields": {
+      "ticker": "MTD",
+      "name": "Mettler-Toledo International, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 323,
+    "fields": {
+      "ticker": "MMC",
+      "name": "Marsh & McLennan Companies, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 324,
+    "fields": {
+      "ticker": "MKSI",
+      "name": "MKS Instruments, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 325,
+    "fields": {
+      "ticker": "LMST",
+      "name": "Limestone Bancorp, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 326,
+    "fields": {
+      "ticker": "IDXX",
+      "name": "IDEXX Laboratories, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 327,
+    "fields": {
+      "ticker": "GFI",
+      "name": "Gold Fields Limited American Depositary Shares",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 328,
+    "fields": {
+      "ticker": "FLT",
+      "name": "FleetCor Technologies, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 329,
+    "fields": {
+      "ticker": "ETSY",
+      "name": "Etsy, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 330,
+    "fields": {
+      "ticker": "DQ",
+      "name": "DAQO New Energy Corp. American Depositary Shares,",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 331,
+    "fields": {
+      "ticker": "CROX",
+      "name": "Crocs, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 332,
+    "fields": {
+      "ticker": "ANET",
+      "name": "Arista Networks, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 333,
+    "fields": {
+      "ticker": "ALLE",
+      "name": "Allegion plc Ordinary Shares",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 334,
+    "fields": {
+      "ticker": "GSK",
+      "name": "GSK plc American Depositary Shares (Each represent",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 335,
+    "fields": {
+      "ticker": "GNTX",
+      "name": "Gentex Corporation - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 336,
+    "fields": {
+      "ticker": "GRMN",
+      "name": "Garmin Ltd. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 337,
+    "fields": {
+      "ticker": "DIOD",
+      "name": "Diodes Incorporated - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 338,
+    "fields": {
+      "ticker": "CBSH",
+      "name": "Commerce Bancshares, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 339,
+    "fields": {
+      "ticker": "CRUS",
+      "name": "Cirrus Logic, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 340,
+    "fields": {
+      "ticker": "ADSK",
+      "name": "Autodesk, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 341,
+    "fields": {
+      "ticker": "A",
+      "name": "Agilent Technologies, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 342,
+    "fields": {
+      "ticker": "ARKK",
+      "name": "Ark Innovation ETF",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 343,
+    "fields": {
+      "ticker": "XBI",
+      "name": "S&P Biotech SPDR",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 344,
+    "fields": {
+      "ticker": "GILD",
+      "name": "Gilead Sciences Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 345,
+    "fields": {
+      "ticker": "SWKS",
+      "name": "Skyworks Solutions, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 346,
+    "fields": {
+      "ticker": "FITB",
+      "name": "Fifth Third Bancorp - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 347,
+    "fields": {
+      "ticker": "CCJ",
+      "name": "Cameco Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 348,
+    "fields": {
+      "ticker": "LSCC",
+      "name": "Lattice Semiconductor Corporation - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 349,
+    "fields": {
+      "ticker": "WMS",
+      "name": "Advanced Drainage Systems, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 350,
+    "fields": {
+      "ticker": "WAT",
+      "name": "Waters Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 351,
+    "fields": {
+      "ticker": "VRTX",
+      "name": "Vertex Pharmaceuticals Incorporated - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 352,
+    "fields": {
+      "ticker": "VRSK",
+      "name": "Verisk Analytics, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 353,
+    "fields": {
+      "ticker": "UI",
+      "name": "Ubiquiti Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 354,
+    "fields": {
+      "ticker": "TER",
+      "name": "Teradyne, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 355,
+    "fields": {
+      "ticker": "TEL",
+      "name": "Te Connectivity Ltd",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 356,
+    "fields": {
+      "ticker": "SNPS",
+      "name": "Synopsys, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 357,
+    "fields": {
+      "ticker": "SOLV",
+      "name": "Solventum Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 358,
+    "fields": {
+      "ticker": "RELX",
+      "name": "Relx Plc ADR",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 359,
+    "fields": {
+      "ticker": "QLYS",
+      "name": "Qualys, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 360,
+    "fields": {
+      "ticker": "PAYX",
+      "name": "Paychex, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 361,
+    "fields": {
+      "ticker": "ODFL",
+      "name": "Old Dominion Freight Line, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 362,
+    "fields": {
+      "ticker": "NXPI",
+      "name": "NXP Semiconductors N.V. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 363,
+    "fields": {
+      "ticker": "NFLX",
+      "name": "Netflix, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 364,
+    "fields": {
+      "ticker": "LULU",
+      "name": "lululemon athletica inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 365,
+    "fields": {
+      "ticker": "INFY",
+      "name": "Infosys Limited American Depositary Shares",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 366,
+    "fields": {
+      "ticker": "HSY",
+      "name": "The Hershey Company Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 367,
+    "fields": {
+      "ticker": "JKHY",
+      "name": "Jack Henry & Associates, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 368,
+    "fields": {
+      "ticker": "GGG",
+      "name": "Graco Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 369,
+    "fields": {
+      "ticker": "ELS",
+      "name": "Equity Lifestyle Properties, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 370,
+    "fields": {
+      "ticker": "DECK",
+      "name": "Deckers Outdoor Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 371,
+    "fields": {
+      "ticker": "CPRT",
+      "name": "Copart, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 372,
+    "fields": {
+      "ticker": "CTAS",
+      "name": "Cintas Corporation - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 373,
+    "fields": {
+      "ticker": "CDNS",
+      "name": "Cadence Design Systems, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 374,
+    "fields": {
+      "ticker": "DOW",
+      "name": "Dow Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 375,
+    "fields": {
+      "ticker": "BRO",
+      "name": "Brown & Brown, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 376,
+    "fields": {
+      "ticker": "ASML",
+      "name": "ASML Holding N.V. - New York Registry Shares",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 377,
+    "fields": {
+      "ticker": "CFG",
+      "name": "Citizens Financial Group, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 378,
+    "fields": {
+      "ticker": "COF",
+      "name": "Capital One Financial Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 379,
+    "fields": {
+      "ticker": "RF",
+      "name": "Regions Financial Corporation Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 380,
+    "fields": {
+      "ticker": "NU",
+      "name": "Nu Holdings Ltd. Class A Ordinary Shares",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 381,
+    "fields": {
+      "ticker": "PRU",
+      "name": "Prudential Financial, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 382,
+    "fields": {
+      "ticker": "TSN",
+      "name": "Tyson Foods, Inc. Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 383,
+    "fields": {
+      "ticker": "ROAD",
+      "name": "Construction Partners, Inc. - Common Stock",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 384,
+    "fields": {
+      "ticker": "SNOW",
+      "name": "Snowflake Inc Cl A",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 385,
+    "fields": {
+      "ticker": "T",
+      "name": "AT&T Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 386,
+    "fields": {
+      "ticker": "BTO",
+      "name": "John Hancock Financial Opportunities Fund Common S",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 387,
+    "fields": {
+      "ticker": "WBD",
+      "name": "Warner Bros. Discovery, Inc. - Series A Common Sto",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 388,
+    "fields": {
+      "ticker": "IR",
+      "name": "Ingersoll Rand Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 389,
+    "fields": {
+      "ticker": "KVUE",
+      "name": "Kenvue Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 390,
+    "fields": {
+      "ticker": "NVS",
+      "name": "Novartis Ag ADR",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 391,
+    "fields": {
+      "ticker": "SQ",
+      "name": "Block, Inc. Class A Common Stock,",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 392,
+    "fields": {
+      "ticker": "CCI",
+      "name": "Crown Castle Inc",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 393,
+    "fields": {
+      "ticker": "DEO",
+      "name": "Diageo Plc ADR",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 394,
+    "fields": {
+      "ticker": "UL",
+      "name": "Unilever Plc ADR",
+      "description_short": ""
+    }
+  },
+  {
+    "model": "core.Stock",
+    "pk": 395,
+    "fields": {
+      "ticker": "ESS",
+      "name": "Essex Property Trust, Inc. Common Stock",
+      "description_short": ""
+    }
+  }
 ]
