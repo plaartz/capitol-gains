@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
-import { LineChart, ResponsiveContainer, XAxis, YAxis, Line, ReferenceLine } from 'recharts'
+import { LineChart, ResponsiveContainer, XAxis, YAxis, Line, ReferenceLine, Label } from 'recharts'
 
-export default function StockGraph({ticker, data, type, transaction = false, transaction_details={}}) {
+export default function StockGraph({ticker, data, transaction = false, transaction_details={}}) {
+    
     return (
       <ResponsiveContainer width="100%" height="100%" aspect={2}>
         <LineChart data={data}>
@@ -13,7 +13,9 @@ export default function StockGraph({ticker, data, type, transaction = false, tra
             <></>
           )}
           <XAxis dataKey="date" />
-          <YAxis />
+          <YAxis>
+            <Label value={`Prices for ${ticker}`}/>
+          </YAxis>
           <Line type="linear" dataKey="price" dot={false} />
         </LineChart>
       </ResponsiveContainer>
