@@ -138,7 +138,7 @@ def get_price_information(transaction_id) -> tuple[list, int]:
                 'transaction_date'
             ).values_list('transaction_date', flat=True).first()
         time_span = (end_date - start_date).days
-        if (time_span <= GRAPH_SIZE):
+        if time_span <= GRAPH_SIZE:
             delta = timedelta(days=(GRAPH_SIZE - time_span) / 2)
             start_date -= delta
             end_date += delta

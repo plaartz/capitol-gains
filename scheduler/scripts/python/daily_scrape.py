@@ -37,7 +37,7 @@ def main():
         }
 
         # POST data to our backend
-        response = post('http://api:8000/api/core/upload-transactions',json=data)
+        response = post('http://api:8000/api/core/upload-transactions',json=data, timeout=60)
 
         if response.status_code != 200:
             print(response.status_code)

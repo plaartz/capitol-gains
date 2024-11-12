@@ -10,18 +10,18 @@ export default function Transaction() {
   const [priceData, setPriceData] = useState([]);
 
   useEffect(() => {
-    fetch(`/api/core/get-transaction?id=${id}`)
+    fetch(`/api/core/search?id=${id}`,{method:"POST",body:JSON.stringify({})})
       .then((res) => {
         if (res.ok) {
           return res.json();
         } else throw new Error("bad request");
       })
       .then((res) => {
-        setData(res.transaction);
+        setData(res.data[0]);
         // console.log(res.transaction);
       })
       .catch((_) => {
-        //console.log(err);
+        console.log(err);
         navigate("/404");
       });
     fetch(`/api/core/get-transaction-price-details?id=${id}`)

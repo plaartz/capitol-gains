@@ -1,10 +1,20 @@
-# pylint: disable=too-many-positional-arguments, too-many-arguments, line-too-long, too-many-locals, too-many-branches, consider-iterating-dictionary, too-many-statements
+# pylint: disable=too-many-positional-arguments, too-many-arguments
 from core.serializers import TransactionSerializer
 from core.models import Transaction
 from django.db.models.functions import Cast
 from django.db.models import IntegerField, CharField, Func, F, Value, Case, When
 
-def get_transactions(first_name, last_name, politician_type, politician_house, start_date, end_date, page_no, page_size, order_by, order):
+
+def get_transactions(
+        first_name = None,
+        last_name = None,
+        politician_type = None,
+        politician_house = None,
+        start_date = None,
+        end_date = None,
+        page_no = None,
+        page_size = None,
+        transaction_id=None):
     """
     The method gets all the transaction based on what filteration the user provides.
 
@@ -44,6 +54,13 @@ def get_transactions(first_name, last_name, politician_type, politician_house, s
         page_size = 100    # We are defaulting to page size 100
     else:
         page_size = min(max(page_size, 1), 100)    # Ensures 1 <= page size <= 100
+
+    if transaction_id:
+        transaction = Transaction.objects.get(id=transaction_id)
+        if not transaction:
+            return [], 0
+        return TransactionSerializer([transaction],many=True).data, 1
+
 
     filter_criteria = {}
     if first_name:

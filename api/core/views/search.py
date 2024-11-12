@@ -3,7 +3,7 @@ import json
 from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from core.controllers import get_transactions, get_transaction
+from core.controllers import get_transactions
 
 @require_http_methods(['POST'])
 @csrf_exempt # idk if the react post request sends a csrf token
@@ -18,6 +18,7 @@ def search_view(request):
         return JsonResponse({"error": "No body provided!"}, status = 400)
 
     data = json.loads(request.body)
+
     first_name = data.get("first_name")
     last_name = data.get("last_name")
     politician_type = data.get("politician_type")
@@ -51,6 +52,18 @@ def search_view(request):
     if order is None or order == "" or (order.upper() not in ["ASC", "DESC"]):
         order = "DESC"
     order = order.upper()
+    transaction_id = request.GET.get("id", None)
+
+    if transaction_id is not None:
+        try:
+            transaction_id = int(transaction_id)
+            if transaction_id < 1:
+                raise ValueError()
+        except (ValueError, TypeError):
+            return JsonResponse({'error': 'transaction id must be a valid integer!'}, status=400)
+        transaction, size = get_transactions(transaction_id=transaction_id)
+        return JsonResponse({"data": transaction, "size": size},status=200, safe=False)
+
 
     # Handle page number
     if page_no is None:
@@ -92,23 +105,3 @@ def search_view(request):
     }
 
     return JsonResponse(response_data, safe = False)
-
-@require_http_methods(['GET'])
-def fetch_transaction(request):
-    """
-    GET method to fetch a transaction based on the id provided as a query parameter.
-    """
-    transaction_id = request.GET.get("id")
-    if transaction_id is None:
-        return JsonResponse({"error": "No transaction id provided"},status=400)
-    try:
-        transaction_id = int(transaction_id)
-    except (TypeError, ValueError):
-        return JsonResponse({"error": "Bad transaction id provided"},status=400)
-
-    transaction, status = get_transaction(transaction_id)
-
-    if status == 400:
-        return JsonResponse({"error":"Error fetching transaction"},status=400)
-
-    return JsonResponse({"transaction":transaction})
