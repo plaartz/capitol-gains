@@ -1,4 +1,3 @@
-import React from "react";
 import "./styles/DatePickerInput.css";
 
 export default function DatePickerInput({ selectedDate, onDateChange, label }) {

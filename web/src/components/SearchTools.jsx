@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import {FilterContext} from "src/contexts/Filters";
 import TextBox from "./TextBox";
 import DatePickerInput from "./DatePickerInput";
@@ -7,10 +7,7 @@ import "./styles/SearchBar.css";
 
 export default function SearchTools() {
   const [fullName, setFullName] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [middleInitial, setMiddleInitial] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [stock, setStock ] = useState("");
+  const [stock, setStock] = useState("");
   const [advancedFiltersSelected, setAdvancedFiltersSelected] = useState(false);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -18,32 +15,15 @@ export default function SearchTools() {
   const [maxPrice, setMaxPrice] = useState(10000);
   const [purchaseSelected, setPurchaseSelceted] = useState(false);
   const [saleSelected, setSaleSelected] = useState(false);
-  const [filters, _] = useContext(FilterContext)
-
-  useEffect(() => {
-    const nameComponents = fullName.split(" ");
-    if (nameComponents.length == 1) {
-      setFirstName(nameComponents[0]);
-    } else if (nameComponents.length == 2) {
-      setFirstName(nameComponents[0]);
-      setLastName(nameComponents[1])
-    } else {
-      setFirstName(nameComponents[0]);
-      setMiddleInitial(nameComponents[1]);
-      setLastName(nameComponents[2]);
-    }
-  }, [fullName])
+  const [_, setFilters] = useContext(FilterContext)
 
   const handleSearch = () => {
-    fetch("http://api:8000/api/core/search", {
+    fetch(`/api/core/search`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        'first_name': firstName,
-        'middle_inital': middleInitial,
-        'last_name': lastName,
       }),
     })
       .then((response) => response.json())
@@ -54,6 +34,30 @@ export default function SearchTools() {
         console.error("Error fetching search results:", error);
       });
   };
+
+  useEffect(() => {
+    setFilters({
+      fullName,
+      stock,
+      advancedFiltersSelected,
+      startDate,
+      endDate,
+      minPrice,
+      maxPrice,
+      purchaseSelected,
+      saleSelected
+    });
+  }, [
+    fullName,
+    stock,
+    advancedFiltersSelected,
+    startDate,
+    endDate,
+    minPrice,
+    maxPrice,
+    purchaseSelected,
+    saleSelected
+  ])
 
   return (
     <div>
