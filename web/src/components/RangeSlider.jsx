@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import "./styles/TextBox.css";
 import "./styles/RangeSlider.css";
 
-export default function RangeSlider({ minValue, maxValue }) {
-  const [minPrice, setMinPrice] = useState(minValue);
-  const [maxPrice, setMaxPrice] = useState(maxValue);
+export default function RangeSlider({ minPrice, setMinPrice, maxPrice, setMaxPrice }) {
 
   const handleMinSliderChange = (e) => {
     const newValue = Number(e.target.value);
@@ -40,7 +38,7 @@ export default function RangeSlider({ minValue, maxValue }) {
         <input
           id="fromSlider"
           type="range"
-          min={minValue}
+          min={minPrice}
           max={maxPrice}
           value={minPrice}
           onChange={handleMinSliderChange}
@@ -49,7 +47,7 @@ export default function RangeSlider({ minValue, maxValue }) {
           id="toSlider"
           type="range"
           min={minPrice}
-          max={maxValue}
+          max={maxPrice}
           value={maxPrice}
           onChange={handleMaxSliderChange}
         />

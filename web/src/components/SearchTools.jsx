@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {FilterContext} from "src/contexts/Filters";
 import TextBox from "./TextBox";
 import DatePickerInput from "./DatePickerInput";
@@ -16,6 +16,8 @@ export default function SearchTools() {
   const [endDate, setEndDate] = useState(null);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(10000);
+  const [purchaseSelected, setPurchaseSelceted] = useState(false);
+  const [saleSelected, setSaleSelected] = useState(false);
   const [filters, _] = useContext(FilterContext)
 
   useEffect(() => {
@@ -97,9 +99,32 @@ export default function SearchTools() {
               selectedDate={endDate}
               onDateChange={setEndDate}
             />
+            <label>
+              <input
+                type="checkbox"
+                checked={purchaseSelected}
+                onChange={() => setPurchaseSelceted(!purchaseSelected)}
+                style={{ marginRight: "5px" }}
+              />
+              Purchase
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={saleSelected}
+                onChange={() => setSaleSelected(!saleSelected)}
+                style={{ marginRight: "5px" }}
+              />
+              Sale
+            </label>
           </div>
           <div className="advancedOptions">
-            <RangeSlider minValue={minPrice} maxValue={maxPrice} />
+            <RangeSlider 
+              minPrice={minPrice}
+              setMinPrice={setMinPrice}
+              maxPrice={maxPrice} 
+              setMaxPrice={setMaxPrice}
+            />
           </div>
         </div>
       )}
