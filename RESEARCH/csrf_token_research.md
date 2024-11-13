@@ -1,24 +1,34 @@
 # Research Report
 ## CSRF Token Protection and How it Works
 ### Summary of Work
-<!--One paragraph summary of the research being performed-->
+The research being done for this part of the project was learning about what CSRF Protection is, and how we need to implement this with our project. I watched YouTube videos, went online into tutorials and websites, and also asked ChatGPT certain questions to better understand how to complement this with our project.
+
 ### Motivation
-<!--Explain why you felt the need to perform this research-->
+It was agreed upon that CSRF was important to learn about because we could not do POST methods in Django without specifying '*#csrf exempt*' within any file that had a **POST** method. Therefore in order to learn why, and to be able to simulate a production version of our application with the idea that real-world customers could be using this app, we wanted to implement safety measures in different aspects of our code. Whether it was safety checks in direct inputs, indirect inputs, and any step in-between, being consistent was key and therefore we decided to look into CSRF Protection. 
 ### Time Spent
-<!--Explain how your time was spent-->
+1. YouTube tutorials: 1 hour
+2. Online forums: 2 hours
+3. ChatGPT: 30 minutes
+4. Development in Project: 2 hours
+
 ### Results
-<!--Explain what you learned/produced/etc. This section should explain the
-important things you learned so that it can serve as an easy reference for yourself
-and others who could benefit from reviewing this topic. Include your sources as
-footnotes. Make sure you include the footnotes where appropriate e.g [^1]-->
+Here I will explain what I learned. I learned that CSRF stands for **Cross-Site Request Forgery**. It refers to a type of attack that can happen when an attacker gets between a user making a request to a web application, and making a request that was *forged* from a different link, and ultimately a harmful consequence.[^3] A common example is during Session Authentification when a user wishes to create an account for some application, and later decides to update their account. A CSRF attack would be able to get in-between the update command and forge a different command, like delete, and execute that command alongside the request.[^5] 
+
+It ultimately does this with cookies, which are stored in your browser, so that every time you make a request, to LOGIN for example, the web application can verify your login. These cookies are sent *automatically* to the website, regardless of your domain. This is what is exploited from the attack: using your browser's cookies, which are automatically sent to the web application, to send a harmful POST request from an original request that was not intended to do so. The video example showed this type of scenario: The browser which saves your login request cookies can also be seen when accessing a random link from within the web application. This link has nothing to do with your user login info, but is still making the browser send cookies to the webn application anyway. Through these cookies, a user could *forge* a request to **DELETE** your account and the user would be out of luck.[^3]
+
+So, how does one protect against CSRF attacks? One can use randomized CSRF Tokens that are explicitly verified with each request. They are session-specific and are used inconjuction with unsafe methods.
+
+I learned that there are "safe" and "unsafe" HTTP operations. Some "safe" operations include: **GET**, **HEAD**, and **OPTIONS**. Some "unsafe" operations include: **POST**, **PUT**, **PATCH**, and **DELETE**.[^4]
+
 ### Sources
-<!--list your sources and link them to a footnote with the source url-->
 - DjangoProject[^1]
 - DjangoProjectSettings[^2]
-- Placeholder3[^3]
-- Placeholder4[^4]
-- And so on...
+- Youtube: Cross-Site Forgery Request (CSRF) Explained[^3]
+- Working with AJAX, CSRF, & CORS[^4]
+- Django & React Session Authentication and CSRF | Part 3 - Sign Up and User Profile [^5]
+
 [^1]: https://docs.djangoproject.com/en/5.1/howto/csrf/#using-csrf-protection-with-ajax
 [^2]: https://docs.djangoproject.com/en/5.1/ref/settings/#std-setting-CSRF_COOKIE_DOMAIN
-[^3]: www.google.com
-[^4]: www.google.com
+[^3]: (https://www.youtube.com/watch?v=eWEgUcHPle0)
+[^4]: https://www.django-rest-framework.org/topics/ajax-csrf-cors/
+[^5]: https://www.youtube.com/watch?v=NFHiT4ncPD8
