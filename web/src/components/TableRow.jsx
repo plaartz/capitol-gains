@@ -30,7 +30,7 @@ export default function TableRow({ rowData, colOrder = {}, idx = 0 }) {
           if (key == "transaction_amount") {
             return (
               <td id={styles[key] ?? ""} style={style} key={key}>
-                ${col.replace("-", "-$")}
+                {col}
               </td>
             );
           }
