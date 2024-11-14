@@ -21,7 +21,6 @@ export default function Transaction() {
         // console.log(res.transaction);
       })
       .catch((_) => {
-        console.log(err);
         navigate("/404");
       });
     fetch(`/api/core/get-transaction-price-details?id=${id}`)

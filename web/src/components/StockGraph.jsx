@@ -6,8 +6,7 @@ import {
   XAxis,
   YAxis,
   Line,
-  ReferenceLine,
-  Label
+  ReferenceLine
 } from "recharts";
 
 export default function StockGraph({
