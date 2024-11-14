@@ -96,8 +96,17 @@ def get_transactions(
         "disclosure_date": "disclosure_date",
         "transaction_type": "transaction_type",
         "transaction_amount": "extracted_transaction_amount", # This is the holder used for ordering and casting
+        
+        # still want to order by first and last name
         "first_name": "politician__profile__first_name",
         "last_name": "politician__profile__last_name",
+        
+        # not using these anymore
+        #"politician_type": "politician__politician_type",
+        #"politician_house": "politician__politician_house",
+        
+        "full_name": "full_name",
+        
         "stock_ticker": "stock__ticker",
         "stock_price": "",
         "percent_gain":""
@@ -129,7 +138,7 @@ def get_transactions(
             return [], 0
         return TransactionSerializer([transaction],many=True).data, 1
 
-    '''
+    ''' Need to del this comment
     filter_criteria = {}
     if first_name:
         filter_criteria['politician__profile__first_name'] = first_name
@@ -168,8 +177,8 @@ def get_transactions(
     elif is_sale and not is_purchase:
         filter_criteria &= Q(transaction_type='Sale')
 
+    ''' Not doing anymore, need to del this comment
     # politician type/house filtering
-    ''' Not doing anymore
     if politician_type:
         filter_criteria &= Q(politician__politician_type=politician_type)
     if politician_house:

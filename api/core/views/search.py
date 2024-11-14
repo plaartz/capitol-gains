@@ -1,4 +1,4 @@
-#pylint: disable=too-many-locals
+#pylint: disable=too-many-locals, too-many-function-args
 import json
 from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
@@ -51,8 +51,17 @@ def search_view(request):
         "disclosure_date",
         "transaction_type",
         "transaction_amount",
-        "first_name",
-        "last_name",
+        
+        # switching to full_name
+        #"first_name",
+        #"last_name",
+        
+        # not using anymore
+        #"politician_type",
+        #"politician_house",
+
+        "full_name",
+        
         "stock_ticker",
         "stock_price",
         "percent_gain"
@@ -122,7 +131,7 @@ def search_view(request):
         # switching to full name
         #first_name, last_name,
         full_name,
-        
+
         stock_ticker,
         is_purchase,
         is_sale,
