@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 from datetime import date
 from django.test import TestCase
 from core.controllers import stock
