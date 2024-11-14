@@ -40,7 +40,7 @@ export default function StockGraph({
         ) : (
           <></>
         )}
-        <XAxis dataKey="date" angle={20}/>
+        <XAxis dataKey="date" angle={10} tick={false} />
         <YAxis domain={[min, max]} />
         <Line type="linear" dataKey="price" dot={false} />
       </LineChart>
