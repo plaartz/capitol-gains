@@ -84,11 +84,10 @@ function AboutUs() {
         </p>
         <div className={aboutstyle.buttonGroup}>
           <button onClick={trades}>Explore Trades</button>
-          {/*<button>View on GitHub</button>*/}
         </div>
       </section>
 
-      {/* Footer */}
+      
       <footer className={aboutstyle.footer}>
         <p>© 2024 Capitol Gains. All rights reserved. No politicians were harmed in the making of this website.</p>
         <p>Disclaimer: This is a school project. Please don’t sue us, we’re just poor students.</p>

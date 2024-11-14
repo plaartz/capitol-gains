@@ -14,7 +14,7 @@ const Navbar = () => {
           <img src={logo} alt="Logo" className={barStyle.aboutImg} />
         </Link>
         {/* remove the / */}
-        <span to="/" className={barStyle.title}>CAPITOL GAINS</span>
+        <span className={barStyle.title}>CAPITOL GAINS</span>
       </div>
       <div className={barStyle.menu} onClick={() => {
         setMenuOpen(!menuOpen);
