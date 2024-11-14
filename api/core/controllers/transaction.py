@@ -147,7 +147,9 @@ def get_price_information(transaction_id) -> tuple[list, int]:
                 delta = timedelta(days=(GRAPH_SIZE - time_span) / 2)
                 start_date -= delta
                 end_date += delta
+            #pylint: disable=broad-exception-caught
             except Exception:
+                # pylint: disable=line-too-long
                 print("Err, ", transaction.stock, transaction.transaction_date, transaction.transaction_type)
 
         prices = StockPrice.objects.filter(
@@ -155,7 +157,7 @@ def get_price_information(transaction_id) -> tuple[list, int]:
             date__gte = start_date,
             date__lte = end_date
         ).all().values('date','price').order_by('date')
-        
+
         return list(prices), 200
 
 

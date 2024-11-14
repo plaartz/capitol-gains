@@ -1,4 +1,4 @@
-# pylint: disable=too-many-positional-arguments, too-many-arguments
+# pylint: disable=too-many-positional-arguments, too-many-arguments, line-too-long
 from core.serializers import TransactionSerializer
 from core.models import Transaction
 from django.db.models.functions import Cast
