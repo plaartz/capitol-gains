@@ -1,5 +1,4 @@
-import React from "react";
-import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
+import { Dropdown, ButtonGroup } from "react-bootstrap";
 
 const PageSize = ({pgSiz}) => {
   return (

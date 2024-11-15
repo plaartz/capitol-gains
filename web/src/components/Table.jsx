@@ -11,7 +11,7 @@ export default function Table() {
   const [colOrder, setOrder] = useState([]);
   const [filters, _] = useContext(FilterContext);
   const [totalPosts, setTotal] = useState();
-  const [pageSize, setPgSize] = useState(5);
+  const [pageSize, setPgSize] = useState(2);
   const [currPageNo, setPageNo] = useState(1);
 
   useEffect(() => {
