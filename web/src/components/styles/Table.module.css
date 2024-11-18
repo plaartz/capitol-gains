@@ -37,15 +37,54 @@ thead th:nth-child(1) {
 }
 
 .paginationFooter {
-    margin: 0 auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white; /* Optional: Adds background for readability */
+  z-index: 10; /* Ensure it stays on top of other content */
+  padding: 10px 0; /* Optional: Adds padding for spacing */
+  text-align: center;
+
 }
 
 tbody tr.tableRow:hover {
     background-color: rgb(245, 245, 245)
 }
+
+/* .navi {
+    display: flex;
+    background-color: white;
+    align-self: center;
+    padding: auto;
+    box-shadow: rgba(0, 0, 0, 0.5);
+}
+
+.pagination {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+  }
+  
+  .pagination .item {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+  }
+  
+  .pagination .pagelink {
+    text-decoration: none;
+    color: black;
+    text-emphasis: none;
+  }
+  
+  .pagination .item:hover {
+    background-color: blue;
+  } */
+  
 
 /* 
 thead th:nth-child(2) {

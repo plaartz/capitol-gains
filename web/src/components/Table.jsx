@@ -1,22 +1,27 @@
 import { useState, useEffect, useContext } from "react";
-import {FilterContext} from 'src/contexts/Filters.js'
+import { FilterContext } from "src/contexts/Filters.js";
 import TableRow from "./TableRow";
 import styles from "./styles/Table.module.css";
 import { search } from "src/utils/api.ts";
+import Pagination from "./Pagination";
 
 export default function Table() {
   const [data, setData] = useState([]);
   const [colOrder, setOrder] = useState([]);
   const [filters, _] = useContext(FilterContext);
+  const [totalPosts, setTotal] = useState();
+  const [pageSize, setPgSize] = useState(5);
+  const [currPageNo, setPageNo] = useState(1);
 
   useEffect(() => {
-    fetch(search(1,100), {
+    fetch(search(currPageNo, pageSize), {
       method: "POST",
       body: JSON.stringify({}),
     })
       .then((res) => res.json())
       .then((res) => {
         setData(res.data);
+        setTotal(res.size);
         const keys = {
           full_name: { col: 0, display: "Politician" },
           transaction_date: { col: 1, display: "Date" },
@@ -27,10 +32,20 @@ export default function Table() {
         };
         setOrder(keys);
       });
-  }, [filters]);
+  }, [filters, pageSize, currPageNo]);
+
+  const paginate = (pageNumber) => {
+    if (pageNumber === 0) {
+      setPageNo(currPageNo - 1);
+    } else if (pageNumber === -1) {
+      setPageNo(currPageNo + 1);
+    } else {
+      setPageNo(pageNumber);
+    }
+  };
 
   return (
-    <div style={{width:'80%', margin: '0 auto'}}>
+    <div style={{ width: "80%", margin: "0 auto" }}>
       {data ? (
         <>
           <section className={styles.table}>
@@ -59,8 +74,14 @@ export default function Table() {
             </table>
           </section>
           <section className={styles.paginationFooter}>
-            <div></div>
-            <div>Pagination</div>
+            <div>
+              <Pagination
+                totalPosts={totalPosts}
+                pageSize={pageSize}
+                currPageNo={currPageNo}
+                paginate={paginate}
+              />
+            </div>
             <div>Page size</div>
           </section>
         </>

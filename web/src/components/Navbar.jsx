@@ -8,7 +8,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <nav>
+    <nav className={barStyle.bnav}>
       <div className={barStyle.logoContainer}>
         <Link to="/" className={barStyle.logo}>
           <img src={logo} alt="Logo" className={barStyle.aboutImg} />

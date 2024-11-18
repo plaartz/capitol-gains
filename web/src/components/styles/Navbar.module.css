@@ -2,8 +2,12 @@
   background-color: red; 
 }
 
+<<<<<<< HEAD
 /* see if the stickiness of the navbar till later */
 nav {
+=======
+.bnav {
+>>>>>>> 433c243 (Merge branch 'aboutUsPage' of https://git.doit.wisc.edu/cdis/cs/courses/cs506/fa2024/team/T_11/Project_11 into aboutUsPage)
   display: flex;
   justify-content: space-between; 
   align-items: center; 
@@ -28,7 +32,7 @@ nav {
   object-fit: contain; 
 }
 
-nav .title {
+.bnav .title {
   font-size: 1.5rem;
   font-weight: bold;
   color: azure;
@@ -36,18 +40,18 @@ nav .title {
   text-decoration: none; 
 }
 
-nav ul {
+.bnav ul {
   display: flex; 
   margin: 0;
   padding: 0; 
   align-items: center; 
 }
 
-nav ul li {
+.bnav ul li {
   list-style: none; 
 }
 
-nav ul li a {
+.bnav ul li a {
   display: flex; 
   align-items: center;
   text-decoration: none;
@@ -59,15 +63,15 @@ nav ul li a {
   line-height: 60px; 
 }
 
-nav ul li a:not(.active):hover {
+.bnav ul li a:not(.active):hover {
   color: lightgray; 
 }
 
-nav ul li a.active {
+.bnav ul li a.active {
   background-color: red; 
 }
 
-nav .menu {
+.bnav .menu {
   display: none; 
   position: absolute; 
   top: 50%; 
@@ -79,7 +83,7 @@ nav .menu {
   height: 2rem;
 }
 
-nav .menu span {
+.bnav .menu span {
   height: 0.4rem;
   width: 100%;
   background-color: white;
@@ -88,18 +92,18 @@ nav .menu span {
 }
 
 @media (max-width: 760px) {
-  nav .menu {
+  .bnav .menu {
     display: flex; 
   }
 
-  nav {
+  .bnav {
     flex-direction: row; 
     align-items: center; 
     justify-content: space-between; 
     height: 60px; 
   }
 
-  nav ul {
+  .bnav ul {
     visibility: hidden; 
     flex-direction: column;
     align-items: flex-start;
@@ -116,18 +120,18 @@ nav .menu span {
     transition: 0.15s ease-in-out;
   }
 
-  nav ul.open {
+  .bnav ul.open {
     visibility: visible;
     opacity: 1;
   }
 
-  nav ul li {
+  .bnav ul li {
     margin: 10px 0;
     width: 100%;
     text-align: center;
   }
 
-  nav ul li a {
+  .bnav ul li a {
     margin: 0.2rem 0.5rem; 
   }
 }
