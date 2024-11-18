@@ -2,12 +2,7 @@
   background-color: red; 
 }
 
-<<<<<<< HEAD
-/* see if the stickiness of the navbar till later */
-nav {
-=======
 .bnav {
->>>>>>> 433c243 (Merge branch 'aboutUsPage' of https://git.doit.wisc.edu/cdis/cs/courses/cs506/fa2024/team/T_11/Project_11 into aboutUsPage)
   display: flex;
   justify-content: space-between; 
   align-items: center; 
