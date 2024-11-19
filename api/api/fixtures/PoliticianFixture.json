@@ -14,7 +14,7 @@
     "fields": {
       "profile": 2,
       "politician_type": "Senate",
-      "politician_house": "D"
+      "politician_house": "I"
     }
   },
   {
@@ -23,7 +23,7 @@
     "fields": {
       "profile": 3,
       "politician_type": "Senate",
-      "politician_house": "D"
+      "politician_house": "R"
     }
   },
   {
@@ -32,7 +32,7 @@
     "fields": {
       "profile": 4,
       "politician_type": "Senate",
-      "politician_house": "I"
+      "politician_house": "D"
     }
   },
   {
@@ -50,7 +50,7 @@
     "fields": {
       "profile": 6,
       "politician_type": "Senate",
-      "politician_house": "D"
+      "politician_house": "R"
     }
   },
   {
@@ -59,7 +59,7 @@
     "fields": {
       "profile": 7,
       "politician_type": "Senate",
-      "politician_house": "R"
+      "politician_house": "D"
     }
   },
   {
@@ -68,7 +68,7 @@
     "fields": {
       "profile": 8,
       "politician_type": "Senate",
-      "politician_house": "I"
+      "politician_house": "R"
     }
   },
   {
@@ -77,7 +77,7 @@
     "fields": {
       "profile": 9,
       "politician_type": "Senate",
-      "politician_house": "I"
+      "politician_house": "R"
     }
   },
   {
@@ -95,7 +95,7 @@
     "fields": {
       "profile": 11,
       "politician_type": "Senate",
-      "politician_house": "I"
+      "politician_house": "D"
     }
   },
   {
@@ -104,7 +104,7 @@
     "fields": {
       "profile": 12,
       "politician_type": "Senate",
-      "politician_house": "D"
+      "politician_house": "R"
     }
   },
   {
@@ -122,7 +122,7 @@
     "fields": {
       "profile": 14,
       "politician_type": "Senate",
-      "politician_house": "R"
+      "politician_house": "I"
     }
   },
   {
@@ -131,7 +131,7 @@
     "fields": {
       "profile": 15,
       "politician_type": "Senate",
-      "politician_house": "I"
+      "politician_house": "D"
     }
   },
   {
@@ -140,7 +140,7 @@
     "fields": {
       "profile": 16,
       "politician_type": "Senate",
-      "politician_house": "D"
+      "politician_house": "R"
     }
   }
 ]
