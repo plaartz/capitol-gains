@@ -64,7 +64,8 @@ export default function SearchTools() {
     minPrice,
     maxPrice,
     purchaseSelected,
-    saleSelected
+    saleSelected,
+    setFilters
   ])
 
   return (
