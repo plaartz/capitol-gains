@@ -27,6 +27,7 @@ MIDDLEWARE = [
 
 # Potential addition to settings.py
 # this adds CORS which allows same-site trusted ports
+# Cross-Origin Resource Sharing
 INSTALLED_APPS = [
     ...
     'corsheaders',
