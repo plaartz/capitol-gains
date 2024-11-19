@@ -1,83 +1,45 @@
-import "./styles/TextBox.css";
+import { useState, useEffect } from 'react';
+import Slider from 'react-slider';
 import "./styles/RangeSlider.css";
 
 export default function RangeSlider({ minPrice, setMinPrice, maxPrice, setMaxPrice }) {
-
-  const handleMinSliderChange = (e) => {
-    const newValue = Number(e.target.value);
-    if (newValue < maxPrice) {
-      setMinPrice(newValue);
-    }
-  };
-
-  const handleMaxSliderChange = (e) => {
-    const newValue = Number(e.target.value);
-    if (newValue > minPrice) {
-      setMaxPrice(newValue);
-    }
-  };
-
-  const handleMinPriceChange = (e) => {
-    const newValue = e.target.value === "" ? 0 : Number(e.target.value);
-    if (newValue < maxPrice) {
-      setMinPrice(newValue);
-    }
-  };
-
-  const handleMaxPriceChange = (e) => {
-    const newValue = e.target.value === "" ? 10000 : Number(e.target.value);
-    if (newValue > minPrice) {
-      setMaxPrice(newValue);
-    }
+  const [values, setValues] = useState([minPrice, maxPrice]);
+  const handleChange = (newValues) => {
+    setValues(newValues);
+    setMinPrice(newValues[0]);
+    setMaxPrice(newValues[1]);
   };
 
   return (
-    <div className="range_container">
-      <div className="sliders_control">
-        <input
-          id="fromSlider"
-          type="range"
-          min={minPrice}
-          max={maxPrice}
-          value={minPrice}
-          onChange={handleMinSliderChange}
-        />
-        <input
-          id="toSlider"
-          type="range"
-          min={minPrice}
-          max={maxPrice}
-          value={maxPrice}
-          onChange={handleMaxSliderChange}
-        />
-      </div>
-      <div className="form_control">
-        <div className="form_control_container">
-          <div className="form_control_container__time">Min</div>
+    <div className="container">
+      <p>Use the slider to select a price range:</p>
+      <Slider
+        className="slider"
+        value={values}
+        onChange={handleChange}
+        min={0}
+        max={100}
+      />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div>
+          <label htmlFor="minPrice">Min Price:</label>
           <input
-            className="form_control_container__time__input"
             type="number"
-            min="0"
-            max={maxPrice}
-            value={minPrice}
-            onChange={handleMinPriceChange}
-            placeholder="0"
+            id="minPrice"
+            value={values[0]}
+            onChange={(e) => handleChange([+e.target.value, values[1]])}
           />
         </div>
-        <div className="form_control_container">
-          <div className="form_control_container__time">Max</div>
+        <div>
+          <label htmlFor="maxPrice">Max Price:</label>
           <input
-            className="form_control_container__time__input"
             type="number"
-            min={minPrice}
-            max="10000"
-            value={maxPrice}
-            onChange={handleMaxPriceChange}
-            placeholder="10000"
+            id="maxPrice"
+            value={values[1]}
+            onChange={(e) => handleChange([values[0], +e.target.value])}
           />
         </div>
       </div>
     </div>
   );
 }
-

@@ -24,6 +24,14 @@ export default function SearchTools() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        'full_name': fullName,
+        'stock': stock,
+        'start_date': startDate,
+        'end_date': endDate,
+        'min_price': minPrice,
+        'max_price': maxPrice,
+        'is_purchase': purchaseSelected,
+        'is_sale': saleSelected
       }),
     })
       .then((response) => response.json())
