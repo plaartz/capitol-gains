@@ -10,11 +10,7 @@ class TestSearchView(TestCase):
     """
 
     fixtures = [
-        "api/fixtures/StockFixture.json", 
-        "api/fixtures/StockPriceFixture.json", 
-        "api/fixtures/ProfileFixture.json", 
-        "api/fixtures/PoliticianFixture.json", 
-        "api/fixtures/TransactionFixture.json"
+        "core/views/tests/fixtures/search.json"
     ]
 
     def make_post_request(self, body_query, query_string):

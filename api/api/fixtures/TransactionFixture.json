@@ -1,266 +1,2006 @@
 [
-    {
-        "model": "core.Transaction",
-        "pk": 1,
-        "fields": {
-            "politician": 1,
-            "stock": 1,
-            "transaction_amount": "1000",
-            "transaction_date": "2024-08-28",
-            "disclosure_date": "2024-09-05",
-            "transaction_type": "Purchase"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 2,
-        "fields": {
-            "politician": 1,
-            "stock": 2,
-            "transaction_amount": "1000",
-            "transaction_date": "2024-08-27",
-            "disclosure_date": "2024-09-05",
-            "transaction_type": "Purchase"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 3,
-        "fields": {
-            "politician": 1,
-            "stock": 1,
-            "transaction_amount": "1000",
-            "transaction_date": "2024-09-23",
-            "disclosure_date": "2024-09-26",
-            "transaction_type": "Sale"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 4,
-        "fields": {
-            "politician": 2,
-            "stock": 1,
-            "transaction_amount": "5000",
-            "transaction_date": "2024-09-23",
-            "disclosure_date": "2024-09-25",
-            "transaction_type": "Purchase"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 5,
-        "fields": {
-            "politician": 3,
-            "stock": 4,
-            "transaction_amount": "10000",
-            "transaction_date": "2024-10-01",
-            "disclosure_date": "2024-10-02",
-            "transaction_type": "Purchase"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 6,
-        "fields": {
-            "politician": 3,
-            "stock": 4,
-            "transaction_amount": "10000",
-            "transaction_date": "2024-10-04",
-            "disclosure_date": "2024-10-05",
-            "transaction_type": "Sale"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 7,
-        "fields": {
-            "politician": 4,
-            "stock": 4,
-            "transaction_amount": "2000",
-            "transaction_date": "2024-10-01",
-            "disclosure_date": "2024-10-02",
-            "transaction_type": "Purchase"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 8,
-        "fields": {
-            "politician": 1,
-            "stock": 5,
-            "transaction_amount": "6000",
-            "transaction_date": "2024-09-23",
-            "disclosure_date": "2024-10-02",
-            "transaction_type": "Purchase"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 9,
-        "fields": {
-            "politician": 1,
-            "stock": 5,
-            "transaction_amount": "6000",
-            "transaction_date": "2024-10-02",
-            "disclosure_date": "2024-10-05",
-            "transaction_type": "Sale"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 10,
-        "fields": {
-            "politician": 1,
-            "stock": 2,
-            "transaction_amount": "1000",
-            "transaction_date": "2024-10-01",
-            "disclosure_date": "2024-10-03",
-            "transaction_type": "Sale"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 11,
-        "fields": {
-            "politician": 2,
-            "stock": 1,
-            "transaction_amount": "5000",
-            "transaction_date": "2024-10-02",
-            "disclosure_date": "2024-10-05",
-            "transaction_type": "Sale"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 12,
-        "fields": {
-            "politician": 4,
-            "stock": 4,
-            "transaction_amount": "2000",
-            "transaction_date": "2024-10-04",
-            "disclosure_date": "2024-10-05",
-            "transaction_type": "Sale"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 13,
-        "fields": {
-            "politician": 2,
-            "stock": 6,
-            "transaction_amount": "6000",
-            "transaction_date": "2024-09-17",
-            "disclosure_date": "2024-09-20",
-            "transaction_type": "Purchase"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 14,
-        "fields": {
-            "politician": 2,
-            "stock": 6,
-            "transaction_amount": "6000",
-            "transaction_date": "2024-10-01",
-            "disclosure_date": "2024-09-20",
-            "transaction_type": "Sale"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 15,
-        "fields": {
-            "politician": 3,
-            "stock": 6,
-            "transaction_amount": "8000",
-            "transaction_date": "2024-09-24",
-            "disclosure_date": "2024-09-25",
-            "transaction_type": "Purchase"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 16,
-        "fields": {
-            "politician": 3,
-            "stock": 6,
-            "transaction_amount": "8000",
-            "transaction_date": "2024-10-04",
-            "disclosure_date": "2024-10-05",
-            "transaction_type": "Sale"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 17,
-        "fields": {
-            "politician": 1,
-            "stock": 7,
-            "transaction_amount": "9000",
-            "transaction_date": "2024-09-04",
-            "disclosure_date": "2024-09-05",
-            "transaction_type": "Purchase"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 18,
-        "fields": {
-            "politician": 1,
-            "stock": 7,
-            "transaction_amount": "9000",
-            "transaction_date": "2024-10-04",
-            "disclosure_date": "2024-10-05",
-            "transaction_type": "Sale"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 19,
-        "fields": {
-            "politician": 2,
-            "stock": 7,
-            "transaction_amount": "9000",
-            "transaction_date": "2024-09-17",
-            "disclosure_date": "2024-09-18",
-            "transaction_type": "Purchase"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 20,
-        "fields": {
-            "politician": 2,
-            "stock": 7,
-            "transaction_amount": "9000",
-            "transaction_date": "2024-10-01",
-            "disclosure_date": "2024-10-02",
-            "transaction_type": "Sale"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 21,
-        "fields": {
-            "politician": 4,
-            "stock": 7,
-            "transaction_amount": "11000",
-            "transaction_date": "2024-09-18",
-            "disclosure_date": "2024-09-19",
-            "transaction_type": "Purchase"
-        }
-    },
-    {
-        "model": "core.Transaction",
-        "pk": 22,
-        "fields": {
-            "politician": 4,
-            "stock": 7,
-            "transaction_amount": "11000",
-            "transaction_date": "2024-10-01",
-            "disclosure_date": "2024-10-02",
-            "transaction_type": "Sale"
-        }
+  {
+    "model": "core.Transaction",
+    "pk": 1,
+    "fields": {
+      "transaction_date": "2024-02-20",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 1,
+      "politician": 1,
+      "disclosure_date": "2024-02-20"
     }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 2,
+    "fields": {
+      "transaction_date": "2024-02-20",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 2,
+      "politician": 1,
+      "disclosure_date": "2024-02-20"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 3,
+    "fields": {
+      "transaction_date": "2024-02-20",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 3,
+      "politician": 1,
+      "disclosure_date": "2024-02-20"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 4,
+    "fields": {
+      "transaction_date": "2024-02-20",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 4,
+      "politician": 1,
+      "disclosure_date": "2024-02-20"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 5,
+    "fields": {
+      "transaction_date": "2024-07-18",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 5,
+      "politician": 1,
+      "disclosure_date": "2024-07-18"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 6,
+    "fields": {
+      "transaction_date": "2024-07-26",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 6,
+      "politician": 1,
+      "disclosure_date": "2024-07-26"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 7,
+    "fields": {
+      "transaction_date": "2024-07-26",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 7,
+      "politician": 1,
+      "disclosure_date": "2024-07-26"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 8,
+    "fields": {
+      "transaction_date": "2024-07-18",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 8,
+      "politician": 1,
+      "disclosure_date": "2024-07-18"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 9,
+    "fields": {
+      "transaction_date": "2024-07-26",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 9,
+      "politician": 1,
+      "disclosure_date": "2024-07-26"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 10,
+    "fields": {
+      "transaction_date": "2024-04-11",
+      "transaction_type": "Sale",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 10,
+      "politician": 1,
+      "disclosure_date": "2024-04-11"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 11,
+    "fields": {
+      "transaction_date": "2024-04-16",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 11,
+      "politician": 1,
+      "disclosure_date": "2024-04-16"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 12,
+    "fields": {
+      "transaction_date": "2024-04-16",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 12,
+      "politician": 1,
+      "disclosure_date": "2024-04-16"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 13,
+    "fields": {
+      "transaction_date": "2024-04-11",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 13,
+      "politician": 1,
+      "disclosure_date": "2024-04-11"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 14,
+    "fields": {
+      "transaction_date": "2024-03-28",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 14,
+      "politician": 1,
+      "disclosure_date": "2024-03-28"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 15,
+    "fields": {
+      "transaction_date": "2024-03-28",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 15,
+      "politician": 1,
+      "disclosure_date": "2024-03-28"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 16,
+    "fields": {
+      "transaction_date": "2024-05-31",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 16,
+      "politician": 1,
+      "disclosure_date": "2024-05-31"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 17,
+    "fields": {
+      "transaction_date": "2024-05-31",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 17,
+      "politician": 1,
+      "disclosure_date": "2024-05-31"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 18,
+    "fields": {
+      "transaction_date": "2024-05-31",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 10,
+      "politician": 1,
+      "disclosure_date": "2024-05-31"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 19,
+    "fields": {
+      "transaction_date": "2024-06-04",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 5,
+      "politician": 1,
+      "disclosure_date": "2024-06-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 20,
+    "fields": {
+      "transaction_date": "2024-06-24",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 18,
+      "politician": 1,
+      "disclosure_date": "2024-06-24"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 21,
+    "fields": {
+      "transaction_date": "2024-06-04",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 19,
+      "politician": 1,
+      "disclosure_date": "2024-06-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 22,
+    "fields": {
+      "transaction_date": "2024-06-26",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 1,
+      "politician": 1,
+      "disclosure_date": "2024-06-26"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 23,
+    "fields": {
+      "transaction_date": "2024-06-20",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 20,
+      "politician": 1,
+      "disclosure_date": "2024-06-20"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 24,
+    "fields": {
+      "transaction_date": "2024-06-04",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 21,
+      "politician": 1,
+      "disclosure_date": "2024-06-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 25,
+    "fields": {
+      "transaction_date": "2024-06-26",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 12,
+      "politician": 1,
+      "disclosure_date": "2024-06-26"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 26,
+    "fields": {
+      "transaction_date": "2024-06-26",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 3,
+      "politician": 1,
+      "disclosure_date": "2024-06-26"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 27,
+    "fields": {
+      "transaction_date": "2024-06-04",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 22,
+      "politician": 1,
+      "disclosure_date": "2024-06-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 28,
+    "fields": {
+      "transaction_date": "2024-06-04",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 8,
+      "politician": 1,
+      "disclosure_date": "2024-06-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 29,
+    "fields": {
+      "transaction_date": "2024-06-24",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 21,
+      "politician": 1,
+      "disclosure_date": "2024-06-24"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 30,
+    "fields": {
+      "transaction_date": "2024-07-04",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 23,
+      "politician": 1,
+      "disclosure_date": "2024-07-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 31,
+    "fields": {
+      "transaction_date": "2024-06-04",
+      "transaction_type": "Sale",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 10,
+      "politician": 1,
+      "disclosure_date": "2024-06-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 32,
+    "fields": {
+      "transaction_date": "2024-06-26",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 2,
+      "politician": 1,
+      "disclosure_date": "2024-06-26"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 33,
+    "fields": {
+      "transaction_date": "2024-06-26",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 24,
+      "politician": 1,
+      "disclosure_date": "2024-06-26"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 34,
+    "fields": {
+      "transaction_date": "2024-06-20",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 25,
+      "politician": 1,
+      "disclosure_date": "2024-06-20"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 35,
+    "fields": {
+      "transaction_date": "2024-07-24",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 26,
+      "politician": 2,
+      "disclosure_date": "2024-07-24"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 36,
+    "fields": {
+      "transaction_date": "2024-04-23",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 27,
+      "politician": 3,
+      "disclosure_date": "2024-04-23"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 37,
+    "fields": {
+      "transaction_date": "2024-04-23",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 20,
+      "politician": 3,
+      "disclosure_date": "2024-04-23"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 38,
+    "fields": {
+      "transaction_date": "2024-04-23",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 28,
+      "politician": 3,
+      "disclosure_date": "2024-04-23"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 39,
+    "fields": {
+      "transaction_date": "2024-04-09",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 20,
+      "politician": 3,
+      "disclosure_date": "2024-04-09"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 40,
+    "fields": {
+      "transaction_date": "2024-04-09",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 29,
+      "politician": 3,
+      "disclosure_date": "2024-04-09"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 41,
+    "fields": {
+      "transaction_date": "2024-04-09",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 30,
+      "politician": 3,
+      "disclosure_date": "2024-04-09"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 42,
+    "fields": {
+      "transaction_date": "2024-04-09",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 28,
+      "politician": 3,
+      "disclosure_date": "2024-04-09"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 43,
+    "fields": {
+      "transaction_date": "2024-06-27",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 31,
+      "politician": 3,
+      "disclosure_date": "2024-06-27"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 44,
+    "fields": {
+      "transaction_date": "2024-08-28",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 32,
+      "politician": 3,
+      "disclosure_date": "2024-08-28"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 45,
+    "fields": {
+      "transaction_date": "2024-08-27",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 33,
+      "politician": 3,
+      "disclosure_date": "2024-08-27"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 46,
+    "fields": {
+      "transaction_date": "2024-08-22",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 34,
+      "politician": 3,
+      "disclosure_date": "2024-08-22"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 47,
+    "fields": {
+      "transaction_date": "2024-01-19",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 35,
+      "politician": 3,
+      "disclosure_date": "2024-01-19"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 48,
+    "fields": {
+      "transaction_date": "2024-01-19",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 36,
+      "politician": 3,
+      "disclosure_date": "2024-01-19"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 49,
+    "fields": {
+      "transaction_date": "2024-02-27",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 37,
+      "politician": 3,
+      "disclosure_date": "2024-02-27"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 50,
+    "fields": {
+      "transaction_date": "2024-02-23",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 38,
+      "politician": 3,
+      "disclosure_date": "2024-02-23"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 51,
+    "fields": {
+      "transaction_date": "2024-02-15",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 39,
+      "politician": 3,
+      "disclosure_date": "2024-02-15"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 52,
+    "fields": {
+      "transaction_date": "2024-02-09",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 40,
+      "politician": 3,
+      "disclosure_date": "2024-02-09"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 53,
+    "fields": {
+      "transaction_date": "2024-02-16",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 41,
+      "politician": 4,
+      "disclosure_date": "2024-02-16"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 54,
+    "fields": {
+      "transaction_date": "2024-02-16",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 42,
+      "politician": 4,
+      "disclosure_date": "2024-02-16"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 55,
+    "fields": {
+      "transaction_date": "2024-01-17",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 43,
+      "politician": 4,
+      "disclosure_date": "2024-01-17"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 56,
+    "fields": {
+      "transaction_date": "2024-01-17",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 44,
+      "politician": 4,
+      "disclosure_date": "2024-01-17"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 57,
+    "fields": {
+      "transaction_date": "2024-01-17",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 45,
+      "politician": 4,
+      "disclosure_date": "2024-01-17"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 58,
+    "fields": {
+      "transaction_date": "2024-01-17",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 38,
+      "politician": 4,
+      "disclosure_date": "2024-01-17"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 59,
+    "fields": {
+      "transaction_date": "2024-01-17",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 46,
+      "politician": 4,
+      "disclosure_date": "2024-01-17"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 60,
+    "fields": {
+      "transaction_date": "2024-01-17",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 47,
+      "politician": 4,
+      "disclosure_date": "2024-01-17"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 61,
+    "fields": {
+      "transaction_date": "2024-01-17",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 48,
+      "politician": 4,
+      "disclosure_date": "2024-01-17"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 62,
+    "fields": {
+      "transaction_date": "2024-01-17",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 49,
+      "politician": 4,
+      "disclosure_date": "2024-01-17"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 63,
+    "fields": {
+      "transaction_date": "2024-01-17",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 50,
+      "politician": 4,
+      "disclosure_date": "2024-01-17"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 64,
+    "fields": {
+      "transaction_date": "2024-01-02",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 51,
+      "politician": 4,
+      "disclosure_date": "2024-01-02"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 65,
+    "fields": {
+      "transaction_date": "2024-01-02",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 52,
+      "politician": 4,
+      "disclosure_date": "2024-01-02"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 66,
+    "fields": {
+      "transaction_date": "2024-08-05",
+      "transaction_type": "Sale",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 53,
+      "politician": 5,
+      "disclosure_date": "2024-08-05"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 67,
+    "fields": {
+      "transaction_date": "2024-04-15",
+      "transaction_type": "Sale",
+      "transaction_amount": "$250,001 - $500,000",
+      "stock": 54,
+      "politician": 6,
+      "disclosure_date": "2024-04-15"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 68,
+    "fields": {
+      "transaction_date": "2024-01-26",
+      "transaction_type": "Sale",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 55,
+      "politician": 7,
+      "disclosure_date": "2024-01-26"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 69,
+    "fields": {
+      "transaction_date": "2024-01-26",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 56,
+      "politician": 7,
+      "disclosure_date": "2024-01-26"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 70,
+    "fields": {
+      "transaction_date": "2024-07-25",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$50,001 - $100,000",
+      "stock": 57,
+      "politician": 8,
+      "disclosure_date": "2024-07-25"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 71,
+    "fields": {
+      "transaction_date": "2024-08-30",
+      "transaction_type": "Sale",
+      "transaction_amount": "$50,001 - $100,000",
+      "stock": 58,
+      "politician": 8,
+      "disclosure_date": "2024-08-30"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 72,
+    "fields": {
+      "transaction_date": "2024-08-28",
+      "transaction_type": "Sale",
+      "transaction_amount": "$250,001 - $500,000",
+      "stock": 58,
+      "politician": 8,
+      "disclosure_date": "2024-08-28"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 73,
+    "fields": {
+      "transaction_date": "2024-08-28",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$100,001 - $250,000",
+      "stock": 58,
+      "politician": 8,
+      "disclosure_date": "2024-08-28"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 74,
+    "fields": {
+      "transaction_date": "2024-06-03",
+      "transaction_type": "Sale",
+      "transaction_amount": "$100,001 - $250,000",
+      "stock": 59,
+      "politician": 8,
+      "disclosure_date": "2024-06-03"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 75,
+    "fields": {
+      "transaction_date": "2024-06-03",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$100,001 - $250,000",
+      "stock": 59,
+      "politician": 8,
+      "disclosure_date": "2024-06-03"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 76,
+    "fields": {
+      "transaction_date": "2024-05-20",
+      "transaction_type": "Sale",
+      "transaction_amount": "$250,001 - $500,000",
+      "stock": 59,
+      "politician": 8,
+      "disclosure_date": "2024-05-20"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 77,
+    "fields": {
+      "transaction_date": "2024-05-20",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$100,001 - $250,000",
+      "stock": 59,
+      "politician": 8,
+      "disclosure_date": "2024-05-20"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 78,
+    "fields": {
+      "transaction_date": "2024-03-05",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 60,
+      "politician": 9,
+      "disclosure_date": "2024-03-05"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 79,
+    "fields": {
+      "transaction_date": "2024-06-04",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 60,
+      "politician": 9,
+      "disclosure_date": "2024-06-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 80,
+    "fields": {
+      "transaction_date": "2024-08-20",
+      "transaction_type": "Sale",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 61,
+      "politician": 10,
+      "disclosure_date": "2024-08-20"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 81,
+    "fields": {
+      "transaction_date": "2024-08-20",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 62,
+      "politician": 10,
+      "disclosure_date": "2024-08-20"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 82,
+    "fields": {
+      "transaction_date": "2024-08-20",
+      "transaction_type": "Sale",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 38,
+      "politician": 10,
+      "disclosure_date": "2024-08-20"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 83,
+    "fields": {
+      "transaction_date": "2024-08-20",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 63,
+      "politician": 10,
+      "disclosure_date": "2024-08-20"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 84,
+    "fields": {
+      "transaction_date": "2024-06-12",
+      "transaction_type": "Sale",
+      "transaction_amount": "$50,001 - $100,000",
+      "stock": 64,
+      "politician": 10,
+      "disclosure_date": "2024-06-12"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 85,
+    "fields": {
+      "transaction_date": "2024-06-12",
+      "transaction_type": "Sale",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 25,
+      "politician": 10,
+      "disclosure_date": "2024-06-12"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 86,
+    "fields": {
+      "transaction_date": "2024-06-12",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 65,
+      "politician": 10,
+      "disclosure_date": "2024-06-12"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 87,
+    "fields": {
+      "transaction_date": "2024-06-12",
+      "transaction_type": "Sale",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 32,
+      "politician": 10,
+      "disclosure_date": "2024-06-12"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 88,
+    "fields": {
+      "transaction_date": "2024-06-13",
+      "transaction_type": "Sale",
+      "transaction_amount": "$500,001 - $1,000,000",
+      "stock": 64,
+      "politician": 10,
+      "disclosure_date": "2024-06-13"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 89,
+    "fields": {
+      "transaction_date": "2024-05-08",
+      "transaction_type": "Sale",
+      "transaction_amount": "$100,001 - $250,000",
+      "stock": 64,
+      "politician": 10,
+      "disclosure_date": "2024-05-08"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 90,
+    "fields": {
+      "transaction_date": "2024-04-03",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 37,
+      "politician": 10,
+      "disclosure_date": "2024-04-03"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 91,
+    "fields": {
+      "transaction_date": "2024-01-04",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 37,
+      "politician": 10,
+      "disclosure_date": "2024-01-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 92,
+    "fields": {
+      "transaction_date": "2024-01-04",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 66,
+      "politician": 10,
+      "disclosure_date": "2024-01-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 93,
+    "fields": {
+      "transaction_date": "2024-01-04",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 67,
+      "politician": 10,
+      "disclosure_date": "2024-01-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 94,
+    "fields": {
+      "transaction_date": "2024-01-04",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 54,
+      "politician": 10,
+      "disclosure_date": "2024-01-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 95,
+    "fields": {
+      "transaction_date": "2024-01-04",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 68,
+      "politician": 10,
+      "disclosure_date": "2024-01-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 96,
+    "fields": {
+      "transaction_date": "2024-01-04",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 69,
+      "politician": 10,
+      "disclosure_date": "2024-01-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 97,
+    "fields": {
+      "transaction_date": "2024-01-04",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 70,
+      "politician": 10,
+      "disclosure_date": "2024-01-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 98,
+    "fields": {
+      "transaction_date": "2024-01-04",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 71,
+      "politician": 10,
+      "disclosure_date": "2024-01-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 99,
+    "fields": {
+      "transaction_date": "2024-01-04",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 72,
+      "politician": 10,
+      "disclosure_date": "2024-01-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 100,
+    "fields": {
+      "transaction_date": "2024-01-04",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 73,
+      "politician": 10,
+      "disclosure_date": "2024-01-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 101,
+    "fields": {
+      "transaction_date": "2024-01-04",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 37,
+      "politician": 10,
+      "disclosure_date": "2024-01-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 102,
+    "fields": {
+      "transaction_date": "2024-01-04",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 66,
+      "politician": 10,
+      "disclosure_date": "2024-01-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 103,
+    "fields": {
+      "transaction_date": "2024-01-02",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 74,
+      "politician": 10,
+      "disclosure_date": "2024-01-02"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 104,
+    "fields": {
+      "transaction_date": "2024-01-02",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 75,
+      "politician": 10,
+      "disclosure_date": "2024-01-02"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 105,
+    "fields": {
+      "transaction_date": "2024-01-02",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$50,001 - $100,000",
+      "stock": 28,
+      "politician": 10,
+      "disclosure_date": "2024-01-02"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 106,
+    "fields": {
+      "transaction_date": "2024-01-02",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 15,
+      "politician": 10,
+      "disclosure_date": "2024-01-02"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 107,
+    "fields": {
+      "transaction_date": "2024-01-02",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 76,
+      "politician": 10,
+      "disclosure_date": "2024-01-02"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 108,
+    "fields": {
+      "transaction_date": "2024-01-02",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 9,
+      "politician": 10,
+      "disclosure_date": "2024-01-02"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 109,
+    "fields": {
+      "transaction_date": "2024-01-02",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 77,
+      "politician": 10,
+      "disclosure_date": "2024-01-02"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 110,
+    "fields": {
+      "transaction_date": "2024-07-17",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 78,
+      "politician": 11,
+      "disclosure_date": "2024-07-17"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 111,
+    "fields": {
+      "transaction_date": "2024-04-04",
+      "transaction_type": "Sale",
+      "transaction_amount": "$50,001 - $100,000",
+      "stock": 79,
+      "politician": 12,
+      "disclosure_date": "2024-04-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 112,
+    "fields": {
+      "transaction_date": "2024-04-04",
+      "transaction_type": "Sale",
+      "transaction_amount": "$100,001 - $250,000",
+      "stock": 80,
+      "politician": 12,
+      "disclosure_date": "2024-04-04"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 113,
+    "fields": {
+      "transaction_date": "2024-01-24",
+      "transaction_type": "Sale",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 81,
+      "politician": 13,
+      "disclosure_date": "2024-01-24"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 114,
+    "fields": {
+      "transaction_date": "2024-08-26",
+      "transaction_type": "Sale",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 28,
+      "politician": 14,
+      "disclosure_date": "2024-08-26"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 115,
+    "fields": {
+      "transaction_date": "2024-08-26",
+      "transaction_type": "Sale",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 40,
+      "politician": 14,
+      "disclosure_date": "2024-08-26"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 116,
+    "fields": {
+      "transaction_date": "2024-08-26",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 82,
+      "politician": 14,
+      "disclosure_date": "2024-08-26"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 117,
+    "fields": {
+      "transaction_date": "2024-08-26",
+      "transaction_type": "Sale",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 83,
+      "politician": 14,
+      "disclosure_date": "2024-08-26"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 118,
+    "fields": {
+      "transaction_date": "2024-08-26",
+      "transaction_type": "Sale",
+      "transaction_amount": "$50,001 - $100,000",
+      "stock": 84,
+      "politician": 14,
+      "disclosure_date": "2024-08-26"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 119,
+    "fields": {
+      "transaction_date": "2024-08-26",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$50,001 - $100,000",
+      "stock": 85,
+      "politician": 14,
+      "disclosure_date": "2024-08-26"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 120,
+    "fields": {
+      "transaction_date": "2024-02-27",
+      "transaction_type": "Sale",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 86,
+      "politician": 14,
+      "disclosure_date": "2024-02-27"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 121,
+    "fields": {
+      "transaction_date": "2024-02-27",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$50,001 - $100,000",
+      "stock": 87,
+      "politician": 14,
+      "disclosure_date": "2024-02-27"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 122,
+    "fields": {
+      "transaction_date": "2024-02-27",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$50,001 - $100,000",
+      "stock": 88,
+      "politician": 14,
+      "disclosure_date": "2024-02-27"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 123,
+    "fields": {
+      "transaction_date": "2024-02-27",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 89,
+      "politician": 14,
+      "disclosure_date": "2024-02-27"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 124,
+    "fields": {
+      "transaction_date": "2024-02-27",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$50,001 - $100,000",
+      "stock": 90,
+      "politician": 14,
+      "disclosure_date": "2024-02-27"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 125,
+    "fields": {
+      "transaction_date": "2024-02-16",
+      "transaction_type": "Sale",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 15,
+      "politician": 14,
+      "disclosure_date": "2024-02-16"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 126,
+    "fields": {
+      "transaction_date": "2024-02-12",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 91,
+      "politician": 14,
+      "disclosure_date": "2024-02-12"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 127,
+    "fields": {
+      "transaction_date": "2024-02-12",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 92,
+      "politician": 14,
+      "disclosure_date": "2024-02-12"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 128,
+    "fields": {
+      "transaction_date": "2024-03-21",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 93,
+      "politician": 14,
+      "disclosure_date": "2024-03-21"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 129,
+    "fields": {
+      "transaction_date": "2024-03-21",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 94,
+      "politician": 14,
+      "disclosure_date": "2024-03-21"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 130,
+    "fields": {
+      "transaction_date": "2024-03-21",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 92,
+      "politician": 14,
+      "disclosure_date": "2024-03-21"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 131,
+    "fields": {
+      "transaction_date": "2024-03-21",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 92,
+      "politician": 14,
+      "disclosure_date": "2024-03-21"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 132,
+    "fields": {
+      "transaction_date": "2024-03-21",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 92,
+      "politician": 14,
+      "disclosure_date": "2024-03-21"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 133,
+    "fields": {
+      "transaction_date": "2024-03-13",
+      "transaction_type": "Sale",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 86,
+      "politician": 14,
+      "disclosure_date": "2024-03-13"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 134,
+    "fields": {
+      "transaction_date": "2024-03-13",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 74,
+      "politician": 14,
+      "disclosure_date": "2024-03-13"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 135,
+    "fields": {
+      "transaction_date": "2024-03-08",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 15,
+      "politician": 14,
+      "disclosure_date": "2024-03-08"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 136,
+    "fields": {
+      "transaction_date": "2024-03-12",
+      "transaction_type": "Sale",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 28,
+      "politician": 14,
+      "disclosure_date": "2024-03-12"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 137,
+    "fields": {
+      "transaction_date": "2024-03-12",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 95,
+      "politician": 14,
+      "disclosure_date": "2024-03-12"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 138,
+    "fields": {
+      "transaction_date": "2024-03-12",
+      "transaction_type": "Sale",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 96,
+      "politician": 14,
+      "disclosure_date": "2024-03-12"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 139,
+    "fields": {
+      "transaction_date": "2024-03-12",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 27,
+      "politician": 14,
+      "disclosure_date": "2024-03-12"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 140,
+    "fields": {
+      "transaction_date": "2024-03-12",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 97,
+      "politician": 14,
+      "disclosure_date": "2024-03-12"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 141,
+    "fields": {
+      "transaction_date": "2024-05-07",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 98,
+      "politician": 14,
+      "disclosure_date": "2024-05-07"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 142,
+    "fields": {
+      "transaction_date": "2024-05-10",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 98,
+      "politician": 14,
+      "disclosure_date": "2024-05-10"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 143,
+    "fields": {
+      "transaction_date": "2024-05-08",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 99,
+      "politician": 14,
+      "disclosure_date": "2024-05-08"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 144,
+    "fields": {
+      "transaction_date": "2024-05-13",
+      "transaction_type": "Sale",
+      "transaction_amount": "$100,001 - $250,000",
+      "stock": 100,
+      "politician": 14,
+      "disclosure_date": "2024-05-13"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 145,
+    "fields": {
+      "transaction_date": "2024-05-13",
+      "transaction_type": "Sale",
+      "transaction_amount": "$100,001 - $250,000",
+      "stock": 100,
+      "politician": 14,
+      "disclosure_date": "2024-05-13"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 146,
+    "fields": {
+      "transaction_date": "2024-05-13",
+      "transaction_type": "Sale",
+      "transaction_amount": "$100,001 - $250,000",
+      "stock": 101,
+      "politician": 14,
+      "disclosure_date": "2024-05-13"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 147,
+    "fields": {
+      "transaction_date": "2024-05-13",
+      "transaction_type": "Sale",
+      "transaction_amount": "$100,001 - $250,000",
+      "stock": 101,
+      "politician": 14,
+      "disclosure_date": "2024-05-13"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 148,
+    "fields": {
+      "transaction_date": "2024-05-10",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 101,
+      "politician": 14,
+      "disclosure_date": "2024-05-10"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 149,
+    "fields": {
+      "transaction_date": "2024-05-10",
+      "transaction_type": "Sale",
+      "transaction_amount": "$100,001 - $250,000",
+      "stock": 94,
+      "politician": 14,
+      "disclosure_date": "2024-05-10"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 150,
+    "fields": {
+      "transaction_date": "2024-05-10",
+      "transaction_type": "Sale",
+      "transaction_amount": "$100,001 - $250,000",
+      "stock": 100,
+      "politician": 14,
+      "disclosure_date": "2024-05-10"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 151,
+    "fields": {
+      "transaction_date": "2024-05-10",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 101,
+      "politician": 14,
+      "disclosure_date": "2024-05-10"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 152,
+    "fields": {
+      "transaction_date": "2024-05-10",
+      "transaction_type": "Sale",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 101,
+      "politician": 14,
+      "disclosure_date": "2024-05-10"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 153,
+    "fields": {
+      "transaction_date": "2024-05-10",
+      "transaction_type": "Sale",
+      "transaction_amount": "$50,001 - $100,000",
+      "stock": 101,
+      "politician": 14,
+      "disclosure_date": "2024-05-10"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 154,
+    "fields": {
+      "transaction_date": "2024-05-10",
+      "transaction_type": "Sale",
+      "transaction_amount": "$100,001 - $250,000",
+      "stock": 101,
+      "politician": 14,
+      "disclosure_date": "2024-05-10"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 155,
+    "fields": {
+      "transaction_date": "2024-05-09",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 91,
+      "politician": 14,
+      "disclosure_date": "2024-05-09"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 156,
+    "fields": {
+      "transaction_date": "2024-05-09",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$50,001 - $100,000",
+      "stock": 100,
+      "politician": 14,
+      "disclosure_date": "2024-05-09"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 157,
+    "fields": {
+      "transaction_date": "2024-05-08",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 74,
+      "politician": 14,
+      "disclosure_date": "2024-05-08"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 158,
+    "fields": {
+      "transaction_date": "2024-05-08",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$100,001 - $250,000",
+      "stock": 100,
+      "politician": 14,
+      "disclosure_date": "2024-05-08"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 159,
+    "fields": {
+      "transaction_date": "2024-05-07",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 101,
+      "politician": 14,
+      "disclosure_date": "2024-05-07"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 160,
+    "fields": {
+      "transaction_date": "2024-05-07",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$100,001 - $250,000",
+      "stock": 100,
+      "politician": 14,
+      "disclosure_date": "2024-05-07"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 161,
+    "fields": {
+      "transaction_date": "2024-05-03",
+      "transaction_type": "Sale",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 89,
+      "politician": 14,
+      "disclosure_date": "2024-05-03"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 162,
+    "fields": {
+      "transaction_date": "2024-05-03",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 6,
+      "politician": 14,
+      "disclosure_date": "2024-05-03"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 163,
+    "fields": {
+      "transaction_date": "2024-05-03",
+      "transaction_type": "Sale",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 92,
+      "politician": 14,
+      "disclosure_date": "2024-05-03"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 164,
+    "fields": {
+      "transaction_date": "2024-05-03",
+      "transaction_type": "Sale",
+      "transaction_amount": "$15,001 - $50,000",
+      "stock": 92,
+      "politician": 14,
+      "disclosure_date": "2024-05-03"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 165,
+    "fields": {
+      "transaction_date": "2024-06-27",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 54,
+      "politician": 15,
+      "disclosure_date": "2024-06-27"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 166,
+    "fields": {
+      "transaction_date": "2024-06-13",
+      "transaction_type": "Purchase",
+      "transaction_amount": "$1,001 - $15,000",
+      "stock": 20,
+      "politician": 15,
+      "disclosure_date": "2024-06-13"
+    }
+  },
+  {
+    "model": "core.Transaction",
+    "pk": 167,
+    "fields": {
+      "transaction_date": "2024-03-27",
+      "transaction_type": "Sale",
+      "transaction_amount": "$100,001 - $250,000",
+      "stock": 83,
+      "politician": 16,
+      "disclosure_date": "2024-03-27"
+    }
+  }
 ]

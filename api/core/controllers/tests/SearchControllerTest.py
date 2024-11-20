@@ -9,11 +9,7 @@ class TestSearchController(TestCase):
     """
 
     fixtures = [
-        "api/fixtures/StockFixture.json",
-        "api/fixtures/StockPriceFixture.json",
-        "api/fixtures/ProfileFixture.json",
-        "api/fixtures/PoliticianFixture.json",
-        "api/fixtures/TransactionFixture.json"
+        "core/controllers/tests/fixtures/search.json"
     ]
 
     def test_get_transactions_with_last_name(self):
