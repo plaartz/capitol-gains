@@ -2,6 +2,7 @@ services:
   web:
     build:  
       context: ${BASE_DIR}/web
+      dockerfile: Dockerfile.production
     restart: always
     depends_on:
       - api
@@ -12,7 +13,7 @@ services:
       API_PORT: 8000
       API_HOST: localhost
     ports:
-      - '80:5173'
+      - '80:80'
     networks:
       - production_cg_network
 
