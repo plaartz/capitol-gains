@@ -4,15 +4,23 @@ services:
       context: ${BASE_DIR}/scheduler
     restart: always
     depends_on:
-      - database
       - api
     environment:
-      COMPOSE_PROJECT_NAME: 'capitol_gains_prod'
+      COMPOSE_PROJECT_NAME: 'Capitol_Gains'
       API_HOST: localhost
       API_PORT: 8000
-      BUILD: 'dev'
+      BUILD: 'production'
       STOCK_API_KEY: ${STOCK_API_KEY}
     ports:
       - '9000:9000'
     volumes:
-      - $BASE_DIR/scheduler/scripts/python:/scheduler/scripts/python
+      - scheduler_backup:/scheduler/backup
+    networks:
+      production_cg_network:
+
+volumes:
+  scheduler_backup:
+
+networks:
+  production_cg_network:
+    external: true

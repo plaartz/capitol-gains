@@ -1,0 +1,22 @@
+services:
+  database:
+    image: mysql/mysql-server:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: production_db
+      MYSQL_ROOT_HOST: '%'
+    volumes:
+      - database:/var/lib/mysql
+    ports:
+      - '3000:3306'
+    networks:
+      - production_cg_network
+
+volumes:
+  database:
+
+networks:
+  production_cg_network:
+    driver: bridge
+    name: production_cg_network

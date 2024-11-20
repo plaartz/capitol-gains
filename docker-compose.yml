@@ -2,4 +2,4 @@ include:
   - 'docker/db/db.docker-compose.yml'
   - 'docker/api/api.docker-compose.yml'
   - 'docker/web/web.docker-compose.yml'
-  - 'docker/scheduler/scheduler.production.docker-compose.yml'
+  - 'docker/scheduler/scheduler.docker-compose.yml'

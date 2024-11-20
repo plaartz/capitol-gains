@@ -1,0 +1,21 @@
+services:
+  web:
+    build:  
+      context: ${BASE_DIR}/web
+    restart: always
+    depends_on:
+      - api
+    environment:
+      BUILD: 'production'
+      COMPOSE_PROJECT_NAME: Capitol_Gains
+      WEB_PORT: 80
+      API_PORT: 8000
+      API_HOST: localhost
+    ports:
+      - '80:5173'
+    networks:
+      - production_cg_network
+
+networks:
+  production_cg_network:
+    external: true
