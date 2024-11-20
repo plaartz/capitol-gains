@@ -16,8 +16,8 @@ If you would like to run the project locally, first copy our project into a loca
 
 Create a new folder you would like to store the project
 ```bash
-git mkdir "CapitolGains"
-git cd CapitolGains
+mkdir "CapitolGains"
+cd CapitolGains
 ```
  Run this command in your terminal:
 
@@ -35,7 +35,7 @@ Note: If this is the first time setup, this will take a few minutes.
 If you are trying to connect to the project remotely, use this command:
 
 ```bash
- ssh -L 4803:localhost:5173 [username]@cs506x11.cs.wisc.edu
+ ssh -L 4803:localhost:[port] [username]@cs506x11.cs.wisc.edu
  ```
 
 ## Step 3 - Permissons
