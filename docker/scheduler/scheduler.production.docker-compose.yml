@@ -17,10 +17,10 @@ services:
       - scheduler_backup:/scheduler/backup
     networks:
       production_cg_network:
+
 volumes:
   scheduler_backup:
 
 networks:
   production_cg_network:
     external: true
-    

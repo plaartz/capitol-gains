@@ -5,7 +5,6 @@ services:
     restart: always
     depends_on:
       - api
-      - scheduler
     environment:
       BUILD: 'production'
       COMPOSE_PROJECT_NAME: Capitol_Gains
