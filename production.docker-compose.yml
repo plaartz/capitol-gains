@@ -1,0 +1,4 @@
+include:
+  - 'docker/api/api.production.docker-compose.yml'
+  - 'docker/web/web.production.docker-compose.yml'
+  - 'docker/scheduler/scheduler.production.docker-compose.yml'

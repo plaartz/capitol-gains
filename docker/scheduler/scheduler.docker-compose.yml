@@ -1,0 +1,16 @@
+services:
+  scheduler:
+    build:
+      context: ${BASE_DIR}/scheduler
+    restart: always
+    depends_on:
+      - database
+      - api
+    environment:
+      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+      API_HOST: localhost
+      API_PORT: 8000
+      BUILD: 'dev'
+      STOCK_API_KEY: ${STOCK_API_KEY}
+    ports:
+      - '9000:9000'

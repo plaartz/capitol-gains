@@ -4,11 +4,20 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: "production_db"
+      MYSQL_DATABASE: production_db
       MYSQL_ROOT_HOST: '%'
-    volumes:
-      - database:/var/lib/mysql
+    #volumes:
+    #  - database:/var/lib/mysql
     ports:
-      - '3306:3306'
-volumes:
-  database:
+      - '3000:3306'
+    networks:
+      - production_cg_network
+
+#volumes:
+#  database:
+
+networks:
+  production_cg_network:
+    driver: bridge
+    name: production_cg_network
+ 

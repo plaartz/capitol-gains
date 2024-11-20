@@ -3,17 +3,20 @@ services:
     build: 
       context: ${BASE_DIR}/api
     restart: always
-    depends_on: 
-      - database
     environment:
-      COMPOSE_PROJECT_NAME: "Capitol_Gains_11"
+      COMPOSE_PROJECT_NAME: Capitol_Gains
       DB_PASSWORD: ${DB_PASSWORD}
       DB_SECRET: ${DB_SECRET}
-      DB_NAME: "production_db"
-      DB_USER: "root"
+      DB_NAME: production_db
+      DB_USER: 'root'
       DB_HOST: '%'
-      DB_PORT: "3306"
-      BUILD: "production"
+      DB_PORT: ${DB_PORT}
+      BUILD: production
     ports:
-      - '80:8000'
-    
+      - '8000:8000'
+    networks:
+      - production_cg_network
+
+networks:
+  production_cg_network:
+    external: true
