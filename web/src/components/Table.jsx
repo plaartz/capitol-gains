@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import { useSearchParams } from "react-router-dom";
 import { FilterContext } from "src/contexts/Filters.js";
 import TableRow from "./TableRow";
 import styles from "./styles/Table.module.css";
@@ -7,12 +8,59 @@ import Pagination from "./Pagination";
 import PageSize from "./PageSize";
 
 export default function Table() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState([]);
   const [colOrder, setOrder] = useState([]);
   const [filters, _] = useContext(FilterContext);
   const [totalPosts, setTotal] = useState();
   const [pageSize, setPageSize] = useState(100);
   const [currPageNo, setPageNo] = useState(1);
+  const [pageSize, setPageSize] = useState(
+    Number(searchParams.get("pageSize")) || 10
+  );
+  const [currPageNo, setPageNo] = useState(
+    Number(searchParams.get("pageNo")) || 1
+  );
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+
+    if (searchParams.size > 0) {
+      console.log(searchParams.keys())
+      console.log(searchParams);
+      setPageNo((prev) => parseInt(searchParams.get("pageNo") ?? prev));
+      setPageSize((prev) => parseInt(searchParams.get("pageSize") ?? prev));
+    }
+
+    setLoading(false);
+  }, [location.search]);
+
+  useEffect(() => {
+    if (!isLoading) {
+      if (
+        searchParams.has("pageSize") ||
+        searchParams.get("pageSize") != pageSize
+      ) {
+        setSearchParams((params) => {
+          params.set("pageSize", pageSize);
+          return params;
+        });
+      }
+    }
+  }, [pageSize]);
+  useEffect(() => {
+    if (!isLoading) {
+      if (
+        searchParams.has("pageNo") ||
+        searchParams.get("pageNo") != currPageNo
+      ) {
+        setSearchParams((params) => {
+          params.set("pageNo", currPageNo);
+          return params;
+        });
+      }
+    }
+  }, [currPageNo]);
 
   useEffect(() => {
     fetch(search(currPageNo, pageSize), {
@@ -50,6 +98,9 @@ export default function Table() {
     setPageNo(1)
   }
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div style={{ width: "80%", margin: "0 auto" }}>
       {data ? (
