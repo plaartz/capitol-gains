@@ -54,7 +54,7 @@ thead th:nth-child(1) {
 
 }
 
-.pag {
+.paginating {
   
   display: flex;
   justify-content:center;
@@ -62,7 +62,7 @@ thead th:nth-child(1) {
   
 }
 
-.pagS {
+.pagSizeSelect {
   display: flex;
   justify-content: end;
   padding: 0px 10px;
@@ -71,49 +71,3 @@ thead th:nth-child(1) {
 tbody tr.tableRow:hover {
   background-color: rgb(245, 245, 245)
 }
-
-/* .navi {
-    display: flex;
-    background-color: white;
-    align-self: center;
-    padding: auto;
-    box-shadow: rgba(0, 0, 0, 0.5);
-}
-
-.pagination {
-    display: flex;
-    list-style-type: none;
-    padding: 0;
-    margin: 10px 0;
-  }
-  
-  .pagination .item {
-    margin: 0 5px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-color: white;
-    color: black;
-  }
-  
-  .pagination .pagelink {
-    text-decoration: none;
-    color: black;
-    text-emphasis: none;
-  }
-  
-  .pagination .item:hover {
-    background-color: blue;
-  } */
-  
-
-/* 
-thead th:nth-child(2) {
-}
-
-thead th:nth-child(3) {
-    width: 7.5%;
-}
-
-.tableRow td:nth-child(2) {
-    width: 15%;
-} */

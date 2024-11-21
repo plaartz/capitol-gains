@@ -2,7 +2,7 @@
   background-color: red; 
 }
 
-.bnav {
+.navbarnav {
   display: flex;
   justify-content: space-between; 
   align-items: center; 

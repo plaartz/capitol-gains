@@ -80,7 +80,7 @@ export default function Table() {
             </table>
           </section>
           <section className={styles.paginationFooter}>
-            <div className={styles.pag}>
+            <div className={styles.paginating}>
               <Pagination
                 totalPosts={totalPosts}
                 pageSize={pageSize}
@@ -88,7 +88,7 @@ export default function Table() {
                 paginate={paginate}
               />
             </div>
-            <div className={styles.pagS}>
+            <div className={styles.pagSizeSelect}>
               <PageSize pgSiz = {pgSize}/>
             </div>
           </section>
