@@ -27,7 +27,7 @@
   object-fit: contain; 
 }
 
-.bnav .title {
+.navbarnav .title {
   font-size: 1.5rem;
   font-weight: bold;
   color: azure;
@@ -35,18 +35,18 @@
   text-decoration: none; 
 }
 
-.bnav ul {
+.navbarnav ul {
   display: flex; 
   margin: 0;
   padding: 0; 
   align-items: center; 
 }
 
-.bnav ul li {
+.navbarnav ul li {
   list-style: none; 
 }
 
-.bnav ul li a {
+.navbarnav ul li a {
   display: flex; 
   align-items: center;
   text-decoration: none;
@@ -58,15 +58,15 @@
   line-height: 60px; 
 }
 
-.bnav ul li a:not(.active):hover {
+.navbarnav ul li a:not(.active):hover {
   color: lightgray; 
 }
 
-.bnav ul li a.active {
+.navbarnav ul li a.active {
   background-color: red; 
 }
 
-.bnav .menu {
+.navbarnav .menu {
   display: none; 
   position: absolute; 
   top: 50%; 
@@ -78,7 +78,7 @@
   height: 2rem;
 }
 
-.bnav .menu span {
+.navbarnav .menu span {
   height: 0.4rem;
   width: 100%;
   background-color: white;
@@ -87,18 +87,18 @@
 }
 
 @media (max-width: 760px) {
-  .bnav .menu {
+  .navbarnav .menu {
     display: flex; 
   }
 
-  .bnav {
+  .navbarnav {
     flex-direction: row; 
     align-items: center; 
     justify-content: space-between; 
     height: 60px; 
   }
 
-  .bnav ul {
+  .navbarnav ul {
     visibility: hidden; 
     flex-direction: column;
     align-items: flex-start;
@@ -115,29 +115,20 @@
     transition: 0.15s ease-in-out;
   }
 
-  .bnav ul.open {
+  .navbarnav ul.open {
     visibility: visible;
     opacity: 1;
   }
 
-  .bnav ul li {
+  .navbarnav ul li {
     margin: 10px 0;
     width: 100%;
     text-align: center;
   }
 
-  .bnav ul li a {
+  .navbarnav ul li a {
     margin: 0.2rem 0.5rem; 
   }
 }
 
 
-/* nav ul li a:hover::before{
-  content: "";
-  width: 30%;
-  height: 2px;
-  background: black;
-  position: absolute;
-  bottom: -4px;
-  left: 20px;
-} */
