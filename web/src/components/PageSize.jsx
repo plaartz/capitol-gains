@@ -1,6 +1,6 @@
 import { Dropdown, ButtonGroup } from "react-bootstrap";
 
-const PageSize = ({pgSiz}) => {
+const PageSize = ({pageSizer}) => {
   return (
     <div className="d-flex justify-content-end">
       <Dropdown as={ButtonGroup} drop="up">
@@ -9,10 +9,10 @@ const PageSize = ({pgSiz}) => {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item onClick={() => pgSiz(100)} href="#">100</Dropdown.Item>
-          <Dropdown.Item onClick={() => pgSiz(50)} href="#">50</Dropdown.Item>
-          <Dropdown.Item onClick={() => pgSiz(25)} href="#">25</Dropdown.Item>
-          <Dropdown.Item onClick={() => pgSiz(10)} href="#">10</Dropdown.Item>
+          <Dropdown.Item onClick={() => pageSizer(100)} href="#">100</Dropdown.Item>
+          <Dropdown.Item onClick={() => pageSizer(50)} href="#">50</Dropdown.Item>
+          <Dropdown.Item onClick={() => pageSizer(25)} href="#">25</Dropdown.Item>
+          <Dropdown.Item onClick={() => pageSizer(10)} href="#">10</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     </div>

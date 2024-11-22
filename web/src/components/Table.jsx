@@ -11,7 +11,7 @@ export default function Table() {
   const [colOrder, setOrder] = useState([]);
   const [filters, _] = useContext(FilterContext);
   const [totalPosts, setTotal] = useState();
-  const [pageSize, setPgSize] = useState(100);
+  const [pageSize, setPageSize] = useState(100);
   const [currPageNo, setPageNo] = useState(1);
 
   useEffect(() => {
@@ -45,8 +45,8 @@ export default function Table() {
     }
   };
 
-  const pgSize = (pgS) => {
-    setPgSize(pgS)
+  const pageSizer = (pageSizeSelected) => {
+    setPageSize(pageSizeSelected)
     setPageNo(1)
   }
 
@@ -88,8 +88,8 @@ export default function Table() {
                 paginate={paginate}
               />
             </div>
-            <div className={styles.pagSizeSelect}>
-              <PageSize pgSiz = {pgSize}/>
+            <div className={styles.pageSizeSelect}>
+              <PageSize pageSizer = {pageSizer}/>
             </div>
           </section>
         </>

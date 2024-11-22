@@ -62,7 +62,7 @@ thead th:nth-child(1) {
   
 }
 
-.pagSizeSelect {
+.pageSizeSelect {
   display: flex;
   justify-content: end;
   padding: 0px 10px;
