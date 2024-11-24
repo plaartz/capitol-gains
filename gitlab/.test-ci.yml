@@ -1,6 +1,6 @@
 stages:
   - test
-  - build
+  # - build
 
 unittest:
   stage: test
@@ -20,31 +20,31 @@ unittest:
       - api/unittest-results.log
   coverage: /(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/
 
-build-docker:
-  stage: build
-  tags:
-    - csl
-    - docker
-  image: docker:latest
-  services: 
-    - name: docker:dind
-  before_script:
-    - docker info
-  script:
-    - docker compose build
-    - |
-      OUTPUT_FILE="docker_image.tar"
+# build-docker:
+#   stage: build
+#   tags:
+#     - csl
+#     - docker
+#   image: docker:latest
+#   services: 
+#     - name: docker:dind
+#   before_script:
+#     - docker info
+#   script:
+#     - docker compose build
+#     - |
+#       OUTPUT_FILE="docker_image.tar"
       
-      TEMP_DIR=$(mktemp -d)
+#       TEMP_DIR=$(mktemp -d)
 
-      for image in $(docker images --format "{{.Repository}}:{{.Tag}}"); do
-          docker save -o "${TEMP_DIR}/${image//\//_}.tar" "$image"
-      done
+#       for image in $(docker images --format "{{.Repository}}:{{.Tag}}"); do
+#           docker save -o "${TEMP_DIR}/${image//\//_}.tar" "$image"
+#       done
 
-      tar -cf "$OUTPUT_FILE" -C "$TEMP_DIR" .
+#       tar -cf "$OUTPUT_FILE" -C "$TEMP_DIR" .
       
-      rm -r "$TEMP_DIR"
-    - mv docker_image.tar $CI_PROJECT_DIR/docker_image.tar
-  artifacts:
-    paths:
-      - docker_image.tar
+#       rm -r "$TEMP_DIR"
+#     - mv docker_image.tar $CI_PROJECT_DIR/docker_image.tar
+#   artifacts:
+#     paths:
+#       - docker_image.tar
