@@ -19,7 +19,9 @@ def setup_driver() -> webdriver.Chrome:
     :return: WebDriver instance
     """
     options = Options()
-    options.headless = True # Run Chrome in headless mode for faster performance
+    options.add_argument('--headless') # Run Chrome in headless mode for faster performance
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
     return driver
@@ -217,10 +219,17 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
             for index, row in enumerate(rows):
                 try:
                     # Re-locate rows for each iteration to avoid stale references
+                    empty_row = driver.find_elements(By.CLASS_NAME, 'dataTables_empty')
+
+                    # No results, so exit
+                    if empty_row:
+                        break
+
                     rows = driver.find_elements(By.XPATH, '//table/tbody/tr')
                     row = rows[index]
 
                     cols = row.find_elements(By.TAG_NAME, 'td')
+
                     first_and_middle_name = cols[0].text.strip().split()
                     if len(first_and_middle_name) > 1:
                         middle_initial = first_and_middle_name[1]
