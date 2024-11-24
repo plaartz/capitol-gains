@@ -62,7 +62,8 @@ export default function SearchTools() {
       is_purchase: purchaseSelected,
       is_sale: saleSelected,
       positive_gain: positiveGainSelected,
-      negative_gain: negativeGainSelected
+      negative_gain: negativeGainSelected,
+      no_gain: noGainSelected
     });
   };
 
