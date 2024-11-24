@@ -1,6 +1,7 @@
 stages:
   - lint
   - test
+  - build
 
 include:
   - 'gitlab/.lint-ci.yml'
