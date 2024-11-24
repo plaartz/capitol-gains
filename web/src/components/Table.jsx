@@ -78,7 +78,7 @@ export default function Table() {
     if (!isLoading & isIdle) {
       fetch(search(currPageNo, pageSize, orderBy, direction), {
         method: "POST",
-        body: JSON.stringify({}),
+        body: JSON.stringify(filters),
       })
         .then((res) => res.json())
         .then((res) => {

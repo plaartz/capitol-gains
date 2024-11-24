@@ -15,58 +15,56 @@ export default function SearchTools() {
   const [maxPrice, setMaxPrice] = useState(10000);
   const [purchaseSelected, setPurchaseSelceted] = useState(false);
   const [saleSelected, setSaleSelected] = useState(false);
-  const [_, setFilters] = useContext(FilterContext)
+  const [positiveGainSelected, setPositiveGainSelected] = useState(false);
+  const [negativeGainSelected, setNegativeGainSelected] = useState(false);
+  const [noGainSelected, setNoGainSelected] = useState(false);
+  const [_, setFilters] = useContext(FilterContext);
 
-  const handleSearch = () => {
+  useEffect(() => {
     fetch(`/api/core/search`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        'full_name': fullName,
-        'stock': stock,
-        'start_date': startDate,
-        'end_date': endDate,
-        'min_price': minPrice,
-        'max_price': maxPrice,
-        'is_purchase': purchaseSelected,
-        'is_sale': saleSelected
-      }),
+      body: JSON.stringify({})
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Search results:", data);
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch maximum price");
+        }
+        return response.json();
+      })
+      .then((result) => {
+        console.log(result);
+        if (result && result.data && Array.isArray(result.data)) {
+          const maxStockPrice = Math.max(
+            ...result.data.map((item) => item.transaction_amount)
+          );
+          console.log("Maximum stock price:", maxStockPrice);
+          setMaxPrice(maxStockPrice);
+        } else {
+          console.error("No valid 'data' array found in the response");
+        }
       })
       .catch((error) => {
-        console.error("Error fetching search results:", error);
+        console.error("Error fetching data:", error);
       });
-  };
+  }, []);
 
-  useEffect(() => {
+  const handleSearch = () => {
     setFilters({
-      fullName,
-      stock,
-      advancedFiltersSelected,
-      startDate,
-      endDate,
-      minPrice,
-      maxPrice,
-      purchaseSelected,
-      saleSelected
+      full_name: fullName,
+      stock: stock,
+      start_date: startDate,
+      end_date: endDate,
+      min_price: minPrice,
+      max_price: maxPrice,
+      is_purchase: purchaseSelected,
+      is_sale: saleSelected,
+      positive_gain: positiveGainSelected,
+      negative_gain: negativeGainSelected
     });
-  }, [
-    fullName,
-    stock,
-    advancedFiltersSelected,
-    startDate,
-    endDate,
-    minPrice,
-    maxPrice,
-    purchaseSelected,
-    saleSelected,
-    setFilters
-  ])
+  };
 
   return (
     <div>
@@ -129,6 +127,33 @@ export default function SearchTools() {
                 style={{ marginRight: "5px" }}
               />
               Sale
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={positiveGainSelected}
+                onChange={() => setPositiveGainSelected(!positiveGainSelected)}
+                style={{ marginRight: "5px" }}
+              />
+              Positive Gain
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={negativeGainSelected}
+                onChange={() => setNegativeGainSelected(!negativeGainSelected)}
+                style={{ marginRight: "5px" }}
+              />
+              Negative Gain
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={noGainSelected}
+                onChange={() => setNoGainSelected(!noGainSelected)}
+                style={{ marginRight: "5px" }}
+              />
+              No Gain
             </label>
           </div>
           <div className="advancedOptions">

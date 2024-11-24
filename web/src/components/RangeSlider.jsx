@@ -4,10 +4,22 @@ import "./styles/RangeSlider.css";
 
 export default function RangeSlider({ minPrice, setMinPrice, maxPrice, setMaxPrice }) {
   const [values, setValues] = useState([minPrice, maxPrice]);
+
+  const [copiedMaxPrice, _] = useState(maxPrice);
+
   const handleChange = (newValues) => {
     setValues(newValues);
     setMinPrice(newValues[0]);
     setMaxPrice(newValues[1]);
+  };
+
+  const getTrackStyle = () => {
+    const minPercent = (values[0] / minPrice) * 100
+    const maxPercent = (values[1] / maxPrice) * 100;
+
+    return {
+      background: `linear-gradient(to right, crimson ${minPercent}%, crimson ${maxPercent}%, #ccc ${maxPercent}%, #ccc 100%)`,
+    };
   };
 
   return (
@@ -18,7 +30,13 @@ export default function RangeSlider({ minPrice, setMinPrice, maxPrice, setMaxPri
         value={values}
         onChange={handleChange}
         min={0}
-        max={100}
+        max={copiedMaxPrice}
+        renderTrack={(props, state) => (
+          <div {...props} className="rc-slider-track" style={getTrackStyle()} />
+        )}
+        renderThumb={(props, state) => (
+          <div {...props} className="thumb" />
+        )}
       />
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div>
