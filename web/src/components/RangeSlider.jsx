@@ -31,10 +31,10 @@ export default function RangeSlider({ minPrice, setMinPrice, maxPrice, setMaxPri
         onChange={handleChange}
         min={0}
         max={copiedMaxPrice}
-        renderTrack={(props, state) => (
+        renderTrack={(props) => (
           <div {...props} className="rc-slider-track" style={getTrackStyle()} />
         )}
-        renderThumb={(props, state) => (
+        renderThumb={(props) => (
           <div {...props} className="thumb" />
         )}
       />
