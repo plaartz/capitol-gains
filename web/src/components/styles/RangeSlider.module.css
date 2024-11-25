@@ -12,23 +12,8 @@
   margin: 15px 0 20px;
 }
 
-.rc-slider-track {
-  position: absolute;
-  top: 50%;
-  height: 100%;
-  width: 100%;
-  transform: translateY(-50%);
-  border-radius: 5px;
-}
-
-.rc-slider-rail {
-  background-color: #ccc;
-  height: 100%;
-  border-radius: 5px;
-}
-
 .thumb {
-  position: absolute;
+  position: relative;
   top: 50%;
   transform: translate(0, -50%);
   height: 20px;

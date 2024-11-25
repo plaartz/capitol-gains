@@ -3,7 +3,7 @@ import {FilterContext} from "src/contexts/Filters";
 import TextBox from "./TextBox";
 import DatePickerInput from "./DatePickerInput";
 import RangeSlider from "./RangeSlider";
-import "./styles/SearchBar.css";
+import styles from "./styles/SearchBar.module.css";
 
 export default function SearchTools() {
   const [fullName, setFullName] = useState("");
@@ -69,28 +69,28 @@ export default function SearchTools() {
 
   return (
     <div>
-      <div className="searchBar">
-        <div className="basicSearch">
+      <div className={styles.searchBar}>
+        <div className={styles.basicSearch}>
           <TextBox
             label="Full Name"
             placeholder="Enter Full Name..."
             value={fullName}
             onChange={setFullName}
-            className="searchInput"
+            className={styles.searchInput}
           />
           <TextBox
             label="Company Ticker"
             placeholder="Enter Company Ticker..."
             value={stock}
             onChange={setStock}
-            className="searchInput"
+            className={styles.searchInput}
           />
-          <button onClick={handleSearch} className="searchButton">
+          <button onClick={handleSearch} className={styles.searchButton}>
             Search
           </button>
         </div>
       </div>
-      <div className="advancedOptionsToggle">
+      <div className={styles.advancedOptionsToggle}>
         <span
           onClick={() => setAdvancedFiltersSelected(!advancedFiltersSelected)}
           style={{ color: "red", cursor: "pointer" }}
@@ -100,7 +100,7 @@ export default function SearchTools() {
       </div>
       {advancedFiltersSelected && (
         <div>
-          <div className="advancedOptions">
+          <div className={styles.advancedOptions}>
             <DatePickerInput
               label="Start Date"
               selectedDate={startDate}
@@ -116,7 +116,7 @@ export default function SearchTools() {
                 type="checkbox"
                 checked={purchaseSelected}
                 onChange={() => setPurchaseSelceted(!purchaseSelected)}
-                style={{ marginRight: "5px" }}
+                className={styles.checkbox}
               />
               Purchase
             </label>
@@ -125,7 +125,7 @@ export default function SearchTools() {
                 type="checkbox"
                 checked={saleSelected}
                 onChange={() => setSaleSelected(!saleSelected)}
-                style={{ marginRight: "5px" }}
+                className={styles.checkbox}
               />
               Sale
             </label>
@@ -134,7 +134,7 @@ export default function SearchTools() {
                 type="checkbox"
                 checked={positiveGainSelected}
                 onChange={() => setPositiveGainSelected(!positiveGainSelected)}
-                style={{ marginRight: "5px" }}
+                className={styles.checkbox}
               />
               Positive Gain
             </label>
@@ -143,7 +143,7 @@ export default function SearchTools() {
                 type="checkbox"
                 checked={negativeGainSelected}
                 onChange={() => setNegativeGainSelected(!negativeGainSelected)}
-                style={{ marginRight: "5px" }}
+                className={styles.checkbox}
               />
               Negative Gain
             </label>
@@ -152,12 +152,12 @@ export default function SearchTools() {
                 type="checkbox"
                 checked={noGainSelected}
                 onChange={() => setNoGainSelected(!noGainSelected)}
-                style={{ marginRight: "5px" }}
+                className={styles.checkbox}
               />
               No Gain
             </label>
           </div>
-          <div className="advancedOptions">
+          <div className={styles.advancedOptions}>
             <RangeSlider 
               minPrice={minPrice}
               setMinPrice={setMinPrice}

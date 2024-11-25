@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import "./styles/TextBox.css";
+import styles from "./styles/TextBox.module.css";
 
 export default function TextBox({ label, value, onChange, placeholder, className }) {
   const [inputValue, setInputValue] = useState(value);
@@ -11,14 +11,14 @@ export default function TextBox({ label, value, onChange, placeholder, className
   };
 
   return (
-    <div className={`textbox-container ${className}`}>
-      {label && <label className="textbox-label">{label}</label>}
+    <div className={`container ${className}`}>
+      {label && <label className={styles.label}>{label}</label>}
       <input
         type="text"
         value={inputValue}
         onChange={handleInputChange}
         placeholder={placeholder}
-        className="textbox-input"
+        className={styles.input}
       />
     </div>
   );

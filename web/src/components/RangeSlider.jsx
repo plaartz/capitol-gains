@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Slider from 'react-slider';
-import "./styles/RangeSlider.css";
+import styles from "./styles/RangeSlider.module.css";
 
 export default function RangeSlider({ minPrice, setMinPrice, maxPrice, setMaxPrice }) {
   const [values, setValues] = useState([minPrice, maxPrice]);
@@ -13,30 +13,16 @@ export default function RangeSlider({ minPrice, setMinPrice, maxPrice, setMaxPri
     setMaxPrice(newValues[1]);
   };
 
-  const getTrackStyle = () => {
-    const minPercent = (values[0] / minPrice) * 100
-    const maxPercent = (values[1] / maxPrice) * 100;
-
-    return {
-      background: `linear-gradient(to right, crimson ${minPercent}%, crimson ${maxPercent}%, #ccc ${maxPercent}%, #ccc 100%)`,
-    };
-  };
-
   return (
-    <div className="container">
+    <div className={styles.container}>
       <p>Use the slider to select a price range:</p>
       <Slider
-        className="slider"
+        className={styles.slider}
         value={values}
         onChange={handleChange}
         min={0}
         max={copiedMaxPrice}
-        renderTrack={(props) => (
-          <div {...props} className="rc-slider-track" style={getTrackStyle()} />
-        )}
-        renderThumb={(props) => (
-          <div {...props} className="thumb" />
-        )}
+        thumbClassName={styles.thumb}
       />
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div>
