@@ -28,29 +28,21 @@ const Pagination = ({ totalPosts, pageSize, currPageNo, paginate }) => {
     <nav>
       <ul className="pagination justify-content-center">
         {/* Previous Button */}
-        <li className="page-item">
-          <a
+        <li className={`page-item ${currPageNo === 1 ? "disabled" : ""}`}>
+          <button
             className="page-link"
-            href="#"
-            tabIndex={currPageNo === 1 ? "-1" : "0"}
-            aria-disabled={currPageNo === 1 ? "true" : "false"}
+            disabled={currPageNo === 1}
             onClick={() => paginate(currPageNo - 1)}
           >
             Prev
-          </a>
+          </button>
         </li>
 
         {/* First Page */}
-        <li
-          className={`page-item ${currPageNo === 1 ? "active" : ""}`}
-        >
-          <a
-            onClick={() => paginate(1)}
-            href="#"
-            className="page-link"
-          >
+        <li className={`page-item ${currPageNo === 1 ? "active" : ""}`}>
+          <button onClick={() => paginate(1)} className="page-link">
             1
-          </a>
+          </button>
         </li>
 
         {/* Ellipsis for Pages Before */}
@@ -66,13 +58,9 @@ const Pagination = ({ totalPosts, pageSize, currPageNo, paginate }) => {
             key={number}
             className={`page-item ${currPageNo === number ? "active" : ""}`}
           >
-            <a
-              onClick={() => paginate(number)}
-              href="#"
-              className="page-link"
-            >
+            <button onClick={() => paginate(number)} className="page-link">
               {number}
-            </a>
+            </button>
           </li>
         ))}
 
@@ -85,30 +73,22 @@ const Pagination = ({ totalPosts, pageSize, currPageNo, paginate }) => {
 
         {/* Last Page */}
         {totalPages > 1 && (
-          <li
-            className={`page-item ${currPageNo === totalPages ? "active" : ""}`}
-          >
-            <a
-              onClick={() => paginate(totalPages)}
-              href="#"
-              className="page-link"
-            >
+          <li className={`page-item ${currPageNo === totalPages ? "active" : ""}`}>
+            <button onClick={() => paginate(totalPages)} className="page-link">
               {totalPages}
-            </a>
+            </button>
           </li>
         )}
 
         {/* Next Button */}
-        <li className="page-item">
-          <a
+        <li className={`page-item ${currPageNo === totalPages ? "disabled" : ""}`}>
+          <button
             className="page-link"
-            href="#"
-            tabIndex={currPageNo === totalPages ? "-1" : "0"}
-            aria-disabled={currPageNo === totalPages ? "true" : "false"}
+            disabled={currPageNo === totalPages}
             onClick={() => paginate(currPageNo + 1)}
           >
             Next
-          </a>
+          </button>
         </li>
       </ul>
     </nav>
