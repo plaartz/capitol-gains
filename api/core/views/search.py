@@ -11,13 +11,14 @@ def search_view(request):
     """
     POST method which provides transactions that are searched by the user
 
-    @return    retursn JsonResponse with requested data or an error message 
+    :return JsonResponse: JsonResponse with requested data or an error message 
     """
 
     if not request.body or request.body is None or request.body == b'' :
         return JsonResponse({"error": "No body provided!"}, status = 400)
 
     data = json.loads(request.body)
+
     first_name = data.get("first_name")
     last_name = data.get("last_name")
     politician_type = data.get("politician_type")
@@ -51,6 +52,18 @@ def search_view(request):
     if order is None or order == "" or (order.upper() not in ["ASC", "DESC"]):
         order = "DESC"
     order = order.upper()
+    transaction_id = request.GET.get("id", None)
+
+    if transaction_id is not None:
+        try:
+            transaction_id = int(transaction_id)
+            if transaction_id < 1:
+                raise ValueError()
+        except (ValueError, TypeError):
+            return JsonResponse({'error': 'transaction id must be a valid integer!'}, status=400)
+        transaction, size = get_transactions(transaction_id=transaction_id)
+        return JsonResponse({"data": transaction, "size": size},status=200, safe=False)
+
 
     # Handle page number
     if page_no is None:

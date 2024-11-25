@@ -1,6 +1,8 @@
-from datetime import datetime
+from datetime import datetime, date, timedelta
 from django.db.utils import IntegrityError, DatabaseError
-from core.models import Transaction, Stock, Profile, Politician
+from core.models import Transaction, Stock, Profile, Politician, StockPrice
+
+GRAPH_SIZE = 30
 
 def process_profile(transaction: dict) -> Profile:
     """
@@ -97,3 +99,67 @@ def upload_transactions(transactions: list) -> int:
     # pylint: disable=broad-except
     except Exception:
         return 500
+
+def get_price_information(transaction_id) -> tuple[list, int]:
+    """
+    Returns a list of prices for the 10 days before to 10 days after.
+
+    :param transaction_id: The id of the transaction we want price data for.
+    :return tuple[list, int]: returns a tuple of a list of prices and the status
+    """
+    try:
+        transaction = Transaction.objects.get(id=transaction_id)
+
+        start_date = date.min
+        end_date = date.max
+
+        if transaction.transaction_type == "Sale":
+            start_date = Transaction.objects.filter(
+                politician = transaction.politician,
+                stock = transaction.stock,
+                transaction_type = "Purchase",
+                transaction_date__lt = transaction.transaction_date
+            ).order_by(
+                '-transaction_date'
+            ).values_list('transaction_date', flat=True).first()
+
+            end_date = transaction.transaction_date
+            if not start_date:
+                start_date =  end_date
+
+        else: #Is a Purchase
+            start_date = transaction.transaction_date
+            end_date = Transaction.objects.filter(
+                politician = transaction.politician,
+                stock = transaction.stock,
+                transaction_type = "Sale",
+                transaction_date__gt = transaction.transaction_date
+            ).order_by(
+                'transaction_date'
+            ).values_list('transaction_date', flat=True).first()
+            if not end_date:
+                end_date = start_date
+
+        time_span = (end_date - start_date).days
+
+        if time_span <= GRAPH_SIZE:
+            try:
+                delta = timedelta(days=(GRAPH_SIZE - time_span) / 2)
+                start_date -= delta
+                end_date += delta
+            #pylint: disable=broad-exception-caught
+            except Exception:
+                # pylint: disable=line-too-long
+                print("Err, ", transaction.stock, transaction.transaction_date, transaction.transaction_type)
+
+        prices = StockPrice.objects.filter(
+            stock = transaction.stock,
+            date__gte = start_date,
+            date__lte = end_date
+        ).all().values('date','price').order_by('date')
+
+        return list(prices), 200
+
+
+    except Transaction.DoesNotExist:
+        return [], 400

@@ -17,7 +17,7 @@ class TestSearchView(TestCase):
         """
         Helper method to make a POST request to the search endpoint.
         """
-        url = f"{reverse('search')}?{query_string}"
+        url = f"{reverse('Search')}?{query_string}"
 
         if body_query is None:
             return self.client.post(url, data=b'', content_type="application/json")

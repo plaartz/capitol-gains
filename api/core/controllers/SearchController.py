@@ -1,10 +1,21 @@
-# pylint: disable=too-many-positional-arguments, too-many-arguments, line-too-long, too-many-locals, too-many-branches, consider-iterating-dictionary, too-many-statements
+# pylint: disable=too-many-positional-arguments, too-many-arguments, line-too-long
 from core.serializers import TransactionSerializer
 from core.models import Transaction
 from django.db.models.functions import Cast
 from django.db.models import IntegerField, CharField, Func, F, Value, Case, When
 
-def get_transactions(first_name, last_name, politician_type, politician_house, start_date, end_date, page_no, page_size, order_by, order):
+def get_transactions(
+        first_name = None,
+        last_name = None,
+        politician_type = None,
+        politician_house = None,
+        start_date = None,
+        end_date = None,
+        page_no = None,
+        page_size = None,
+        order_by = None,
+        order = None,
+        transaction_id=None):
     """
     The method gets all the transaction based on what filteration the user provides.
 
@@ -45,6 +56,13 @@ def get_transactions(first_name, last_name, politician_type, politician_house, s
     else:
         page_size = min(max(page_size, 1), 100)    # Ensures 1 <= page size <= 100
 
+    if transaction_id:
+        transaction = Transaction.objects.get(id=transaction_id)
+        if not transaction:
+            return [], 0
+        return TransactionSerializer([transaction],many=True).data, 1
+
+
     filter_criteria = {}
     if first_name:
         filter_criteria['politician__profile__first_name'] = first_name
@@ -58,9 +76,9 @@ def get_transactions(first_name, last_name, politician_type, politician_house, s
         filter_criteria['transaction_date__gte'] = start_date.replace("/", "-")
     if end_date:
         filter_criteria['transaction_date__lte'] = end_date.replace("/", "-")
-
     # Adjust needed ordering
     ordered_transactions = None    # Will hold the correctly ordered data
+
     if order_by != "stock_price":
         # We order within transaction objects via ORM which is before the serializing
         ordering = valid_options[order_by]
@@ -72,6 +90,7 @@ def get_transactions(first_name, last_name, politician_type, politician_house, s
         # Order by "transaction amount" needs to be first parsed and casted to an integer
         if order_by == "transaction_amount":
             # Get transactions alongside parsing and casting via ORM
+
             transactions = Transaction.objects.filter(**filter_criteria).annotate(
                 # Find the position of the first " - " to split the string
                 first_amount_pos=Func(
@@ -109,11 +128,14 @@ def get_transactions(first_name, last_name, politician_type, politician_house, s
                     output_field=IntegerField()  # Convert cleaned string to integer
                 )
             ).order_by(ordering)
+
         else:
             # Get transactions normally
+
             transactions = Transaction.objects.filter(**filter_criteria).order_by(ordering)
 
         # Serialize the transactions
+
         ordered_transactions = TransactionSerializer(transactions, many = True).data
     else:
         # If we are ordering by "stock price" we will have to "order" after serializing
@@ -133,4 +155,6 @@ def get_transactions(first_name, last_name, politician_type, politician_house, s
     # Return the correct number of transactions
     start_index = page_size*page_no - page_size
     end_index = page_size*page_no
-    return ordered_transactions[start_index:end_index], len(ordered_transactions)
+    sliced = ordered_transactions[start_index:end_index]
+
+    return sliced, len(ordered_transactions)

@@ -48,7 +48,7 @@ def fetch_data() -> list:
         return days_ago.strftime("%Y-%m-%d"), now.strftime("%Y-%m-%d")
 
     # Fetch needed tickers from our backend
-    response = get('http://api:8000/api/core/fetch-stock-ids').json()
+    response = get('http://api:8000/api/core/fetch-stock-ids',timeout=60).json()
 
     data = {}
     stocks = response["stocks"]
@@ -95,7 +95,10 @@ def fetch_data() -> list:
         earliest_date = sorted(iteration, key=lambda x: x["start_date"])[0]["start_date"]
 
         #pylint: disable=line-too-long
-        iteration_response = get(f'{API_URL_TIME}?apikey={API_KEY}&symbol={symbol_str}&interval=1day&start_date={earliest_date}&country=United States')
+        iteration_response = get(
+            f'{API_URL_TIME}?apikey={API_KEY}&symbol={symbol_str}&interval=1day&start_date={earliest_date}&country=United States',
+            timeout=60
+        )
         if iteration_response.status_code in [429,500]:
             for item in iteration:
                 time_series_queue.append(item)
@@ -141,7 +144,7 @@ def fetch_data() -> list:
         symbol_str = ",".join(iteration)
 
         #pylint: disable=line-too-long
-        iteration_response = get(f'{API_URL_EOD}?apikey={API_KEY}&symbol={symbol_str}&country=United States')
+        iteration_response = get(f'{API_URL_EOD}?apikey={API_KEY}&symbol={symbol_str}&country=United States', timeout=60)
         if iteration_response.status_code in [429,500]:
             for item in iteration:
                 time_series_queue.append(item)
@@ -190,7 +193,7 @@ def main() -> None:
     }
 
     # POST data to our backend
-    response = post('http://api:8000/api/core/upload-stock-prices',json=data)
+    response = post('http://api:8000/api/core/upload-stock-prices',json=data, timeout=60)
 
     if response.status_code != 200:
         print(f'Error uploading stocks on date {date.today().strftime("%Y-%m-%d")}, \

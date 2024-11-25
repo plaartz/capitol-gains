@@ -21,3 +21,25 @@ def upload_transaction_information(request) -> JsonResponse:
     if status == 409:
         return JsonResponse({"error": "Conflict, integrity error with the database"}, status=409)
     return JsonResponse({"error": "Internal server error when uploading transactions"}, status=500)
+
+@require_http_methods(["GET"])
+def fetch_transaction_price_info(request) -> JsonResponse:
+    """
+    GET method to get price information for the provided transaction.
+
+    :returns JsonResponse: Returns a JsonResponse
+    """
+    transaction_id = request.GET.get("id")
+    if transaction_id is None:
+        return JsonResponse({"error": "No transaction id provided"},status=400)
+    try:
+        transaction_id = int(transaction_id)
+    except (TypeError, ValueError):
+        return JsonResponse({"error": "Bad transaction id provided"},status=400)
+
+    data, status = transaction.get_price_information(transaction_id)
+
+    if status == 400:
+        return JsonResponse({"error":"Error fetching data"},status=400)
+    #Test data reload now
+    return JsonResponse({"prices":data,"size":len(data)})

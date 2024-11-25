@@ -30,14 +30,21 @@ class Transaction(models.Model):
             the percent gain if it's a sale.
         """
         if self.transaction_type == "Purchase":
-            return 0.0
+            return 0
+
+        # Otherwise it's a sale.
 
         stock_prices = StockPrice.objects.filter(
             stock = self.stock
         )
         curr_price = stock_prices.filter(
             date = self.transaction_date
-        ).first().price
+        ).first()
+
+        if not curr_price:
+            return 0
+        curr_price = curr_price.price
+
         purchase_date = Transaction.objects.filter(
             politician = self.politician,
             stock = self.stock,
@@ -47,5 +54,10 @@ class Transaction(models.Model):
 
         old_price = stock_prices.filter(
             date = purchase_date
-        ).first().price
+        ).first()
+
+        if not old_price:
+            return 0
+
+        old_price = old_price.price
         return round((curr_price / old_price * 100) - 100, 2)
