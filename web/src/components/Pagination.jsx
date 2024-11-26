@@ -5,21 +5,21 @@ const Pagination = ({ totalPosts, pageSize, currPageNo, paginate }) => {
   const totalPages = Math.ceil(totalPosts / pageSize);
   const maxVisiblePages = 5;
 
+  const generatePageNumbers = () => {
+    const pages = [];
+    const startPage = Math.max(
+      2,
+      Math.min(currPageNo - Math.floor(maxVisiblePages / 2), totalPages - maxVisiblePages + 1)
+    );
+    const endPage = Math.min(totalPages - 1, startPage + maxVisiblePages - 1);
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+    setPageNo(pages);
+  };
+  
   useEffect(() => {
-    const generatePageNumbers = () => {
-      const pages = [];
-      const startPage = Math.max(
-        2,
-        Math.min(currPageNo - Math.floor(maxVisiblePages / 2), totalPages - maxVisiblePages + 1)
-      );
-      const endPage = Math.min(totalPages - 1, startPage + maxVisiblePages - 1);
-
-      for (let i = startPage; i <= endPage; i++) {
-        pages.push(i);
-      }
-      setPageNo(pages);
-    };
-
     generatePageNumbers();
   }, [currPageNo, totalPages]);
 
