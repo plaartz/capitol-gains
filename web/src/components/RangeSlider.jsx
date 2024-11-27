@@ -1,16 +1,51 @@
-import { useState } from 'react';
-import Slider from 'react-slider';
+import { useState } from "react";
+import Slider from "react-slider";
 import styles from "./styles/RangeSlider.module.css";
 
 export default function RangeSlider({ minPrice, setMinPrice, maxPrice, setMaxPrice }) {
-  const [values, setValues] = useState([minPrice, maxPrice]);
+  const maxDisplayValue = 1000000000;
+  const middleStart = 10000; // Start of emphasized range
+  const middleEnd = 1000000; // End of emphasized range
 
-  const [copiedMaxPrice, _] = useState(maxPrice);
+  const [sliderValue, setSliderValue] = useState([0, 1]); // Internal slider state
 
-  const handleChange = (newValues) => {
-    setValues(newValues);
-    setMinPrice(newValues[0]);
-    setMaxPrice(newValues[1]);
+  // Map slider value (0 to 1) to the actual price range
+  const mapToPrice = (value) => {
+    if (value < 0.1) {
+      // Start range (0-10%)
+      return (value / 0.1) * middleStart;
+    } else if (value < 0.9) {
+      // Middle range (10%-90%)
+      const scaledValue = (value - 0.1) / 0.8; // Normalize to [0, 1]
+      return middleStart * Math.pow(middleEnd / middleStart, scaledValue); // Logarithmic interpolation
+    } else {
+      // End range (90%-100%)
+      const scaledValue = (value - 0.9) / 0.1; // Normalize to [0, 1]
+      return middleEnd + scaledValue * (maxDisplayValue - middleEnd);
+    }
+  };
+
+  // Map price back to the slider value (0 to 1)
+  const mapToSliderValue = (price) => {
+    if (price < middleStart) {
+      // Start range (0-10%)
+      return (price / middleStart) * 0.1;
+    } else if (price < middleEnd) {
+      // Middle range (10%-90%)
+      const logRatio = Math.log10(price / middleStart) / Math.log10(middleEnd / middleStart);
+      return 0.1 + logRatio * 0.8; // Scale back to [0.1, 0.9]
+    } else {
+      // End range (90%-100%)
+      return 0.9 + ((price - middleEnd) / (maxDisplayValue - middleEnd)) * 0.1;
+    }
+  };
+
+  const handleSliderChange = (values) => {
+    const newMinPrice = Math.round(mapToPrice(values[0]));
+    const newMaxPrice = Math.round(mapToPrice(values[1]));
+    setSliderValue(values); // Update internal state
+    setMinPrice(newMinPrice); // Update displayed min price
+    setMaxPrice(newMaxPrice); // Update displayed max price
   };
 
   return (
@@ -18,20 +53,26 @@ export default function RangeSlider({ minPrice, setMinPrice, maxPrice, setMaxPri
       <p>Use the slider to select a price range:</p>
       <Slider
         className={styles.slider}
-        value={values}
-        onChange={handleChange}
+        value={sliderValue}
+        onChange={handleSliderChange}
         min={0}
-        max={copiedMaxPrice}
+        max={1}
+        step={0.001} // Small steps for smooth sliding
         thumbClassName={styles.thumb}
       />
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>
           <label htmlFor="minPrice">Min Price:</label>
           <input
             type="number"
             id="minPrice"
-            value={values[0]}
-            onChange={(e) => handleChange([+e.target.value, values[1]])}
+            value={minPrice}
+            onChange={(e) => {
+              const newValue = Math.min(maxPrice, +e.target.value);
+              const newSliderValue = mapToSliderValue(newValue);
+              setSliderValue([newSliderValue, sliderValue[1]]);
+              setMinPrice(newValue);
+            }}
           />
         </div>
         <div>
@@ -39,8 +80,13 @@ export default function RangeSlider({ minPrice, setMinPrice, maxPrice, setMaxPri
           <input
             type="number"
             id="maxPrice"
-            value={values[1]}
-            onChange={(e) => handleChange([values[0], +e.target.value])}
+            value={maxPrice}
+            onChange={(e) => {
+              const newValue = Math.max(minPrice, +e.target.value);
+              const newSliderValue = mapToSliderValue(newValue);
+              setSliderValue([sliderValue[0], newSliderValue]);
+              setMaxPrice(newValue);
+            }}
           />
         </div>
       </div>

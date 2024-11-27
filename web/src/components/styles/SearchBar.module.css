@@ -15,7 +15,7 @@
 .searchInput {
   padding: 0.5em;
   font-size: 1em;
-  width: 200px;
+  width: 220px;
 }
 
 .searchButton {
@@ -25,7 +25,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  align-self: center;
+  margin-top: 25px;
 }
 
 .searchButton:hover {

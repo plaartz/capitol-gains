@@ -18,7 +18,6 @@ export default function Transaction() {
       })
       .then((res) => {
         setData(res.data[0]);
-        // console.log(res.transaction);
       })
       .catch((_) => {
         navigate("/404");
@@ -47,7 +46,7 @@ export default function Transaction() {
           Back to All Trades
         </Link>
       </section>
-      <secion>
+      <section>
         <section>
           <h1 className={styles.title}>
             {tradeData.full_name} bought ${tradeData.stock_ticker} on{" "}
@@ -151,7 +150,7 @@ export default function Transaction() {
             </section>
           </section>
         </section>
-      </secion>
+      </section>
     </div>
   );
 }

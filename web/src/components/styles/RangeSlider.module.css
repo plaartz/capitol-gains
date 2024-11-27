@@ -1,6 +1,6 @@
 .container {
   padding: 20px;
-  width: 50%;
+  width: 60%;
 }
 
 .slider {
@@ -38,7 +38,7 @@
 }
 
 input[type="number"] {
-  width: 100px;
+  width: 120px;
   padding: 5px;
   font-size: 16px;
   border: 1px solid #ccc;
