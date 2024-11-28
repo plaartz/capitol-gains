@@ -2,8 +2,7 @@
   background-color: red; 
 }
 
-/* see if the stickiness of the navbar till later */
-nav {
+.navbarNavigation {
   display: flex;
   justify-content: space-between; 
   align-items: center; 
@@ -28,7 +27,7 @@ nav {
   object-fit: contain; 
 }
 
-nav .title {
+.navbarNavigation .title {
   font-size: 1.5rem;
   font-weight: bold;
   color: azure;
@@ -36,18 +35,18 @@ nav .title {
   text-decoration: none; 
 }
 
-nav ul {
+.navbarNavigation ul {
   display: flex; 
   margin: 0;
   padding: 0; 
   align-items: center; 
 }
 
-nav ul li {
+.navbarNavigation ul li {
   list-style: none; 
 }
 
-nav ul li a {
+.navbarNavigation ul li a {
   display: flex; 
   align-items: center;
   text-decoration: none;
@@ -59,15 +58,15 @@ nav ul li a {
   line-height: 60px; 
 }
 
-nav ul li a:not(.active):hover {
+.navbarNavigation ul li a:not(.active):hover {
   color: lightgray; 
 }
 
-nav ul li a.active {
+.navbarNavigation ul li a.active {
   background-color: red; 
 }
 
-nav .menu {
+.navbarNavigation .menu {
   display: none; 
   position: absolute; 
   top: 50%; 
@@ -79,7 +78,7 @@ nav .menu {
   height: 2rem;
 }
 
-nav .menu span {
+.navbarNavigation .menu span {
   height: 0.4rem;
   width: 100%;
   background-color: white;
@@ -88,18 +87,18 @@ nav .menu span {
 }
 
 @media (max-width: 760px) {
-  nav .menu {
+  .navbarNavigation .menu {
     display: flex; 
   }
 
-  nav {
+  .navbarNavigation {
     flex-direction: row; 
     align-items: center; 
     justify-content: space-between; 
     height: 60px; 
   }
 
-  nav ul {
+  .navbarNavigation ul {
     visibility: hidden; 
     flex-direction: column;
     align-items: flex-start;
@@ -116,29 +115,20 @@ nav .menu span {
     transition: 0.15s ease-in-out;
   }
 
-  nav ul.open {
+  .navbarNavigation ul.open {
     visibility: visible;
     opacity: 1;
   }
 
-  nav ul li {
+  .navbarNavigation ul li {
     margin: 10px 0;
     width: 100%;
     text-align: center;
   }
 
-  nav ul li a {
+  .navbarNavigation ul li a {
     margin: 0.2rem 0.5rem; 
   }
 }
 
 
-/* nav ul li a:hover::before{
-  content: "";
-  width: 30%;
-  height: 2px;
-  background: black;
-  position: absolute;
-  bottom: -4px;
-  left: 20px;
-} */

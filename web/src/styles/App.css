@@ -38,3 +38,15 @@
 .read-the-docs {
   color: #888;
 }
+
+/* for the links to be disables when page is 1 */
+.page-link[aria-disabled="true"] {
+  pointer-events: none;
+  color: gray;
+  cursor: not-allowed;
+}
+
+.page-item.active .page-link {
+  background-color: #007bff; /* Example color for active page */
+  color: white; /* Text color for active page */
+}
