@@ -13,10 +13,8 @@ export default function Table() {
   const [colOrder, setOrder] = useState([]);
   const [filters, _] = useContext(FilterContext);
   const [totalPosts, setTotal] = useState();
-  const [pageSize, setPageSize] = useState(100);
-  const [currPageNo, setPageNo] = useState(1);
   const [pageSize, setPageSize] = useState(
-    Number(searchParams.get("pageSize")) || 10
+    Number(searchParams.get("pageSize")) || 100
   );
   const [currPageNo, setPageNo] = useState(
     Number(searchParams.get("pageNo")) || 1
@@ -24,10 +22,7 @@ export default function Table() {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-
     if (searchParams.size > 0) {
-      console.log(searchParams.keys())
-      console.log(searchParams);
       setPageNo((prev) => parseInt(searchParams.get("pageNo") ?? prev));
       setPageSize((prev) => parseInt(searchParams.get("pageSize") ?? prev));
     }
@@ -48,6 +43,7 @@ export default function Table() {
       }
     }
   }, [pageSize]);
+
   useEffect(() => {
     if (!isLoading) {
       if (
@@ -63,25 +59,27 @@ export default function Table() {
   }, [currPageNo]);
 
   useEffect(() => {
-    fetch(search(currPageNo, pageSize), {
-      method: "POST",
-      body: JSON.stringify({}),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setData(res.data);
-        setTotal(res.size);
-        const keys = {
-          full_name: { col: 0, display: "Politician" },
-          transaction_date: { col: 1, display: "Date" },
-          stock_ticker: { col: 2, display: "Ticker" },
-          transaction_type: { col: 3, display: "Transaction" },
-          transaction_amount: { col: 4, display: "Amount" },
-          percent_gain: { col: 5, display: "Gain" },
-        };
-        setOrder(keys);
-      });
-  }, [filters, pageSize, currPageNo]);
+    if (!isLoading) {
+      fetch(search(currPageNo, pageSize), {
+        method: "POST",
+        body: JSON.stringify({}),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          setData(res.data);
+          setTotal(res.size);
+          const keys = {
+            full_name: { col: 0, display: "Politician" },
+            transaction_date: { col: 1, display: "Date" },
+            stock_ticker: { col: 2, display: "Ticker" },
+            transaction_type: { col: 3, display: "Transaction" },
+            transaction_amount: { col: 4, display: "Amount" },
+            percent_gain: { col: 5, display: "Gain" },
+          };
+          setOrder(keys);
+        });
+    }
+  }, [isLoading, filters, pageSize, currPageNo]);
 
   const paginate = (pageNumber) => {
     if (pageNumber === 0) {
@@ -94,9 +92,9 @@ export default function Table() {
   };
 
   const pageSizer = (pageSizeSelected) => {
-    setPageSize(pageSizeSelected)
-    setPageNo(1)
-  }
+    setPageSize(pageSizeSelected);
+    setPageNo(1);
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -140,7 +138,7 @@ export default function Table() {
               />
             </div>
             <div className={styles.pageSizeSelect}>
-              <PageSize pageSizer = {pageSizer}/>
+              <PageSize pageSizer={pageSizer} />
             </div>
           </section>
         </>
