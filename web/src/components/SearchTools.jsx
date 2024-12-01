@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import {FilterContext} from "src/contexts/Filters";
 import TextBox from "./TextBox";
 import DatePickerInput from "./DatePickerInput";
