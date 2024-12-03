@@ -18,22 +18,20 @@ export default function SearchTools() {
   const [positiveGainSelected, setPositiveGainSelected] = useState(false);
   const [negativeGainSelected, setNegativeGainSelected] = useState(false);
   const [noGainSelected, setNoGainSelected] = useState(false);
-  const [_, setFilters] = useContext(FilterContext);
+  const [_, updateFilter] = useContext(FilterContext);
 
   const handleSearch = () => {
-    setFilters({
-      full_name: fullName,
-      stock: stock,
-      start_date: startDate,
-      end_date: endDate,
-      min_price: minPrice,
-      max_price: maxPrice,
-      is_purchase: purchaseSelected,
-      is_sale: saleSelected,
-      positive_gain: positiveGainSelected,
-      negative_gain: negativeGainSelected,
-      no_gain: noGainSelected
-    });
+    updateFilter("full_name", fullName);
+    updateFilter("company", stock);
+    updateFilter("start_date", startDate);
+    updateFilter("end_date", endDate);
+    updateFilter("min_price", minPrice);
+    updateFilter("max_price", maxPrice);
+    updateFilter("is_purchase", purchaseSelected);
+    updateFilter("is_sale", saleSelected);
+    updateFilter("positive_gain", positiveGainSelected);
+    updateFilter("negative_gain", negativeGainSelected);
+    updateFilter("no_gain", noGainSelected);
   };
 
   return (
