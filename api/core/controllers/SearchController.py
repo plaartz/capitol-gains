@@ -80,7 +80,7 @@ def get_transactions(
     # Adjust needed ordering
     ordered_transactions = None    # Will hold the correctly ordered data
 
-    if order_by != "stock_price" and order_by != "percent_gain":
+    if order_by not in  ["stock_price", "percent_gain"]:
         # We order within transaction objects via ORM which is before the serializing
         ordering = valid_options[order_by]
         # Determines whether we need a negative for decending
@@ -130,7 +130,6 @@ def get_transactions(
                     output_field=IntegerField()  # Convert cleaned string to integer
                 )
             ).order_by(ordering)
-            print(transactions.values().first())
 
         else:
             # Get transactions normally

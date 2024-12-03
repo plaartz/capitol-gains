@@ -152,7 +152,6 @@ export default function Table() {
                   <TableRow
                     rowData={row}
                     colOrder={colOrder}
-                    idx={idx}
                     key={idx}
                   />
                 ))}
