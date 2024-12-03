@@ -104,7 +104,8 @@ def get_transactions(
                     When(first_amount_pos=0, then=F('transaction_amount')),  # If no dash, use the whole string
                     default=Func(
                         F('transaction_amount'),
-                        F('first_amount_pos'),
+                        1,
+                        F('first_amount_pos') - 1,
                         function='SUBSTR',
                         output_field=CharField()
                     )
