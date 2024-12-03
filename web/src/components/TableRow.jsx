@@ -4,10 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function TableRow({ rowData, colOrder = {}, idx = 0 }) {
   const navigate = useNavigate();
-  useEffect(() => {
-    console.log(rowData, idx);
-  }, [rowData, idx]);
-
   return (
     <tr
       className={styles.tableRow}

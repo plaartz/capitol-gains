@@ -8,6 +8,7 @@ import Pagination from "./Pagination";
 import PageSize from "./PageSize";
 
 export default function Table() {
+  const [isIdle, setIdle] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState([]);
   const [colOrder, setOrder] = useState([]);
@@ -20,6 +21,8 @@ export default function Table() {
     Number(searchParams.get("pageNo")) || 1
   );
   const [isLoading, setLoading] = useState(true);
+  const [orderBy, setOrderBy] = useState("transaction_date");
+  const [direction, setDirection] = useState("DESC");
 
   useEffect(() => {
     if (searchParams.size > 0) {
@@ -58,9 +61,22 @@ export default function Table() {
     }
   }, [currPageNo]);
 
+
+  function changeOrder(key) {
+    setIdle(false);
+    if (orderBy == key) {
+      setDirection((prev) => (prev == "DESC" ? "ASC" : "DESC"));
+    } else {
+      setDirection("DESC");
+      setOrderBy(key);
+    }
+    setIdle(true);
+  }
+
+
   useEffect(() => {
-    if (!isLoading) {
-      fetch(search(currPageNo, pageSize), {
+    if (!isLoading & isIdle) {
+      fetch(search(currPageNo, pageSize, orderBy, direction), {
         method: "POST",
         body: JSON.stringify({}),
       })
@@ -79,7 +95,7 @@ export default function Table() {
           setOrder(keys);
         });
     }
-  }, [isLoading, filters, pageSize, currPageNo]);
+  }, [isLoading, filters, pageSize, currPageNo, orderBy, direction]);
 
   const paginate = (pageNumber) => {
     if (pageNumber === 0) {
@@ -110,7 +126,22 @@ export default function Table() {
                   {data ? (
                     Object.entries(colOrder)
                       .sort((a, b) => a[1].col - b[1].col)
-                      .map(([key, val]) => <th key={key}>{val.display}</th>)
+                      .map(([key, val]) => (
+                        <th
+                          onClick={() => {
+                            changeOrder(key);
+                          }}
+                          key={key}
+                          className={styles.headerKey}
+                        >
+                          {val.display}{" "}
+                          {orderBy === key
+                            ? direction === "DESC"
+                              ? "\u2B07"
+                              : "\u2B06"
+                            : undefined}
+                        </th>
+                      ))
                   ) : (
                     <></>
                   )}
