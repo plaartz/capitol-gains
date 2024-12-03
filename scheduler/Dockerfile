@@ -19,9 +19,19 @@ WORKDIR /scheduler
 RUN touch logfile.log
 RUN mkdir backup
 
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+# RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
-RUN apt-get install -y ./google-chrome-stable_current_amd64.deb
+# RUN apt-get install -y ./google-chrome-stable_current_amd64.deb
+# Detect architecture and install Chrome/Chromium accordingly
+RUN dpkgArch="$(dpkg --print-architecture)" && \
+    if [ "$dpkgArch" = "amd64" ]; then \
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+        apt-get install -y ./google-chrome-stable_current_amd64.deb; \
+    elif [ "$dpkgArch" = "arm64" ]; then \
+        apt-get install -y chromium-browser; \
+    else \
+        echo "Unsupported architecture: $dpkgArch" && exit 1; \
+    fi
 
 COPY ./requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
