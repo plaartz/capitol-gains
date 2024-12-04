@@ -303,7 +303,7 @@ class TestSearchController(TestCase):
             1,
             100
         )
-
+        print(TransactionSerializer(transaction_data, many=True))
         transaction_data = TransactionSerializer(transaction_data, many=True).data
 
         assert size == 10
@@ -327,6 +327,7 @@ class TestSearchController(TestCase):
             1,
             100
         )
+        print(size)
 
         assert size == 1
         for transaction in transaction_data:
