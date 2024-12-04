@@ -1,6 +1,5 @@
 # pylint: disable=duplicate-code
 from core.controllers.SearchController import get_transactions
-from core.serializers import TransactionSerializer
 from django.test import TestCase
 
 
