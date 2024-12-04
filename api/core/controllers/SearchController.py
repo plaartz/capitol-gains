@@ -33,7 +33,8 @@ def get_transactions(
         "first_name": "politician__profile__first_name",
         "last_name": "politician__profile__last_name",
         "stock_ticker": "stock__ticker",
-        "stock_price": ""
+        "stock_price": "",
+        "percent_gain":""
     }
     if order_by is None or order_by == "" or order_by.lower() not in valid_options:
         order_by = "transaction_date"
@@ -79,7 +80,7 @@ def get_transactions(
     # Adjust needed ordering
     ordered_transactions = None    # Will hold the correctly ordered data
 
-    if order_by != "stock_price":
+    if order_by not in  ["stock_price", "percent_gain"]:
         # We order within transaction objects via ORM which is before the serializing
         ordering = valid_options[order_by]
         # Determines whether we need a negative for decending
@@ -104,7 +105,8 @@ def get_transactions(
                     When(first_amount_pos=0, then=F('transaction_amount')),  # If no dash, use the whole string
                     default=Func(
                         F('transaction_amount'),
-                        F('first_amount_pos'),
+                        1,
+                        F('first_amount_pos') - 1,
                         function='SUBSTR',
                         output_field=CharField()
                     )
@@ -138,7 +140,7 @@ def get_transactions(
 
         ordered_transactions = TransactionSerializer(transactions, many = True).data
     else:
-        # If we are ordering by "stock price" we will have to "order" after serializing
+        # If we are ordering by "stock price" or "percent gain" we will have to "order" after serializing
         is_reversed = False
         if order == "DESC":
             is_reversed = True
@@ -150,7 +152,7 @@ def get_transactions(
         transaction_data = TransactionSerializer(transactions, many = True).data
 
         # Order the data
-        ordered_transactions = sorted(transaction_data, key=lambda x: x['stock_price'], reverse = is_reversed)
+        ordered_transactions = sorted(transaction_data, key=lambda x: x[order_by], reverse = is_reversed)
 
     # Return the correct number of transactions
     start_index = page_size*page_no - page_size

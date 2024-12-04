@@ -1,13 +1,8 @@
-import { useEffect } from "react";
 import styles from "./styles/Table.module.css";
 import { useNavigate } from "react-router-dom";
 
-export default function TableRow({ rowData, colOrder = {}, idx = 0 }) {
+export default function TableRow({ rowData, colOrder = {} }) {
   const navigate = useNavigate();
-  useEffect(() => {
-    console.log(rowData, idx);
-  }, [rowData, idx]);
-
   return (
     <tr
       className={styles.tableRow}

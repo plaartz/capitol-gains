@@ -41,7 +41,8 @@ def search_view(request):
         "first_name",
         "last_name",
         "stock_ticker",
-        "stock_price"
+        "stock_price",
+        "percent_gain"
     ]
 
     if order_by is None or order_by == "" or order_by.lower() not in valid_options:
