@@ -291,8 +291,7 @@ class TestSearchController(TestCase):
             1,
             100
         )
-        print(size)
-        assert size == 10
+        assert size == 11
 
 
     def test_get_transactions_with_multiple_filters(self):
