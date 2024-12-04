@@ -28,7 +28,7 @@ RUN dpkgArch="$(dpkg --print-architecture)" && \
         wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
         apt-get install -y ./google-chrome-stable_current_amd64.deb; \
     elif [ "$dpkgArch" = "arm64" ]; then \
-        apt-get install -y chromium-browser; \
+        apt-get install chromium -y \
     else \
         echo "Unsupported architecture: $dpkgArch" && exit 1; \
     fi
