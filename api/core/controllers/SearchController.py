@@ -6,6 +6,14 @@ from django.db.models import IntegerField, CharField, Func, F, Value, Case, When
 from django.db.models.query import QuerySet
 
 def filter_by_price(transactions: QuerySet[Transaction], min_price: int, max_price: int) -> QuerySet[Transaction]:
+    """
+    The method is a helper function to filter out the transactions that do not fall within the min_price or max_price
+
+    :param transactions: a query set of transactions before we filter
+    :param min_price: the minimum price of the transactions we get
+    :param max_price: the maximum price of the transactinos we get
+    @return    returns a query set of the transactions 
+    """
     filetered_transactions = transactions.annotate(
         # Find the position of the first " - " to split the string
         first_amount_pos=Func(
@@ -132,7 +140,7 @@ def get_transactions(
         gain_conditions |= Q(percent_gain__gt=0)
     if negative_gain:
         gain_conditions |= Q(percent_gain__lt=0)
-    
+
     if start_date:
         filter_criteria['transaction_date__gte'] = start_date.replace("/", "-")
     if end_date:
