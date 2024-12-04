@@ -37,8 +37,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "Daven",
             "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "",
             "end_date": ""
         }
@@ -63,8 +69,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "",
             "last_name": "Thakkar",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "",
             "end_date": ""
         }
@@ -89,8 +101,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "Chris",
             "last_name": "Anderson",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "",
             "end_date": ""
         }
@@ -107,57 +125,6 @@ class TestSearchView(TestCase):
             assert transaction["full_name"] == "Chris L. Anderson"
 
 
-    def test_search_view_with_politician_type(self):
-        """
-        Tests if we get correct response when user provides the politician type
-        """
-
-        body_query = {
-            "first_name": "",
-            "last_name": "",
-            "politician_type": "Senate",
-            "politician_house": "",
-            "start_date": "",
-            "end_date": ""
-        }
-        query_string = "pageNo=1&pageSize=100"
-
-        response = self.make_post_request(body_query, query_string)
-
-        assert response.status_code == 200
-        assert response['Content-Type'] == 'application/json'
-
-        response_data = json.loads(response.content)
-        assert response_data["size"] == 12
-        for transaction in response_data["data"]:
-            assert transaction["politician_type"] == "Senate"
-
-
-    def test_search_view_with_politician_house(self):
-        """
-        Tests if we get correct response when user provides the politician house
-        """
-
-        body_query = {
-            "first_name": "",
-            "last_name": "",
-            "politician_type": "",
-            "politician_house": "R",
-            "start_date": "",
-            "end_date": ""
-        }
-        query_string = "pageNo=1&pageSize=100"
-
-        response = self.make_post_request(body_query, query_string)
-
-        assert response.status_code == 200
-        assert response['Content-Type'] == 'application/json'
-
-        response_data = json.loads(response.content)
-        assert response_data["size"] == 6
-        for transaction in response_data["data"]:
-            assert transaction["politician_house"] == "R"
-
 
     def test_search_view_with_end_date(self):
         """
@@ -167,8 +134,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "",
             "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "",
             "end_date": "2024/09/30"
         }
@@ -196,8 +169,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "",
             "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }
@@ -227,8 +206,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "",
             "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }
@@ -251,8 +236,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "",
             "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }
@@ -275,8 +266,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "",
             "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }
@@ -299,8 +296,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "",
             "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }
@@ -323,8 +326,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "",
             "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }
@@ -363,8 +372,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "",
             "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }
@@ -386,8 +401,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "",
             "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }
@@ -409,8 +430,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "",
             "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }
@@ -442,8 +469,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "",
             "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }
@@ -474,8 +507,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "",
             "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }
@@ -497,65 +536,6 @@ class TestSearchView(TestCase):
             assert current_type >= next_type
 
 
-    def test_search_view_with_order_by_politician_type(self):
-        """
-        Tests if we get correct response when user provides politician type for ordering
-        """
-        body_query = {
-            "first_name": "",
-            "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
-            "start_date": "2024/09/01",
-            "end_date": "2024/09/30"
-        }
-        query_string = "pageNo=1&pageSize=100&orderBy=politician_type"
-
-        response = self.make_post_request(body_query, query_string)
-
-        assert response.status_code == 200
-        assert response['Content-Type'] == 'application/json'
-
-        response_data = json.loads(response.content)
-        assert response_data["size"] == 8
-
-        transaction_data = response_data["data"]
-        # Make sure all transactions are ascending order by politician type
-        for i in range(0, len(transaction_data) - 1):
-            current_type = transaction_data[i]["politician_type"]
-            next_type = transaction_data[i+1]["politician_type"]
-            assert current_type >= next_type
-
-
-    def test_search_view_with_order_by_politician_house(self):
-        """
-        Tests if we get correct response when user provides politician house for ordering
-        """
-        body_query = {
-            "first_name": "",
-            "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
-            "start_date": "2024/09/01",
-            "end_date": "2024/09/30"
-        }
-        query_string = "pageNo=1&pageSize=100&orderBy=politician_house"
-
-        response = self.make_post_request(body_query, query_string)
-
-        assert response.status_code == 200
-        assert response['Content-Type'] == 'application/json'
-
-        response_data = json.loads(response.content)
-        assert response_data["size"] == 8
-
-        transaction_data = response_data["data"]
-        # Make sure all transactions are ascending order by politician house
-        for i in range(0, len(transaction_data) - 1):
-            current_house = transaction_data[i]["politician_house"]
-            next_house = transaction_data[i+1]["politician_house"]
-            assert current_house >= next_house
-
 
     def test_search_view_with_order_by_first_name(self):
         """
@@ -564,8 +544,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "",
             "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }
@@ -594,8 +580,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "",
             "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }
@@ -624,8 +616,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "",
             "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }
@@ -654,8 +652,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "",
             "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }
@@ -684,8 +688,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "",
             "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }
@@ -715,8 +725,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "",
             "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }
@@ -746,8 +762,14 @@ class TestSearchView(TestCase):
         body_query = {
             "first_name": "",
             "last_name": "",
-            "politician_type": "",
-            "politician_house": "",
+            "stock_ticker": "",
+            "is_purchase": False,
+            "is_sale": False,
+            "min_price": 0,
+            "max_price": 1000000000,
+            "positive_gain": False,
+            "negative_gain": False,
+            "no_gain": False,
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }

@@ -20,7 +20,10 @@ class TestSearchController(TestCase):
         transaction_data, size = get_transactions(
             "",
             "Anderson",
-            "", "", "", "",
+            "",
+            False, False,
+            False, False, False,
+            "", "",
             1,
             100,
             None,
@@ -37,7 +40,15 @@ class TestSearchController(TestCase):
         Tests if we get correct results when user provides only the first name
         """
 
-        transaction_data, size = get_transactions("Chris", "", "", "", "", "", 1, 100, None, None)
+        transaction_data, size = get_transactions(
+            "Chris", 
+            "",
+            "",
+            False, False,
+            False, False, False,
+            "", "",
+            1, 100
+        )
 
         assert size == 4
         for transaction in transaction_data:
@@ -52,11 +63,12 @@ class TestSearchController(TestCase):
         transaction_data, size = get_transactions(
             "Daven",
             "Thakkar",
-            "", "", "", "",
+            "",
+            False, False,
+            False, False, False,
+            "", "",
             1,
             100,
-            None,
-            None
         )
 
         assert size == 8
@@ -70,7 +82,9 @@ class TestSearchController(TestCase):
         """
 
         transaction_data, size = get_transactions(
-            "", "", "", "",
+            "", "", "",
+            False, False,
+            False, False, False,
             "2024/10/01",
             "2024/10/30",
             1,
@@ -89,7 +103,10 @@ class TestSearchController(TestCase):
         """
 
         transaction_data, size = get_transactions(
-            "", "", "", "", "",
+            "", "", "",
+            False, False,
+            False, False, False,
+            "",
             "2024/10/30",
             1,
             100,
@@ -101,36 +118,16 @@ class TestSearchController(TestCase):
         assert transaction_data is not None
 
 
-    def test_get_transactions_with_politician_type_filtered(self):
-        """
-        Tests if we get correct results when user provides the politician type
-        """
-
-        transaction_data, size = get_transactions("", "", "Senate", "", "", "", 1, 100, None, None)
-
-        assert size == 12
-        for transaction in transaction_data:
-            assert transaction["politician_type"] == "Senate"
-
-
-    def test_get_transactions_with_politician_hosue_filtered(self):
-        """
-        Tests if we get correct results when user provides the politician house
-        """
-
-        transaction_data, size = get_transactions("", "", "", "R", "", "", 1, 100, None, None)
-
-        assert size == 6
-        for transaction in transaction_data:
-            assert transaction["politician_house"] == "R"
-
-
     def test_get_transactions_with_invalid_page_number_filtered(self):
         """
         Tests if we get correct results when user provides invalid page number
         """
 
-        transaction_data, size = get_transactions("", "", "", "", "", "", 0, 100, None, None)
+        transaction_data, size = get_transactions(
+            "", "", "",
+            False, False,
+            False, False, False,
+            "", "", 0, 100, None, None)
 
         assert size == 22
         assert transaction_data is not None
@@ -141,7 +138,11 @@ class TestSearchController(TestCase):
         Tests if we get correct results when user provides invalid page size
         """
 
-        transaction_data, size = get_transactions("", "", "", "", "", "", 1, 101, None, None)
+        transaction_data, size = get_transactions(
+            "", "", "",
+            False, False,
+            False, False, False,
+            "", "", 1, 101, None, None)
 
         assert size == 22
         assert transaction_data is not None
