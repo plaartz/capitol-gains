@@ -23,15 +23,8 @@ RUN mkdir backup
 
 # RUN apt-get install -y ./google-chrome-stable_current_amd64.deb
 # Detect architecture and install Chrome/Chromium accordingly
-RUN dpkgArch="$(dpkg --print-architecture)" && \
-    if [ "$dpkgArch" = "amd64" ]; then \
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-        apt-get install -y ./google-chrome-stable_current_amd64.deb; \
-    elif [ "$dpkgArch" = "arm64" ]; then \
-        apt-get install chromium -y; \
-    else \
-        echo "Unsupported architecture: $dpkgArch" && exit 1; \
-    fi
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    apt-get install -y ./google-chrome-stable_current_amd64.deb;
 
 COPY ./requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt

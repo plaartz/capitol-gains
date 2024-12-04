@@ -1,4 +1,5 @@
 services:
+  platform: linux/amd64
   scheduler:
     build:
       context: ${BASE_DIR}/scheduler
