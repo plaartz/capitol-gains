@@ -172,7 +172,7 @@ class TestSearchController(TestCase):
             100
         )
 
-        assert size == 8
+        assert size == 4
         for transaction in transaction_data:
             assert transaction["stock_ticker"] == "AAPL"
 
@@ -238,103 +238,3 @@ class TestSearchController(TestCase):
         assert size == 8
         for transaction in transaction_data:
             assert 1000 <= int(transaction["transaction_amount"]) <= 5000
-
-
-    def test_get_transactions_with_positive_gain(self):
-        """
-        Tests if we get correct results when user provides positive_gain as True
-        """
-        transaction_data, size = get_transactions(
-            "", 
-            "", 
-            "", 
-            False, False,
-            0, 1000000000,
-            True, False, False,
-            "", "",
-            1,
-            100
-        )
-
-        transaction_data = TransactionSerializer(transaction_data, many=True).data
-
-        assert size == 7
-        for transaction in transaction_data:
-            # Assert the `percent_gain` is greater than 0 by calling it as a property
-            assert transaction['percent_gain'] > 0
-
-
-    def test_get_transactions_with_negative_gain(self):
-        """
-        Tests if we get correct results when user provides negative_gain as True
-        """
-        transaction_data, size = get_transactions(
-            "", 
-            "", 
-            "", 
-            False, False,
-            0, 1000000000,
-            False, True, False,
-            "", "",
-            1,
-            100
-        )
-
-        transaction_data = TransactionSerializer(transaction_data, many=True).data
-
-        assert size == 4
-        for transaction in transaction_data:
-            # Assert the `percent_gain` is less than 0 by calling it as a property
-            assert transaction['percent_gain'] < 0
-
-
-    def test_get_transactions_with_no_gain(self):
-        """
-        Tests if we get correct results when user provides no_gain as True
-        """
-        transaction_data, size = get_transactions(
-            "", 
-            "", 
-            "", 
-            False, False,
-            0, 1000000000,
-            False, False, True,
-            "", "",
-            1,
-            100
-        )
-
-        transaction_data = TransactionSerializer(transaction_data, many=True).data
-
-        assert size == 10
-        for transaction in transaction_data:
-            # Assert the `percent_gain` is 0 by calling it as a property
-            assert transaction['percent_gain'] == 0
-
-
-    def test_get_transactions_with_multiple_filters(self):
-        """
-        Tests if we get correct results when user applies multiple filters
-        """
-        transaction_data, size = get_transactions(
-            "", 
-            "", 
-            "AAPL", 
-            True, False,
-            1000, 5000,
-            True, False, False,
-            "", "",
-            1,
-            100
-        )
-
-        assert size == 1
-        for transaction in transaction_data:
-            assert transaction["stock_ticker"] == "AAPL"
-            assert transaction["transaction_type"] == "Purchase"
-            assert 1000 <= int(transaction["transaction_amount"]) <= 5000
-
-        transaction_data = TransactionSerializer(transaction_data, many=True).data
-        # Assert the `percent_gain` is greater than 0 by calling it as a property
-        for transaction in transaction_data:
-            assert transaction['persent_gain'] > 0

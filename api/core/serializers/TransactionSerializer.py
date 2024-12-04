@@ -6,8 +6,6 @@ from .StockPriceSerializer import StockPriceSerializer
 class TransactionSerializer(serializers.ModelSerializer):
     stock_price = serializers.SerializerMethodField()
     full_name = serializers.SerializerMethodField()
-    # politician_type = serializers.SerializerMethodField()
-    # politician_house = serializers.SerializerMethodField()
     stock_ticker = serializers.SerializerMethodField()
     stock_description = serializers.SerializerMethodField()
     percent_gain = serializers.SerializerMethodField()
