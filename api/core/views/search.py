@@ -54,7 +54,7 @@ def search_view(request):
     order_by = order_by.lower()
 
     # Handle order
-    if order is None or order == "" or (order.upper() not in ["ASC", "DESC"]):
+    if order is None or order == "" or (order.upper() not in set(["ASC", "DESC"])):
         order = "DESC"
     order = order.upper()
     transaction_id = request.GET.get("id", None)
