@@ -2,7 +2,7 @@
 from core.serializers import TransactionSerializer
 from core.models import Transaction
 from django.db.models.functions import Cast
-from django.db.models import IntegerField, CharField, Func, F, Value, Case, When, Q
+from django.db.models import IntegerField, CharField, Func, F, Value, Case, When
 from django.db.models.query import QuerySet
 
 def filter_by_price(transactions: QuerySet[Transaction], min_price: int, max_price: int) -> QuerySet[Transaction]:
