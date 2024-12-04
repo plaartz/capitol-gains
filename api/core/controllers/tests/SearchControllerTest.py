@@ -303,7 +303,7 @@ class TestSearchController(TestCase):
             1,
             100
         )
-        print(TransactionSerializer(transaction_data, many=True))
+        print(TransactionSerializer(transaction_data, many=True).data)
         transaction_data = TransactionSerializer(transaction_data, many=True).data
 
         assert size == 10
