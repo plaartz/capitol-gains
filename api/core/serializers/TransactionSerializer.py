@@ -6,8 +6,8 @@ from .StockPriceSerializer import StockPriceSerializer
 class TransactionSerializer(serializers.ModelSerializer):
     stock_price = serializers.SerializerMethodField()
     full_name = serializers.SerializerMethodField()
-    politician_type = serializers.SerializerMethodField()
-    politician_house = serializers.SerializerMethodField()
+    # politician_type = serializers.SerializerMethodField()
+    # politician_house = serializers.SerializerMethodField()
     stock_ticker = serializers.SerializerMethodField()
     stock_description = serializers.SerializerMethodField()
     percent_gain = serializers.SerializerMethodField()
@@ -21,8 +21,6 @@ class TransactionSerializer(serializers.ModelSerializer):
             'disclosure_date',
             'transaction_type',
             'full_name',
-            'politician_type',
-            'politician_house',
             'stock_ticker',
             'stock_price',
             'percent_gain',
@@ -52,26 +50,6 @@ class TransactionSerializer(serializers.ModelSerializer):
         """
 
         return obj.politician.profile.full_name
-
-
-    def get_politician_type(self, obj):
-        """
-        Gets the correct politician type
-
-        @ return    returns the politician type
-        """
-
-        return obj.politician.politician_type
-
-
-    def get_politician_house(self, obj):
-        """
-        Gets the correct politician house
-
-        @ return    returns the politician house
-        """
-
-        return obj.politician.politician_house
 
 
     def get_stock_ticker(self, obj):

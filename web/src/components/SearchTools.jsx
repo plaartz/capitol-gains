@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import {FilterContext} from "src/contexts/Filters";
 import TextBox from "./TextBox";
 import DatePickerInput from "./DatePickerInput";
@@ -13,16 +13,55 @@ export default function SearchTools() {
   const [endDate, setEndDate] = useState(null);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(1000000000);
-  const [purchaseSelected, setPurchaseSelceted] = useState(false);
+  const [purchaseSelected, setPurchaseSelected] = useState(false);
   const [saleSelected, setSaleSelected] = useState(false);
   const [positiveGainSelected, setPositiveGainSelected] = useState(false);
   const [negativeGainSelected, setNegativeGainSelected] = useState(false);
   const [noGainSelected, setNoGainSelected] = useState(false);
   const [_, updateFilter] = useContext(FilterContext);
 
+  // Load saved filters from localStorage when the component mounts
+  useEffect(() => {
+    const savedFilters = JSON.parse(localStorage.getItem("filters"));
+
+    if (savedFilters) {
+      setFullName(savedFilters.fullName || "");
+      setStock(savedFilters.stock || "");
+      setStartDate(savedFilters.startDate || null);
+      setEndDate(savedFilters.endDate || null);
+      setMinPrice(savedFilters.minPrice || 0);
+      setMaxPrice(savedFilters.maxPrice || 1000000000);
+      setPurchaseSelected(savedFilters.purchaseSelected || false);
+      setSaleSelected(savedFilters.saleSelected || false);
+      setPositiveGainSelected(savedFilters.positiveGainSelected || false);
+      setNegativeGainSelected(savedFilters.negativeGainSelected || false);
+      setNoGainSelected(savedFilters.noGainSelected || false);
+      setAdvancedFiltersSelected(savedFilters.advancedFiltersSelected || false);
+    }
+  }, []);
+
   const handleSearch = () => {
+    const filters = {
+      fullName,
+      stock,
+      startDate,
+      endDate,
+      minPrice,
+      maxPrice,
+      purchaseSelected,
+      saleSelected,
+      positiveGainSelected,
+      negativeGainSelected,
+      noGainSelected,
+      advancedFiltersSelected,
+    };
+
+    // Save filters to localStorage
+    localStorage.setItem("filters", JSON.stringify(filters));
+
+    // Update Filter Context
     updateFilter("full_name", fullName);
-    updateFilter("company", stock);
+    updateFilter("stock_ticker", stock);
     updateFilter("start_date", startDate);
     updateFilter("end_date", endDate);
     updateFilter("min_price", minPrice);
@@ -82,7 +121,7 @@ export default function SearchTools() {
               <input
                 type="checkbox"
                 checked={purchaseSelected}
-                onChange={() => setPurchaseSelceted(!purchaseSelected)}
+                onChange={() => setPurchaseSelected(!purchaseSelected)}
                 className={styles.checkbox}
               />
               Purchase

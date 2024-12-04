@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Slider from "react-slider";
 import styles from "./styles/RangeSlider.module.css";
 
@@ -7,7 +7,25 @@ export default function RangeSlider({ minPrice, setMinPrice, maxPrice, setMaxPri
   const middleStart = 10000; // Start of emphasized range
   const middleEnd = 1000000; // End of emphasized range
 
-  const [sliderValue, setSliderValue] = useState([0, 1]); // Internal slider state
+   // Load saved slider values from localStorage, or default to initial state
+   const loadSavedValues = () => {
+    const savedMinPrice = localStorage.getItem("minPrice");
+    const savedMaxPrice = localStorage.getItem("maxPrice");
+    const savedSliderValue = localStorage.getItem("sliderValue");
+
+    return {
+      minPrice: savedMinPrice ? parseInt(savedMinPrice) : 0,
+      maxPrice: savedMaxPrice ? parseInt(savedMaxPrice) : 1000000000,
+      sliderValue: savedSliderValue
+        ? JSON.parse(savedSliderValue)
+        : [0, 1], // Default slider value
+    };
+  };
+
+  // Initialize the state with the saved values
+  const { minPrice: savedMinPrice, maxPrice: savedMaxPrice, sliderValue: savedSliderValue } = loadSavedValues();
+
+  const [sliderValue, setSliderValue] = useState(savedSliderValue);
 
   // Map slider value (0 to 1) to the actual price range
   const mapToPrice = (value) => {
@@ -46,7 +64,16 @@ export default function RangeSlider({ minPrice, setMinPrice, maxPrice, setMaxPri
     setSliderValue(values); // Update internal state
     setMinPrice(newMinPrice); // Update displayed min price
     setMaxPrice(newMaxPrice); // Update displayed max price
+
+    localStorage.setItem("minPrice", newMinPrice);
+    localStorage.setItem("maxPrice", newMaxPrice);
+    localStorage.setItem("sliderValue", JSON.stringify(values));
   };
+
+  useEffect(() => {
+    setMinPrice(savedMinPrice);
+    setMaxPrice(savedMaxPrice);
+  }, [savedMinPrice, savedMaxPrice, setMinPrice, setMaxPrice]);
 
   return (
     <div className={styles.container}>
