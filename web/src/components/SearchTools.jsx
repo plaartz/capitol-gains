@@ -121,7 +121,7 @@ export default function SearchTools() {
               <input
                 type="checkbox"
                 checked={purchaseSelected}
-                onChange={() => setPurchaseSelected(!purchaseSelected)}
+                onChange={() => setPurchaseSelected((prevState) => !prevState)}
                 className={styles.checkbox}
               />
               Purchase
@@ -130,7 +130,7 @@ export default function SearchTools() {
               <input
                 type="checkbox"
                 checked={saleSelected}
-                onChange={() => setSaleSelected(!saleSelected)}
+                onChange={() => setSaleSelected((prevState) => !prevState)}
                 className={styles.checkbox}
               />
               Sale
@@ -139,7 +139,7 @@ export default function SearchTools() {
               <input
                 type="checkbox"
                 checked={positiveGainSelected}
-                onChange={() => setPositiveGainSelected(!positiveGainSelected)}
+                onChange={() => setPositiveGainSelected((prevState) => !prevState)}
                 className={styles.checkbox}
               />
               Positive Gain
@@ -148,7 +148,7 @@ export default function SearchTools() {
               <input
                 type="checkbox"
                 checked={negativeGainSelected}
-                onChange={() => setNegativeGainSelected(!negativeGainSelected)}
+                onChange={() => setNegativeGainSelected((prevState) => !prevState)}
                 className={styles.checkbox}
               />
               Negative Gain
@@ -157,7 +157,7 @@ export default function SearchTools() {
               <input
                 type="checkbox"
                 checked={noGainSelected}
-                onChange={() => setNoGainSelected(!noGainSelected)}
+                onChange={() => setNoGainSelected((prevState) => !prevState)}
                 className={styles.checkbox}
               />
               No Gain

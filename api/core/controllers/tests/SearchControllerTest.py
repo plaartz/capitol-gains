@@ -153,3 +153,178 @@ class TestSearchController(TestCase):
 
         assert size == 22
         assert transaction_data is not None
+
+
+    def test_get_transactions_with_stock_ticker(self):
+        """
+        Tests if we get correct results when user provides a stock ticker
+        """
+        transaction_data, size = get_transactions(
+            "", 
+            "", 
+            "AAPL", 
+            False, False,
+            0, 1000000000,
+            False, False, False,
+            "", "",
+            1, 
+            100
+        )
+
+        assert size == 8
+        for transaction in transaction_data:
+            assert transaction["stock_ticker"] == "AAPL"
+
+
+    def test_get_transactions_with_is_purchase(self):
+        """
+        Tests if we get correct results when user provides is_purchase as True
+        """
+        transaction_data, size = get_transactions(
+            "", 
+            "", 
+            "", 
+            True, False,
+            0, 1000000000,
+            False, False, False,
+            "", "",
+            1, 
+            100
+        )
+
+        assert size == 11
+        for transaction in transaction_data:
+            assert transaction["transaction_type"] == "Purchase"
+
+
+    def test_get_transactions_with_is_sale(self):
+        """
+        Tests if we get correct results when user provides is_sale as True
+        """
+        transaction_data, size = get_transactions(
+            "", 
+            "", 
+            "", 
+            False, True,
+            0, 1000000000,
+            False, False, False,
+            "", "",
+            1, 
+            100
+        )
+
+        assert size == 11
+        for transaction in transaction_data:
+            assert transaction["transaction_type"] == "Sale"
+
+
+    def test_get_transactions_with_price_range(self):
+        """
+        Tests if we get correct results when user provides a price range (min_price, max_price)
+        """
+        transaction_data, size = get_transactions(
+            "", 
+            "", 
+            "", 
+            False, False,
+            1000, 5000,
+            False, False, False,
+            "", "",
+            1, 
+            100
+        )
+
+        assert size == 8
+        for transaction in transaction_data:
+            assert 1000 <= int(transaction["transaction_amount"]) <= 5000
+
+
+    def test_get_transactions_with_positive_gain(self):
+        """
+        Tests if we get correct results when user provides positive_gain as True
+        """
+        transaction_data, size = get_transactions(
+            "", 
+            "", 
+            "", 
+            False, False,
+            0, 1000000000,
+            True, False, False,
+            "", "",
+            1, 
+            100
+        )
+
+        assert size == 7
+        for transaction in transaction_data:
+            # Assert the `percent_gain` is greater than 0 by calling it as a property
+            assert transaction.percent_gain > 0
+
+
+    def test_get_transactions_with_negative_gain(self):
+        """
+        Tests if we get correct results when user provides negative_gain as True
+        """
+        transaction_data, size = get_transactions(
+            "", 
+            "", 
+            "", 
+            False, False,
+            0, 1000000000,
+            False, True, False,
+            "", "",
+            1, 
+            100
+        )
+
+        assert size == 4
+        for transaction in transaction_data:
+            # Assert the `percent_gain` is less than 0 by calling it as a property
+            assert transaction.percent_gain < 0
+
+
+    def test_get_transactions_with_no_gain(self):
+        """
+        Tests if we get correct results when user provides no_gain as True
+        """
+        transaction_data, size = get_transactions(
+            "", 
+            "", 
+            "", 
+            False, False,
+            0, 1000000000,
+            False, False, True,
+            "", "",
+            1, 
+            100
+        )
+
+        assert size == 10
+        for transaction in transaction_data:
+            # Assert the `percent_gain` is 0 by calling it as a property
+            assert transaction.percent_gain == 0
+
+
+    def test_get_transactions_with_multiple_filters(self):
+        """
+        Tests if we get correct results when user applies multiple filters
+        """
+        transaction_data, size = get_transactions(
+            "", 
+            "", 
+            "AAPL", 
+            True, False,
+            1000, 5000,
+            True, False, False,
+            "", "",
+            1, 
+            100
+        )
+
+        assert size == 1
+        for transaction in transaction_data:
+            assert transaction["stock_ticker"] == "AAPL"
+            assert transaction["transaction_type"] == "Purchase"
+            assert 1000 <= int(transaction["transaction_amount"]) <= 5000
+            # Assert the `percent_gain` is greater than 0 by calling it as a property
+            assert transaction.percent_gain > 0
