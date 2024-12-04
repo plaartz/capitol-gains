@@ -167,7 +167,7 @@ class TestSearchController(TestCase):
             0, 1000000000,
             False, False, False,
             "", "",
-            1, 
+            1,
             100
         )
 
@@ -188,7 +188,7 @@ class TestSearchController(TestCase):
             0, 1000000000,
             False, False, False,
             "", "",
-            1, 
+            1,
             100
         )
 
@@ -209,7 +209,7 @@ class TestSearchController(TestCase):
             0, 1000000000,
             False, False, False,
             "", "",
-            1, 
+            1,
             100
         )
 
@@ -230,7 +230,7 @@ class TestSearchController(TestCase):
             1000, 5000,
             False, False, False,
             "", "",
-            1, 
+            1,
             100
         )
 
@@ -251,7 +251,7 @@ class TestSearchController(TestCase):
             0, 1000000000,
             True, False, False,
             "", "",
-            1, 
+            1,
             100
         )
 
@@ -273,7 +273,7 @@ class TestSearchController(TestCase):
             0, 1000000000,
             False, True, False,
             "", "",
-            1, 
+            1,
             100
         )
 
@@ -295,7 +295,7 @@ class TestSearchController(TestCase):
             0, 1000000000,
             False, False, True,
             "", "",
-            1, 
+            1,
             100
         )
 
@@ -317,7 +317,7 @@ class TestSearchController(TestCase):
             1000, 5000,
             True, False, False,
             "", "",
-            1, 
+            1,
             100
         )
 
