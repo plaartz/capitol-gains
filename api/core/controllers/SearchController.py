@@ -189,7 +189,7 @@ def get_transactions(
             Transaction.objects.filter(gain_conditions).filter(**filter_criteria),
             min_price,
             max_price
-        ).order_by(ordering)
+        )
 
         # Serialize the transactions
         transaction_data = TransactionSerializer(transactions, many = True).data

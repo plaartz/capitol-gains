@@ -22,6 +22,7 @@ class TestSearchController(TestCase):
             "Anderson",
             "",
             False, False,
+            0, 1000000000,
             False, False, False,
             "", "",
             1,
@@ -45,6 +46,7 @@ class TestSearchController(TestCase):
             "",
             "",
             False, False,
+            0, 1000000000,
             False, False, False,
             "", "",
             1, 100
@@ -65,6 +67,7 @@ class TestSearchController(TestCase):
             "Thakkar",
             "",
             False, False,
+            0, 1000000000,
             False, False, False,
             "", "",
             1,
@@ -84,6 +87,7 @@ class TestSearchController(TestCase):
         transaction_data, size = get_transactions(
             "", "", "",
             False, False,
+            0, 1000000000,
             False, False, False,
             "2024/10/01",
             "2024/10/30",
@@ -105,6 +109,7 @@ class TestSearchController(TestCase):
         transaction_data, size = get_transactions(
             "", "", "",
             False, False,
+            0, 1000000000,
             False, False, False,
             "",
             "2024/10/30",
@@ -126,6 +131,7 @@ class TestSearchController(TestCase):
         transaction_data, size = get_transactions(
             "", "", "",
             False, False,
+            0, 1000000000,
             False, False, False,
             "", "", 0, 100, None, None)
 
@@ -141,6 +147,7 @@ class TestSearchController(TestCase):
         transaction_data, size = get_transactions(
             "", "", "",
             False, False,
+            0, 1000000000,
             False, False, False,
             "", "", 1, 101, None, None)
 
