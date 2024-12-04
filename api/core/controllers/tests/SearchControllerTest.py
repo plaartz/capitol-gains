@@ -1,6 +1,7 @@
 # pylint: disable=duplicate-code
 from core.controllers.SearchController import get_transactions
 from django.test import TestCase
+from core.serializers import TransactionSerializer
 
 
 class TestSearchController(TestCase):
@@ -255,10 +256,12 @@ class TestSearchController(TestCase):
             100
         )
 
+        transaction_data = TransactionSerializer(transaction_data, many=True).data
+
         assert size == 7
         for transaction in transaction_data:
             # Assert the `percent_gain` is greater than 0 by calling it as a property
-            assert transaction.percent_gain > 0
+            assert transaction['percent_gain'] > 0
 
 
     def test_get_transactions_with_negative_gain(self):
@@ -277,10 +280,12 @@ class TestSearchController(TestCase):
             100
         )
 
+        transaction_data = TransactionSerializer(transaction_data, many=True).data
+
         assert size == 4
         for transaction in transaction_data:
             # Assert the `percent_gain` is less than 0 by calling it as a property
-            assert transaction.percent_gain < 0
+            assert transaction['percent_gain'] < 0
 
 
     def test_get_transactions_with_no_gain(self):
@@ -299,10 +304,12 @@ class TestSearchController(TestCase):
             100
         )
 
+        transaction_data = TransactionSerializer(transaction_data, many=True).data
+
         assert size == 10
         for transaction in transaction_data:
             # Assert the `percent_gain` is 0 by calling it as a property
-            assert transaction.percent_gain == 0
+            assert transaction['percent_gain'] == 0
 
 
     def test_get_transactions_with_multiple_filters(self):
@@ -326,5 +333,8 @@ class TestSearchController(TestCase):
             assert transaction["stock_ticker"] == "AAPL"
             assert transaction["transaction_type"] == "Purchase"
             assert 1000 <= int(transaction["transaction_amount"]) <= 5000
-            # Assert the `percent_gain` is greater than 0 by calling it as a property
-            assert transaction.percent_gain > 0
+
+        transaction_data = TransactionSerializer(transaction_data, many=True).data
+        # Assert the `percent_gain` is greater than 0 by calling it as a property
+        for transaction in transaction_data:
+            assert transaction['persent_gain'] > 0
