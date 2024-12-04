@@ -133,14 +133,6 @@ def get_transactions(
     elif is_sale and not is_purchase:
         filter_criteria['transaction_type'] = 'Sale'
 
-    gain_conditions = Q()
-    if no_gain:
-        gain_conditions |= Q(percent_gain=0)
-    if positive_gain:
-        gain_conditions |= Q(percent_gain__gt=0)
-    if negative_gain:
-        gain_conditions |= Q(percent_gain__lt=0)
-
     if start_date:
         filter_criteria['transaction_date__gte'] = start_date.replace("/", "-")
     if end_date:
@@ -161,7 +153,7 @@ def get_transactions(
             # Get transactions alongside parsing and casting via ORM
 
             transactions = filter_by_price(
-                Transaction.objects.filter(gain_conditions).filter(**filter_criteria),
+                Transaction.objects.filter(**filter_criteria),
                 min_price,
                 max_price
             ).order_by(ordering)
@@ -170,7 +162,7 @@ def get_transactions(
             # Get transactions normally
 
             transactions = filter_by_price(
-                Transaction.objects.filter(gain_conditions).filter(**filter_criteria),
+                Transaction.objects.filter(**filter_criteria),
                 min_price,
                 max_price
             ).order_by(ordering)
@@ -186,7 +178,7 @@ def get_transactions(
 
         # Get transactions
         transactions = filter_by_price(
-            Transaction.objects.filter(gain_conditions).filter(**filter_criteria),
+            Transaction.objects.filter(**filter_criteria),
             min_price,
             max_price
         )
@@ -197,6 +189,18 @@ def get_transactions(
         # Order the data
         ordered_transactions = sorted(transaction_data, key=lambda x: x[order_by], reverse = is_reversed)
 
+    if no_gain and positive_gain:
+        ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] >= 0]
+    elif no_gain and negative_gain:
+        ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] <= 0]
+    elif positive_gain and negative_gain:
+        ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] > 0 or ot['percent_gain'] < 0]
+    elif no_gain:
+        ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] == 0]
+    elif positive_gain:
+        ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] > 0]
+    elif negative_gain:
+        ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] < 0]
     # Return the correct number of transactions
     start_index = page_size*page_no - page_size
     end_index = page_size*page_no
