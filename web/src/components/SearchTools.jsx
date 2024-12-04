@@ -98,7 +98,7 @@ export default function SearchTools() {
       </div>
       <div className={styles.advancedOptionsToggle}>
         <span
-          onClick={() => setAdvancedFiltersSelected(!advancedFiltersSelected)}
+          onClick={() => setAdvancedFiltersSelected((prevState) => !prevState)}
           style={{ color: "red", cursor: "pointer" }}
         >
           {advancedFiltersSelected ? "Hide Advanced Options ▲" : "Show Advanced Options ▼"}
