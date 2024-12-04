@@ -9,3 +9,4 @@ mysql-connector-python
 pytest-django
 pylint
 pylint-django
+gunicorn

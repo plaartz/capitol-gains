@@ -11,7 +11,7 @@ unittest:
     - cd api
     - pip install -r requirements.txt
   script:
-    - python manage.py test --settings=settings.settings_test
+    - python manage.py test --settings=api.settings
   artifacts:
     when: always
     untracked: true

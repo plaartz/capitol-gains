@@ -2,6 +2,7 @@ services:
   api:
     build: 
       context: ${BASE_DIR}/api
+      dockerfile: Dockerfile.production
     restart: always
     environment:
       COMPOSE_PROJECT_NAME: Capitol_Gains
