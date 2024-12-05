@@ -165,7 +165,7 @@ def get_transactions(
                 Transaction.objects.filter(**filter_criteria),
                 min_price,
                 max_price
-            ).order_by(ordering)        
+            ).order_by(ordering)
 
         # Serialize the transactions
 
