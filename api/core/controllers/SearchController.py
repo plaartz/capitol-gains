@@ -14,7 +14,7 @@ def filter_by_price(transactions: QuerySet[Transaction], min_price: int, max_pri
     :param max_price: the maximum price of the transactinos we get
     @return    returns a query set of the transactions 
     """
-    filetered_transactions = transactions.annotate(
+    filtered_transactions = transactions.annotate(
         # Find the position of the first " - " to split the string
         first_amount_pos=Func(
             F('transaction_amount'),
@@ -55,7 +55,7 @@ def filter_by_price(transactions: QuerySet[Transaction], min_price: int, max_pri
         extracted_transaction_amount__gte=min_price,
         extracted_transaction_amount__lte=max_price
     )
-    return filetered_transactions
+    return filtered_transactions
 
 def get_transactions(
         first_name = None,
@@ -63,8 +63,8 @@ def get_transactions(
         stock_ticker = None,
         is_purchase = None,
         is_sale = None,
-        min_price = 0,
-        max_price = 1000000000,
+        min_price = None,
+        max_price = None,
         positive_gain = None,
         negative_gain = None,
         no_gain = None,
@@ -140,7 +140,7 @@ def get_transactions(
     # Adjust needed ordering
     ordered_transactions = None    # Will hold the correctly ordered data
 
-    if order_by not in  ["stock_price", "percent_gain"]:
+    if order_by not in set(["stock_price", "percent_gain"]):
         # We order within transaction objects via ORM which is before the serializing
         ordering = valid_options[order_by]
         # Determines whether we need a negative for decending
@@ -165,7 +165,7 @@ def get_transactions(
                 Transaction.objects.filter(**filter_criteria),
                 min_price,
                 max_price
-            ).order_by(ordering)
+            ).order_by(ordering)        
 
         # Serialize the transactions
 

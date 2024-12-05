@@ -18,7 +18,6 @@ def search_view(request):
         return JsonResponse({"error": "No body provided!"}, status = 400)
 
     data = json.loads(request.body)
-
     first_name = data.get("first_name")
     last_name = data.get("last_name")
     stock_ticker = data.get("stock_ticker")
@@ -91,6 +90,23 @@ def search_view(request):
         except (ValueError, TypeError):
             return JsonResponse({'error': 'pageSize must be an integer!'}, status=400)
         page_size = min(max(page_size, 1), 100)    # Ensures 1 <= page size <= 100
+
+    if min_price is None:
+        min_price = 0
+    if max_price is None:
+        max_price = 1000000000
+
+    if is_purchase is None:
+        is_purchase = False
+    if is_sale is None:
+        is_sale = False
+
+    if positive_gain is None:
+        positive_gain = False
+    if negative_gain is None:
+        negative_gain = False
+    if no_gain is None:
+        no_gain = False
 
     transaction_data, size = get_transactions(
         first_name, last_name,
