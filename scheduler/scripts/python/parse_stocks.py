@@ -2,6 +2,7 @@
 
 from os import environ
 from sys import stderr
+from math import ceil
 from datetime import date, datetime, timedelta
 import json
 from collections import deque
@@ -130,6 +131,7 @@ def fetch_data() -> list:
                     ]
                 }
 
+
         # Potentially do some more preprocessing to only have actual needed dates from `iteration`
         # tickers since they could be different we are just batch requesting
 
@@ -193,9 +195,56 @@ def main() -> None:
     }
 
     # POST data to our backend
-    response = post('http://api:8000/api/core/upload-stock-prices',json=data, timeout=60)
+    def recursive_post(rec_data):
+        if len(rec_data["data"]) > 1:
+            pivot = ceil(len(rec_data["data"]) / 2)
+            left = {key: rec_data["data"][key] for key in list(rec_data["data"].keys())[:pivot]}
+            right = {key: rec_data["data"][key] for key in list(rec_data["data"].keys())[pivot:]}
 
-    if response.status_code != 200:
+            left_res = post('http://api:8000/api/core/upload-stock-prices',json={"data": left, "size": -1}, timeout=60)
+            if left_res.status_code == 413:
+                recursive_post({"data":left})
+            right_res = post('http://api:8000/api/core/upload-stock-prices',json={"data": right, "size": -1}, timeout=60)
+            if right_res.status_code == 413:
+                recursive_post({"data":right})
+        else:
+            key = list(rec_data["data"].keys())[0]
+            pivot = ceil(len(rec_data["data"][key]["prices"]) / 2)
+
+            left = rec_data["data"][key]["prices"][:pivot]
+            right = rec_data["data"][key]["prices"][pivot:]
+
+            left_data = {
+                "data": {
+                    key: {
+                        "ticker": key,
+                        "prices": left
+                    }
+                }, 
+                "size": -1
+            }
+            right_data = {
+                "data": {
+                    key: {
+                        "ticker": key,
+                        "prices": right
+                    }
+                }, 
+                "size": -1
+            }
+            left_res = post('http://api:8000/api/core/upload-stock-prices',json=left_data, timeout=60)
+            if left_res.status_code == 413:
+                recursive_post(left_data)
+            right_res = post('http://api:8000/api/core/upload-stock-prices',json=right_data, timeout=60)
+            if right_res.status_code == 413:
+                recursive_post(right_data)
+
+
+
+    response = post('http://api:8000/api/core/upload-stock-prices',json=data, timeout=60)
+    if response.status_code == 413:
+        recursive_post(data)
+    elif response.status_code != 200:
         print(f'Error uploading stocks on date {date.today().strftime("%Y-%m-%d")}, \
               writing to backup json file for manual upload',file=stderr)
         #pylint: disable=line-too-long
