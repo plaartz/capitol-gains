@@ -1,6 +1,6 @@
 services:
-  platform: linux/amd64
   scheduler:
+    platform: linux/amd64
     build:
       context: ${BASE_DIR}/scheduler
     restart: always
