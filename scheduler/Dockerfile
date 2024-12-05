@@ -31,6 +31,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-RUN chmod -R +x ./script
+RUN chmod -R +x ./scripts
 
 ENTRYPOINT ["sh", "./entrypoint.sh"] 
