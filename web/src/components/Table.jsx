@@ -13,7 +13,7 @@ export default function Table() {
   const [data, setData] = useState([]);
   const [colOrder, setOrder] = useState([]);
   const [filters, updateFilter] = useContext(FilterContext);
-  const [totalPosts, setTotal] = useState();
+  const [totalPosts, setTotal] = useState(0);
   const [pageSize, setPageSize] = useState(
     Number(searchParams.get("pageSize")) || 100
   );
