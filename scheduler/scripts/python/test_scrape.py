@@ -325,7 +325,6 @@ def display_trade_info(driver: webdriver.Chrome) -> list:
         except Exception as e:
             print(f"Error while processing pages: {e}")
             break
-    print(all_trade_information)
     return all_trade_information
 
 
