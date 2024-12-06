@@ -18,39 +18,42 @@ def search_view(request):
         return JsonResponse({"error": "No body provided!"}, status = 400)
 
     data = json.loads(request.body)
-
     first_name = data.get("first_name")
     last_name = data.get("last_name")
-    politician_type = data.get("politician_type")
-    politician_house = data.get("politician_house")
+    stock_ticker = data.get("stock_ticker")
     start_date = data.get("start_date")
     end_date = data.get("end_date")
+    is_sale = data.get("is_sale")
+    is_purchase = data.get("is_purchase")
+    min_price = data.get("min_price")
+    max_price = data.get("max_price")
+    positive_gain = data.get("positive_gain")
+    negative_gain = data.get("negative_gain")
+    no_gain = data.get("no_gain")
     page_no = request.GET.get("pageNo")
     page_size = request.GET.get("pageSize")
     order_by = request.GET.get("orderBy")
     order = request.GET.get("order")
 
     # Make sure the order by is a valid selection
-    valid_options = [
+    valid_options = set([
         "transaction_date",
         "disclosure_date",
         "transaction_type",
         "transaction_amount",
-        "politician_type",
-        "politician_house",
         "first_name",
         "last_name",
         "stock_ticker",
         "stock_price",
         "percent_gain"
-    ]
+    ])
 
     if order_by is None or order_by == "" or order_by.lower() not in valid_options:
         order_by = "transaction_date"
     order_by = order_by.lower()
 
     # Handle order
-    if order is None or order == "" or (order.upper() not in ["ASC", "DESC"]):
+    if order is None or order == "" or (order.upper() not in set(["ASC", "DESC"])):
         order = "DESC"
     order = order.upper()
     transaction_id = request.GET.get("id", None)
@@ -88,10 +91,33 @@ def search_view(request):
             return JsonResponse({'error': 'pageSize must be an integer!'}, status=400)
         page_size = min(max(page_size, 1), 100)    # Ensures 1 <= page size <= 100
 
+    if min_price is None:
+        min_price = 0
+    if max_price is None:
+        max_price = 1000000000
+
+    if is_purchase is None:
+        is_purchase = False
+    if is_sale is None:
+        is_sale = False
+
+    if positive_gain is None:
+        positive_gain = False
+    if negative_gain is None:
+        negative_gain = False
+    if no_gain is None:
+        no_gain = False
+
     transaction_data, size = get_transactions(
         first_name, last_name,
-        politician_type,
-        politician_house,
+        stock_ticker,
+        is_purchase,
+        is_sale,
+        min_price,
+        max_price,
+        positive_gain,
+        negative_gain,
+        no_gain,
         start_date,
         end_date,
         page_no,

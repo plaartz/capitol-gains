@@ -3,12 +3,71 @@ from core.serializers import TransactionSerializer
 from core.models import Transaction
 from django.db.models.functions import Cast
 from django.db.models import IntegerField, CharField, Func, F, Value, Case, When
+from django.db.models.query import QuerySet
+
+def filter_by_price(transactions: QuerySet[Transaction], min_price: int, max_price: int) -> QuerySet[Transaction]:
+    """
+    The method is a helper function to filter out the transactions that do not fall within the min_price or max_price
+
+    :param transactions: a query set of transactions before we filter
+    :param min_price: the minimum price of the transactions we get
+    :param max_price: the maximum price of the transactinos we get
+    @return    returns a query set of the transactions 
+    """
+    filtered_transactions = transactions.annotate(
+        # Find the position of the first " - " to split the string
+        first_amount_pos=Func(
+            F('transaction_amount'),
+            Value(' - '),
+            function='INSTR',
+            output_field=IntegerField()
+        ),
+        # Extract the substring before the first " - ", handling case where there's no dash
+        extracted_amount=Case(
+            When(first_amount_pos=0, then=F('transaction_amount')),  # If no dash, use the whole string
+            default=Func(
+                F('transaction_amount'),
+                1,
+                F('first_amount_pos') - 1,
+                function='SUBSTR',
+                output_field=CharField()
+            )
+        ),
+        # Clean up the amount by removing "$" and "," in one step and cast to integer
+        clean_amount=Func(
+            Func(
+                F('extracted_amount'),
+                Value('$'),
+                Value(''),
+                function='REPLACE',
+                output_field=CharField()
+            ),
+            Value(','),
+            Value(''),
+            function='REPLACE',
+            output_field=CharField()  # Result after second REPLACE
+        ),
+        extracted_transaction_amount=Cast(
+            F('clean_amount'),
+            output_field=IntegerField()  # Convert cleaned string to integer
+        )
+    ).filter(
+        extracted_transaction_amount__gte=min_price,
+        extracted_transaction_amount__lte=max_price
+    )
+    return filtered_transactions
 
 def get_transactions(
         first_name = None,
         last_name = None,
-        politician_type = None,
-        politician_house = None,
+        stock_ticker = None,
+        is_purchase = None,
+        is_sale = None,
+        min_price = None,
+        max_price = None,
+        positive_gain = None,
+        negative_gain = None,
+        no_gain = None,
         start_date = None,
         end_date = None,
         page_no = None,
@@ -28,8 +87,6 @@ def get_transactions(
         "disclosure_date": "disclosure_date",
         "transaction_type": "transaction_type",
         "transaction_amount": "extracted_transaction_amount", # This is the holder used for ordering and casting
-        "politician_type": "politician__politician_type",
-        "politician_house": "politician__politician_house",
         "first_name": "politician__profile__first_name",
         "last_name": "politician__profile__last_name",
         "stock_ticker": "stock__ticker",
@@ -69,10 +126,13 @@ def get_transactions(
         filter_criteria['politician__profile__first_name'] = first_name
     if last_name:
         filter_criteria['politician__profile__last_name'] = last_name
-    if politician_type:
-        filter_criteria['politician__politician_type'] = politician_type
-    if politician_house:
-        filter_criteria['politician__politician_house'] = politician_house
+    if stock_ticker:
+        filter_criteria['stock__ticker'] = stock_ticker
+    if is_purchase and not is_sale:
+        filter_criteria['transaction_type'] = 'Purchase'
+    elif is_sale and not is_purchase:
+        filter_criteria['transaction_type'] = 'Sale'
+
     if start_date:
         filter_criteria['transaction_date__gte'] = start_date.replace("/", "-")
     if end_date:
@@ -80,7 +140,7 @@ def get_transactions(
     # Adjust needed ordering
     ordered_transactions = None    # Will hold the correctly ordered data
 
-    if order_by not in  ["stock_price", "percent_gain"]:
+    if order_by not in set(["stock_price", "percent_gain"]):
         # We order within transaction objects via ORM which is before the serializing
         ordering = valid_options[order_by]
         # Determines whether we need a negative for decending
@@ -92,49 +152,20 @@ def get_transactions(
         if order_by == "transaction_amount":
             # Get transactions alongside parsing and casting via ORM
 
-            transactions = Transaction.objects.filter(**filter_criteria).annotate(
-                # Find the position of the first " - " to split the string
-                first_amount_pos=Func(
-                    F('transaction_amount'),
-                    Value(' - '),
-                    function='INSTR',
-                    output_field=IntegerField()
-                ),
-                # Extract the substring before the first " - ", handling case where there's no dash
-                extracted_amount=Case(
-                    When(first_amount_pos=0, then=F('transaction_amount')),  # If no dash, use the whole string
-                    default=Func(
-                        F('transaction_amount'),
-                        1,
-                        F('first_amount_pos') - 1,
-                        function='SUBSTR',
-                        output_field=CharField()
-                    )
-                ),
-                # Clean up the amount by removing "$" and "," in one step and cast to integer
-                clean_amount=Func(
-                    Func(
-                        F('extracted_amount'),
-                        Value('$'),
-                        Value(''),
-                        function='REPLACE',
-                        output_field=CharField()
-                    ),
-                    Value(','),
-                    Value(''),
-                    function='REPLACE',
-                    output_field=CharField()  # Result after second REPLACE
-                ),
-                extracted_transaction_amount=Cast(
-                    F('clean_amount'),
-                    output_field=IntegerField()  # Convert cleaned string to integer
-                )
+            transactions = filter_by_price(
+                Transaction.objects.filter(**filter_criteria),
+                min_price,
+                max_price
             ).order_by(ordering)
 
         else:
             # Get transactions normally
 
-            transactions = Transaction.objects.filter(**filter_criteria).order_by(ordering)
+            transactions = filter_by_price(
+                Transaction.objects.filter(**filter_criteria),
+                min_price,
+                max_price
+            ).order_by(ordering)
 
         # Serialize the transactions
 
@@ -146,7 +177,11 @@ def get_transactions(
             is_reversed = True
 
         # Get transactions
-        transactions = Transaction.objects.filter(**filter_criteria)
+        transactions = filter_by_price(
+            Transaction.objects.filter(**filter_criteria),
+            min_price,
+            max_price
+        )
 
         # Serialize the transactions
         transaction_data = TransactionSerializer(transactions, many = True).data
@@ -154,6 +189,18 @@ def get_transactions(
         # Order the data
         ordered_transactions = sorted(transaction_data, key=lambda x: x[order_by], reverse = is_reversed)
 
+    if no_gain and positive_gain:
+        ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] >= 0]
+    elif no_gain and negative_gain:
+        ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] <= 0]
+    elif positive_gain and negative_gain:
+        ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] > 0 or ot['percent_gain'] < 0]
+    elif no_gain:
+        ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] == 0]
+    elif positive_gain:
+        ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] > 0]
+    elif negative_gain:
+        ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] < 0]
     # Return the correct number of transactions
     start_index = page_size*page_no - page_size
     end_index = page_size*page_no

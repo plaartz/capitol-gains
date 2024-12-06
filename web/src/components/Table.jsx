@@ -12,7 +12,7 @@ export default function Table() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState([]);
   const [colOrder, setOrder] = useState([]);
-  const [filters, _] = useContext(FilterContext);
+  const [filters, updateFilter] = useContext(FilterContext);
   const [totalPosts, setTotal] = useState();
   const [pageSize, setPageSize] = useState(
     Number(searchParams.get("pageSize")) || 100
@@ -23,6 +23,33 @@ export default function Table() {
   const [isLoading, setLoading] = useState(true);
   const [orderBy, setOrderBy] = useState("transaction_date");
   const [direction, setDirection] = useState("DESC");
+
+  useEffect(() => {
+    const savedFilters = JSON.parse(localStorage.getItem("filters"));
+    const fullName = savedFilters.fullName || "";
+    const stock = savedFilters.stock || "";
+    const startDate = savedFilters.startDate || null;
+    const endDate = savedFilters.endDate || null;
+    const minPrice = savedFilters.minPrice || 0;
+    const maxPrice = savedFilters.maxPrice || 1000000000;
+    const purchaseSelected = savedFilters.purchaseSelected || false;
+    const saleSelected = savedFilters.saleSelected || false;
+    const positiveGainSelected = savedFilters.positiveGainSelected || false;
+    const negativeGainSelected = savedFilters.negativeGainSelected || false;
+    const noGainSelected = savedFilters.noGainSelected || false;
+    if (savedFilters) {
+      updateFilter("full_name", fullName);
+      updateFilter("stock_ticker", stock);
+      updateFilter("start_date", startDate);
+      updateFilter("end_date", endDate);
+      updateFilter("min_price", minPrice);
+      updateFilter("max_price", maxPrice);
+      updateFilter("is_purchase", purchaseSelected);
+      updateFilter("is_sale", saleSelected);
+      updateFilter("positive_gain", positiveGainSelected);
+      updateFilter("negative_gain", negativeGainSelected);
+      updateFilter("no_gain", noGainSelected);    }
+  }, [])
 
   useEffect(() => {
     if (searchParams.size > 0) {
@@ -78,7 +105,7 @@ export default function Table() {
     if (!isLoading & isIdle) {
       fetch(search(currPageNo, pageSize, orderBy, direction), {
         method: "POST",
-        body: JSON.stringify({}),
+        body: JSON.stringify(filters),
       })
         .then((res) => res.json())
         .then((res) => {

@@ -1,0 +1,49 @@
+.searchBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.basicSearch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.searchInput {
+  padding: 0.5em;
+  font-size: 1em;
+  width: 220px;
+}
+
+.searchButton {
+  padding: 12px 17px;
+  background-color: crimson;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 25px;
+}
+
+.searchButton:hover {
+  background-color: red;
+}
+
+.advancedOptionsToggle {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.advancedOptions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.checkbox {
+  margin-right: 5px
+}
