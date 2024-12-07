@@ -369,6 +369,8 @@ def main():
             exit(1)
 
     finally:
+        driver.stop_client()
+        driver.close()
         driver.quit()
 
 
