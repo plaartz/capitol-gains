@@ -120,8 +120,8 @@ def get_transactions(
         if not transaction:
             return [], 0
         return TransactionSerializer([transaction],many=True).data, 1
-    
-    # start filtering 
+
+    # start filtering
     filter_criteria = Q()
     # full_name filtering
     if full_name is not None and " " in full_name:    # If there is a space then we extract first and last name
@@ -134,17 +134,17 @@ def get_transactions(
         if full_name: # if full_name is not None and there is only one word provided in full_name
             filter_criteria &= (Q(politician__profile__first_name__icontains=full_name) |
                                 Q(politician__profile__last_name__icontains=full_name))
-    
+
     # stock_ticker filtering
     if stock_ticker:
         filter_criteria &= Q(stock__ticker=stock_ticker)
-    
+
     # transaction_type filtering
     if is_purchase and not is_sale:
         filter_criteria &= Q(transaction_type='Purchase')
     elif is_sale and not is_purchase:
         filter_criteria &= Q(transaction_type='Sale')
-    
+
     # start_date and end_date filtering
     if start_date:
         filter_criteria &= Q(transaction_date__gte=start_date.replace("/", "-"))

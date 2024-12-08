@@ -227,7 +227,7 @@ class TestSearchController(TestCase):
         """
         Tests if we get correct results when user provides a price range (min_price, max_price)
         """
-        transaction_data, size = get_transactions( 
+        transaction_data, size = get_transactions(
             "", 
             "", 
             False, False,
@@ -250,7 +250,7 @@ class TestSearchController(TestCase):
         """
         Tests if we get correct results when user provides positive_gain as True
         """
-        _, size = get_transactions( 
+        _, size = get_transactions(
             "", 
             "", 
             False, False,
@@ -291,7 +291,7 @@ class TestSearchController(TestCase):
         """
         Tests if we get correct results when user provides no_gain as True
         """
-        _, size = get_transactions( 
+        _, size = get_transactions(
             "", 
             "", 
             False, False,
