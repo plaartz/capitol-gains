@@ -31,7 +31,6 @@ class TestSearchController(TestCase):
             None
         )
 
-        # might need to change below
         assert size == 4
         for transaction in transaction_data:
             assert "Anderson" in transaction["full_name"]
@@ -53,7 +52,6 @@ class TestSearchController(TestCase):
             1, 100
         )
 
-        # might need to change below
         assert size == 4
         for transaction in transaction_data:
             assert "Chris" in transaction["full_name"]
@@ -161,15 +159,17 @@ class TestSearchController(TestCase):
         Tests if we get correct results when user provides a stock ticker
         """
         transaction_data, size = get_transactions(
-            "", 
-            "", 
+            "",
             "AAPL", 
             False, False,
             0, 1000000000,
             False, False, False,
             "", "",
             1,
-            100
+            100,
+            "",
+            "",
+            ""
         )
 
         assert size == 4
@@ -184,13 +184,15 @@ class TestSearchController(TestCase):
         transaction_data, size = get_transactions(
             "", 
             "", 
-            "", 
             True, False,
             0, 1000000000,
             False, False, False,
             "", "",
             1,
-            100
+            100,
+            "", 
+            "",
+            ""
         )
 
         assert size == 11
@@ -205,13 +207,15 @@ class TestSearchController(TestCase):
         transaction_data, size = get_transactions(
             "", 
             "", 
-            "", 
             False, True,
             0, 1000000000,
             False, False, False,
             "", "",
             1,
-            100
+            100,
+            "", 
+            "",
+            ""
         )
 
         assert size == 11
@@ -223,8 +227,7 @@ class TestSearchController(TestCase):
         """
         Tests if we get correct results when user provides a price range (min_price, max_price)
         """
-        transaction_data, size = get_transactions(
-            "", 
+        transaction_data, size = get_transactions( 
             "", 
             "", 
             False, False,
@@ -232,7 +235,10 @@ class TestSearchController(TestCase):
             False, False, False,
             "", "",
             1,
-            100
+            100,
+            "",
+            "",
+            ""
         )
 
         assert size == 8
@@ -244,8 +250,7 @@ class TestSearchController(TestCase):
         """
         Tests if we get correct results when user provides positive_gain as True
         """
-        _, size = get_transactions(
-            "", 
+        _, size = get_transactions( 
             "", 
             "", 
             False, False,
@@ -253,7 +258,10 @@ class TestSearchController(TestCase):
             True, False, False,
             "", "",
             1,
-            100
+            100,
+            "",
+            "",
+            ""
         )
 
         assert size == 9
@@ -266,13 +274,15 @@ class TestSearchController(TestCase):
         _, size = get_transactions(
             "", 
             "", 
-            "", 
             False, False,
             0, 1000000000,
             False, True, False,
             "", "",
             1,
-            100
+            100,
+            "", 
+            "", 
+            ""
         )
         assert size == 2
 
@@ -281,8 +291,7 @@ class TestSearchController(TestCase):
         """
         Tests if we get correct results when user provides no_gain as True
         """
-        _, size = get_transactions(
-            "", 
+        _, size = get_transactions( 
             "", 
             "", 
             False, False,
@@ -290,7 +299,10 @@ class TestSearchController(TestCase):
             False, False, True,
             "", "",
             1,
-            100
+            100,
+            "", 
+            "", 
+            ""
         )
         assert size == 11
 
@@ -301,14 +313,16 @@ class TestSearchController(TestCase):
         """
         _, size = get_transactions(
             "", 
-            "", 
             "AAPL", 
             True, False,
             1000, 5000,
             True, False, False,
             "", "",
             1,
-            100
+            100,
+            "", 
+            "",
+            ""
         )
 
         assert size == 0

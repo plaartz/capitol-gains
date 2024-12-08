@@ -18,19 +18,8 @@ def search_view(request):
         return JsonResponse({"error": "No body provided!"}, status = 400)
 
     data = json.loads(request.body)
-
-    # going to switch to full name
-    #first_name = data.get("first_name")
-    #last_name = data.get("last_name")
-
     full_name = data.get("full_name")
-
     stock_ticker = data.get("stock_ticker")
-
-    # dont think we use these anymore?
-    #politician_type = data.get("politician_type")
-    #politician_house = data.get("politician_house")
-
     start_date = data.get("start_date")
     end_date = data.get("end_date")
     is_sale = data.get("is_sale")
@@ -51,17 +40,9 @@ def search_view(request):
         "disclosure_date",
         "transaction_type",
         "transaction_amount",
-        
-        # switching to full_name
-        #"first_name",
-        #"last_name",
-        
-        # not using anymore
-        #"politician_type",
-        #"politician_house",
-
+        "first_name",
+        "last_name",
         "full_name",
-        
         "stock_ticker",
         "stock_price",
         "percent_gain"
@@ -128,10 +109,7 @@ def search_view(request):
         no_gain = False
 
     transaction_data, size = get_transactions(
-        # switching to full name
-        #first_name, last_name,
         full_name,
-
         stock_ticker,
         is_purchase,
         is_sale,
@@ -140,11 +118,6 @@ def search_view(request):
         positive_gain,
         negative_gain,
         no_gain,
-        
-        # dont think we use these anymore
-        #politician_type,
-        #politician_house,
-
         start_date,
         end_date,
         page_no,

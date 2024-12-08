@@ -99,7 +99,7 @@ class TestSearchView(TestCase):
         """
 
         body_query = {
-            "full_name": "Daven C. Thakkar"
+            "full_name": "Daven C. Thakkar",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -590,9 +590,6 @@ class TestSearchView(TestCase):
             current_last_name = transaction_data[i]["full_name"].split(" ")[-1]
             next_last_name = transaction_data[i+1]["full_name"].split(" ")[-1]
             assert current_last_name >= next_last_name
-            #current_full_name = transaction_data[i]["full_name"]
-            #next_full_name = transaction_data[i+1]["full_name"]
-            #assert current_full_name >= next_full_name
 
 
     def test_search_view_with_order_by_stock_ticker(self):

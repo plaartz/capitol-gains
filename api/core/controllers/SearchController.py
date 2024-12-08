@@ -59,16 +59,7 @@ def filter_by_price(transactions: QuerySet[Transaction], min_price: int, max_pri
     return filtered_transactions
 
 def get_transactions(
-        # switching to full name
-        # first_name = None,
-        # last_name = None,
-        
         full_name = None,
-
-        # we are not using these anymore
-        #politician_type = None
-        #politicina_house = None
-
         stock_ticker = None,
         is_purchase = None,
         is_sale = None,
@@ -96,17 +87,9 @@ def get_transactions(
         "disclosure_date": "disclosure_date",
         "transaction_type": "transaction_type",
         "transaction_amount": "extracted_transaction_amount", # This is the holder used for ordering and casting
-        
-        # still want to order by first and last name
         "first_name": "politician__profile__first_name",
         "last_name": "politician__profile__last_name",
-        
-        # not using these anymore
-        #"politician_type": "politician__politician_type",
-        #"politician_house": "politician__politician_house",
-        
         "full_name": "full_name",
-        
         "stock_ticker": "stock__ticker",
         "stock_price": "",
         "percent_gain":""
@@ -137,21 +120,6 @@ def get_transactions(
         if not transaction:
             return [], 0
         return TransactionSerializer([transaction],many=True).data, 1
-
-    ''' Need to del this comment
-    filter_criteria = {}
-    if first_name:
-        filter_criteria['politician__profile__first_name'] = first_name
-    if last_name:
-        filter_criteria['politician__profile__last_name'] = last_name
-    if stock_ticker:
-        filter_criteria['stock__ticker'] = stock_ticker
-    if is_purchase and not is_sale:
-        filter_criteria['transaction_type'] = 'Purchase'
-    elif is_sale and not is_purchase:
-        filter_criteria['transaction_type'] = 'Sale'
-    '''
-
     
     # start filtering 
     filter_criteria = Q()
@@ -176,14 +144,6 @@ def get_transactions(
         filter_criteria &= Q(transaction_type='Purchase')
     elif is_sale and not is_purchase:
         filter_criteria &= Q(transaction_type='Sale')
-
-    ''' Not doing anymore, need to del this comment
-    # politician type/house filtering
-    if politician_type:
-        filter_criteria &= Q(politician__politician_type=politician_type)
-    if politician_house:
-        filter_criteria &= Q(politician__politician_house=politician_house)
-    '''
     
     # start_date and end_date filtering
     if start_date:
@@ -194,45 +154,31 @@ def get_transactions(
     # Adjust needed ordering
     ordered_transactions = None    # Will hold the correctly ordered data
 
-    if order_by not in set(["stock_price", "percent_gain"]):
+    if order_by not in set(["stock_price", "percent_gain", "full_name"]):
         # We order within transaction objects via ORM which is before the serializing
         ordering = valid_options[order_by]
         # Determines whether we need a negative for decending
         if order == "DESC":
             ordering = "-" + ordering
 
-        transactions = None    # Holds initial transaction query set
-        # Order by "transaction amount" needs to be first parsed and casted to an integer
-        if order_by == "transaction_amount":
-            # Get transactions alongside parsing and casting via ORM
-
-            transactions = filter_by_price(
-                Transaction.objects.filter(**filter_criteria),
-                min_price,
-                max_price
-            ).order_by(ordering)
-
-        else:
-            # Get transactions normally
-
-            transactions = filter_by_price(
-                Transaction.objects.filter(**filter_criteria),
+        # Get needed transactions
+        transactions = filter_by_price(
+                Transaction.objects.filter(filter_criteria),
                 min_price,
                 max_price
             ).order_by(ordering)
 
         # Serialize the transactions
-
         ordered_transactions = TransactionSerializer(transactions, many = True).data
     else:
-        # If we are ordering by "stock price" or "percent gain" we will have to "order" after serializing
+        # If we are ordering by "stock price" or "percent gain" or "full name" we will have to "order" after serializing
         is_reversed = False
         if order == "DESC":
             is_reversed = True
 
         # Get transactions
         transactions = filter_by_price(
-            Transaction.objects.filter(**filter_criteria),
+            Transaction.objects.filter(filter_criteria),
             min_price,
             max_price
         )

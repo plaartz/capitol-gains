@@ -26,17 +26,17 @@ export default function Table() {
 
   useEffect(() => {
     const savedFilters = JSON.parse(localStorage.getItem("filters"));
-    const fullName = savedFilters.fullName || "";
-    const stock = savedFilters.stock || "";
-    const startDate = savedFilters.startDate || null;
-    const endDate = savedFilters.endDate || null;
-    const minPrice = savedFilters.minPrice || 0;
-    const maxPrice = savedFilters.maxPrice || 1000000000;
-    const purchaseSelected = savedFilters.purchaseSelected || false;
-    const saleSelected = savedFilters.saleSelected || false;
-    const positiveGainSelected = savedFilters.positiveGainSelected || false;
-    const negativeGainSelected = savedFilters.negativeGainSelected || false;
-    const noGainSelected = savedFilters.noGainSelected || false;
+    const fullName = savedFilters?.fullName || "";
+    const stock = savedFilters?.stock || "";
+    const startDate = savedFilters?.startDate || null;
+    const endDate = savedFilters?.endDate || null;
+    const minPrice = savedFilters?.minPrice || 0;
+    const maxPrice = savedFilters?.maxPrice || 1000000000;
+    const purchaseSelected = savedFilters?.purchaseSelected || false;
+    const saleSelected = savedFilters?.saleSelected || false;
+    const positiveGainSelected = savedFilters?.positiveGainSelected || false;
+    const negativeGainSelected = savedFilters?.negativeGainSelected || false;
+    const noGainSelected = savedFilters?.noGainSelected || false;
     if (savedFilters) {
       updateFilter("full_name", fullName);
       updateFilter("stock_ticker", stock);
