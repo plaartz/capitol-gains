@@ -6,6 +6,7 @@ import RangeSlider from "./RangeSlider";
 import styles from "./styles/SearchBar.module.css";
 
 export default function SearchTools() {
+  const [isLoading, setLoading] = useState(true)
   const [fullName, setFullName] = useState("");
   const [stock, setStock] = useState("");
   const [advancedFiltersSelected, setAdvancedFiltersSelected] = useState(false);
@@ -38,6 +39,7 @@ export default function SearchTools() {
       setNoGainSelected(savedFilters.noGainSelected || false);
       setAdvancedFiltersSelected(savedFilters.advancedFiltersSelected || false);
     }
+    setLoading(false);
   }, []);
 
   const handleSearch = () => {
@@ -71,8 +73,12 @@ export default function SearchTools() {
     updateFilter("positive_gain", positiveGainSelected);
     updateFilter("negative_gain", negativeGainSelected);
     updateFilter("no_gain", noGainSelected);
+    
   };
 
+  if (isLoading) {
+    return <div>Loading filters</div>
+  }
   return (
     <div>
       <div className={styles.searchBar}>
