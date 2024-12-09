@@ -1,5 +1,6 @@
 import re
 import time
+from math import ceil
 from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -350,7 +351,7 @@ def main():
             'from_date': '',
             'to_date': ''
         }
-        filters['from_date'] = '01/09/2024'
+        filters['from_date'] = '01/01/2015'
         filters['to_date'] = time.strftime("%m/%d/%Y", time.localtime())
         apply_filter(driver, filters)
         trades = display_trade_info(driver)
@@ -361,9 +362,21 @@ def main():
         }
 
         # POST data to our backend
-        response = post('http://api:8000/api/core/upload-transactions',json=data, timeout=60)
+        def recursive_post(rec_data):
+            pivot = ceil(len(rec_data) / 2)
+            left = rec_data[0:pivot]
+            right = rec_data[pivot:]
+            left_res = post('http://api:8000/api/core/upload-transactions',json=left, timeout=60)
+            if left_res.status_code == 413:
+                recursive_post(left)
+            right_res = post('http://api:8000/api/core/upload-transactions',json=right, timeout=60)
+            if right_res.status_code ==413:
+                recursive_post(right)
 
-        if response.status_code != 200:
+        response = post('http://api:8000/api/core/upload-transactions',json=data, timeout=60)
+        if response.status_code == 413:
+            recursive_post(data)
+        elif response.status_code != 200:
             print(response.status_code)
             print(response.content)
             exit(1)

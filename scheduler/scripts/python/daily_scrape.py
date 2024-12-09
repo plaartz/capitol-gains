@@ -1,4 +1,5 @@
 import time
+from math import ceil
 from requests import post
 from test_scrape import setup_driver, check_agree_and_redirect, apply_filter, display_trade_info
 
@@ -37,9 +38,21 @@ def main():
         }
 
         # POST data to our backend
-        response = post('http://api:8000/api/core/upload-transactions',json=data, timeout=60)
+        def recursive_post(rec_data):
+            pivot = ceil(len(rec_data) / 2)
+            left = rec_data[0:pivot]
+            right = rec_data[pivot:]
+            left_res = post('http://api:8000/api/core/upload-transactions',json=left, timeout=60)
+            if left_res.status_code == 413:
+                recursive_post(left)
+            right_res = post('http://api:8000/api/core/upload-transactions',json=right, timeout=60)
+            if right_res.status_code ==413:
+                recursive_post(right)
 
-        if response.status_code != 200:
+        response = post('http://api:8000/api/core/upload-transactions',json=data, timeout=60)
+        if response.status_code == 413:
+            recursive_post(data)
+        elif response.status_code != 200:
             print(response.status_code)
             print(response.content)
             exit(1)
