@@ -4,6 +4,7 @@ from core.models import Transaction
 from django.db.models.functions import Cast
 from django.db.models import IntegerField, CharField, Func, F, Value, Case, When
 from django.db.models.query import QuerySet
+from django.db.models import Q # we will use this for full name stuff
 
 def filter_by_price(transactions: QuerySet[Transaction], min_price: int, max_price: int) -> QuerySet[Transaction]:
     """
@@ -58,8 +59,7 @@ def filter_by_price(transactions: QuerySet[Transaction], min_price: int, max_pri
     return filtered_transactions
 
 def get_transactions(
-        first_name = None,
-        last_name = None,
+        full_name = None,
         stock_ticker = None,
         is_purchase = None,
         is_sale = None,
@@ -89,6 +89,7 @@ def get_transactions(
         "transaction_amount": "extracted_transaction_amount", # This is the holder used for ordering and casting
         "first_name": "politician__profile__first_name",
         "last_name": "politician__profile__last_name",
+        "full_name": "full_name",
         "stock_ticker": "stock__ticker",
         "stock_price": "",
         "percent_gain":""
@@ -120,65 +121,64 @@ def get_transactions(
             return [], 0
         return TransactionSerializer([transaction],many=True).data, 1
 
+    # start filtering
+    filter_criteria = Q()
+    # full_name filtering
+    if full_name is not None and " " in full_name:    # If there is a space then we extract first and last name
+        split_name = full_name.split(" ")
+        first_name = split_name[0]
+        last_name = split_name[-1]
+        filter_criteria &= (Q(politician__profile__first_name__icontains=first_name) |
+                            Q(politician__profile__last_name__icontains=last_name))
+    else:    # If full_name is None or there is just one word provided in the full_name
+        if full_name: # if full_name is not None and there is only one word provided in full_name
+            filter_criteria &= (Q(politician__profile__first_name__icontains=full_name) |
+                                Q(politician__profile__last_name__icontains=full_name))
 
-    filter_criteria = {}
-    if first_name:
-        filter_criteria['politician__profile__first_name'] = first_name
-    if last_name:
-        filter_criteria['politician__profile__last_name'] = last_name
+    # stock_ticker filtering
     if stock_ticker:
-        filter_criteria['stock__ticker'] = stock_ticker
-    if is_purchase and not is_sale:
-        filter_criteria['transaction_type'] = 'Purchase'
-    elif is_sale and not is_purchase:
-        filter_criteria['transaction_type'] = 'Sale'
+        filter_criteria &= Q(stock__ticker=stock_ticker)
 
+    # transaction_type filtering
+    if is_purchase and not is_sale:
+        filter_criteria &= Q(transaction_type='Purchase')
+    elif is_sale and not is_purchase:
+        filter_criteria &= Q(transaction_type='Sale')
+
+    # start_date and end_date filtering
     if start_date:
-        filter_criteria['transaction_date__gte'] = start_date.replace("/", "-")
+        filter_criteria &= Q(transaction_date__gte=start_date.replace("/", "-"))
     if end_date:
-        filter_criteria['transaction_date__lte'] = end_date.replace("/", "-")
+        filter_criteria &= Q(transaction_date__lte=end_date.replace("/", "-"))
+
     # Adjust needed ordering
     ordered_transactions = None    # Will hold the correctly ordered data
 
-    if order_by not in set(["stock_price", "percent_gain"]):
+    if order_by not in set(["stock_price", "percent_gain", "full_name"]):
         # We order within transaction objects via ORM which is before the serializing
         ordering = valid_options[order_by]
         # Determines whether we need a negative for decending
         if order == "DESC":
             ordering = "-" + ordering
 
-        transactions = None    # Holds initial transaction query set
-        # Order by "transaction amount" needs to be first parsed and casted to an integer
-        if order_by == "transaction_amount":
-            # Get transactions alongside parsing and casting via ORM
-
-            transactions = filter_by_price(
-                Transaction.objects.filter(**filter_criteria),
-                min_price,
-                max_price
-            ).order_by(ordering)
-
-        else:
-            # Get transactions normally
-
-            transactions = filter_by_price(
-                Transaction.objects.filter(**filter_criteria),
+        # Get needed transactions
+        transactions = filter_by_price(
+                Transaction.objects.filter(filter_criteria),
                 min_price,
                 max_price
             ).order_by(ordering)
 
         # Serialize the transactions
-
         ordered_transactions = TransactionSerializer(transactions, many = True).data
     else:
-        # If we are ordering by "stock price" or "percent gain" we will have to "order" after serializing
+        # If we are ordering by "stock price" or "percent gain" or "full name" we will have to "order" after serializing
         is_reversed = False
         if order == "DESC":
             is_reversed = True
 
         # Get transactions
         transactions = filter_by_price(
-            Transaction.objects.filter(**filter_criteria),
+            Transaction.objects.filter(filter_criteria),
             min_price,
             max_price
         )

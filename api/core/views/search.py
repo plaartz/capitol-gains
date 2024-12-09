@@ -1,4 +1,4 @@
-#pylint: disable=too-many-locals
+#pylint: disable=too-many-locals, too-many-function-args
 import json
 from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
@@ -18,8 +18,7 @@ def search_view(request):
         return JsonResponse({"error": "No body provided!"}, status = 400)
 
     data = json.loads(request.body)
-    first_name = data.get("first_name")
-    last_name = data.get("last_name")
+    full_name = data.get("full_name")
     stock_ticker = data.get("stock_ticker")
     start_date = data.get("start_date")
     end_date = data.get("end_date")
@@ -43,6 +42,7 @@ def search_view(request):
         "transaction_amount",
         "first_name",
         "last_name",
+        "full_name",
         "stock_ticker",
         "stock_price",
         "percent_gain"
@@ -109,7 +109,7 @@ def search_view(request):
         no_gain = False
 
     transaction_data, size = get_transactions(
-        first_name, last_name,
+        full_name,
         stock_ticker,
         is_purchase,
         is_sale,

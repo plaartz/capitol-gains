@@ -1,4 +1,4 @@
-# pylint: disable=duplicate-code
+# pylint: disable=duplicate-code, too-many-function-args
 from core.controllers.SearchController import get_transactions
 from django.test import TestCase
 
@@ -14,11 +14,11 @@ class TestSearchController(TestCase):
 
     def test_get_transactions_with_last_name(self):
         """
-        Tests if we get correct results when user provides only the last name
+        Tests if we get correct results when user provides
+        only the last name part
         """
 
         transaction_data, size = get_transactions(
-            "",
             "Anderson",
             "",
             False, False,
@@ -33,17 +33,17 @@ class TestSearchController(TestCase):
 
         assert size == 4
         for transaction in transaction_data:
-            assert transaction["full_name"] == "Chris L. Anderson"
+            assert "Anderson" in transaction["full_name"]
 
 
     def test_get_transactions_with_first_name(self):
         """
-        Tests if we get correct results when user provides only the first name
+        Tests if we get correct results when user provides
+        only the first name part
         """
 
         transaction_data, size = get_transactions(
-            "Chris", 
-            "",
+            "Chris",
             "",
             False, False,
             0, 1000000000,
@@ -54,17 +54,16 @@ class TestSearchController(TestCase):
 
         assert size == 4
         for transaction in transaction_data:
-            assert transaction["full_name"] == "Chris L. Anderson"
+            assert "Chris" in transaction["full_name"]
 
 
-    def test_get_transactions_with_first_and_last_name_filtered(self):
+    def test_get_transactions_with_full_name(self):
         """
         Tests if we get correct results when user provides first and last name
         """
 
         transaction_data, size = get_transactions(
-            "Daven",
-            "Thakkar",
+            "Daven C. Thakkar",
             "",
             False, False,
             0, 1000000000,
@@ -76,7 +75,7 @@ class TestSearchController(TestCase):
 
         assert size == 8
         for transaction in transaction_data:
-            assert transaction["full_name"] == "Daven C. Thakkar"
+            assert "Daven C. Thakkar" in transaction["full_name"]
 
 
     def test_get_transactions_with_dates_filtered(self):
@@ -85,7 +84,7 @@ class TestSearchController(TestCase):
         """
 
         transaction_data, size = get_transactions(
-            "", "", "",
+            "", "",
             False, False,
             0, 1000000000,
             False, False, False,
@@ -107,7 +106,7 @@ class TestSearchController(TestCase):
         """
 
         transaction_data, size = get_transactions(
-            "", "", "",
+            "", "",
             False, False,
             0, 1000000000,
             False, False, False,
@@ -129,7 +128,7 @@ class TestSearchController(TestCase):
         """
 
         transaction_data, size = get_transactions(
-            "", "", "",
+            "", "",
             False, False,
             0, 1000000000,
             False, False, False,
@@ -145,7 +144,7 @@ class TestSearchController(TestCase):
         """
 
         transaction_data, size = get_transactions(
-            "", "", "",
+            "", "",
             False, False,
             0, 1000000000,
             False, False, False,
@@ -160,15 +159,17 @@ class TestSearchController(TestCase):
         Tests if we get correct results when user provides a stock ticker
         """
         transaction_data, size = get_transactions(
-            "", 
-            "", 
+            "",
             "AAPL", 
             False, False,
             0, 1000000000,
             False, False, False,
             "", "",
             1,
-            100
+            100,
+            "",
+            "",
+            ""
         )
 
         assert size == 4
@@ -183,13 +184,15 @@ class TestSearchController(TestCase):
         transaction_data, size = get_transactions(
             "", 
             "", 
-            "", 
             True, False,
             0, 1000000000,
             False, False, False,
             "", "",
             1,
-            100
+            100,
+            "", 
+            "",
+            ""
         )
 
         assert size == 11
@@ -204,13 +207,15 @@ class TestSearchController(TestCase):
         transaction_data, size = get_transactions(
             "", 
             "", 
-            "", 
             False, True,
             0, 1000000000,
             False, False, False,
             "", "",
             1,
-            100
+            100,
+            "", 
+            "",
+            ""
         )
 
         assert size == 11
@@ -225,13 +230,15 @@ class TestSearchController(TestCase):
         transaction_data, size = get_transactions(
             "", 
             "", 
-            "", 
             False, False,
             1000, 5000,
             False, False, False,
             "", "",
             1,
-            100
+            100,
+            "",
+            "",
+            ""
         )
 
         assert size == 8
@@ -246,13 +253,15 @@ class TestSearchController(TestCase):
         _, size = get_transactions(
             "", 
             "", 
-            "", 
             False, False,
             0, 1000000000,
             True, False, False,
             "", "",
             1,
-            100
+            100,
+            "",
+            "",
+            ""
         )
 
         assert size == 9
@@ -265,13 +274,15 @@ class TestSearchController(TestCase):
         _, size = get_transactions(
             "", 
             "", 
-            "", 
             False, False,
             0, 1000000000,
             False, True, False,
             "", "",
             1,
-            100
+            100,
+            "", 
+            "", 
+            ""
         )
         assert size == 2
 
@@ -283,13 +294,15 @@ class TestSearchController(TestCase):
         _, size = get_transactions(
             "", 
             "", 
-            "", 
             False, False,
             0, 1000000000,
             False, False, True,
             "", "",
             1,
-            100
+            100,
+            "", 
+            "", 
+            ""
         )
         assert size == 11
 
@@ -300,14 +313,16 @@ class TestSearchController(TestCase):
         """
         _, size = get_transactions(
             "", 
-            "", 
             "AAPL", 
             True, False,
             1000, 5000,
             True, False, False,
             "", "",
             1,
-            100
+            100,
+            "", 
+            "",
+            ""
         )
 
         assert size == 0

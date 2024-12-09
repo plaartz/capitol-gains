@@ -31,12 +31,12 @@ class TestSearchView(TestCase):
 
     def test_search_view_with_first_name(self):
         """
-        Tests if we get correct response when user provides first name
+        Tests if we get correct response when user provides
+        only the first name part
         """
 
         body_query = {
-            "first_name": "Daven",
-            "last_name": "",
+            "full_name": "Daven",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -58,17 +58,17 @@ class TestSearchView(TestCase):
         response_data = json.loads(response.content)
         assert response_data["size"] == 8
         for transaction in response_data["data"]:
-            assert transaction["full_name"] == "Daven C. Thakkar"
+            assert "Daven" in transaction["full_name"]
 
 
     def test_search_view_with_last_name(self):
         """
-        Tests if we get correct response when user provides last name
+        Tests if we get correct response when user provides
+        only the last name part
         """
 
         body_query = {
-            "first_name": "",
-            "last_name": "Thakkar",
+            "full_name": "Thakkar",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -99,8 +99,7 @@ class TestSearchView(TestCase):
         """
 
         body_query = {
-            "first_name": "Chris",
-            "last_name": "Anderson",
+            "full_name": "Daven C. Thakkar",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -120,10 +119,9 @@ class TestSearchView(TestCase):
         assert response['Content-Type'] == 'application/json'
 
         response_data = json.loads(response.content)
-        assert response_data["size"] == 4
+        assert response_data["size"] == 8
         for transaction in response_data["data"]:
-            assert transaction["full_name"] == "Chris L. Anderson"
-
+            assert transaction["full_name"] == "Daven C. Thakkar"
 
 
     def test_search_view_with_end_date(self):
@@ -132,8 +130,7 @@ class TestSearchView(TestCase):
         """
 
         body_query = {
-            "first_name": "",
-            "last_name": "",
+            "full_name": "",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -167,8 +164,7 @@ class TestSearchView(TestCase):
         """
 
         body_query = {
-            "first_name": "",
-            "last_name": "",
+            "full_name": "",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -204,8 +200,7 @@ class TestSearchView(TestCase):
         """
 
         body_query = {
-            "first_name": "",
-            "last_name": "",
+            "full_name": "",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -234,8 +229,7 @@ class TestSearchView(TestCase):
         """
 
         body_query = {
-            "first_name": "",
-            "last_name": "",
+            "full_name": "",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -264,8 +258,7 @@ class TestSearchView(TestCase):
         """
 
         body_query = {
-            "first_name": "",
-            "last_name": "",
+            "full_name": "",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -294,8 +287,7 @@ class TestSearchView(TestCase):
         """
 
         body_query = {
-            "first_name": "",
-            "last_name": "",
+            "full_name": "",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -324,8 +316,7 @@ class TestSearchView(TestCase):
         """
 
         body_query = {
-            "first_name": "",
-            "last_name": "",
+            "full_name": "",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -370,8 +361,7 @@ class TestSearchView(TestCase):
         """
 
         body_query = {
-            "first_name": "",
-            "last_name": "",
+            "full_name": "",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -399,8 +389,7 @@ class TestSearchView(TestCase):
         """
 
         body_query = {
-            "first_name": "",
-            "last_name": "",
+            "full_name": "",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -428,8 +417,7 @@ class TestSearchView(TestCase):
         Tests if we get correct response when user provides transaction date for ordering
         """
         body_query = {
-            "first_name": "",
-            "last_name": "",
+            "full_name": "",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -467,8 +455,7 @@ class TestSearchView(TestCase):
         Tests if we get correct response when user provides disclosure date for ordering
         """
         body_query = {
-            "first_name": "",
-            "last_name": "",
+            "full_name": "",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -505,8 +492,7 @@ class TestSearchView(TestCase):
         Tests if we get correct response when user provides transaction type for ordering
         """
         body_query = {
-            "first_name": "",
-            "last_name": "",
+            "full_name": "",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -536,14 +522,12 @@ class TestSearchView(TestCase):
             assert current_type >= next_type
 
 
-
-    def test_search_view_with_order_by_first_name(self):
+    def test_search_view_with_order_by_full_name(self):
         """
-        Tests if we get correct response when user provides first name for ordering
+        Tests if we get correct response when user provides full name for ordering
         """
         body_query = {
-            "first_name": "",
-            "last_name": "",
+            "full_name": "",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -555,7 +539,7 @@ class TestSearchView(TestCase):
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }
-        query_string = "pageNo=1&pageSize=100&orderBy=first_name"
+        query_string = "pageNo=1&pageSize=100&orderBy=full_name"
 
         response = self.make_post_request(body_query, query_string)
 
@@ -578,8 +562,7 @@ class TestSearchView(TestCase):
         Tests if we get correct response when user provides last name for ordering
         """
         body_query = {
-            "first_name": "",
-            "last_name": "",
+            "full_name": "",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -614,8 +597,7 @@ class TestSearchView(TestCase):
         Tests if we get correct response when user provides stock ticker for ordering
         """
         body_query = {
-            "first_name": "",
-            "last_name": "",
+            "full_name": "",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -650,8 +632,7 @@ class TestSearchView(TestCase):
         Tests if we get correct response when user provides stock price for ordering
         """
         body_query = {
-            "first_name": "",
-            "last_name": "",
+            "full_name": "",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -686,8 +667,7 @@ class TestSearchView(TestCase):
         Tests if we get correct response when user provides transaction amount for ordering
         """
         body_query = {
-            "first_name": "",
-            "last_name": "",
+            "full_name": "",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -723,8 +703,7 @@ class TestSearchView(TestCase):
         for ordering and order ascending
         """
         body_query = {
-            "first_name": "",
-            "last_name": "",
+            "full_name": "",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -736,7 +715,7 @@ class TestSearchView(TestCase):
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }
-        query_string = "pageNo=1&pageSize=100&orderBy=first_name&order=ASC"
+        query_string = "pageNo=1&pageSize=100&orderBy=full_name&order=ASC"
 
         response = self.make_post_request(body_query, query_string)
 
@@ -747,21 +726,20 @@ class TestSearchView(TestCase):
         assert response_data["size"] == 8
 
         transaction_data = response_data["data"]
-        # Make sure all transactions are ascending order by first name
+        # Make sure all transactions are ascending order by full name
         for i in range(0, len(transaction_data) - 1):
-            current_first_name = transaction_data[i]["full_name"].split(" ")[0]
-            next_first_name = transaction_data[i+1]["full_name"].split(" ")[0]
-            assert current_first_name <= next_first_name
+            current_full_name = transaction_data[i]["full_name"]
+            next_full_name = transaction_data[i+1]["full_name"]
+            assert current_full_name <= next_full_name
 
 
     def test_search_view_with_order_descending(self):
         """
-        Tests if we get correct response when user provides first name
+        Tests if we get correct response when user provides full name
         for ordering and order descending
         """
         body_query = {
-            "first_name": "",
-            "last_name": "",
+            "full_name": "",
             "stock_ticker": "",
             "is_purchase": False,
             "is_sale": False,
@@ -773,7 +751,7 @@ class TestSearchView(TestCase):
             "start_date": "2024/09/01",
             "end_date": "2024/09/30"
         }
-        query_string = "pageNo=1&pageSize=100&orderBy=first_name&order=DESC"
+        query_string = "pageNo=1&pageSize=100&orderBy=full_name&order=DESC"
 
         response = self.make_post_request(body_query, query_string)
 
@@ -784,8 +762,8 @@ class TestSearchView(TestCase):
         assert response_data["size"] == 8
 
         transaction_data = response_data["data"]
-        # Make sure all transactions are ascending order by first name
+        # Make sure all transactions are decending order by full name
         for i in range(0, len(transaction_data) - 1):
-            current_first_name = transaction_data[i]["full_name"].split(" ")[0]
-            next_first_name = transaction_data[i+1]["full_name"].split(" ")[0]
-            assert current_first_name >= next_first_name
+            current_full_name = transaction_data[i]["full_name"]
+            next_full_name = transaction_data[i+1]["full_name"]
+            assert current_full_name >= next_full_name
