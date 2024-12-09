@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const Pagination = ({ totalPosts, pageSize, currPageNo, paginate }) => {
   const [pageNo, setPageNo] = useState([]);
-  const totalPages = Math.ceil(totalPosts / pageSize);
+  const totalPages = Math.max(Math.ceil(totalPosts / pageSize),1);
   const maxVisiblePages = 5;
 
   const generatePageNumbers = () => {
