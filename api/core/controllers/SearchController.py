@@ -173,7 +173,21 @@ def get_transactions(
             ).order_by(ordering)
 
         # Serialize the transactions
-        size = transactions.count()
+
+        if no_gain and positive_gain:
+            transactions = [ot for ot in transactions if ot.percent_gain >= 0]
+        elif no_gain and negative_gain:
+            transactions = [ot for ot in transactions if ot.percent_gain <= 0]
+        elif positive_gain and negative_gain:
+            transactions = [ot for ot in transactions if ot.percent_gain > 0 or ot.percent_gain < 0]
+        elif no_gain:
+            transactions = [ot for ot in transactions if ot.percent_gain == 0]
+        elif positive_gain:
+            transactions = [ot for ot in transactions if ot.percent_gain > 0]
+        elif negative_gain:
+            transactions = [ot for ot in transactions if ot.percent_gain < 0]
+
+        size = len(transactions)
         transactions = transactions[start_index:end_index]
         ordered_transactions = TransactionSerializer(transactions, many = True).data
     else:
@@ -194,19 +208,21 @@ def get_transactions(
 
         # Order the data
         # pylint: disable=line-too-long
-        ordered_transactions = sorted(transaction_data, key=lambda x: x[order_by], reverse = is_reversed)[start_index:end_index]
+        ordered_transactions = sorted(transaction_data, key=lambda x: x[order_by], reverse = is_reversed)
 
-    if no_gain and positive_gain:
-        ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] >= 0]
-    elif no_gain and negative_gain:
-        ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] <= 0]
-    elif positive_gain and negative_gain:
-        ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] > 0 or ot['percent_gain'] < 0]
-    elif no_gain:
-        ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] == 0]
-    elif positive_gain:
-        ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] > 0]
-    elif negative_gain:
-        ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] < 0]
+        if no_gain and positive_gain:
+            ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] >= 0]
+        elif no_gain and negative_gain:
+            ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] <= 0]
+        elif positive_gain and negative_gain:
+            ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] > 0 or ot['percent_gain'] < 0]
+        elif no_gain:
+            ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] == 0]
+        elif positive_gain:
+            ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] > 0]
+        elif negative_gain:
+            ordered_transactions = [ot for ot in ordered_transactions if ot['percent_gain'] < 0]
 
+        size = len(ordered_transactions)
+        ordered_transactions = ordered_transactions[start_index:end_index]
     return ordered_transactions, size
