@@ -43,10 +43,10 @@ def main():
             left = rec_data[0:pivot]
             right = rec_data[pivot:]
             left_res = post('http://api:8000/api/core/upload-transactions',json=left, timeout=60)
-            if (left_res.status_code == 413):
+            if left_res.status_code == 413:
                 recursive_post(left)
             right_res = post('http://api:8000/api/core/upload-transactions',json=right, timeout=60)
-            if (right_res.status_code ==413):
+            if right_res.status_code ==413:
                 recursive_post(right)
 
         response = post('http://api:8000/api/core/upload-transactions',json=data, timeout=60)

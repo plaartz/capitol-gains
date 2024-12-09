@@ -200,10 +200,11 @@ def main() -> None:
             pivot = ceil(len(rec_data["data"]) / 2)
             left = {key: rec_data["data"][key] for key in list(rec_data["data"].keys())[:pivot]}
             right = {key: rec_data["data"][key] for key in list(rec_data["data"].keys())[pivot:]}
-
+            # pylint: disable=line-too-long
             left_res = post('http://api:8000/api/core/upload-stock-prices',json={"data": left, "size": -1}, timeout=60)
             if left_res.status_code == 413:
                 recursive_post({"data":left})
+            # pylint: disable=line-too-long
             right_res = post('http://api:8000/api/core/upload-stock-prices',json={"data": right, "size": -1}, timeout=60)
             if right_res.status_code == 413:
                 recursive_post({"data":right})
@@ -220,7 +221,7 @@ def main() -> None:
                         "ticker": key,
                         "prices": left
                     }
-                }, 
+                },
                 "size": -1
             }
             right_data = {
@@ -229,12 +230,14 @@ def main() -> None:
                         "ticker": key,
                         "prices": right
                     }
-                }, 
+                },
                 "size": -1
             }
+            # pylint: disable=line-too-long
             left_res = post('http://api:8000/api/core/upload-stock-prices',json=left_data, timeout=60)
             if left_res.status_code == 413:
                 recursive_post(left_data)
+            # pylint: disable=line-too-long
             right_res = post('http://api:8000/api/core/upload-stock-prices',json=right_data, timeout=60)
             if right_res.status_code == 413:
                 recursive_post(right_data)
@@ -247,7 +250,7 @@ def main() -> None:
     elif response.status_code != 200:
         print(f'Error uploading stocks on date {date.today().strftime("%Y-%m-%d")}, \
               writing to backup json file for manual upload',file=stderr)
-        #pylint: disable=line-too-long
+        # pylint: disable=line-too-long
         with open(f'/scheduler/backup/{date.today().strftime("%Y-%m-%d")}.json','w+',encoding='utf-8') as f:
             json.dump(data, f,indent=2)
 
