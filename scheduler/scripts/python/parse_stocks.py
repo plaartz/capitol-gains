@@ -109,6 +109,8 @@ def fetch_data() -> list:
         if len(iteration) > 1:
             for ticker in res.keys():
                 if res[ticker]["status"] != "ok":
+
+                    print(res[ticker])
                     continue # Potentially do more here
                 data[ticker] = {
                     "ticker": ticker,
@@ -202,11 +204,11 @@ def main() -> None:
             right = {key: rec_data["data"][key] for key in list(rec_data["data"].keys())[pivot:]}
             # pylint: disable=line-too-long
             left_res = post('http://api:8000/api/core/upload-stock-prices',json={"data": left, "size": -1}, timeout=60)
-            if left_res.status_code == 413:
+            if left_res.status_code == 400:
                 recursive_post({"data":left})
             # pylint: disable=line-too-long
             right_res = post('http://api:8000/api/core/upload-stock-prices',json={"data": right, "size": -1}, timeout=60)
-            if right_res.status_code == 413:
+            if right_res.status_code == 400:
                 recursive_post({"data":right})
         else:
             key = list(rec_data["data"].keys())[0]
@@ -235,17 +237,17 @@ def main() -> None:
             }
             # pylint: disable=line-too-long
             left_res = post('http://api:8000/api/core/upload-stock-prices',json=left_data, timeout=60)
-            if left_res.status_code == 413:
+            if left_res.status_code == 400:
                 recursive_post(left_data)
             # pylint: disable=line-too-long
             right_res = post('http://api:8000/api/core/upload-stock-prices',json=right_data, timeout=60)
-            if right_res.status_code == 413:
+            if right_res.status_code == 400:
                 recursive_post(right_data)
 
 
 
     response = post('http://api:8000/api/core/upload-stock-prices',json=data, timeout=60)
-    if response.status_code == 413:
+    if response.status_code == 400:
         recursive_post(data)
     elif response.status_code != 200:
         print(f'Error uploading stocks on date {date.today().strftime("%Y-%m-%d")}, \

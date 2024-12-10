@@ -1,3 +1,4 @@
+import json
 import re
 import time
 from math import ceil
@@ -12,7 +13,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from webdriver_manager.chrome import ChromeDriverManager
 from requests import post
-import json
+
 
 def setup_driver() -> webdriver.Chrome:
     """
@@ -361,21 +362,23 @@ def main():
             'data': trades,
             'size': -1
         }
-        
+
         # POST data to our backend
         def recursive_post(rec_data):
             pivot = ceil(len(rec_data['data']) / 2)
             left = rec_data["data"][0:pivot]
             right = rec_data["data"][pivot:]
+            # pylint: disable=line-too-long
             left_res = post('http://api:8000/api/core/upload-transactions',json={'data':left, 'size': -1}, timeout=60)
-            if left_res.status_code == 413:
+            if left_res.status_code == 400:
                 recursive_post({'data':left, 'size': -1})
+            # pylint: disable=line-too-long
             right_res = post('http://api:8000/api/core/upload-transactions',{'data':right, 'size': -1}, timeout=60)
-            if right_res.status_code == 413:
+            if right_res.status_code == 400:
                 recursive_post({'data':right, 'size': -1})
 
         response = post('http://api:8000/api/core/upload-transactions',json=data, timeout=60)
-        if response.status_code == 413:
+        if response.status_code == 400:
             recursive_post(data)
         elif response.status_code != 200:
             with open('/scheduler/backup/full_scrape.json','w+') as f:

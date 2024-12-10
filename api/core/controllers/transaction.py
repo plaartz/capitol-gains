@@ -100,8 +100,7 @@ def upload_transactions(transactions: list) -> int:
     except DatabaseError:
         return 500
     # pylint: disable=broad-except
-    except Exception as e:
-
+    except Exception:
         return 500
 
 def get_price_information(transaction_id) -> tuple[list, int]:
