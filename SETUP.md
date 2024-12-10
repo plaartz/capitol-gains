@@ -1,6 +1,6 @@
 # Setup
-The following instructions are for getting started with our Capitol Gains Project.
-
+The following instructions are for getting started with our Capitol Gains Project and gaining access to the developer build.
+ 
 ## Step 0 - Prerequisites
 Make sure you have the following:
 - A current UW-Madison account through CSLabs.
@@ -32,7 +32,7 @@ docker compose up --build
 Note: If this is the first time setup, this will take a few minutes.
 
 ## Step 3 - Permissons
-You will need a *.env* file to be able to access the project, as we have a password for the database. 
+You will need a *.env* file to be able to access the project.
 
 Contact your local Capitol Gains Team Member for more info.
 
