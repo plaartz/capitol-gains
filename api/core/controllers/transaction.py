@@ -42,12 +42,15 @@ def process_stock(trade: dict, index: int) -> Stock:
     ticker = trade['ticker'][index]
     stock_name = trade['stock_name'][index]
     stock_description = "--"
+    try:
+        stock = Stock.objects.get(ticker=ticker)
+    except Stock.DoesNotExist:
+        stock = Stock.objects.create(
+            ticker=ticker,
+            name=stock_name,
+            description_short=stock_description
+        )
 
-    stock, _ = Stock.objects.get_or_create(
-        ticker=ticker,
-        name=stock_name,
-        description_short=stock_description
-    )
     return stock
 
 
@@ -97,7 +100,8 @@ def upload_transactions(transactions: list) -> int:
     except DatabaseError:
         return 500
     # pylint: disable=broad-except
-    except Exception:
+    except Exception as e:
+
         return 500
 
 def get_price_information(transaction_id) -> tuple[list, int]:
