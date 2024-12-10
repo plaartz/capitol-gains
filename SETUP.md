@@ -31,13 +31,6 @@ docker compose up --build
 
 Note: If this is the first time setup, this will take a few minutes.
 
-
-If you are trying to connect to the project remotely, use this command:
-
-```bash
- ssh -L 4803:localhost:[port] [username]@cs506x11.cs.wisc.edu
- ```
-
 ## Step 3 - Permissons
 You will need a *.env* file to be able to access the project, as we have a password for the database. 
 
