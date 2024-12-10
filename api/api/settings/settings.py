@@ -24,13 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-zz@l0k25yyx&99mkjy#bml(*j6vy-j@td(g^@aay%5&onddtzh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '0.0.0.0',
-    'api'
+    'api',
+    'cs506x11.cs.wisc.edu'
 ]
 
 
@@ -96,6 +97,8 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800
 
 
 # Password validation
